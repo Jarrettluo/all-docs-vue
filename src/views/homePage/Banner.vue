@@ -1,14 +1,17 @@
 <template>
     <div class="banner-container">
         <div class="search-zone">
-            <Input search enter-button="Search" placeholder="Enter something..." />
+            <Input search enter-button="搜索" placeholder="请输入文档关键字" @on-search="$router.push('/searchResult')"/>
         </div>
     </div>
 </template>
 
 <script>
+
 export default {
-    name: "Banner"
+    name: "Banner",
+    components: {
+    }
 }
 </script>
 
@@ -36,17 +39,34 @@ export default {
 /deep/ .ivu-input {
     border-top-left-radius: 60px;
     border-bottom-left-radius: 60px;
-    border-right: 1px solid #f1db77 !important;
+    border: none;
+    /*outline：none;*/
+}
+
+/deep/ .ivu-input:focus {
+    border: none;
+    outline: none;
 }
 
 /deep/ .ivu-input-group-append {
     border-top-right-radius: 60px;
     border-bottom-right-radius: 60px;
+    border: none !important;
+}
+
+/deep/ .ivu-input-group-append::before {
+    display: block;
+    width: 1px;
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: -1px;
+    background: inherit;
+    background-color: #f1db77;
 }
 
 /deep/ .ivu-input-search {
     background-color: #ffffff !important;
-    border-color: #dcdee2 !important;
     color: #f1db77 !important;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="nav-container">
-        <div class="nav-logo">
+        <div class="nav-logo" @click="$router.push('/')">
             All documents
         </div>
         <div class="nav-setting">

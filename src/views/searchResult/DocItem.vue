@@ -1,12 +1,12 @@
 <template>
     <div>
-        文档统计界面
+
     </div>
 </template>
 
 <script>
 export default {
-    name: "Index.vue"
+    name: "DocItem"
 }
 </script>
 

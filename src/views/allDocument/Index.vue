@@ -16,16 +16,32 @@ export default {
         return {
             columns: [
                 {
-                    title: 'Name',
+                    title: '名称',
                     slot: 'name'
                 },
+                // {
+                //     title: '摘要',
+                //     key: 'abstract'
+                // },
                 {
-                    title: 'Age',
-                    key: 'age'
+                    title: '大小',
+                    key: 'size'
                 },
                 {
-                    title: 'Address',
-                    key: 'address'
+                    title: '分类',
+                    key: 'category'
+                },
+                // {
+                //     title: '标签',
+                //     key: 'tag'
+                // },
+                {
+                    title: '创建人',
+                    key: 'createUser'
+                },
+                {
+                    title: '创建时间',
+                    key: 'createTime'
                 },
                 {
                     title: 'Action',

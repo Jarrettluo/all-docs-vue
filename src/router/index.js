@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/x',
     name: 'Home',
     component: Home
   },
@@ -22,7 +22,7 @@ const routes = [
     }
   },
   {
-    path: "/homePage",
+    path: "/",
     name: "homePage",
     component: function () {
       return import("../views/homePage/Index")
@@ -44,35 +44,41 @@ const routes = [
     children: [
       {
         path: "newDocument",
+        name: "newDocument",
         component: function () {
           return import("../views/newDocument/Index")
         }
       },
       {
         path: "category",
+        name: "category",
         component: function () {
           return import("../views/category/Index")
         }
       },
       {
         path: "tags",
+        name: "tags",
         component: function () {
           return import("../views/tags/Index")
         }
       },
       {
         path: 'allDocuments',
+        name: "allDocuments",
         component: function () {
           return import('../views/allDocument/Index.vue')
         }
       },
       {
         path: "users",
+        name: "users",
         component: function () {
           return import("../views/users/Index")
         }
       }, {
         path: "stats",
+        name: "stats",
         component: function () {
           return import("../views/stats/Index")
         }

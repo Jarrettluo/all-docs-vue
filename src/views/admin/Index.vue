@@ -1,6 +1,8 @@
 <template>
     <Layout>
-        <Header>Header</Header>
+        <Header>
+            <Nav></Nav>
+        </Header>
         <Layout>
             <Sider hide-trigger>
                 <SideBar></SideBar>
@@ -9,15 +11,20 @@
                 <router-view></router-view>
             </Content>
         </Layout>
-        <Footer>Footer</Footer>
+        <Footer>
+<!--            <MyFooter></MyFooter>-->
+<!--            <GlobalFooter></GlobalFooter>-->
+        </Footer>
     </Layout>
 </template>
 
 <script>
+import Nav from "@/components/Nav"
 import SideBar from "@/views/admin/SideBar";
+import MyFooter from "@/components/MyFooter";
 export default {
     name: "Index",
-    components: {SideBar},
+    components: {Nav, SideBar, MyFooter},
     component(id) {
         SideBar
     }
@@ -26,6 +33,11 @@ export default {
 
 .sid
 <style scoped>
-
+/deep/ .ivu-layout-header {
+    background: none;
+    padding: 0;
+    height: 50px;
+    line-height: 50px;
+}
 
 </style>
