@@ -1,16 +1,21 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import App from './App.vue';
+import router from './router/index.js';
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
 
+Vue.use(VueRouter);
+Vue.use(ViewUI);
 
-import ViewUIPlus from 'view-ui-plus'
-// import store from './store'
-import 'view-ui-plus/dist/styles/viewuiplus.css'
-
-Vue.config.productionTip = false
+// The routing configuration
+// const RouterConfig = {
+//     routes: Routers
+// };
+// const router = new VueRouter(RouterConfig);
 
 new Vue({
-  router,
-  ViewUIPlus,
-  render: function (h) { return h(App) }
-}).$mount('#app')
+    el: '#app',
+    router,
+    render: h => h(App)
+});
