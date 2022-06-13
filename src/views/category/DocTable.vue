@@ -1,7 +1,7 @@
 <template>
     <Table border :columns="columns" :data="data">
         <template #name="{ row }">
-<!--            <strong>{{ row.name }}</strong>-->
+            <!--            <strong>{{ row.name }}</strong>-->
             {{row.name}}
         </template>
         <template #action="{ row, index }">
@@ -13,6 +13,7 @@
 
 <script>
 export default {
+    name: "DocTable",
     data () {
         return {
             columns: [
@@ -31,12 +32,12 @@ export default {
                     key: 'size',
                     align: 'center'
                 },
-                {
-                    title: '分类',
-                    width: 240,
-                    key: 'category',
-                    align: 'center'
-                },
+                // {
+                //     title: '分类',
+                //     width: 240,
+                //     key: 'category',
+                //     align: 'center'
+                // },
                 // {
                 //     title: '标签',
                 //     key: 'tag'

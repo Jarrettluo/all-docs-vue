@@ -4,7 +4,7 @@
             <Nav></Nav>
         </div>
         <div class="doc-group" style="display: inline-block">
-            <SearchItem></SearchItem>
+            <SearchItem class="doc-item"></SearchItem>
 <!--            <DocItem></DocItem>-->
             <SearchItem></SearchItem>
             <SearchItem></SearchItem>
@@ -35,9 +35,12 @@ export default {
     margin-top: 50px;
     margin: auto;
     /*background-color: #dcdee2;*/
-    background-color: rgba(245, 245, 245, 100);
+    /*background-color: rgba(245, 245, 245, 100);*/
     color: rgba(16, 16, 16, 100);
     text-align: left;
-    padding-left: 12px;
+    /*padding-left: 12px;*/
 }
+
+
+
 </style>

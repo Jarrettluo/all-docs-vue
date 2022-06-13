@@ -26,7 +26,7 @@ export default {
 </script>
 <style>
 .demo-split{
-    height: 200px;
+    height: 100%;
     border: 1px solid #dcdee2;
 }
 .demo-split-pane{

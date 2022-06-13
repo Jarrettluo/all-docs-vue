@@ -9,7 +9,15 @@
                     这里是标题信息
                 </div>
                 <div class="description">
-                    2021年1月30日  罗佳瑞     我的共享
+                    <div class="description-item">
+                        2021年1月30日
+                    </div>
+                    <div class="description-item">
+                        罗佳瑞
+                    </div>
+                    <div class="description-item">
+                        我的共享
+                    </div>
                     <Tag color="blue">blue</Tag>
                     <Tag color="geekblue">geekblue</Tag>
                     <Tag color="purple">purple</Tag>
@@ -44,12 +52,18 @@ export default {
 
 <style scoped>
 .search-doc {
-    padding: 12px 0;
+    padding: 12px 12px;
     border-bottom: 1px solid #e8eaec;
 }
 
+.search-doc:hover {
+    background-color: rgba(245, 245, 245, 100);
+    cursor: pointer;
+}
+
+
 .doc-title-group {
-    height: 60px;
+    height: 48px;
     margin-bottom: 16px;
     /*display: flex;*/
     /*flex: 1;*/
@@ -57,34 +71,45 @@ export default {
     display: block;
 }
 .doc-pic {
-    height: 60px;
-    width: 60px;
+    height: 48px;
+    width: 48px;
     float: left;
-    line-height: 60px;
+    line-height: 48px;
     margin: auto;
 }
 .title-group {
-    height: 60px;
+    height: 48px;
     float: left;
     width: calc( 100% - 60px);
 }
 .doc-title-info {
-    height: 36px;
+    height: 22px;
     /*line-height: 36px;*/
     /*margin-bottom: 12px;*/
-    color: rgba(0,0,0,.85);
+    color: rgba(208, 164, 1, 100);
     font-size: 16px;
     font-weight: 700;
 }
 
+.doc-title-info:hover {
+    text-decoration: underline;
+    color: rgba(208, 164, 1, 100);
+}
+
 .description {
-    height: 24px;
-    /*line-height: 24px;*/
+    height: 26px;
+    line-height: 26px;
     display: block;
     color: rgba(0,0,0,.45);
     font-size: 14px;
+    float: left;
 }
-
+.description-item {
+    width: 120px;
+    line-height: 24px;
+    padding-top: 2px;
+    float: left;
+}
 ul {
     margin: 0;
     margin-top: 16px;

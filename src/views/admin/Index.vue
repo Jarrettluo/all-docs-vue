@@ -7,7 +7,7 @@
             <Sider hide-trigger>
                 <SideBar></SideBar>
             </Sider>
-            <Content>
+            <Content style="height: calc( 100vh - 99px)">
                 <router-view></router-view>
             </Content>
         </Layout>

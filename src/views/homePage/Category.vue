@@ -74,8 +74,8 @@ ul,li {
 
 .document-abstract:hover {
     cursor: pointer;
-    color: #fff;
-    background-color: #dcdee2;
+    /*color: #fff;*/
+    background-color: rgba(245, 245, 245, 100);
     border-radius: 4px;
 }
 
