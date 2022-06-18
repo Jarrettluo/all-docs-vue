@@ -3,7 +3,7 @@
         <Split v-model="split">
             <template #left>
                 <div class="demo-split-pane">
-                    <category-group/>
+                    <category-group titleName="文档标签"/>
                 </div>
             </template>
             <template #right>

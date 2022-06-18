@@ -1,6 +1,6 @@
 <template>
     <div style="padding: 0px;background: #f8f8f9; text-align: left; position: absolute; left: 0px; top: 0px; height: calc( 100vh - 180px); width: 100%;">
-        <Card title="Category" icon="ios-options" :padding="0" style="width: 100%;">
+        <Card :title = name icon="ios-options" :padding="0" style="width: 100%;">
             <CellGroup>
                 <Cell title="Only show titles" />
                 <Cell title="Only show titles" />
@@ -37,8 +37,10 @@ export default {
     data () {
         return {
             showMsgDropdown: false,
+            name: this.titleName,
         }
     },
+    props: { titleName: { type: String, requires: true } },
     methods: {
         clickGo(e) {
             this.showMsgDropdown = true;
