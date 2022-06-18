@@ -1,6 +1,6 @@
 <template>
     <div class="demo-split">
-        <Split v-model="split">
+        <Split v-model="split" min="180px" max="900px">
             <template #left>
                 <div class="demo-split-pane">
                     <CategoryGroup titleName="文档分类"></CategoryGroup>
@@ -8,17 +8,12 @@
             </template>
             <template #right>
                 <div class="demo-split-pane">
-
-<!--                    <ButtonGroup shape="circle">-->
-<!--                        <Button>增加</Button>-->
-<!--                        <Button>编辑</Button>-->
-<!--                        <Button>删除</Button>-->
-<!--                        <Button>添加</Button>-->
-<!--                    </ButtonGroup>-->
-                    <div class="add-doc">
-                        <Button type="text">添加文档</Button>
+                    <div class="content">
+                        <div class="add-doc">
+                            <Button type="text">添加文档</Button>
+                        </div>
+                        <doc-table></doc-table>
                     </div>
-                    <doc-table></doc-table>
                 </div>
             </template>
         </Split>
@@ -48,10 +43,21 @@ export default {
 /deep/ .demo-split-pane{
     padding: 0;
     text-align: left;
+    height: 100%;
 }
 
 .add-doc {
     padding: 2px 8px;
     text-align: right;
+}
+
+.content {
+    width: calc(100%);
+    height: calc( 100%) ;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 16px;
+    text-align: left;
 }
 </style>
