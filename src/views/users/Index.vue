@@ -1,12 +1,16 @@
 <template>
     <div>
-        用户管理界面
+        <user-table/>
     </div>
 </template>
 
 <script>
+import UserTable from "@/views/users/UserTable";
 export default {
-    name: "Index.vue"
+    name: "Index.vue",
+    components: {
+        UserTable
+    }
 }
 </script>
 

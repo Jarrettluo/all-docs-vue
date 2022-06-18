@@ -3,14 +3,21 @@
         <Split v-model="split">
             <template #left>
                 <div class="demo-split-pane">
-                    Left Pane
-                    fdsjfldsjfld
+                    <CategoryGroup></CategoryGroup>
                 </div>
             </template>
             <template #right>
                 <div class="demo-split-pane">
-                    Right Pane
-                    fjsdlfjsdlf
+
+<!--                    <ButtonGroup shape="circle">-->
+<!--                        <Button>增加</Button>-->
+<!--                        <Button>编辑</Button>-->
+<!--                        <Button>删除</Button>-->
+<!--                        <Button>添加</Button>-->
+<!--                    </ButtonGroup>-->
+                    <div class="add-doc">
+                        <Button type="text">添加文档</Button>
+                    </div>
                     <doc-table></doc-table>
                 </div>
             </template>
@@ -19,23 +26,32 @@
 </template>
 <script>
 import DocTable from "@/views/category/DocTable";
+
+import CategoryGroup from "@/views/category/CategoryGroup";
 export default {
     data () {
         return {
-            split: 0.3
+            split: 0.2
         }
     },
     components: {
-        DocTable
+        DocTable,
+        CategoryGroup
     }
 }
 </script>
-<style>
+<style scoped>
 .demo-split{
     height: 100%;
     border: 1px solid #dcdee2;
 }
-.demo-split-pane{
-    padding: 10px;
+/deep/ .demo-split-pane{
+    padding: 0;
+    text-align: left;
+}
+
+.add-doc {
+    padding: 2px 8px;
+    text-align: right;
 }
 </style>
