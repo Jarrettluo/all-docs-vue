@@ -13,6 +13,7 @@
                             <Button type="text">添加文档</Button>
                         </div>
                         <doc-table></doc-table>
+                        <Page :total="100" />
                     </div>
 
                 </div>
