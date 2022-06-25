@@ -4,12 +4,24 @@
             <Nav></Nav>
         </div>
         <div class="doc-group" style="display: inline-block">
-            <SearchItem class="doc-item"></SearchItem>
+<!--            <SearchItem class="doc-item"></SearchItem>-->
 <!--            <DocItem></DocItem>-->
-            <SearchItem></SearchItem>
-            <SearchItem></SearchItem>
-            <SearchItem></SearchItem>
-            <SearchItem></SearchItem>
+            <SearchItem v-for="item in data"
+                        :title="item.title"
+                        :description="item.description"
+                        :time="item.createTime"
+                        :user-name="item.userName"
+                        :category = "item.categoryVO"
+                        :tags = "item.tagVOList"
+                        :collect-num="item.collectNum"
+                        :comment-num="item.commentNum"
+            ></SearchItem>
+<!--            {{ data }}-->
+<!--            :time = "item.createTime"-->
+<!--            :user-name="item.userName"-->
+<!--            :category="item.categoryVO.name"-->
+<!--            :tags = "item.tagVO"-->
+
         </div>
         <Footer></Footer>
     </div>
@@ -20,10 +32,40 @@ import Nav from "@/components/Nav";
 import SearchItem from "@/views/searchResult/SearchItem";
 import DocItem from "@/views/searchResult/DocItem";
 import Footer from "@/components/MyFooter";
+
+import DocumentRequest from "@/api/document"
+
 export default {
     name: "Index.vue",
+    data() {
+        return {
+            data: []
+        }
+    },
     components: {
         Nav, Footer, DocItem, SearchItem
+    },
+    mounted() {
+        this.getListData()
+    },
+    methods: {
+        getListData() {
+            let keyword = this.$route.query.keyWord
+            if(keyword == "") return;
+            const params = {
+                "categoryId": "",
+                "filterWord": keyword,
+                "page": 0,
+                "rows": 10,
+                "tagId": "",
+                "type": "FILTER"
+            }
+            DocumentRequest.getListData(params).then(response => {
+                this.data = response.data
+                this.listLoading = false
+                console.log(this.data)
+            })
+        }
     }
 }
 </script>

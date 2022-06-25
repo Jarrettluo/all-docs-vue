@@ -1,8 +1,8 @@
 <template>
-    <GlobalFooter :links="links" :copyright="copyright" />
-<!--    <div>-->
-<!--        sjdflsdjfl-->
-<!--    </div>-->
+    <div style="height: 80px">
+<!--        <GlobalFooter :links="links" :copyright="copyright" />-->
+<!--        {{ links }}-->
+    </div>
 </template>
 <script>
 export default {

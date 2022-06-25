@@ -1,7 +1,7 @@
 <template>
     <div class="banner-container">
         <div class="search-zone">
-            <Input search enter-button="搜索" placeholder="请输入文档关键字" @on-search="$router.push('/searchResult')"/>
+            <Input search enter-button="搜索" placeholder="请输入文档关键字" @on-search="searchValue"/>
         </div>
     </div>
 </template>
@@ -11,6 +11,18 @@
 export default {
     name: "Banner",
     components: {
+    },
+    methods: {
+        searchValue(value) {
+            if(value != "" ) {
+                this.$router.push({
+                    path:'/searchResult',
+                    query:{
+                        keyWord: value
+                    }
+                })
+            }
+        }
     }
 }
 </script>

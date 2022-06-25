@@ -17,21 +17,22 @@
             @on-row-click="changeCategoryValue"
         >
             <template #contextMenu>
-<!--                <DropdownItem @click="handleContextMenuEdit">增加</DropdownItem>-->
                 <div class="ivu-dropdown-item" @click="handleContextMenuAdd">增加一条记录</div>
                 <div class="ivu-dropdown-item" @click="handleContextMenuEdit">重新编辑</div>
                 <div class="ivu-dropdown-item" @click="handleContextMenuDelete" style="color: #ed4014">删除</div>
-<!--                <DropdownItem @click="handleContextMenuEdit">编辑</DropdownItem>-->
-<!--                <DropdownItem @click="handleContextMenuDelete" style="color: #ed4014">删除</DropdownItem>-->
             </template>
         </Table>
 
         <Modal
             v-model="modal1"
             title="普通的Modal对话框标题"
-            @on-ok="ok"
-            @on-cancel="cancel">
-            <Input v-model="editValue" placeholder="请输入..." style="width: 300px"></Input>
+            @on-ok="saveEditor"
+            @on-cancel="cancelEditor"
+            width="400">
+<!--            <Space direction="vertical" size="large">-->
+                名称：
+                <Input v-model="editValue" placeholder="请输入..." style="width: 300px"></Input>
+<!--            </Space>-->
         </Modal>
 <!--        <Button @click="handleClearCurrentRow" style="margin-top:16px">Clear</Button>-->
     </div>
@@ -66,7 +67,9 @@ export default {
             ],
             contextLine: 0,
             currentItem: null,
-            modal1: false
+            modal1: false,
+            isEditState: false,
+            editValue: "",
         }
     },
     props: {
@@ -83,25 +86,18 @@ export default {
         handleContextMenu (row) {
             const index = this.listData.findIndex(item => item.name === row.name);
             this.contextLine = index + 1;
-            console.log(index)
             this.currentItem = this.listData[index]
-            console.log(this.currentItem)
-            console.log("*******")
+            this.editValue = ""
         },
 
         handleContextMenuAdd () {
-            console.log("fdsfdsfds")
-            this.handleRender(false)
-            // this.$Message.info('Click edit of line' + this.contextLine);
+            this.handleRender(false);
         },
         handleContextMenuEdit () {
-            // console.log("fdsfdsfds")
-            // this.handleRender(true)
-            this.$Message.info('Click edit of line' + this.contextLine);
-            this.modal1 = true
+            this.handleRender(true);
         },
         handleContextMenuDelete () {
-            // this.$Message.info('Click delete of line' + this.contextLine);
+            this.removeItem(this.currentItem)
         },
         getAllItems() {
             const params = {
@@ -110,8 +106,6 @@ export default {
             CategoryRequest.getListData(params).then(response => {
                 this.listData = response.data
                 this.listLoading = false
-                // console.log(list)
-                console.log(this.listData)
                 this.changeCategoryValue(this.listData[0])
             })
         },
@@ -120,42 +114,28 @@ export default {
          * @param categoryValue
          */
         changeCategoryValue(data) {
-            console.log(data)
             if( JSON.stringify(data) !== '{}' && data.id !== undefined) {
-                console.log(data['id'])
                 this.$emit("categoryChange", data['id'])
             }
         },
         handleRender(isEdit) {
-            console.log(this.currentItem)
-            console.log("88888888888")
-            this.$Modal.confirm({
-                render: (h) => {
-                    return h( Input, {
-                        size: "large",
-                        modelValue: "看空间",
-                        autofocus: true,
-                        placeholder: 'Please enter your name...',
-                        'onInput': (event) => {
-                            // this.value = event.target.value;
-                            // this.currentItem.name = event.target.value;
-                            // isEdit==true ? this.updateItem(this.currentItem) : this.addItem(this.currentItem)
-                            // console.log("dsjfldsjfdsl")
-                            this.updateItem(this.currentItem)
-                        }
-                    })
-                }
-            })
-            // this.$Modal.confirm({
-            //     title: '确认对话框标题',
-            //     content: this.currentItem.name,
-            //     onOk: () => {
-            //         this.$Message.info('点击了确定');
-            //     },
-            //     onCancel: () => {
-            //         this.$Message.info('点击了取消');
-            //     }
-            // });
+            this.modal1 = true
+            this.isEditState = isEdit ? true : false;
+            if(isEdit) {
+                this.editValue = this.currentItem.name;
+            }
+        },
+        saveEditor() {
+            this.currentItem.name = this.editValue
+            if(this.isEditState) {
+                this.updateItem(this.currentItem)
+            }else {
+                this.currentItem.id = ""
+                this.addItem(this.currentItem)
+            }
+        },
+        cancelEditor() {
+            this.modal1 = false;
         },
         addItem(category) {
             const params = {
@@ -164,7 +144,6 @@ export default {
                 "type": this.categoryType
             };
             CategoryRequest.postData(params).then(response => {
-                console.log(response)
                 this.getAllItems();
             })
         },
@@ -175,7 +154,6 @@ export default {
                 "type": this.categoryType
             };
             CategoryRequest.putData(params).then(response => {
-                console.log(response)
                 this.getAllItems();
             })
         },

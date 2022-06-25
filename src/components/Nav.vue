@@ -4,10 +4,10 @@
             All documents
         </div>
         <div class="nav-setting">
-            <Button :size="buttonSize" type="text">
+            <Button type="text">
                 + 添加文档
             </Button>
-            <Button :size="buttonSize" type="text" @click="$router.push('/admin/category')">
+            <Button type="text" @click="$router.push('/admin/category')">
                 <Icon type="ios-settings" />
             </Button>
         </div>
@@ -17,7 +17,12 @@
 
 <script>
 export default {
-    name: "Nav"
+    name: "Nav",
+    data() {
+        return {
+            buttonSize: "min"
+        }
+    }
 }
 </script>
 

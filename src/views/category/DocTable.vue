@@ -45,8 +45,16 @@ export default {
                     align: 'center',
                     // slot: 'category'
                     render: (h, params) => {
+                        let temp = ""
+                        if(params.row.categoryVO != null ){
+                            temp = params.row.categoryVO.name
+                            if(temp.length > 10) {
+                                temp = temp.substring(0, 10) + "..."
+                            }
+                        }
+
                         return h('div', [
-                            h('span', params.row.categoryVO.name)
+                            h('span',  temp)
                         ]);
                     }
                 },
@@ -145,6 +153,9 @@ export default {
                 this.data = response.data
                 this.listLoading = false
                 // console.log(list)
+                if(this.data == null) {
+                    this.data = []
+                }
             })
         }
     }

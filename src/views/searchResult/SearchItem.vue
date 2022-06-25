@@ -2,42 +2,43 @@
     <div class="search-doc">
         <div class="doc-title-group">
             <div class="doc-pic">
-                <Avatar :style="{background: color}">{{ user }}</Avatar>
+<!--                <Avatar :style="{background: color}">{{ user }}</Avatar>-->
             </div>
             <div class="title-group">
                 <div class="doc-title-info">
-                    这里是标题信息
+                    {{ title }}
                 </div>
                 <div class="description">
                     <div class="description-item">
-                        2021年1月30日
+                        {{ timeIn }}
                     </div>
                     <div class="description-item">
-                        罗佳瑞
+                        {{ userName }}
                     </div>
-                    <div class="description-item">
-                        我的共享
+                    <div class="description-item" v-show="categoryIn">
+                        {{ categoryIn }}
                     </div>
-                    <Tag color="blue">blue</Tag>
-                    <Tag color="geekblue">geekblue</Tag>
-                    <Tag color="purple">purple</Tag>
+                    <Tag color="blue" v-for="item in tagsIn">{{item}}</Tag>
+<!--                    <Tag color="geekblue">geekblue</Tag>-->
+<!--                    <Tag color="purple">purple</Tag>-->
                 </div>
             </div>
         </div>
         <div class="doc-abstract">
-            sjfldsjfldsjfldj这是doc的摘要信息啊
+            {{description}}
         </div>
 <!--        <div class="ivu-list-container">-->
             <ul class="ivu-list-item-action">
                 <li>
-                    <i class="ivu-icon ivu-icon-ios-star-outline"></i>232
+                    <i class="ivu-icon ivu-icon-ios-star-outline"></i>
+                    {{collectNum}}
                 </li>
                 <li>
                     <i class="ivu-icon ivu-icon-ios-thumbs-up-outline"></i>889
                 </li>
                 <li>
                     <i class="ivu-icon ivu-icon-ios-chatbubbles-outline"></i>
-                    3234
+                    {{commentNum}}
                 </li>
             </ul>
 <!--        </div>-->
@@ -45,8 +46,58 @@
 </template>
 
 <script>
+import {parseTime} from "@/utils/index"
+
 export default {
-    name: "SearchItem"
+    name: "SearchItem",
+    data() {
+        return {
+            // categoryIn: "String",
+            // tagsIn: []
+        }
+    },
+    props: {
+        title: { type: String, requires: true },
+        description: { type: String, requires: true },
+        time: { type: String, requires: true, default: "232"},
+        userName: { type: String, requires: true, default: 'admin'},
+        category: { type: Object, requires: false,default: ''},
+        tags: { type: Array, requires: false, default: []},
+        collectNum: { type: Number, requires: false, default: 0},
+        commentNum: { type: Number, requires: false, default: 0}
+    },
+    // 将 prop 数据转换为本地数据
+    computed: {
+        categoryIn: function () {
+            if( this.category === null || this.category.name === null ){
+                return null;
+            } else {
+                let temp = this.category.name
+                if ( temp.length > 6) {
+                    temp = temp.substring(0, 6) + '...'
+                }
+                return temp;
+            }
+        },
+        tagsIn: function () {
+            if ( this.tags === null || this.tags.length === 0) {
+                return []
+            } else {
+                let temp = []
+                this.tags.forEach(item => {
+                    let temp1 = item.name
+                    if ( temp1.length > 8) {
+                        temp1 = temp1.substring(0, 8) + '...'
+                    }
+                    temp.push(temp1)
+                })
+                return temp
+            }
+        },
+        timeIn: function() {
+            return parseTime(new Date(this.time), '{y}年{m}月{d}日 {h}:{i}:{s}');
+        }
+    }
 }
 </script>
 
@@ -105,7 +156,7 @@ export default {
     float: left;
 }
 .description-item {
-    width: 120px;
+    width: 200px;
     line-height: 24px;
     padding-top: 2px;
     float: left;
