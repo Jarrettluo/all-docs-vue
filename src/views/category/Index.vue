@@ -11,13 +11,16 @@
                 <div class="demo-split-pane">
                     <div class="content">
                         <div class="add-doc">
-                            <Button type="text">添加文档</Button>
+                            <Button type="text" @click="modal = true">添加文档</Button>
                         </div>
                         <doc-table ref="docTable" type="CATEGORY" cateId=""></doc-table>
                     </div>
                 </div>
             </template>
         </Split>
+        <Modal v-model="modal" fullscreen title="Fullscreen Modal">
+            <div><doc-table type="ALL" cateId=""></doc-table></div>
+        </Modal>
     </div>
 </template>
 <script>
@@ -28,7 +31,8 @@ import CategoryItems from "@/views/category/CategoryItems";
 export default {
     data () {
         return {
-            split: 0.2
+            split: 0.2,
+            modal: false
         }
     },
     components: {

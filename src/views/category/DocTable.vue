@@ -16,6 +16,7 @@
 
 <script>
 import DocumentRequest from "@/api/document"
+import {parseTime} from "@/utils/index"
 
 export default {
 
@@ -72,7 +73,17 @@ export default {
                     title: '创建时间',
                     width: 220,
                     key: 'createTime',
-                    align: 'center'
+                    align: 'center',
+                    render: (h, params) => {
+                        let temp = ""
+                        let time = params.row.createTime
+                        if( time != null ){
+                            temp = parseTime(new Date(time), '{y}年{m}月{d}日 {h}:{i}:{s}');
+                        }
+                        return h('div', [
+                            h('span',  temp)
+                        ]);
+                    }
                 },
                 {
                     title: 'Action',
