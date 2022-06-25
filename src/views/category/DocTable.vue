@@ -1,26 +1,32 @@
 <template>
-    <Table border :columns="columns" :data="data">
-        <template #name="{ row }">
-            <!--            <strong>{{ row.name }}</strong>-->
-            {{row.name}}
-        </template>
-        <template #action="{ row, index }">
-            <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">View</Button>
-            <Button type="error" size="small" @click="remove(index)">Delete</Button>
-        </template>
-    </Table>
+    <div class="docTable">
+        <Table border :columns="filterColumns||columns" :data="data">
+            <template #name="{ row }">
+                <!--            <strong>{{ row.name }}</strong>-->
+                {{row.title}}
+            </template>
+            <template #action="{ row, index }">
+                <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">View</Button>
+                <Button type="error" size="small" @click="remove(index)">Delete</Button>
+            </template>
+        </Table>
+    </div>
+
 </template>
 
 <script>
+import DocumentRequest from "@/api/document"
+
 export default {
-    name: "DocTable",
+
     data () {
         return {
             columns: [
                 {
                     title: '名称',
                     // width: 260,
-                    slot: 'name'
+                    slot: 'name',
+                    // key: "title"
                 },
                 // {
                 //     title: '摘要',
@@ -32,12 +38,18 @@ export default {
                     key: 'size',
                     align: 'center'
                 },
-                // {
-                //     title: '分类',
-                //     width: 240,
-                //     key: 'category',
-                //     align: 'center'
-                // },
+                {
+                    title: '分类',
+                    width: 240,
+                    key: 'categoryVO',
+                    align: 'center',
+                    // slot: 'category'
+                    render: (h, params) => {
+                        return h('div', [
+                            h('span', params.row.categoryVO.name)
+                        ]);
+                    }
+                },
                 // {
                 //     title: '标签',
                 //     key: 'tag'
@@ -45,7 +57,7 @@ export default {
                 {
                     title: '创建人',
                     width: 120,
-                    key: 'createUser',
+                    key: 'userName',
                     align: 'center'
                 },
                 {
@@ -93,6 +105,22 @@ export default {
             ]
         }
     },
+    props: {
+        type: { type: String, requires: true },
+        keyword: { type: String, requires: false},
+        cateId: { type: String, requires: true }
+    },
+    mounted() {
+        this.getListData()
+    },
+    computed: {
+        filterColumns() {
+            //根据自己的要求去显示和隐藏某一列  我这里想要隐藏操作列
+            if (this.type != "ALL") {
+                return this.columns.filter(col => col.key !== 'categoryVO' );
+            }
+        }
+    },
     methods: {
         show (index) {
             this.$Modal.info({
@@ -102,7 +130,36 @@ export default {
         },
         remove (index) {
             this.data.splice(index, 1);
+        },
+        getListData(categoryId, filterWord) {
+
+            const params = {
+                "categoryId": categoryId,
+                "filterWord": filterWord,
+                "page": 0,
+                "rows": 10,
+                "tagId": categoryId,
+                "type": this.type
+            }
+            DocumentRequest.getListData(params).then(response => {
+                this.data = response.data
+                this.listLoading = false
+                // console.log(list)
+            })
         }
     }
 }
 </script>
+
+<style scoped>
+.content {
+    width: calc(100% - 16px);
+    height: calc( 100% - 16px) ;
+    background-color: #ffffff;
+    margin: 8px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 16px;
+    text-align: left;
+}
+</style>

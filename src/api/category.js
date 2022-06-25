@@ -20,7 +20,8 @@ export default {
     },
 
     getListData: (params) => {
-        return Get(CATE_LIST_URL,params);
+        console.log(params)
+        return Get(CATE_LIST_URL, params);
     },
 
     postData: (params) => {

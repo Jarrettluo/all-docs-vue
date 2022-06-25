@@ -1,17 +1,17 @@
 <template>
     <div style="padding: 0px;background: #f8f8f9; text-align: left; position: absolute; left: 0px; top: 0px; height: calc( 100vh - 180px); width: 100%;">
         <Card :title = name icon="ios-options" :padding="0" style="width: 100%;">
-            <CellGroup>
-                <Cell title="Only show titles" />
-                <Cell title="Only show titles" />
-                <Cell title="Only show titles" >
-                    <template #extra>
-                        <div class="more-info" @click="clickGo($event)">
-                            <Icon type="ios-more" />
-                        </div>
-                    </template>
-                </Cell>
-                <Cell title="这是一个分类的信息"/>
+            <CellGroup >
+                <Cell v-for="item in listData" :title="item.name" on-click="changeCategoryValue"/>
+<!--                <Cell title="Only show titles" />-->
+<!--                <Cell title="Only show titles" >-->
+<!--                    <template #extra>-->
+<!--                        <div class="more-info" @click="clickGo($event)">-->
+<!--                            <Icon type="ios-more" />-->
+<!--                        </div>-->
+<!--                    </template>-->
+<!--                </Cell>-->
+<!--                <Cell title="这是一个分类的信息"/>-->
 
             </CellGroup>
         </Card>
@@ -33,15 +33,21 @@
 </template>
 
 <script>
-import xxx from "@/api/index"
+import CategoryRequest from "@/api/category"
+
 export default {
     data () {
         return {
             showMsgDropdown: false,
             name: this.titleName,
+            listLoading: true,
+            listData: []
         }
     },
-    props: { titleName: { type: String, requires: true } },
+    props: {
+        titleName: { type: String, requires: true },
+        categoryType: { type: String, requires: true}
+    },
     created() {
         this.getAllItems()
     },
@@ -58,17 +64,29 @@ export default {
             // this.$refs.contentMenu.currentVisible = !this.$refs.contentMenu.currentVisible;//仿click弹出界面
         },
         getAllItems() {
-            console.log("======")
             const params = {
-                type: "TAG"
+                type: this.categoryType
             };
-            console.log(params)
-            xxx.getListData(params).then(response => {
-                var list = response.data
-                // this.listLoading = false
-                console.log(list)
+            CategoryRequest.getListData(params).then(response => {
+                this.listData = response.data
+                this.listLoading = false
+                // console.log(list)
+                console.log(this.listData)
+                this.changeCategoryValue(this.listData[0])
             })
+        },
+        /**
+         * 分类的信息发生了变化
+         * @param categoryValue
+         */
+        changeCategoryValue(data) {
+            console.log(data)
+            if( JSON.stringify(data) !== '{}' && data.id !== undefined) {
+                console.log(data['id'])
+                this.$emit("categoryChange", data['id'])
+            }
         }
+
     }
 }
 </script>

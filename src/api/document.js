@@ -13,7 +13,7 @@ export default {
     },
 
     getListData: (params) => {
-        return Get(DOC_LIST_URL,params);
+        return Post(DOC_LIST_URL,params);
     },
 
     deleteData: (params) => {

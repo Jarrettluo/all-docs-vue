@@ -3,7 +3,7 @@
         <Split v-model="split" min="180px" max="900px">
             <template #left>
                 <div class="demo-split-pane">
-                    <category-group titleName="文档标签"/>
+                    <CategoryItems titleName="文档标签" category-type="TAG" @categoryChange="handleChange"/>
                 </div>
             </template>
             <template #right>
@@ -12,7 +12,7 @@
                         <div class="add-doc">
                             <Button type="text">添加文档</Button>
                         </div>
-                        <doc-table></doc-table>
+                            <doc-table ref="docTable" type="TAG" cateId=""></doc-table>
                         <Page :total="100" />
                     </div>
 
@@ -25,8 +25,7 @@
 import DocTable from "@/views/category/DocTable";
 
 
-import CategoryGroup from "@/views/category/CategoryGroup";
-
+import CategoryItems from "@/views/category/CategoryItems";
 
 export default {
     data () {
@@ -36,7 +35,13 @@ export default {
     },
     components: {
         DocTable,
-        CategoryGroup
+        CategoryItems
+    },
+    methods: {
+        handleChange(cateId) {
+            console.log(cateId)
+            this.$refs.docTable.getListData(cateId);
+        }
     }
 }
 </script>
