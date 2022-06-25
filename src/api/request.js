@@ -6,13 +6,13 @@ import axios from 'axios'
 // let vm = new Vue();
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: 'http://localhost:8082',
     timeout: 3000,
-    // headers: {
-    //   post: {
-    //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-    //   }
-    // }
+    headers: {
+      post: {
+        'Content-Type': 'application/json;charset=UTF-8'
+      }
+    }
 })
 
 // 请求拦截
@@ -29,13 +29,12 @@ instance.interceptors.request.use(config => {
 
 // 响应拦截
 instance.interceptors.response.use(response => {
-    // const resCode = response.status;
-    // if (resCode === 200) {
-    //   return Promise.resolve(response);
-    // } else {
-    //   return Promise.reject(response);
-    // }
-    return response;
+    const resCode = response.status;
+    if (resCode === 200) {
+      return Promise.resolve(response);
+    } else {
+      return Promise.reject(response);
+    }
 }, error => {
     // const resCode = error.response.status;
     // switch (resCode) {

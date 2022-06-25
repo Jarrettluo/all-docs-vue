@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import xxx from "@/api/index"
 export default {
     data () {
         return {
@@ -41,6 +42,9 @@ export default {
         }
     },
     props: { titleName: { type: String, requires: true } },
+    created() {
+        this.getAllItems()
+    },
     methods: {
         clickGo(e) {
             this.showMsgDropdown = true;
@@ -52,6 +56,18 @@ export default {
             // this.$refs.contentMenu.$refs.reference = event.target;//在此dom附件弹出
             // console.log(this.$refs.contentMenu.$refs.reference);
             // this.$refs.contentMenu.currentVisible = !this.$refs.contentMenu.currentVisible;//仿click弹出界面
+        },
+        getAllItems() {
+            console.log("======")
+            const params = {
+                type: "TAG"
+            };
+            console.log(params)
+            xxx.getListData(params).then(response => {
+                var list = response.data
+                // this.listLoading = false
+                console.log(list)
+            })
         }
     }
 }
