@@ -12,6 +12,8 @@ const DOC_DETAIL_URL = '/document/detail'; // 文档详情
 const DOC_LIST_URL = '/document/list'; // 文档列表
 const DOC_REMOVE_URL = '/document/remove'; // 文档删除
 
+const DOC_VIEW_URL = '/files/view/'; // 预览文档
+
 const COLLECT_ADD_URL = '/collect/insert'; // 收藏增加
 const COLLECT_REMOVE_URL = '/collect/remove'; // 收藏减少
 
@@ -39,6 +41,8 @@ module.exports = {
     DOC_DETAIL_URL,
     DOC_LIST_URL,
     DOC_REMOVE_URL,
+
+    DOC_VIEW_URL,
 
     COLLECT_ADD_URL,
     COLLECT_REMOVE_URL,

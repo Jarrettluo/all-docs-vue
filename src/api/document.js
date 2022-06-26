@@ -1,7 +1,10 @@
 import {
     DOC_DETAIL_URL,
     DOC_LIST_URL,
-    DOC_REMOVE_URL
+    DOC_REMOVE_URL,
+
+    DOC_VIEW_URL
+
 } from './url'
 
 import { Get,Post,Put,Delete } from "@/api/request";
@@ -19,6 +22,10 @@ export default {
     deleteData: (params) => {
         return Delete(DOC_REMOVE_URL,params);
     },
+
+    getView: (param) => {
+        return Get(DOC_VIEW_URL + param, null)
+    }
 
 }
 

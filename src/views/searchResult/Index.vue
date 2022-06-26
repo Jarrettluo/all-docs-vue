@@ -7,6 +7,7 @@
 <!--            <SearchItem class="doc-item"></SearchItem>-->
 <!--            <DocItem></DocItem>-->
             <SearchItem v-for="item in data"
+                        :id = "item.id"
                         :title="item.title"
                         :description="item.description"
                         :time="item.createTime"
@@ -64,8 +65,17 @@ export default {
                 this.data = response.data
                 this.listLoading = false
                 console.log(this.data)
+                if(this.data == null) {
+                    this.info(false)
+                }
             })
-        }
+        },
+        info (nodesc) {
+            this.$Notice.info({
+                title: '通知信息',
+                desc: nodesc ? '' : '没有找到相关文档，试一试其他关键字'
+            });
+        },
     }
 }
 </script>

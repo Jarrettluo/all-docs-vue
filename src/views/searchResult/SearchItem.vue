@@ -5,7 +5,7 @@
 <!--                <Avatar :style="{background: color}">{{ user }}</Avatar>-->
             </div>
             <div class="title-group">
-                <div class="doc-title-info">
+                <div class="doc-title-info" @click="getDocView()">
                     {{ title }}
                 </div>
                 <div class="description">
@@ -48,6 +48,8 @@
 <script>
 import {parseTime} from "@/utils/index"
 
+import DocRequest from "@/api/document"
+
 export default {
     name: "SearchItem",
     data() {
@@ -57,6 +59,7 @@ export default {
         }
     },
     props: {
+        id: { type: String, requires: true },
         title: { type: String, requires: true },
         description: { type: String, requires: true },
         time: { type: String, requires: true, default: "232"},
@@ -96,6 +99,15 @@ export default {
         },
         timeIn: function() {
             return parseTime(new Date(this.time), '{y}年{m}月{d}日 {h}:{i}:{s}');
+        },
+        getDocView() {
+            // let params = {
+            //     docId: this.id
+            // }
+            // DocRequest.getView(this.id).then(response => {
+            //     console.log(response)
+            // })
+            window.open('http://localhost:8082/files/view/' + this.id,"_blank")
         }
     }
 }
