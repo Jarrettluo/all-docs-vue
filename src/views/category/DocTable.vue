@@ -193,15 +193,15 @@ export default {
         getSelect(){
             // 通过getSelection方法获取table所有选中行数据
             let selectedList = this.$refs.selection.getSelection();
-            if(selectedList.length == 0){
-                this.$Message.info('当前选中了' + selectedList.length + '行');
-                return;
-            }
-            let selectedNames = '';
-            for(var i = 0; i < selectedList.length; i++){
-                selectedNames += ',' + selectedList[i].title;
-            }
-            this.$Message.info('当前选中了[' + selectedNames.substring(1) + ']行');
+            // if(selectedList.length == 0){
+            //     this.$Message.info('当前选中了' + selectedList.length + '行');
+            //     return;
+            // }
+            // let selectedNames = '';
+            // for(var i = 0; i < selectedList.length; i++){
+            //     selectedNames += ',' + selectedList[i].title;
+            // }
+            // this.$Message.info('当前选中了[' + selectedNames.substring(1) + ']行');
             return selectedList;
         }
     }

@@ -29,15 +29,16 @@
 </template>
 <script>
 import DocTable from "@/views/category/DocTable";
-
-
 import CategoryItems from "@/views/category/CategoryItems";
+
+import CategoryRequest from "@/api/category";
 
 export default {
     data () {
         return {
             split: 0.2,
             modal: false,
+            cateId: ""
         }
     },
     components: {
@@ -47,15 +48,34 @@ export default {
     methods: {
         handleChange(cateId) {
             console.log(cateId)
+            this.cateId = cateId
             this.$refs.docTable.getListData(cateId);
         },
         saveEditor() {
-            let a = this.$refs.addDocTable.getSelect()
-            console.log("00dsfsdf" + a)
+            let docList = this.$refs.addDocTable.getSelect()
+
+            docList.forEach(item => {
+                this.addRelate(this.cateId, item.id)
+            })
         },
         cancelEditor() {
             this.modal= false
+        },
+
+        addRelate(cateId, docId) {
+            const params = {
+                "id": cateId,
+                "docId": docId,
+                "type": "TAG"
+            }
+            CategoryRequest.postRelateData(params).then(
+                response => {
+                    console.log(response.data)
+                    this.handleChange(cateId)
+                }
+            )
         }
+
     }
 }
 </script>

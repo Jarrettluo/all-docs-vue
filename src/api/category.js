@@ -12,8 +12,8 @@ import {
 import { Get,Post,Put,Delete } from "@/api/request";
 
 export default {
-    getRelateData: (params) => {
-        return Get(ADD_RELATE_URL,params);
+    postRelateData: (params) => {
+        return Post(ADD_RELATE_URL,params);
     },
     deleteRelateData: (params) => {
         return Delete(CATE_NO_RELATE_URL,params);
