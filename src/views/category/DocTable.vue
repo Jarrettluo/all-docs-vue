@@ -1,7 +1,6 @@
 <template>
     <div class="docTable">
-        {{ type }}
-        <Table border :columns="filterColumns||columns" :data="data">
+        <Table border ref="selection" :columns="filterColumns||columns" :data="data">
             <template #name="{ row }">
                 <!--            <strong>{{ row.name }}</strong>-->
                 {{row.title}}
@@ -157,7 +156,11 @@ export default {
                 return 'ALL';
             }
             return this.type;
-        }
+        },
+        // allSelected: function() {
+        //     console.log(this.$refs.selection)
+        //     return this.$refs.selection;
+        // }
     },
     methods: {
         show (index) {
@@ -186,6 +189,20 @@ export default {
                     this.data = []
                 }
             })
+        },
+        getSelect(){
+            // 通过getSelection方法获取table所有选中行数据
+            let selectedList = this.$refs.selection.getSelection();
+            if(selectedList.length == 0){
+                this.$Message.info('当前选中了' + selectedList.length + '行');
+                return;
+            }
+            let selectedNames = '';
+            for(var i = 0; i < selectedList.length; i++){
+                selectedNames += ',' + selectedList[i].title;
+            }
+            this.$Message.info('当前选中了[' + selectedNames.substring(1) + ']行');
+            return selectedList;
         }
     }
 }

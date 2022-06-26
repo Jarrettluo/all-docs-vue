@@ -18,8 +18,11 @@
                 </div>
             </template>
         </Split>
-        <Modal v-model="modal" fullscreen title="Fullscreen Modal">
-            <div><doc-table type="ADD" cateId=""></doc-table></div>
+        <Modal v-model="modal" fullscreen title="Fullscreen Modal"
+               @on-ok="saveEditor"
+               @on-cancel="cancelEditor"
+        >
+            <div><doc-table ref="addDocTable" type="ADD" cateId=""></doc-table></div>
         </Modal>
     </div>
 </template>
@@ -43,6 +46,13 @@ export default {
         handleChange(cateId) {
             console.log(cateId)
             this.$refs.docTable.getListData(cateId);
+        },
+        saveEditor() {
+            let a = this.$refs.addDocTable.getSelect()
+            console.log("00dsfsdf" + a)
+        },
+        cancelEditor() {
+            this.modal= false
         }
     }
 }

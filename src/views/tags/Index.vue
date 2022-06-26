@@ -10,7 +10,7 @@
                 <div class="demo-split-pane">
                     <div class="content">
                         <div class="add-doc">
-                            <Button type="text">添加文档</Button>
+                            <Button type="text" @click="modal = true">添加文档</Button>
                         </div>
                             <doc-table ref="docTable" type="TAG" cateId=""></doc-table>
                         <Page :total="100" />
@@ -19,6 +19,12 @@
                 </div>
             </template>
         </Split>
+        <Modal v-model="modal" fullscreen title="Fullscreen Modal"
+               @on-ok="saveEditor"
+               @on-cancel="cancelEditor"
+        >
+            <div><doc-table ref="addDocTable" type="ADD" cateId=""></doc-table></div>
+        </Modal>
     </div>
 </template>
 <script>
@@ -30,7 +36,8 @@ import CategoryItems from "@/views/category/CategoryItems";
 export default {
     data () {
         return {
-            split: 0.2
+            split: 0.2,
+            modal: false,
         }
     },
     components: {
@@ -41,6 +48,13 @@ export default {
         handleChange(cateId) {
             console.log(cateId)
             this.$refs.docTable.getListData(cateId);
+        },
+        saveEditor() {
+            let a = this.$refs.addDocTable.getSelect()
+            console.log("00dsfsdf" + a)
+        },
+        cancelEditor() {
+            this.modal= false
         }
     }
 }

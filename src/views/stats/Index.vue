@@ -1,6 +1,5 @@
 <template>
     <div>
-        文档统计界面
         <div class="stats-panel">
            <stats-card v-for="item in titles" :number="data[item.key]" :title="item.title"></stats-card>
         </div>
