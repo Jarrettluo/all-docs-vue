@@ -19,7 +19,7 @@
             </template>
         </Split>
         <Modal v-model="modal" fullscreen title="Fullscreen Modal">
-            <div><doc-table type="ALL" cateId=""></doc-table></div>
+            <div><doc-table type="ADD" cateId=""></doc-table></div>
         </Modal>
     </div>
 </template>

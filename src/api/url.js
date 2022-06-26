@@ -23,6 +23,8 @@ const COMMENT_LIST_URL = '/comment/list'; // 评论列表
 const COMMENT_REMOVE_URL = '/comment/remove'; // 评论删除
 const COMMENT_UPDATE_URL = '/comment/update'; // 评论更新
 
+const STATS_TREND_URL = '/statistics/trend'; //
+const STATS_ALL_URL = '/statistics/all';
 
 module.exports = {
     ADD_RELATE_URL,
@@ -47,6 +49,8 @@ module.exports = {
     COMMENT_ADD_URL,
     COMMENT_LIST_URL,
     COMMENT_REMOVE_URL,
-    COMMENT_UPDATE_URL
+    COMMENT_UPDATE_URL,
 
+    STATS_TREND_URL,
+    STATS_ALL_URL,
 }

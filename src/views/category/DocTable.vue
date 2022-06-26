@@ -1,5 +1,6 @@
 <template>
     <div class="docTable">
+        {{ type }}
         <Table border :columns="filterColumns||columns" :data="data">
             <template #name="{ row }">
                 <!--            <strong>{{ row.name }}</strong>-->
@@ -23,6 +24,11 @@ export default {
     data () {
         return {
             columns: [
+                {
+                    type: 'selection',
+                    width: 60,
+                    align: 'center'
+                },
                 {
                     title: '名称',
                     // width: 260,
@@ -125,7 +131,7 @@ export default {
         }
     },
     props: {
-        type: { type: String, requires: true },
+        type: { type: String, requires: true, default: 'ALL' },
         keyword: { type: String, requires: false},
         cateId: { type: String, requires: true }
     },
@@ -135,9 +141,22 @@ export default {
     computed: {
         filterColumns() {
             //根据自己的要求去显示和隐藏某一列  我这里想要隐藏操作列
-            if (this.type != "ALL") {
-                return this.columns.filter(col => col.key !== 'categoryVO' );
+            if (this.type == "CATEGORY" || this.type == "TAG") {
+                // if (this.type != "ADD") {
+                //     return this.columns.filter(col => col.type !== 'selection')
+                // }
+                return this.columns.filter(col => col.key !== 'categoryVO' && col.type !== "selection" );
+            } else if (this.type == "ALL") {
+                return this.columns.filter(col => col.type !== "selection" );
+            } else {
+                return this.columns
             }
+        },
+        currentType: function () {
+            if (["ALL", 'CATEGORY', 'TAG'].indexOf(this.type) < 0) {
+                return 'ALL';
+            }
+            return this.type;
         }
     },
     methods: {
@@ -151,14 +170,13 @@ export default {
             this.data.splice(index, 1);
         },
         getListData(categoryId, filterWord) {
-
             const params = {
                 "categoryId": categoryId,
                 "filterWord": filterWord,
                 "page": 0,
                 "rows": 10,
                 "tagId": categoryId,
-                "type": this.type
+                "type": this.currentType
             }
             DocumentRequest.getListData(params).then(response => {
                 this.data = response.data

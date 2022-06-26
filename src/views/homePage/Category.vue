@@ -1,21 +1,12 @@
 <template>
     <div class="category-group">
         <div class="category-title">
-            这是文章的标题
+            {{ localCate.name }}
         </div>
         <div class="category-content">
             <ul>
-                <li class="document-abstract">
-                    <Icon type="ios-folder-open-outline" /> fsdjflsjfldj
-                </li>
-                <li class="document-abstract">
-                    <Icon type="ios-folder-open-outline" /> fsdjflsjfldj这是一个文档的名字哇
-                </li>
-                <li class="document-abstract">
-                    <Icon type="ios-folder-open-outline" /> fsdjflsjfldj
-                </li>
-                <li class="document-abstract">
-                    <Icon type="ios-folder-open-outline" /> fsdjflsjfldj
+                <li class="document-abstract" v-for="item in localCate.docList">
+                    <Icon type="ios-folder-open-outline" /> {{ item.name }}
                 </li>
             </ul>
         </div>
@@ -29,7 +20,42 @@
 
 <script>
 export default {
-    name: "Category"
+    name: "Category",
+    data() {
+        return {
+            localCate: {
+                id: null,
+                name: null,
+                docList: null,
+            }
+        }
+    },
+    props: {
+        category: {
+            type: Object,
+            default () {
+                return {}
+            }
+        }
+    },
+    // computed: {
+    //     initData: function () {
+    //         // 将对象本地化
+    //         return this.localCate = JSON.parse(JSON.stringify(this.category))
+    //     }
+    // }
+    watch: { // 监听到数据然后赋值
+        category: {
+            // 监听数据发生变化的处理函数
+            handler(newV, oldValue) {
+                console.log(newV)
+                this.localCate = JSON.parse(JSON.stringify(newV));//将监听到修改的值赋予到dataAttrs中
+            },
+            immediate: true,
+            // 是否开启深度监听，由于我们上面props中是一个Object对象，所以需要开启深度监听功能
+            deep: true
+        }
+    }
 }
 </script>
 

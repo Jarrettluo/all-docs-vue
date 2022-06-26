@@ -7,9 +7,7 @@
             <Banner></Banner>
         </div>
         <div class="home-content">
-            <Category></Category>
-            <Category></Category>
-            <Category></Category>
+            <Category v-for="item in data" :category="item"></Category>
         </div>
         <div class="home-footer">
 
@@ -21,11 +19,28 @@
 import Nav from "@/components/Nav";
 import Banner from "./Banner";
 import Category from "@/views/homePage/Category";
+import StatsRequest from "@/api/stats"
+
 export default {
     name: "Index.vue",
+    data() {
+        return {
+            data: []
+        }
+    },
     components: {
         Nav, Banner, Category
     },
+    created() {
+        this.getTrendData();
+    },
+    methods: {
+        getTrendData() {
+            StatsRequest.getTrendData().then(response => {
+                this.data = response.data
+            })
+        }
+    }
 }
 </script>
 
