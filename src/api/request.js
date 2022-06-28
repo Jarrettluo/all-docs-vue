@@ -6,8 +6,8 @@ import axios from 'axios'
 // let vm = new Vue();
 
 const instance = axios.create({
-    // baseURL: 'http://81.69.247.172:8082',
-    baseURL: 'http://localhost:8082',
+    baseURL: 'http://81.69.247.172:8082',
+    // baseURL: 'http://localhost:8082',
     timeout: 3000,
     headers: {
       post: {

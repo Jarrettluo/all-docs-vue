@@ -1,11 +1,11 @@
 <template>
     <div class="category-group">
-        <div class="category-title">
+        <div class="category-title" @click="routeToCategory(localCate.id)">
             {{ localCate.name }}
         </div>
         <div class="category-content">
             <ul>
-                <li class="document-abstract" v-for="item in localCate.docList">
+                <li class="document-abstract" v-for="item in localCate.docList" @click="routeToAllDoc(item.id)">
                     <Icon type="ios-folder-open-outline" /> {{ item.name }}
                 </li>
             </ul>
@@ -54,6 +54,27 @@ export default {
             immediate: true,
             // 是否开启深度监听，由于我们上面props中是一个Object对象，所以需要开启深度监听功能
             deep: true
+        }
+    },
+    methods: {
+        routeToCategory(value) {
+            if(value == "" || value == undefined) {
+                return;
+            }
+            this.$router.push({
+                path:'/admin/category',
+                query:{
+                    categoryId: value
+                }
+            })
+        },
+        routeToAllDoc(value) {
+            this.$router.push({
+                path:'/admin/allDocuments',
+                query:{
+                    categoryId: value
+                }
+            })
         }
     }
 }

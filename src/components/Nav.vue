@@ -4,10 +4,10 @@
             All documents
         </div>
         <div class="nav-setting">
-            <Button type="text">
+            <Button type="text" @click="$router.push('/admin/newDocument')">
                 + 添加文档
             </Button>
-            <Button type="text" @click="$router.push('/admin/category')">
+            <Button type="text" @click="$router.push('/admin/allDocuments')">
                 <Icon type="ios-settings" />
             </Button>
         </div>
@@ -45,6 +45,7 @@ export default {
     font-family: PMZDBiaoTi-regular;
     width: 200px;
     float: left;
+    cursor: pointer;
 }
 
 .nav-setting {
