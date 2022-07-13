@@ -25,7 +25,8 @@
             </div>
         </div>
         <div class="doc-abstract">
-            {{description}}
+            <p v-html="description"></p>
+<!--            {{description}}-->
         </div>
 <!--        <div class="ivu-list-container">-->
             <ul class="ivu-list-item-action">
@@ -179,6 +180,10 @@ ul {
 }
 li {
     padding: 0 20px;
+}
+
+.doc-abstract >>> em {
+    background-color: yellow;
 }
 
 </style>

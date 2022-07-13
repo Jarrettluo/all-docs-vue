@@ -11,7 +11,7 @@
             </ul>
         </div>
         <div class="more-info">
-            <div class="more-info-button">
+            <div class="more-info-button" @click="routeToCategory(localCate.id)">
                 更多
             </div>
         </div>
