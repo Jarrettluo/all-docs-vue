@@ -1,15 +1,24 @@
 <template>
     <div class="docTable">
-        <Table border ref="selection" :columns="filterColumns||columns" :data="data">
-            <template #name="{ row }">
-                <!--            <strong>{{ row.name }}</strong>-->
-                {{row.title}}
-            </template>
-            <template #action="{ row, index }">
-                <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">View</Button>
-                <Button type="error" size="small" @click="remove(index)">Delete</Button>
-            </template>
-        </Table>
+        <div class="table-container">
+            <Table border ref="selection" :columns="filterColumns||columns" :data="data">
+                <template #name="{ row }">
+                    <!--            <strong>{{ row.name }}</strong>-->
+                    {{row.title}}
+                </template>
+                <template #action="{ row, index }">
+                    <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
+                    <Button type="error" size="small" @click="remove(index)">删除</Button>
+                </template>
+            </Table>
+        </div>
+        <div class="page-container">
+            <Page
+                :model-value="currentPage"
+                :total="totalItems"
+                :page-size="pageSize"
+            />
+        </div>
     </div>
 
 </template>
@@ -126,7 +135,11 @@ export default {
                     createUser: "罗佳瑞",
                     createTime: "2022年1月12日 12：00：23"
                 }
-            ]
+            ],
+            currentPage: 1,
+            totalItems: 100,
+            pageSize: 10,
+
         }
     },
     props: {
@@ -165,26 +178,27 @@ export default {
     methods: {
         show (index) {
             this.$Modal.info({
-                title: 'User Info',
-                content: `Name：${this.data[index].name}<br>Age：${this.data[index].age}<br>Address：${this.data[index].address}`
+                title: `${this.data[index].title}`,
+                content: `size：${this.data[index].size}<br>categoryVO：${this.data[index].categoryVO}<br>tagVOList：${this.data[index].tagVOList}`
             })
         },
         remove (index) {
             this.data.splice(index, 1);
+            this.$emit("removeDoc", this.data[index])
         },
         getListData(categoryId, filterWord) {
             const params = {
                 "categoryId": categoryId,
                 "filterWord": filterWord,
-                "page": 0,
-                "rows": 10,
+                "page": this.currentPage,
+                "rows": this.pageSize,
                 "tagId": categoryId,
                 "type": this.currentType
             }
             DocumentRequest.getListData(params).then(response => {
                 this.data = response.data
                 this.listLoading = false
-                // console.log(list)
+                console.log(this.data)
                 if(this.data == null) {
                     this.data = []
                 }
@@ -218,5 +232,15 @@ export default {
     border-radius: 4px;
     padding: 16px;
     text-align: left;
+}
+
+.table-container {
+    background-color: red;
+}
+
+.page-container {
+    background-color: yellow;
+    text-align: right;
+    padding: 5px;
 }
 </style>

@@ -13,7 +13,6 @@
                             <Button type="text" @click="modal = true">添加文档</Button>
                         </div>
                             <doc-table ref="docTable" type="TAG" cateId=""></doc-table>
-                        <Page :total="100" />
                     </div>
 
                 </div>

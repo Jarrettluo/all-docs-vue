@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <doc-table type="ALL" cateId=""></doc-table>
+        <doc-table type="ALL" cateId="" @removeDoc="removeDoc"></doc-table>
     </div>
 
 </template>
@@ -120,6 +120,22 @@ export default {
         }
     },
     methods: {
+        /**
+         * 发起删除该篇文档的请求
+         * @param docItem
+         */
+        removeDoc(docItem) {
+            if(docItem === null || docItem.id == null) {
+                return
+            }
+            var params = {
+                id : docItem.id
+            }
+            DocumentRequest.deleteData(params).then( response => {
+
+                // TODO 删除以后再发起请求
+            })
+        }
     }
 }
 </script>
