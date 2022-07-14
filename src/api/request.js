@@ -130,9 +130,7 @@ export function Patch(url, params) {
  */
 export function Delete(url, params) {
     return new Promise((resolve, reject) => {
-        instance.delete(url, {
-            params: params
-        }).then((res) => {
+        instance.delete(url, {data:params}).then((res) => {
             resolve(res.data);
         }).catch((error) => {
             reject(error.data);

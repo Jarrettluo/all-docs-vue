@@ -13,7 +13,7 @@
                         <div class="add-doc">
                             <Button type="text" @click="modal = true">添加文档</Button>
                         </div>
-                        <doc-table ref="docTable" type="CATEGORY" cateId=""></doc-table>
+                        <doc-table ref="docTable" type="CATEGORY" cateId="" @removeDoc="removeDoc"></doc-table>
                     </div>
                 </div>
             </template>
@@ -75,6 +75,24 @@ export default {
                     this.handleChange(cateId)
                 }
             )
+        },
+        /**
+         * 发起删除该篇文档的请求
+         * @param docItem
+         */
+        removeDoc(docItem) {
+            if(docItem === null || docItem.id ==null || docItem.categoryVO == null) {
+                return
+            }
+            var params = {
+                id : this.cateId,
+                docId: docItem.id,
+                type: "CATEGORY"
+            }
+            CategoryRequest.deleteRelateData(params).then( response => {
+                // 删除以后再发起请求
+                this.$refs.docTable.getListData(this.cateId);
+            })
         }
 
     }
