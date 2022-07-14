@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <doc-table ref="docTable" type="ALL" cateId="" @removeDoc="removeDoc"></doc-table>
+        <doc-table ref="docTable" type="ALL" cateId="" @removeDoc="removeDoc" @on-page-change="queryTable"></doc-table>
     </div>
 
 </template>
@@ -133,8 +133,11 @@ export default {
             }
             DocumentRequest.deleteData(params).then( response => {
                 // 删除以后再发起请求
-                this.$refs.docTable.getListData(cateId);
+                this.queryTable()
             })
+        },
+        queryTable() {
+            this.$refs.docTable.getListData();
         }
     }
 }

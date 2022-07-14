@@ -17,6 +17,7 @@
                 :model-value="currentPage"
                 :total="totalItems"
                 :page-size="pageSize"
+                @on-change="pageChange"
             />
         </div>
     </div>
@@ -218,6 +219,10 @@ export default {
             // }
             // this.$Message.info('当前选中了[' + selectedNames.substring(1) + ']行');
             return selectedList;
+        },
+        pageChange(page) {
+            this.currentPage = page
+            this.$emit("on-page-change", true)
         }
     }
 }

@@ -12,7 +12,9 @@
                         <div class="add-doc">
                             <Button type="text" @click="modal = true">添加文档</Button>
                         </div>
-                            <doc-table ref="docTable" type="TAG" cateId="" @removeDoc="removeDoc"></doc-table>
+                            <doc-table ref="docTable" type="TAG" cateId=""
+                                       @removeDoc="removeDoc"
+                                       @on-page-change="queryTable"></doc-table>
                     </div>
 
                 </div>
@@ -49,6 +51,9 @@ export default {
             console.log(cateId)
             this.cateId = cateId
             this.$refs.docTable.getListData(cateId);
+        },
+        queryTable() {
+            this.$refs.docTable.getListData(this.cateId);
         },
         saveEditor() {
             let docList = this.$refs.addDocTable.getSelect()
