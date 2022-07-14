@@ -4,6 +4,10 @@
             <Nav></Nav>
         </div>
         <div class="doc-group" style="display: inline-block">
+            <div style="background-color: #fff">
+                <SearchInput ref="searchInput" @on-search="getListData"></SearchInput>
+            </div>
+
 <!--            <SearchItem class="doc-item"></SearchItem>-->
 <!--            <DocItem></DocItem>-->
             <SearchItem v-for="item in data"
@@ -23,6 +27,16 @@
 <!--            :category="item.categoryVO.name"-->
 <!--            :tags = "item.tagVO"-->
 
+            <div class="page-container">
+                <Page
+                    :model-value="currentPage"
+                    :total="totalItems"
+                    :page-size="pageSize"
+                    @on-change="pageChange"
+                />
+            </div>
+
+
         </div>
         <Footer></Footer>
     </div>
@@ -36,15 +50,20 @@ import Footer from "@/components/MyFooter";
 
 import DocumentRequest from "@/api/document"
 
+import SearchInput from "./SearchInput"
+
 export default {
     name: "Index.vue",
     data() {
         return {
-            data: []
+            data: [],
+            currentPage: 1,
+            totalItems: 100,
+            pageSize: 10,
         }
     },
     components: {
-        Nav, Footer, DocItem, SearchItem
+        Nav, Footer, DocItem, SearchItem, SearchInput
     },
     mounted() {
         this.getListData()
@@ -56,8 +75,8 @@ export default {
             const params = {
                 "categoryId": "",
                 "filterWord": keyword,
-                "page": 0,
-                "rows": 10,
+                "page": this.currentPage,
+                "rows": this.pageSize,
                 "tagId": "",
                 "type": "FILTER"
             }
@@ -65,7 +84,7 @@ export default {
                 this.data = response.data
                 this.listLoading = false
                 console.log(this.data)
-                if(this.data == null) {
+                if(this.data == null || this.data.length == 0) {
                     this.info(false)
                 }
             })
@@ -76,6 +95,12 @@ export default {
                 desc: nodesc ? '' : '没有找到相关文档，试一试其他关键字'
             });
         },
+
+        pageChange(page) {
+            this.currentPage = page
+            this.getListData()
+        }
+
     }
 }
 </script>
@@ -93,6 +118,11 @@ export default {
     /*padding-left: 12px;*/
 }
 
+.page-container {
+    /*background-color: yellow;*/
+    text-align: left;
+    padding: 25px;
+}
 
 
 </style>
