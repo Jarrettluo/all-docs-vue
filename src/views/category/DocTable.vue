@@ -56,7 +56,7 @@ export default {
                     align: 'center',
                     render: (h, params) => {
                         return h('div', [
-                            h('span', fileTool.bytesToSize(temp))
+                            h('span', fileTool.bytesToSize(params.row.size))
                         ]);
                     }
                 },
