@@ -27,6 +27,7 @@
 <script>
 import DocumentRequest from "@/api/document"
 import {parseTime} from "@/utils/index"
+import fileTool from "@/utils/fileUtil"
 
 export default {
 
@@ -52,7 +53,12 @@ export default {
                     title: '大小',
                     width: 120,
                     key: 'size',
-                    align: 'center'
+                    align: 'center',
+                    render: (h, params) => {
+                        return h('div', [
+                            h('span', fileTool.bytesToSize(temp))
+                        ]);
+                    }
                 },
                 {
                     title: '分类',
@@ -141,6 +147,11 @@ export default {
             totalItems: 100,
             pageSize: 10,
 
+        }
+    },
+    filters: {
+        sizeFilter: function(value) {
+            return bytesToSize(value)
         }
     },
     props: {
