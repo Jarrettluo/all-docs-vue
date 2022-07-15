@@ -15,6 +15,7 @@
             @on-contextmenu="handleContextMenu"
             :show-header="false"
             @on-row-click="changeCategoryValue"
+            highlight-row
         >
             <template #contextMenu>
                 <div class="ivu-dropdown-item" @click="handleContextMenuAdd">增加一条记录</div>
@@ -25,16 +26,13 @@
 
         <Modal
             v-model="modal1"
-            title="普通的Modal对话框标题"
+            title="编辑提示"
             @on-ok="saveEditor"
             @on-cancel="cancelEditor"
             width="400">
-<!--            <Space direction="vertical" size="large">-->
                 名称：
                 <Input v-model="editValue" placeholder="请输入..." style="width: 300px"></Input>
-<!--            </Space>-->
         </Modal>
-<!--        <Button @click="handleClearCurrentRow" style="margin-top:16px">Clear</Button>-->
     </div>
 </template>
 <script>
@@ -196,5 +194,9 @@ export default {
 .i {
     line-height: 22px;
     width: 22px;
+}
+
+/deep/ .ivu-table td {
+    cursor: pointer !important;
 }
 </style>
