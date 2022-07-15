@@ -42,6 +42,13 @@ const routes = [
     }
   },
   {
+    path: "/preview",
+    name: "preview",
+    component: function () {
+      return import("../views/preview/index2")
+    }
+  },
+  {
     path: '/admin',
     name: 'Admin',
     component: function () {
