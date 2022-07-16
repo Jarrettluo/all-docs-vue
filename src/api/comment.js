@@ -10,11 +10,11 @@ import { Get,Post,Put,Delete } from "@/api/request";
 export default {
 
     getListData: (params) => {
-        return Get(COMMENT_ADD_URL,params);
+        return Post(COMMENT_LIST_URL,params);
     },
 
     postData: (params) => {
-        return Post(COMMENT_LIST_URL,params);
+        return Post(COMMENT_ADD_URL,params);
     },
 
     deleteData: (params) => {

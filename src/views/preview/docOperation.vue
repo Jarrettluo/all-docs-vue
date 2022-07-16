@@ -2,7 +2,7 @@
     <div class="operation-container">
         <div class="item" v-for="item in data" @click="operate(item)">
             <div class="item-logo">
-                {{ item.src }}
+                <img :src="item.src" :alt="item.src">
             </div>
             <div>
                 {{ item.name }}
@@ -19,17 +19,17 @@ export default {
             data: [
                 {
                     name: "马上收藏",
-                    src: "abc",
+                    src: require("@/assets/source/heart.png"),
                     index: "1"
                 },
                 {
                     name: "竖个大拇指",
-                    src: "abc",
+                    src: require("@/assets/source/like.png"),
                     index: "2"
                 },
                 {
                     name: "立马下载",
-                    src: "abc",
+                    src: require("@/assets/source/download.png"),
                     index: "3"
                 },
             ]
@@ -75,5 +75,10 @@ export default {
         /*left: 0;*/
         /*top: 0;*/
         line-height: 80px;
+        padding-top: 10px;
+    }
+    img {
+        /*width: 48px;*/
+        /*height: 48px;*/
     }
 </style>

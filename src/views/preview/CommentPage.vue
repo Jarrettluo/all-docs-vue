@@ -17,7 +17,7 @@
                         {{ item.content}}
                     </div>
                     <div class="comment-item-time">
-                        {{item.createTime}}
+                        {{item.createTime | transferTime }}
                     </div>
                 </div>
             </div>
@@ -26,6 +26,11 @@
 </template>
 
 <script>
+
+import {parseTime} from "@/utils/index"
+
+import CommentRequest from "@/api/comment"
+
 export default {
     name: "CommentPage",
     data() {
@@ -56,6 +61,29 @@ export default {
                 }
             ]
         }
+    },
+    filters: {
+        transferTime(value) {
+            return parseTime(new Date(value), '{y}年{m}月{d}日 {h}:{i}:{s}');
+        }
+    },
+    mounted() {
+        this.init()
+    },
+    methods: {
+        /**
+         * 查询该篇文章的全部评论信息
+         */
+        init() {
+            let docId = this.$route.query.docId;
+            var params = {
+                docId: docId,
+                createUser: 1,
+            }
+            CommentRequest.getListData(params).then(response => {
+                console.log(response)
+            })
+        }
     }
 }
 </script>
@@ -70,7 +98,7 @@ export default {
             font-weight: bold;
         }
         .comment-item {
-            border-bottom: 1px solid #c7c7c7;
+            border-bottom: 1px solid #d7d9de;
             padding: 20px 10px;
             display: flex;
             //justify-content: left;
