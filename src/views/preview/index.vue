@@ -31,7 +31,7 @@
                 <doc-operation />
             </div>
             <div class="doc-comment">
-                fsdljfdsljf
+                <comment-page />
             </div>
 
         </div>
@@ -48,6 +48,8 @@ import {parseTime} from "@/utils/index"
 
 import DocOperation from "./docOperation"
 
+import CommentPage from "./CommentPage"
+
 export default {
     data() {
         return {
@@ -60,7 +62,7 @@ export default {
         }
     },
     components: {
-        PdfView, Nav, DocOperation
+        PdfView, Nav, DocOperation, CommentPage
     },
     mounted() {
         this.init()
@@ -170,6 +172,8 @@ export default {
             box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
             border-radius: 8px;
             background-color: #fffeff;
+
+            padding: 36px 40px;
         }
     }
 

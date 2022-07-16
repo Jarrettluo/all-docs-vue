@@ -70,9 +70,9 @@ export default {
         },
         routeToAllDoc(value) {
             this.$router.push({
-                path:'/admin/allDocuments',
+                path:'/preview',
                 query:{
-                    categoryId: value
+                    docId: value
                 }
             })
         }
