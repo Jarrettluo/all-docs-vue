@@ -1,8 +1,6 @@
 <template>
     <div class="home_wrap">
 
-        // https://blog.csdn.net/wzsud/article/details/121931312
-        // 文本复制功能 https://segmentfault.com/a/1190000016963084
         <div class="pdf_down" >
             <div class="pdf_set_left"  @click="scaleD()">放大</div>
             <div class="pdf_set_middle" @click="scaleX()">缩小</div>
@@ -54,11 +52,14 @@ export default {
         },
         get_pdfurl(){  //获得pdf教案
 
+            let docId = this.$route.query.docId;
+
             //加载本地
             //  this.pdf_src = 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
-            this.pdf_src = 'http://81.69.247.172:8082/files/view/62cee7d6ff703f08647e0bbe'
+            // this.pdf_src = 'http://81.69.247.172:8082/files/view/62cee7d6ff703f08647e0bbe'
             // this.pdf_src = 'http://81.69.247.172:8082/files/view/62ba6d2c845f9a73b891bdc4'
             // this.pdf_src = 'adminapi/blogs/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/4%E3%80%81%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%2814%E9%A2%98%29.pdf'
+            this.pdf_src = 'http://81.69.247.172:8082/files/view/' + docId
             this._loadFile(this.pdf_src)
             return
 
@@ -122,8 +123,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home_wrap{
-    width: 100%;
-    height: 100%;
+    //width: 100%;
+    width: 1200px;
+    //height: 100%;
+    height: 900px;
     .pdf_down{
         position:fixed;
         display: flex;

@@ -108,7 +108,15 @@ export default {
             // DocRequest.getView(this.id).then(response => {
             //     console.log(response)
             // })
-            window.open('http://81.69.247.172:8082/files/view/' + this.id,"_blank")
+            // window.open('http://81.69.247.172:8082/files/view/' + this.id,"_blank")
+
+            this.$router.push({
+                path:'/preview',
+                query:{
+                    docId: this.id
+                }
+            })
+
         }
     }
 }

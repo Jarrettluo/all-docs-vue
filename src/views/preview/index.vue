@@ -1,117 +1,173 @@
-<!--<template>-->
-<!--    <div id="app1">-->
-<!--        <div id="pageContainer" style="position: absolute">-->
-<!--            <div id="viewer"></div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</template>-->
+<template>
+    <div>
+        <div class="nav">
+            <Nav></Nav>
+        </div>
+        <div class="main-container">
+            <div class="title-info">
+                <div class="doc-trim">
+                    pic
+                </div>
+                <div class="doc-info">
+                    <div class="doc-info-title">
+                        {{title}}
+                    </div>
+                    <div class="doc-info-tag">
+                        <Tag color="lime">lime</Tag>
+                        <Tag color="green">green</Tag>
+                        <Tag color="cyan">cyan</Tag>
+                        <Tag color="blue">blue</Tag>
+                    </div>
+                    <div class="doc-info-detail">
+                        {{ userName }} {{ createTime }}
+                    </div>
 
-<!--<script>-->
-<!--import "pdfjs-dist/web/pdf_viewer.css";-->
-<!--import * as pdfjsLib from "pdfjs-dist";-->
-<!--import * as pdfjsViewer from "pdfjs-dist/web/pdf_viewer";-->
-<!--import "pdfjs-dist/build/pdf.worker.entry";-->
-<!--import * as pdfjsSandbox from "pdfjs-dist/build/pdf.sandbox.js";-->
+                </div>
+            </div>
+            <div class="doc-preview">
+                <PdfView></PdfView>
+            </div>
+            <div class="doc-operation">
+                fldsjflsdj
+            </div>
+            <div class="doc-comment">
+                fsdljfdsljf
+            </div>
 
-<!--pdfjsLib.GlobalWorkerOptions.workerSrc = window.pdfjsWorker;-->
+        </div>
+    </div>
 
-<!--export default {-->
-<!--    name: "App",-->
-<!--    components: {},-->
-<!--    async mounted() {-->
-<!--        if (!pdfjsLib.getDocument || !pdfjsViewer.PDFViewer) {-->
-<!--            // eslint-disable-next-line no-alert-->
-<!--            alert(-->
-<!--                "Please build the pdfjs-dist library using\n  `gulp dist-install`"-->
-<!--            );-->
-<!--        }-->
+</template>
 
-<!--        // Some PDFs need external cmaps.-->
-<!--        // const CMAP_URL = './cmaps/';-->
-<!--        const CMAP_URL = "./cmaps/";-->
-<!--        const CMAP_PACKED = true;-->
+<script>
+import PdfView from "./index2"
 
-<!--        const DEFAULT_URL =  'http://81.69.247.172:8082/files/view/62cee7d6ff703f08647e0bbe';-->
-<!--        // To test the AcroForm and/or scripting functionality, try e.g. this file:-->
-<!--        // "../../test/pdfs/160F-2019.pdf"-->
+import Nav from "@/components/Nav"
+import DocRequest from "@/api/document"
+import {parseTime} from "@/utils/index"
 
-<!--        const ENABLE_XFA = true;-->
-<!--        const SEARCH_FOR = ""; // try "Mozilla";-->
+export default {
+    data() {
+        return {
+            title: "",
+            userName: "",
+            docId: "",
+            tags: [],
+            createTime: new Date()
 
-<!--        // const SANDBOX_BUNDLE_SRC =-->
-<!--        //     '../../node_modules/pdfjs-dist/build/pdf.sandbox.js';-->
-<!--        const SANDBOX_BUNDLE_SRC = pdfjsSandbox;-->
+        }
+    },
+    components: {
+        PdfView, Nav
+    },
+    mounted() {
+        this.init()
+    },
+    methods: {
+        init() {
+            let docId = this.$route.query.docId;
+            var params = {
+                docId: docId
+            }
+            DocRequest.getData(params).then(response => {
+                console.log(response)
+                this.title = response.data.title;
+                this.userName = response.data.userName;
+                this.tags = response.data.tagVOList;
+                var docTime = response.data.createTime;
+                this.createTime = parseTime(new Date(docTime), '{y}年{m}月{d}日 {h}:{i}:{s}');
+            })
+        }
+    }
 
-<!--        const container = document.getElementById("pageContainer");-->
+}
+</script>
 
-<!--        const eventBus = new pdfjsViewer.EventBus();-->
+<style lang="scss" scoped>
+    .nav {
+        background-color: #ffcc4f;
+        width: 100%;
+        height: 50px;
+        //position: absolute;
+        //left: 0;
+        //top: 0;
+    }
+    .main-container {
+        width: 1200px;
+        //height: 100vh;
+        //background-color: yellowgreen;
+        padding: 25px;
+        margin: auto;
+        box-sizing: content-box;
+        .title-info {
+            height: 185px;
+            width: 1200px;
+            //background-color: red;
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+            border-radius: 8px;
+            background-color: #fffeff;
+            padding: 36px;
+            display: block;
+            .doc-trim {
+                float: left;
+                width: 40px;
+                //background-color: lightblue;
+                height: 40px;
+                line-height: 40px;
+                display: block;
+            }
+            .doc-info {
+                display: block;
+                float: left;
+                padding: 0 10px;
+                text-align: left;
+                .doc-info-title {
+                    font-size: 18px;
+                    font-weight: bold;
+                    line-height: 40px;
+                    height: 40px;
+                    //background-color: #42b983;
+                }
+                .doc-info-tag {
+                    height: 40px;
+                    line-height: 40px;
+                }
+                .doc-info-detail {
+                    //font-weight: bold;
+                    font-size: 14px;
+                    height: 40px;
+                    line-height: 40px;
+                }
 
-<!--        // (Optionally) enable hyperlinks within PDF files.-->
-<!--        const pdfLinkService = new pdfjsViewer.PDFLinkService({-->
-<!--            eventBus,-->
-<!--        });-->
+            }
+        }
+        .doc-preview {
+            margin: 20px 0;
+            overflow-y: auto;
+            height: 800px;
+            padding: 10px 0;
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+            border-radius: 8px;
+            background-color: #fffeff;
+        }
+        .doc-operation {
+            height: 200px;
 
-<!--        // (Optionally) enable find controller.-->
-<!--        const pdfFindController = new pdfjsViewer.PDFFindController({-->
-<!--            eventBus,-->
-<!--            linkService: pdfLinkService,-->
-<!--        });-->
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+            border-radius: 8px;
+            background-color: #fffeff;
+        }
+        .doc-comment {
 
-<!--        // (Optionally) enable scripting support.-->
-<!--        const pdfScriptingManager = new pdfjsViewer.PDFScriptingManager({-->
-<!--            eventBus,-->
-<!--            sandboxBundleSrc: SANDBOX_BUNDLE_SRC,-->
-<!--        });-->
+            margin: 20px 0;
 
-<!--        const pdfViewer = new pdfjsViewer.PDFViewer({-->
-<!--            container,-->
-<!--            eventBus,-->
-<!--            linkService: pdfLinkService,-->
-<!--            findController: pdfFindController,-->
-<!--            scriptingManager: pdfScriptingManager,-->
-<!--            enableScripting: true, // Only necessary in PDF.js version 2.10.377 and below.-->
-<!--        });-->
-<!--        pdfLinkService.setViewer(pdfViewer);-->
-<!--        pdfScriptingManager.setViewer(pdfViewer);-->
+            background-color: #42b983;
+            min-height: 120px;
 
-<!--        eventBus.on("pagesinit", function () {-->
-<!--            // We can use pdfViewer now, e.g. let's change default scale.-->
-<!--            pdfViewer.currentScaleValue = "page-width";-->
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+            border-radius: 8px;
+            background-color: #fffeff;
+        }
+    }
 
-<!--            // We can try searching for things.-->
-<!--            if (SEARCH_FOR) {-->
-<!--                eventBus.dispatch("find", { type: "", query: SEARCH_FOR });-->
-<!--            }-->
-<!--        });-->
-
-<!--        // Loading document.-->
-<!--        const loadingTask = pdfjsLib.getDocument({-->
-<!--            url: DEFAULT_URL,-->
-<!--            cMapUrl: CMAP_URL,-->
-<!--            cMapPacked: CMAP_PACKED,-->
-<!--            enableXfa: ENABLE_XFA,-->
-<!--        });-->
-<!--        const pdfDocument = await loadingTask.promise;-->
-<!--        // Document loaded, specifying document for the viewer and-->
-<!--        // the (optional) linkService.-->
-<!--        pdfViewer.setDocument(pdfDocument);-->
-
-<!--        pdfLinkService.setDocument(pdfDocument, null);-->
-<!--    },-->
-<!--};-->
-<!--</script>-->
-
-<!--<style>-->
-<!--#pageContainer {-->
-<!--    position: absolute;-->
-<!--    left: 50%;-->
-<!--    transform: translateX(-50%);-->
-<!--}-->
-<!--#pageContainer .page {-->
-<!--    position: relative;-->
-<!--    border: 1px solid black;-->
-<!--    margin-bottom: 20px;-->
-<!--    overflow: hidden;-->
-<!--    box-sizing: border-box;-->
-<!--}-->
-<!--</style>-->
+</style>
