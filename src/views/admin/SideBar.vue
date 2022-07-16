@@ -5,19 +5,19 @@
             添加文档
         </MenuItem>
         <MenuItem name="allDocuments">
-            <Icon type="ios-people" />
+            <Icon type="md-folder-open" />
             全部文档
         </MenuItem>
         <MenuItem name="category">
-            <Icon type="ios-construct" />
+            <Icon type="md-archive" />
             文档分类
         </MenuItem>
         <MenuItem name="tags">
-            <Icon type="ios-pricetags" />
+            <Icon type="md-pricetag" />
             文档标签
         </MenuItem>
         <MenuItem name="users">
-            <Icon type="ios-rainy" />
+            <Icon type="md-contact" />
             用户管理
         </MenuItem>
         <MenuItem name="stats">
