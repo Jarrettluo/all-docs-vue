@@ -4,7 +4,7 @@
             <Table border ref="selection" :columns="filterColumns||columns" :data="data">
                 <template #name="{ row }">
                     <!--            <strong>{{ row.name }}</strong>-->
-                    {{row.title}}
+                    <p class="doc-title" @click="preview(row.id)">{{row.title}}</p>
                 </template>
                 <template #action="{ row, index }">
                     <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
@@ -234,6 +234,14 @@ export default {
         pageChange(page) {
             this.currentPage = page
             this.$emit("on-page-change", true)
+        },
+        preview(value) {
+            this.$router.push({
+                path:'/preview',
+                query:{
+                    docId: value
+                }
+            })
         }
     }
 }
@@ -259,5 +267,13 @@ export default {
     /*background-color: yellow;*/
     text-align: right;
     padding: 5px;
+}
+
+.doc-title {
+    color: dodgerblue;
+}
+.doc-title:hover {
+    cursor: pointer;
+    font-weight: bold;
 }
 </style>
