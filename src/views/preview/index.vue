@@ -27,8 +27,8 @@
             <div class="doc-preview">
                 <PdfView></PdfView>
             </div>
-            <div class="doc-operation">
-                fldsjflsdj
+            <div class="doc-operation-body">
+                <doc-operation />
             </div>
             <div class="doc-comment">
                 fsdljfdsljf
@@ -46,6 +46,8 @@ import Nav from "@/components/Nav"
 import DocRequest from "@/api/document"
 import {parseTime} from "@/utils/index"
 
+import DocOperation from "./docOperation"
+
 export default {
     data() {
         return {
@@ -58,7 +60,7 @@ export default {
         }
     },
     components: {
-        PdfView, Nav
+        PdfView, Nav, DocOperation
     },
     mounted() {
         this.init()
@@ -144,15 +146,16 @@ export default {
         .doc-preview {
             margin: 20px 0;
             overflow-y: auto;
-            height: 800px;
+            height: 100vh;
             padding: 10px 0;
             box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
             border-radius: 8px;
             background-color: #fffeff;
         }
-        .doc-operation {
+        .doc-operation-body {
             height: 200px;
-
+            //line-height: 200px;
+            text-align: center;
             box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
             border-radius: 8px;
             background-color: #fffeff;

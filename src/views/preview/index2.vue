@@ -19,7 +19,7 @@ PDFJS.GlobalWorkerOptions.workerSrc = require("pdfjs-dist/build/pdf.worker.entry
 export default {
     data(){
         return{
-            pdf_scale:1.0,//pdf放大系数
+            pdf_scale:1.5,//pdf放大系数
             pdf_pages:[],
             pdf_div_width:'',
             pdf_src:null,
