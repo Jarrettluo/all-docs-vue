@@ -1,8 +1,9 @@
 <template>
     <div class="search-doc">
         <div class="doc-title-group">
-            <div class="doc-pic">
+            <div class="doc-pic" style="text-align: center;">
 <!--                <Avatar :style="{background: color}">{{ user }}</Avatar>-->
+                <img :src=" thumbId | imgSrc " alt="fsfsd" style="width: 36px;max-height: 48px;border: 1px solid #dcdee2; border-radius: 2px">
             </div>
             <div class="title-group">
                 <div class="doc-title-info" @click="getDocView()">
@@ -61,6 +62,7 @@ export default {
     },
     props: {
         id: { type: String, requires: true },
+        thumbId: { type: String, requires: true },
         title: { type: String, requires: true },
         description: { type: String, requires: true },
         time: { type: String, requires: true, default: "232"},
@@ -118,7 +120,17 @@ export default {
             })
 
         }
+    },
+    filters: {
+        imgSrc(value) {
+            if(value === "" || value === undefined || value == null) {
+                return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
+            } else {
+                return "http://81.69.247.172:8082/files/image2/" + value;
+            }
+        }
     }
+
 }
 </script>
 

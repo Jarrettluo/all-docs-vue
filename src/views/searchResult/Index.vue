@@ -12,6 +12,7 @@
 <!--            <DocItem></DocItem>-->
             <SearchItem v-for="item in data"
                         :id = "item.id"
+                        :thumbId = "item.thumbId"
                         :title="item.title"
                         :description="item.description"
                         :time="item.createTime"

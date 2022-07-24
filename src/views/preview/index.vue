@@ -5,8 +5,8 @@
         </div>
         <div class="main-container">
             <div class="title-info">
-                <div class="doc-trim">
-                    pic
+                <div class="doc-trim" style="text-align: center">
+                    <img :src=" thumbId | imgSrc " alt="thumb" style="width: 36px;max-height: 48px;border: 1px solid #dcdee2; border-radius: 2px">
                 </div>
                 <div class="doc-info">
                     <div class="doc-info-title">
@@ -57,8 +57,8 @@ export default {
             userName: "",
             docId: "",
             tags: [],
-            createTime: new Date()
-
+            createTime: new Date(),
+            thumbId: ""
         }
     },
     components: {
@@ -66,6 +66,15 @@ export default {
     },
     mounted() {
         this.init()
+    },
+    filters: {
+        imgSrc(value) {
+            if(value === "" || value == null) {
+                return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
+            } else {
+                return "http://81.69.247.172:8082/files/image2/" + value;
+            }
+        }
     },
     methods: {
         init() {
@@ -78,6 +87,7 @@ export default {
                 this.title = response.data.title;
                 this.userName = response.data.userName;
                 this.tags = response.data.tagVOList;
+                this.thumbId = response.data.thumbId;
                 var docTime = response.data.createTime;
                 this.createTime = parseTime(new Date(docTime), '{y}年{m}月{d}日 {h}:{i}:{s}');
             })
