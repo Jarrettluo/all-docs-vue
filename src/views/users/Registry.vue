@@ -44,7 +44,7 @@ export default {
                     if (response.data == null) {
                         this.$Message.error('注册失败，请重试！');
                     } else {
-                        console.log(response.data)
+
                         this.$router.push({
                             path:'/login',
                             query:{

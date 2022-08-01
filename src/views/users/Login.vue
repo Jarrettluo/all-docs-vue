@@ -39,6 +39,12 @@ export default {
                     } else {
                         console.log(response.data)
                         localStorage.setItem("token", response.data)
+                        this.$router.push({
+                            path:'/',
+                            query:{
+                                userName: this.userName
+                            }
+                        })
                     }
                 }
             )
