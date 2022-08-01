@@ -3,9 +3,9 @@
         <div class="login-wrapper">
             <div class="header">登    录</div>
             <div class="form-wrapper">
-                <input type="text" name="username" placeholder="用户名" class="input-item">
-                <input type="password" name="password" placeholder="密码" class="input-item">
-                <div class="btn">登录</div>
+                <input type="text" v-model="username" name="username" placeholder="用户名" class="input-item">
+                <input type="password" v-model="pwd" name="password" placeholder="密码" class="input-item">
+                <div class="btn" @click="login">登录</div>
             </div>
             <div class="msg">
                 还没有账号？
@@ -17,12 +17,31 @@
 </template>
 
 <script>
-
+import UserRequest from '@/api/user'
 export default {
     name: "login",
     data() {
         return {
-
+            username: "",
+            pwd: "",
+        }
+    },
+    methods: {
+        login() {
+            let params = {
+                "username": this.username,
+                "password": this.pwd
+            }
+            UserRequest.postUserLogin(params).then(
+                response => {
+                    if (response.data == null) {
+                        this.$Message.error('登录失败，请重试！');
+                    } else {
+                        console.log(response.data)
+                        localStorage.setItem("token", response.data)
+                    }
+                }
+            )
         }
     }
 }
@@ -72,6 +91,7 @@ export default {
         margin-top: 40px;
         background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
         color: #fff;
+        cursor: pointer;
     }
     .msg {
         text-align: center;

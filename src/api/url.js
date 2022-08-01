@@ -19,6 +19,7 @@ const COLLECT_REMOVE_URL = '/collect/remove'; // 收藏减少
 
 const USER_ADD_URL = '/user/insert'; // 用户增加
 const USER_REMOVE_URL = '/user/deleteByID'; // 用户删除
+const USER_LOGIN_URL = '/user/login'; // 用户登录
 
 const COMMENT_ADD_URL = '/comment/insert'; // 评论增加
 const COMMENT_LIST_URL = '/comment/list'; // 评论列表
@@ -49,6 +50,7 @@ module.exports = {
 
     USER_ADD_URL,
     USER_REMOVE_URL,
+    USER_LOGIN_URL,
 
     COMMENT_ADD_URL,
     COMMENT_LIST_URL,
