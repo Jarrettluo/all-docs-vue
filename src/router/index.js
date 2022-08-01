@@ -18,6 +18,20 @@ const routes = [
     component: Home
   },
   {
+    path: "/login",
+    name: "Login",
+    component: function () {
+      return import("../views/users/Login")
+    }
+  },
+  {
+    path: "/registry",
+    name: "Registry",
+    component: function () {
+      return import("../views/users/Registry")
+    }
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
