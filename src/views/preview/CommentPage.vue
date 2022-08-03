@@ -7,7 +7,7 @@
         <div class="comment-body">
             <div class="comment-title">
                 <span>全部评论  </span>
-                <span class="comment-num">{{num}}</span>
+                <span class="comment-num">{{ comments.length }}</span>
             </div>
             <div class="comment-item" v-for="item in comments">
                 <div class="comment-item-logo">
@@ -18,10 +18,10 @@
                         {{ item.userName }}
                     </div>
                     <div class="comment-item-content">
-                        {{ item.content}}
+                        {{ item.content }}
                     </div>
                     <div class="comment-item-time">
-                        {{item.createTime | transferTime }}
+                        {{ item.createDate | transferTime }}
                     </div>
                 </div>
             </div>
@@ -41,7 +41,8 @@ export default {
         return {
             content: "",
             num: 22,
-            comments: [
+            comments: [],
+            comments1: [
                 {
                     src: "abc",
                     id: 123,
@@ -88,6 +89,9 @@ export default {
             }
             CommentRequest.getListData(params).then(response => {
                 console.log(response)
+                if(response.code == 200) {
+                    this.comments = response.data
+                }
             })
         },
         postComment() {
@@ -109,12 +113,17 @@ export default {
             }
             CommentRequest.postData(data).then(response => {
                 console.log(response)
-                this.init()
-                this.$Notice.info({
-                    title: '通知信息',
-                    desc: '评论添加成功！'
-                });
+                if(response.code == 200 ) {
+                    this.init()
+                    this.$Notice.info({
+                        title: '通知信息',
+                        desc: '评论添加成功！'
+                    });
+                } else {
+                    this.$Message.error('出了点问题，稍后再试！');
+                }
                 this.content = ''
+
             })
         }
     }
