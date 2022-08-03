@@ -38,7 +38,9 @@ export default {
                         this.$Message.error('登录失败，请重试！');
                     } else {
                         console.log(response.data)
-                        localStorage.setItem("token", response.data)
+                        localStorage.setItem("token", response.data.token)
+                        localStorage.setItem("id", response.data.userId)
+                        localStorage.setItem("username", this.username)
                         this.$router.push({
                             path:'/',
                             query:{

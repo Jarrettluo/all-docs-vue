@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import CollectRequest from '@/api/collect'
+
 export default {
     name: "docOperation",
     data() {
@@ -45,6 +47,30 @@ export default {
             if (item.index == 3) {
                 console.log(item)
                 window.open("http://81.69.247.172:8082/files/view/" + this.docId, "_blank");
+            }
+            if (item.index == 1 || item.index == 2) {
+
+                if( !localStorage.getItem('token')) {
+                    this.$Message.error('跳转到登录页面，请先登录！');
+                    this.$router.push({
+                        path:'/login',
+                        query:{
+                            userName: this.userName
+                        }
+                    })
+                }
+
+                let params = {
+                    docId: this.docId
+                }
+                CollectRequest.postData(params).then(res => {
+                    this.$Notice.info({
+                        title: '通知信息',
+                        desc: '收藏点赞成功！'
+                    });
+                }).catch( res => {
+                    console.log(res)
+                })
             }
         }
     }

@@ -23,6 +23,11 @@ instance.interceptors.request.use(config => {
     //   config.headers.token = store.state.app.token;
     //   config.headers.timestamp = new Date().getTime();
     // }
+    if(localStorage.getItem("token")) {
+        config.headers.token = localStorage.getItem("token");
+        config.headers.id = localStorage.getItem("id")
+        config.headers.username = localStorage.getItem("username")
+    }
     return config;
 }, error => {
     return Promise.reject(error);

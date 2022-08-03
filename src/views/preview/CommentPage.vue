@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Input v-model="value1" type="textarea" :rows="8" placeholder="留下只言片语" />
+        <Input v-model="content" type="textarea" :rows="8" placeholder="留下只言片语" />
         <div class="comment-btn">
             <Button @click="postComment">发送评论</Button>
         </div>
@@ -39,7 +39,7 @@ export default {
     name: "CommentPage",
     data() {
         return {
-            value1: "",
+            content: "",
             num: 22,
             comments: [
                 {
@@ -63,7 +63,8 @@ export default {
                     content: "写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好！",
                     createTime: new Date(),
                 }
-            ]
+            ],
+            docId: this.$route.query.docId,
         }
     },
     filters: {
@@ -79,17 +80,42 @@ export default {
          * 查询该篇文章的全部评论信息
          */
         init() {
-            let docId = this.$route.query.docId;
-            var params = {
-                docId: docId,
-                createUser: 1,
+            if(this.docId == "") {
+                return;
+            }
+            let params = {
+                docId: this.docId
             }
             CommentRequest.getListData(params).then(response => {
                 console.log(response)
             })
         },
         postComment() {
-            console.log("====")
+            if(this.content == "" || this.docId == "") {
+                return;
+            }
+            let data = {
+                content: this.content,
+                docId: this.docId,
+            }
+            if(localStorage.getItem('token') == "") {
+                this.$Message.error('跳转到登录页面，请先登录！');
+                this.$router.push({
+                    path:'/login',
+                    query:{
+                        userName: this.userName
+                    }
+                })
+            }
+            CommentRequest.postData(data).then(response => {
+                console.log(response)
+                this.init()
+                this.$Notice.info({
+                    title: '通知信息',
+                    desc: '评论添加成功！'
+                });
+                this.content = ''
+            })
         }
     }
 }
