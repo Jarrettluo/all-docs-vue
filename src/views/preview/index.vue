@@ -116,8 +116,7 @@ export default {
         .title-info {
             height: 185px;
             width: 1200px;
-            //background-color: red;
-            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+            box-shadow: 0px 0px 5px 0px rgba(64,64,64,0.3000);
             border-radius: 8px;
             background-color: #fffeff;
             padding: 36px;
@@ -136,21 +135,23 @@ export default {
                 padding: 0 10px;
                 text-align: left;
                 .doc-info-title {
-                    font-size: 18px;
-                    font-weight: bold;
-                    line-height: 40px;
-                    height: 40px;
-                    //background-color: #42b983;
+                    font-size: 24px;
+                    font-family: PingFangSC-Semibold, PingFang SC;
+                    font-weight: 600;
+                    color: #000000;
+                    line-height: 33px;
                 }
                 .doc-info-tag {
                     height: 40px;
                     line-height: 40px;
                 }
                 .doc-info-detail {
-                    //font-weight: bold;
-                    font-size: 14px;
                     height: 40px;
-                    line-height: 40px;
+                    font-size: 14px;
+                    font-family: PingFangSC-Regular, PingFang SC;
+                    font-weight: 400;
+                    color: #000000;
+                    line-height: 20px;
                 }
 
             }
@@ -160,7 +161,7 @@ export default {
             overflow-y: auto;
             height: 100vh;
             padding: 10px 0;
-            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+            box-shadow: 0px 0px 5px 0px rgba(64,64,64,0.3000);
             border-radius: 8px;
             background-color: #fffeff;
         }
@@ -168,7 +169,7 @@ export default {
             height: 200px;
             //line-height: 200px;
             text-align: center;
-            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+            box-shadow: 0px 0px 5px 0px rgba(64,64,64,0.3000);
             border-radius: 8px;
             background-color: #fffeff;
         }
@@ -179,7 +180,7 @@ export default {
             background-color: #42b983;
             min-height: 120px;
 
-            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+            box-shadow: 0px 0px 5px 0px rgba(64,64,64,0.3000);
             border-radius: 8px;
             background-color: #fffeff;
 

@@ -1,9 +1,13 @@
 <template>
     <div>
         <Input v-model="value1" type="textarea" :rows="8" placeholder="留下只言片语" />
+        <div class="comment-btn">
+            <Button @click="postComment">发送评论</Button>
+        </div>
         <div class="comment-body">
             <div class="comment-title">
-                <span>全部评论 {{num}}</span>
+                <span>全部评论  </span>
+                <span class="comment-num">{{num}}</span>
             </div>
             <div class="comment-item" v-for="item in comments">
                 <div class="comment-item-logo">
@@ -83,6 +87,9 @@ export default {
             CommentRequest.getListData(params).then(response => {
                 console.log(response)
             })
+        },
+        postComment() {
+            console.log("====")
         }
     }
 }
@@ -93,12 +100,19 @@ export default {
         padding: 20px 40px;
         text-align: left;
         .comment-title {
-            line-height: 40px;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 14px;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: 500;
+            color: #000000;
+            line-height: 20px;
+            .comment-num {
+                font-weight: 400;
+                color: #858585;
+                line-height: 20px;
+            }
         }
         .comment-item {
-            border-bottom: 1px solid #d7d9de;
+            border-bottom: 1px solid #EAEAEA;
             padding: 20px 10px;
             display: flex;
             //justify-content: left;
@@ -131,5 +145,30 @@ export default {
                 }
             }
         }
+    }
+    .comment-btn {
+        text-align: right;
+        padding: 10px 0px;
+    }
+    .ivu-btn {
+        width: 95px;
+        height: 30px;
+        background: #FFF7D6;
+        box-shadow: 0px 0px 10px 0px rgba(129,100,0,0.3000);
+        border-radius: 8px;
+        border: 2px solid #000000;
+
+        font-size: 14px;
+        font-family: PingFangSC-Semibold, PingFang SC;
+        font-weight: 600;
+        color: #000000;
+        line-height: 20px;
+
+    }
+
+    .ivu-btn:hover {
+        background-color: #fcf3d2;
+        color: rgba(129,100,0,0.3000);
+        border-color: rgba(129,100,0,0.3000);
     }
 </style>

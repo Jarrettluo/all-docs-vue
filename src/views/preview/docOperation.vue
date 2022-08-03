@@ -4,7 +4,7 @@
             <div class="item-logo">
                 <img :src="item.src" :alt="item.src">
             </div>
-            <div>
+            <div class="operation-title">
                 {{ item.name }}
             </div>
         </div>
@@ -63,11 +63,12 @@ export default {
     .item {
         width: 120px;
         height: 120px;
-        background-color: #ffcc4e;
         border-radius: 120px;
         margin: auto;
-        border: 2px #1b0d01 solid;
         position: relative;
+
+        background: #FACF36;
+        border: 2px solid #000000;
     }
     .item:hover {
         background-color: #f1db77;
@@ -75,15 +76,26 @@ export default {
         border: 2px #2d2c2b solid;
     }
 
+    .operation-title {
+        font-size: 14px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: #000000;
+        line-height: 20px;
+    }
+
     .item-logo {
         height: 80px;
-        /*display: inline-block;*/
-        /*position: absolute;*/
-        /*width: 120px;*/
-        /*left: 0;*/
-        /*top: 0;*/
         line-height: 80px;
-        padding-top: 10px;
+        width: 120px;
+    }
+    .item-logo img {
+        position:absolute;
+        top:40%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        -webkit-transform:translate(-50%,-50%);
+        -moz-transform:translate(-50%,-50%);
     }
     img {
         /*width: 48px;*/
