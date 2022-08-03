@@ -2,6 +2,7 @@ import {
     USER_ADD_URL,
     USER_REMOVE_URL,
     USER_LOGIN_URL,
+    ALL_USER_URL
 } from './url'
 
 import { Get,Post,Put,Delete } from "@/api/request";
@@ -18,6 +19,10 @@ export default {
 
     postUserLogin: (data) => {
         return Post(USER_LOGIN_URL, data);
+    },
+
+    getUserList: (params) => {
+        return Get(ALL_USER_URL, params);
     },
 }
 

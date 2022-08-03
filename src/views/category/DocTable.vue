@@ -260,7 +260,7 @@ export default {
 }
 
 .table-container {
-    background-color: red;
+    /*background-color: red;*/
 }
 
 .page-container {
