@@ -22,10 +22,10 @@ const USER_REMOVE_URL = '/user/deleteByID'; // 用户删除
 const USER_LOGIN_URL = '/user/login'; // 用户登录
 const ALL_USER_URL = '/user/allUsers'; // 全部用户信息
 
-const COMMENT_ADD_URL = '/comment/insert'; // 评论增加
+const COMMENT_ADD_URL = '/comment/auth/insert'; // 评论增加
 const COMMENT_LIST_URL = '/comment/list'; // 评论列表
-const COMMENT_REMOVE_URL = '/comment/remove'; // 评论删除
-const COMMENT_UPDATE_URL = '/comment/update'; // 评论更新
+const COMMENT_REMOVE_URL = '/comment/auth/remove'; // 评论删除
+const COMMENT_UPDATE_URL = '/comment/auth/update'; // 评论更新
 
 const STATS_TREND_URL = '/statistics/trend'; //
 const STATS_ALL_URL = '/statistics/all';

@@ -24,7 +24,7 @@ instance.interceptors.request.use(config => {
     //   config.headers.timestamp = new Date().getTime();
     // }
     if(localStorage.getItem("token")) {
-        config.headers.token = localStorage.getItem("token");
+        config.headers.authorization = localStorage.getItem("token");
         config.headers.id = localStorage.getItem("id")
         config.headers.username = localStorage.getItem("username")
     }
