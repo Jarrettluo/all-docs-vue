@@ -203,15 +203,20 @@ export default {
             const params = {
                 "categoryId": categoryId,
                 "filterWord": filterWord,
-                "page": this.currentPage,
+                "page": this.currentPage-1,
                 "rows": this.pageSize,
                 "tagId": categoryId,
                 "type": this.currentType
             }
-            DocumentRequest.getListData(params).then(response => {
-                this.data = response.data
+            DocumentRequest.getListData(params).then(res => {
+                if(res.code == 200) {
+                    this.data = res.data.documents;
+                    this.totalItems = res.data.totalNum;
+                } else {
+                    this.data = []
+                    // this.$Message.error('请稍后重试！');
+                }
                 this.listLoading = false
-                console.log(this.data)
                 if(this.data == null) {
                     this.data = []
                 }

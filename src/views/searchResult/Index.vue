@@ -7,10 +7,7 @@
             <div style="background-color: #fff">
                 <SearchInput ref="searchInput" @on-search="getListData"></SearchInput>
             </div>
-
-<!--            <SearchItem class="doc-item"></SearchItem>-->
-<!--            <DocItem></DocItem>-->
-            <SearchItem v-for="item in data"
+            <SearchItem v-for="item in data.slice((currentPage-1)*pageSize, (currentPage)*pageSize)"
                         :id = "item.id"
                         :thumbId = "item.thumbId"
                         :title="item.title"
@@ -59,8 +56,8 @@ export default {
         return {
             data: [],
             currentPage: 1,
-            totalItems: 100,
-            pageSize: 10,
+            totalItems: 4,
+            pageSize: 4,
         }
     },
     components: {
@@ -81,10 +78,12 @@ export default {
                 "tagId": "",
                 "type": "FILTER"
             }
-            DocumentRequest.getListData(params).then(response => {
-                this.data = response.data
+            DocumentRequest.getListData(params).then(res => {
+                if(res.code == 200) {
+                    this.totalItems = res.data.totalNum;
+                    this.data = res.data.documents;
+                }
                 this.listLoading = false
-                console.log(this.data)
                 if(this.data == null || this.data.length == 0) {
                     this.info(false)
                 }

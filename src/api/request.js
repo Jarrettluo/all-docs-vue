@@ -1,9 +1,9 @@
 import axios from 'axios'
-// import Vue from 'vue';
+import Vue from 'vue';
 // import store from '../store';
-// import {router} from '../router/index';
+import router from '../router/index';
 
-// let vm = new Vue();
+let vm = new Vue();
 
 const instance = axios.create({
     baseURL: 'http://81.69.247.172:8082',
@@ -38,31 +38,40 @@ instance.interceptors.response.use(response => {
     const resCode = response.status;
     if (resCode === 200) {
       return Promise.resolve(response);
+    } else if (resCode === 401) {
+        // this.$route().push()
+
+        return Promise.reject(response);
     } else {
-      return Promise.reject(response);
+        return Promise.reject(response);
     }
+
 }, error => {
-    // const resCode = error.response.status;
-    // switch (resCode) {
-    //   case 401:
-    //     vm.$Message.error(error.response.data.message);
-    //     store.commit('logout', this);
-    //     store.commit('clearOpenedSubmenu');
-    //     // console.log('token-0', store.state.app.token);
-    //     router.replace({
-    //       name: 'login'
-    //     });
-    //     break;
-    //   case 404:
-    //     vm.$Message.error('网络请求不存在');
-    //     break;
-    //   case 500:
-    //     vm.$Message.error('服务器连接错误');
-    //     break;
-    //   // 其他状态码错误提示
-    //   default:
-    //     vm.$Message.error(error.response.data.message);
-    // }
+    const resCode = error.response.status;
+    console.log("+****")
+    console.log(resCode)
+    switch (resCode) {
+        case 401:
+            vm.$Notice.error({
+                title: '权限不足',
+                desc: '你没有登录，或者权限不足，请登录！'
+            });
+            setTimeout(() => {
+                router.replace({
+                    name: 'Login'
+                });
+            }, 3000)
+            break;
+        case 404:
+            vm.$Message.error('网络请求不存在');
+            break;
+        case 500:
+            vm.$Message.error('服务器连接错误');
+            break;
+      // 其他状态码错误提示
+        default:
+            vm.$Message.error(error.response.data.message);
+    }
     return Promise.reject(error);
 })
 
