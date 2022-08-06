@@ -48,7 +48,6 @@ export default {
         category: {
             // 监听数据发生变化的处理函数
             handler(newV, oldValue) {
-                console.log(newV)
                 this.localCate = JSON.parse(JSON.stringify(newV));//将监听到修改的值赋予到dataAttrs中
             },
             immediate: true,
@@ -64,7 +63,7 @@ export default {
             this.$router.push({
                 path:'/admin/category',
                 query:{
-                    categoryId: value
+                    cateId: value
                 }
             })
         },

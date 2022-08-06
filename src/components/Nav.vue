@@ -1,7 +1,7 @@
 <template>
     <div class="nav-container">
         <div class="nav-logo" @click="$router.push('/')">
-            All documents
+            All Docs
         </div>
         <div class="nav-setting">
             <Button type="text" @click="$router.push('/admin/newDocument')">
@@ -31,7 +31,7 @@ export default {
     width: 100%;
     height: 50px;
     line-height: 50px;
-    background-color: rgba(232, 208, 95, 100);
+    background-color: #f4d057;
     color: rgba(208, 164, 1, 100);
     font-family: Roboto;
 
@@ -42,10 +42,15 @@ export default {
     color: rgba(87, 77, 24, 100);
     font-size: 28px;
     text-align: left;
-    font-family: PMZDBiaoTi-regular;
-    width: 200px;
+    /*width: 200px;*/
     float: left;
     cursor: pointer;
+
+    font-family: Helvetica-Bold, Helvetica;
+    font-weight: bold;
+    color: #000000;
+
+    padding-left: 2%;
 }
 
 .nav-setting {

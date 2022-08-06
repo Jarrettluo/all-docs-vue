@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div ref="categoryItem" style="height: 100%;" >
         <div class="title">
             <p>
                 <Icon type="logo-buffer" />
@@ -9,13 +9,15 @@
         <Table
             context-menu
             show-context-menu
-            highlight-row ref="currentRowTable"
+            highlight-row
+            ref="currentRowTable"
             :columns="columns"
             :data="listData"
             @on-contextmenu="handleContextMenu"
             :show-header="false"
             @on-row-click="changeCategoryValue"
-            highlight-row
+            :height=tableHeight
+            @on-current-change="handleCurrentChange"
         >
             <template #contextMenu>
                 <div class="ivu-dropdown-item" @click="handleContextMenuAdd">增加一条记录</div>
@@ -68,6 +70,10 @@ export default {
             modal1: false,
             isEditState: false,
             editValue: "",
+            tableHeight: 260,
+
+            currentCatId: this.$route.query.cateId,
+            currentCatIndex: 0
         }
     },
     props: {
@@ -77,7 +83,15 @@ export default {
     created() {
         this.getAllItems()
     },
+    computed: {
+    },
+    mounted() {
+        this.calcTableHeight();
+    },
     methods: {
+        calcTableHeight() {
+          this.tableHeight = this.$refs.categoryItem.clientHeight - 51;
+        },
         handleClearCurrentRow () {
             this.$refs.currentRowTable.clearCurrentRow();
         },
@@ -104,7 +118,17 @@ export default {
             CategoryRequest.getListData(params).then(response => {
                 this.listData = response.data
                 this.listLoading = false
-                this.changeCategoryValue(this.listData[0])
+                if( this.currentCatId == null) {
+                    let firstCate = this.listData[this.currentCatIndex]
+                    this.currentCatId = firstCate.id
+                    this.changeCategoryValue(firstCate)
+                } else {
+                    this.$nextTick(() => {
+                        this.$emit("categoryChange", this.currentCatId)
+                    })
+                }
+                this.setCurrentItem()
+
             })
         },
         /**
@@ -114,6 +138,8 @@ export default {
         changeCategoryValue(data) {
             if( JSON.stringify(data) !== '{}' && data.id !== undefined) {
                 this.$emit("categoryChange", data['id'])
+                this.currentCatId = data.id
+                this.setCurrentItem()
             }
         },
         handleRender(isEdit) {
@@ -161,8 +187,22 @@ export default {
                 "type": this.categoryType
             };
             CategoryRequest.deleteData(params).then(response => {
-                console.log(response);
                 this.getAllItems();
+            })
+        },
+
+        handleCurrentChange(currentRow, oldCurrentRow) {
+        },
+        // 设置高亮
+        setCurrentItem() {
+            for(let i = 0; i < this.listData.length; i ++) {
+                if(this.listData[i].id == this.currentCatId) {
+                    this.currentCatIndex = i;
+                }
+            }
+            let index = this.currentCatIndex | 0
+            this.$nextTick(() => {
+                this.$refs.currentRowTable.highlightCurrentRow(index)
             })
         }
 
