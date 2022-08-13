@@ -18,7 +18,7 @@ const COLLECT_ADD_URL = '/collect/auth/insert'; // 收藏增加
 const COLLECT_REMOVE_URL = '/collect/auth/remove'; // 收藏减少
 
 const USER_ADD_URL = '/user/insert'; // 用户增加
-const USER_REMOVE_URL = '/user/deleteByID'; // 用户删除
+const USER_REMOVE_URL = '/user/auth/deleteByID'; // 用户删除
 const USER_LOGIN_URL = '/user/login'; // 用户登录
 const ALL_USER_URL = '/user/allUsers'; // 全部用户信息
 

@@ -79,8 +79,12 @@ export default {
             }
             CategoryRequest.postRelateData(params).then(
                 response => {
-                    console.log(response.data)
-                    this.handleChange(cateId)
+                    if(response.code == 200) {
+                        console.log(response.data)
+                        this.handleChange(cateId)
+                    } else {
+                        this.$Message.info("错误：" + response.message)
+                    }
                 }
             )
         },
