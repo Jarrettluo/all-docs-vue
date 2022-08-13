@@ -23,6 +23,7 @@ export default {
             pdf_pages:[],
             pdf_div_width:'',
             pdf_src:null,
+            loading: false,
         }
     },
     mounted(){
@@ -51,7 +52,7 @@ export default {
             this._loadFile(this.pdf_src)
         },
         get_pdfurl(){  //获得pdf教案
-
+            this.loading = true
             let docId = this.$route.query.docId;
 
             //加载本地
@@ -117,6 +118,8 @@ export default {
                         this._renderPage(num + 1)
                     }
                 })
+
+            this.loading = false
         },
     }
 }

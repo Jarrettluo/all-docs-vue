@@ -25,7 +25,9 @@
                 </div>
             </div>
             <div class="doc-preview">
-                <PdfView></PdfView>
+<!--                <PdfView></PdfView>-->
+                <component :is="component"
+                           v-if="component" />
             </div>
             <div class="doc-operation-body">
                 <doc-operation />
@@ -40,7 +42,9 @@
 </template>
 
 <script>
-import PdfView from "./index2"
+// import PdfView from "./PngView"
+
+
 
 import Nav from "@/components/Nav"
 import DocRequest from "@/api/document"
@@ -58,11 +62,12 @@ export default {
             docId: "",
             tags: [],
             createTime: new Date(),
-            thumbId: ""
+            thumbId: "",
+            component: null,
         }
     },
     components: {
-        PdfView, Nav, DocOperation, CommentPage
+        Nav, DocOperation, CommentPage
     },
     mounted() {
         this.init()
@@ -83,13 +88,35 @@ export default {
                 docId: docId
             }
             DocRequest.getData(params).then(response => {
-                console.log(response)
+                // console.log(response)
                 this.title = response.data.title;
                 this.userName = response.data.userName;
                 this.tags = response.data.tagVOList;
                 this.thumbId = response.data.thumbId;
                 var docTime = response.data.createTime;
                 this.createTime = parseTime(new Date(docTime), '{y}年{m}月{d}日 {h}:{i}:{s}');
+
+                if(response.code == 200) {
+                    let title = response.data.title
+                    let suffix = title.split(".")[title.split('.').length - 1];
+                    switch (suffix) {
+                        case 'pdf':
+                            this.component = () => import('@/views/preview/index2')
+                            break
+                        case 'png':
+                        case 'jpg':
+                        case 'jpeg':
+                            this.component = () => import('@/views/preview/PngView')
+                            break
+                        case 'html':
+                        case 'txt':
+                            this.component = () => import('@/views/preview/HtmlView')
+                            break
+                        default:
+                            this.component = () => import('@/views/preview/ErrorView')
+                            break
+                    }
+                }
             })
         }
     }
