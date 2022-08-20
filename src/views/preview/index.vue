@@ -112,9 +112,12 @@ export default {
                         case 'txt':
                             this.component = () => import('@/views/preview/HtmlView')
                             break
-                        case 'doc':
                         case 'docx':
+                        case 'doc':
                             this.component = () => import('@/views/preview/WordView3')
+                            break
+                        case 'pptx':
+                            this.component = () => import('@/views/preview/PPTxView')
                             break
                         default:
                             this.component = () => import('@/views/preview/ErrorView')

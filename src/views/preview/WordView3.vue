@@ -1,6 +1,6 @@
 <template>
     <div class="home1">
-        不支持预览doc，只能预览docx哦
+<!--        不支持预览doc，只能预览docx哦-->
         <div ref="file"></div>
     </div>
 </template>
@@ -28,11 +28,11 @@ export default {
         let docId = this.$route.query.docId;
 
         // let wordURL = 'http://81.69.247.172:8082/files/view/' + docId
-        // let wordURL = 'http://localhost:8080/myWord.docx'
-        // let wordURL = 'http://localhost:8080/设计报告.docx'
-        let wordURL = 'http://localhost:8080/d51e5ec3-6ec7-4df0-9152-d909121d22d4.doc'
-        console.log(wordURL)
-        let that = this;
+        // let wordURL = 'http://81.69.247.172/myWord.docx'
+        let wordURL = 'http://localhost:8080/设计报告.docx'
+        // let wordURL = 'http://localhost:8080/d51e5ec3-6ec7-4df0-9152-d909121d22d4.doc'
+        // console.log(wordURL)
+        // let that = this;
         axios({
             method: 'get',
             responseType: 'blob', // 设置响应文件格式
@@ -40,7 +40,7 @@ export default {
             url: wordURL,
         }).then(res => {
             console.log(res)
-            that.result = res
+            // that.result = res
             // res.data.type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             // const blob = new Blob([res.data], { type: "application/msword" });
 
