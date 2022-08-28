@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "docx-preview": "^0.1.4",
+    "iview": "^3.5.4",
     "jszip": "^3.10.1",
     "mammoth": "^1.4.21",
     "pdfjs-dist": "^2.3.200",

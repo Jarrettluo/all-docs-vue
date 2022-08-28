@@ -38,7 +38,13 @@ module.exports = {
 
         // 为预处理器的 loader 传递自定义选项。比如传递给
         // sass-loader 时，使用 `{ sass: { ... } }`。
-        loaderOptions: {},
+        loaderOptions: {
+            less: {
+                lessOptions: {
+                    javascriptEnabled: true
+                }
+            }
+        },
 
         // 为所有的 CSS 及其预处理文件开启 CSS Modules。
         // 这个选项不会影响 `*.vue` 文件。

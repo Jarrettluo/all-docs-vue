@@ -8,7 +8,10 @@ import 'view-design/dist/styles/iview.css';
 
 import Api from './api/index';
 
-// import '../theme/my-theme.less'
+import iView from 'iview';
+Vue.use(iView);
+
+import '../theme/my-theme.less'
 
 Vue.use(VueRouter);
 Vue.use(ViewUI);

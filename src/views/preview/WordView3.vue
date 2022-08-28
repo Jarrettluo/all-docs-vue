@@ -27,9 +27,9 @@ export default {
 
         let docId = this.$route.query.docId;
 
-        // let wordURL = 'http://81.69.247.172:8082/files/view/' + docId
+        let wordURL = 'http://81.69.247.172:8082/files/view/' + docId
         // let wordURL = 'http://81.69.247.172/myWord.docx'
-        let wordURL = 'http://localhost:8080/设计报告.docx'
+        // let wordURL = 'http://localhost:8080/设计报告.docx'
         // let wordURL = 'http://localhost:8080/d51e5ec3-6ec7-4df0-9152-d909121d22d4.doc'
         // console.log(wordURL)
         // let that = this;
