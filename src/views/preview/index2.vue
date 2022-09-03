@@ -1,5 +1,12 @@
 <template>
     <div class="home_wrap">
+        <div v-show="view_flag" style="padding: 400px; color: #ffcc4f;">
+            <div class="demo-spin-icon-load" >
+                <Icon type="md-refresh" style="font-size: 48px;"/>
+            </div>
+            <div style='font-size:16px' >加载中...</div>
+        </div>
+
 
         <div class="pdf_down" >
             <div class="pdf_set_left"  @click="scaleD()">放大</div>
@@ -24,11 +31,16 @@ export default {
             pdf_div_width:'',
             pdf_src:null,
             loading: false,
+
+            view_flag: true,
+
+            docId: this.$route.query.docId,
         }
     },
     mounted(){
         this.get_pdfurl()
     },
+
     methods:{
         scaleD() {  //放大
             let max = 0
@@ -53,7 +65,7 @@ export default {
         },
         get_pdfurl(){  //获得pdf教案
             this.loading = true
-            let docId = this.$route.query.docId;
+            let docId = this.docId
 
             //加载本地
             //  this.pdf_src = 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
@@ -119,7 +131,7 @@ export default {
                     }
                 })
 
-            this.loading = false
+            this.view_flag = false
         },
     }
 }
@@ -157,5 +169,26 @@ export default {
             cursor: pointer;
         }
     }
+}
+
+/* 旋转效果 */
+.demo-spin-icon-load{
+    animation: ani-demo-spin 1s linear infinite;
+}
+@keyframes ani-demo-spin {
+    from { transform: rotate(0deg);}
+    50% { transform: rotate(180deg);}
+    to { transform: rotate(360deg);}
+}
+/* 遮罩 */
+/* 假如内容过长，一屏放不下，滚动条下拉覆盖不全 */
+.ivu-spin-fix {
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 8;
+    width: 100%;
+    height:100%;
+    background-color: hsla(0,0%,100%,.8);
 }
 </style>
