@@ -133,7 +133,7 @@ export default {
 
 <style lang="scss" scoped>
     .nav {
-        background-color: #ffcc4f;
+        background-color: #f4d057;
         width: 100%;
         height: 50px;
         //position: absolute;

@@ -1,6 +1,6 @@
 <template>
     <div style="background-color: #fff">
-        <div class="nav" style="background-color: red; ">
+        <div class="nav">
             <Nav></Nav>
         </div>
         <div class="doc-group" style="display: inline-block">
@@ -86,6 +86,8 @@ export default {
                 if(res.code == 200) {
                     this.totalItems = res.data.totalNum;
                     this.data = res.data.documents;
+                } else {
+                    this.data = []
                 }
                 this.listLoading = false
                 if(this.data == null || this.data.length == 0) {
@@ -102,7 +104,7 @@ export default {
 
         pageChange(page) {
             this.currentPage = page
-            this.getListData()
+            // this.getListData()
         }
 
     }
