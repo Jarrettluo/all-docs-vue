@@ -34,8 +34,12 @@ export default {
     background-color: #f4d057;
     color: rgba(208, 164, 1, 100);
     font-family: Roboto;
-
     float: left;
+
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    z-index: 999;
 }
 .nav-logo {
     line-height: 50px;
@@ -48,7 +52,8 @@ export default {
 
     font-family: Helvetica-Bold, Helvetica;
     font-weight: bold;
-    color: #000000;
+    color: #6c6025;
+    /*color: red;*/
 
     padding-left: 2%;
 }

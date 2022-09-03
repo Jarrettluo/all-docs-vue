@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div style="background-color: red; ">
+    <div style="background-color: #fff">
+        <div class="nav" style="background-color: red; ">
             <Nav></Nav>
         </div>
         <div class="doc-group" style="display: inline-block">
@@ -25,13 +25,17 @@
 <!--            :category="item.categoryVO.name"-->
 <!--            :tags = "item.tagVO"-->
 
-            <div class="page-container">
+            <div class="page-container" v-show="data.length > 0 ">
                 <Page
                     :model-value="currentPage"
                     :total="totalItems"
                     :page-size="pageSize"
                     @on-change="pageChange"
                 />
+            </div>
+
+            <div style="padding: 30px 10px; color: #555" v-show="data.length < 1">
+                <span>暂无内容，试试其他呢～</span>
             </div>
 
 
@@ -57,7 +61,7 @@ export default {
             data: [],
             currentPage: 1,
             totalItems: 4,
-            pageSize: 4,
+            pageSize: 6,
         }
     },
     components: {
@@ -73,7 +77,7 @@ export default {
             const params = {
                 "categoryId": "",
                 "filterWord": keyword,
-                "page": this.currentPage,
+                "page": this.currentPage - 1,
                 "rows": this.pageSize,
                 "tagId": "",
                 "type": "FILTER"
@@ -106,6 +110,12 @@ export default {
 </script>
 
 <style scoped>
+
+.nav {
+    background-color: #ffcc4f;
+    width: 100%;
+    height: 50px;
+}
 .doc-group {
     width: 1200px;
     /*position: absolute;*/
