@@ -51,20 +51,7 @@ export default {
                     className: 'demo-table-info-cell-name'
                 }
             ],
-            listData: [
-                {
-                    name: 'John Brown',
-                },
-                {
-                    name: 'Jim Green',
-                },
-                {
-                    name: 'Joe Black',
-                },
-                {
-                    name: 'Jon Snow',
-                }
-            ],
+            listData: [],
             contextLine: 0,
             currentItem: null,
             modal1: false,

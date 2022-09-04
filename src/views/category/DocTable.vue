@@ -113,36 +113,7 @@ export default {
                     align: 'center'
                 }
             ],
-            data: [
-                {
-                    name: 'John Brown',
-                    size: "120MB",
-                    category: "罗佳瑞的电子书",
-                    createUser: "罗佳瑞",
-                    createTime: "2022年1月12日 12：00：23"
-                },
-                {
-                    name: 'Jim Green',
-                    size: "120MB",
-                    category: "罗佳瑞的电子书",
-                    createUser: "罗佳瑞",
-                    createTime: "2022年1月12日 12：00：23"
-                },
-                {
-                    name: 'Joe Black',
-                    size: "120MB",
-                    category: "罗佳瑞的电子书",
-                    createUser: "罗佳瑞",
-                    createTime: "2022年1月12日 12：00：23"
-                },
-                {
-                    name: 'Jon Snow这个世界是怎么了啊啊啊啊.mp4',
-                    size: "120MB",
-                    category: "罗佳瑞的电子书",
-                    createUser: "罗佳瑞",
-                    createTime: "2022年1月12日 12：00：23"
-                }
-            ],
+            data: [],
             currentPage: 1,
             totalItems: 100,
             pageSize: 10,
@@ -274,7 +245,7 @@ export default {
 }
 
 .doc-title {
-    color: dodgerblue;
+    color: #8d7b25;
 }
 .doc-title:hover {
     cursor: pointer;

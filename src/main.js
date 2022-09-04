@@ -2,19 +2,15 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import router from './router/index.js';
-import ViewUI from 'view-design';
-import 'view-design/dist/styles/iview.css';
+import iView from 'view-design'
 
 
 import Api from './api/index';
 
-import iView from 'iview';
-Vue.use(iView);
-
 import '../theme/my-theme.less'
 
 Vue.use(VueRouter);
-Vue.use(ViewUI);
+Vue.use(iView);
 
 
 Vue.prototype.$axios = Api;
