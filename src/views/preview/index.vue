@@ -12,11 +12,8 @@
                     <div class="doc-info-title">
                         {{title}}
                     </div>
-                    <div class="doc-info-tag">
-                        <Tag color="lime">lime</Tag>
-                        <Tag color="green">green</Tag>
-                        <Tag color="cyan">cyan</Tag>
-                        <Tag color="blue">blue</Tag>
+                    <div class="doc-info-tag" v-for="item in tags" :index="item.index">
+                        <Tag :color="item.color">{{ item.name }}</Tag>
                     </div>
                     <div class="doc-info-detail">
                         {{ userName }} {{ createTime }}
@@ -64,6 +61,7 @@ export default {
             createTime: new Date(),
             thumbId: "",
             component: null,
+            tagColor: ['orange', 'gold', 'lime', 'cyan', 'blue', 'geekblue', 'magenta']
         }
     },
     components: {
@@ -88,15 +86,16 @@ export default {
                 docId: docId
             }
             DocRequest.getData(params).then(response => {
-                // console.log(response)
-                this.title = response.data.title;
-                this.userName = response.data.userName;
-                this.tags = response.data.tagVOList;
-                this.thumbId = response.data.thumbId;
-                var docTime = response.data.createTime;
-                this.createTime = parseTime(new Date(docTime), '{y}年{m}月{d}日 {h}:{i}:{s}');
-
                 if(response.code == 200) {
+                    this.title = response.data.title;
+                    this.userName = response.data.userName;
+                    this.thumbId = response.data.thumbId;
+                    var docTime = response.data.createTime;
+                    this.createTime = parseTime(new Date(docTime), '{y}年{m}月{d}日 {h}:{i}:{s}');
+
+                    let tagList = response.data['tagVOList'];
+                    this.tags = this.renderTags(tagList);
+
                     let title = response.data.title
                     let suffix = title.split(".")[title.split('.').length - 1];
                     switch (suffix) {
@@ -125,6 +124,14 @@ export default {
                     }
                 }
             })
+        },
+
+        renderTags(tags) {
+            tags.forEach((item, index) => {
+                item['index'] = index;
+                item['color'] = this.tagColor[parseInt(Math.random()*this.tagColor.length)];
+            })
+            return tags;
         }
     }
 

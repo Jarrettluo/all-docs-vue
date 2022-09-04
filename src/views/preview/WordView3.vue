@@ -39,7 +39,6 @@ export default {
             data: {},
             url: wordURL,
         }).then(res => {
-            console.log(res)
             // that.result = res
             // res.data.type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             // const blob = new Blob([res.data], { type: "application/msword" });

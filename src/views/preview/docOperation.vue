@@ -43,9 +43,7 @@ export default {
     },
     methods: {
         operate(item) {
-            console.log(item)
             if (item.index == 3) {
-                console.log(item)
                 window.open("http://81.69.247.172:8082/files/view/" + this.docId, "_blank");
             }
             if (item.index == 1 || item.index == 2) {

@@ -7,7 +7,7 @@
         <div class="comment-body">
             <div class="comment-title">
                 <span>全部评论  </span>
-                <span class="comment-num">{{ comments.length }}</span>
+                <span class="comment-num">{{ totalItems }}</span>
             </div>
             <div class="comment-item" v-for="item in comments">
                 <div class="comment-item-logo">
@@ -26,6 +26,14 @@
                     </div>
                 </div>
             </div>
+            <div class="paginator" v-if="totalItems > pageSize">
+                <Page
+                    :total="totalItems"
+                    :current="currentPage"
+                    :page-size="pageSize"
+                    @on-change="pageChange"
+                    size="small" />
+            </div>
         </div>
     </div>
 </template>
@@ -43,30 +51,12 @@ export default {
             inputValue: "",
             num: 22,
             comments: [],
-            comments1: [
-                {
-                    src: "abc",
-                    id: 123,
-                    userName: "luojiarui",
-                    content: "写的非常好！",
-                    createTime: new Date(),
-                },
-                {
-                    src: "abc",
-                    id: 123,
-                    userName: "luojiarui",
-                    content: "写的非常好！",
-                    createTime: new Date(),
-                },
-                {
-                    src: "abc",
-                    id: 123,
-                    userName: "luojiarui",
-                    content: "写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好写的非常好！",
-                    createTime: new Date(),
-                }
-            ],
             docId: this.$route.query.docId,
+
+            currentPage: 1,
+            totalItems: 4,
+            pageSize: 6,
+
         }
     },
     filters: {
@@ -123,12 +113,14 @@ export default {
                 return;
             }
             let params = {
-                docId: this.docId
+                "docId": this.docId,
+                "page": this.currentPage - 1,
+                "rows": this.pageSize,
             }
             CommentRequest.getListData(params).then(response => {
-                console.log(response)
                 if(response.code == 200) {
-                    this.comments = response.data.reverse()
+                    this.comments = response.data.comments;
+                    this.totalItems = response.data.totalNum;
                 }
             })
         },
@@ -150,7 +142,6 @@ export default {
                 })
             }
             CommentRequest.postData(data).then(response => {
-                console.log(response)
                 if(response.code == 200 ) {
                     this.init()
                     this.$Notice.info({
@@ -163,6 +154,10 @@ export default {
                 this.inputValue = ''
 
             })
+        },
+        pageChange(page) {
+            this.currentPage = page;
+            this.init();
         }
     }
 }
@@ -261,5 +256,9 @@ export default {
         background-color: #fcf3d2;
         color: rgba(129,100,0,0.3000);
         border-color: rgba(129,100,0,0.3000);
+    }
+
+    .paginator {
+        padding: 10px;
     }
 </style>
