@@ -57,7 +57,6 @@ export default {
             this.Msgcontextmenu(e);
         },
         Msgcontextmenu(event) {
-            console.log(event)
             // event.preventDefault();
             // this.$refs.contentMenu.$refs.reference = event.target;//在此dom附件弹出
             // console.log(this.$refs.contentMenu.$refs.reference);
@@ -71,7 +70,6 @@ export default {
                 this.listData = response.data
                 this.listLoading = false
                 // console.log(list)
-                console.log(this.listData)
                 this.changeCategoryValue(this.listData[0])
             })
         },
@@ -80,9 +78,8 @@ export default {
          * @param categoryValue
          */
         changeCategoryValue(data) {
-            console.log(data)
             if( JSON.stringify(data) !== '{}' && data.id !== undefined) {
-                console.log(data['id'])
+
                 this.$emit("categoryChange", data['id'])
             }
         }

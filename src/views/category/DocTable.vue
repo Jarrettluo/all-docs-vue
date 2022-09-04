@@ -197,7 +197,6 @@ export default {
         remove (index) {
             // this.data.splice(index, 1);
             this.$emit("removeDoc", this.data[index])
-            console.log(this.data[index])
         },
         getListData(categoryId, filterWord) {
             const params = {

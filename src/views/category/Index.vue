@@ -50,7 +50,6 @@ export default {
     },
     methods: {
         handleChange(cateId) {
-            console.log(cateId)
             this.cateId = cateId;
             this.$refs.docTable.getListData(cateId);
         },
@@ -80,7 +79,6 @@ export default {
             CategoryRequest.postRelateData(params).then(
                 response => {
                     if(response.code == 200) {
-                        console.log(response.data)
                         this.handleChange(cateId)
                     } else {
                         this.$Message.info("错误：" + response.message)
