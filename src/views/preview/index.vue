@@ -118,6 +118,9 @@ export default {
                         case 'pptx':
                             this.component = () => import('@/views/preview/PPTxView')
                             break
+                        case 'xlsx':
+                            this.component =() => import('@/views/preview/excel')
+                            break
                         default:
                             this.component = () => import('@/views/preview/ErrorView')
                             break
