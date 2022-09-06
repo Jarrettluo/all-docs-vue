@@ -18,6 +18,13 @@ const routes = [
     component: Home
   },
   {
+    path: "/new",
+    name: "New",
+    component: function () {
+      return import("../home/index")
+    }
+  },
+  {
     path: "/login",
     name: "Login",
     component: function () {
