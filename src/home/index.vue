@@ -41,12 +41,14 @@
                     <span>热门文档排行 🔥</span>
                 </div>
                 <div class="hot-trend">
-                    <div class="hot-first">
+                    <HotTrend></HotTrend>
 
-                    </div>
-                    <div class="hot-group">
+<!--                    <div class="hot-first">-->
 
-                    </div>
+<!--                    </div>-->
+<!--                    <div class="hot-group">-->
+
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -57,9 +59,12 @@
 import DocTag from '@/home/DocTag1';
 import DocThumb from '@/home/DocThumb'
 
+import HotTrend from '@/home/HotTrend'
+
 export default {
     name: "index.vue",
     components: {
+        HotTrend,
         DocTag,
         DocThumb
     }
