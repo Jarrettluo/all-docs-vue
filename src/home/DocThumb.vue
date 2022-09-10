@@ -1,12 +1,12 @@
 <template>
-    <div class="thumb-group">
+    <div class="thumb-group" :style="flag|styleByFlag">
         <div class="thumb-pic">
-            <img :src="wordURL" width="100%">
-            <DocTag type="word">
+            <img :src="wordURL" width="100%" height="99">
+            <DocTag :type="docTitle | filterType">
             </DocTag>
         </div>
-        <div class="thumb-title">
-            <span>附件1第二轮双一流建设高校及建设学科名单.pdf</span>
+        <div class="thumb-title" v-if="!flag">
+            <span>{{docTitle}}</span>
         </div>
     </div>
 </template>
@@ -23,7 +23,31 @@ export default {
         return {
             wordURL: 'http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec',
             img: "",
-            title: "金融学院-金融学专业电子白皮书.pdf"
+            docTitle: this.title, // "金融学院-金融学专业电子白皮书.pdf"
+        }
+    },
+    props: {
+        flag: Boolean,
+        title: String
+    },
+    filters: {
+        styleByFlag(value) {
+            if (value) {
+                return {
+                    padding: 0,
+                    _isHover: false,
+                    width: '100px'
+                }
+            }
+        },
+        filterType(title) {
+            console.log(title)
+            if ( title == null || title == '') {
+                return 'ohters'
+            } else {
+                let arr = title.split(".");
+                return arr.slice(-1)[0]
+            }
         }
     }
 }
@@ -31,7 +55,7 @@ export default {
 
 <style lang="scss" scoped>
     .thumb-group {
-        width: 100px;
+        width: 108px;
         padding: 4px;
         .thumb-pic {
             width: 100%;
