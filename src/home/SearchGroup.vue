@@ -9,17 +9,20 @@
                     <div class="search-selection">
                         <span>全部</span>
                     </div>
-                    <input :placeholder="placeholder"></input>
-                    <div class="search-button" style="width: 100px; line-height: 45px; display: flex; align-content: center; flex-wrap: wrap; justify-content: center;">
+                    <input :placeholder="placeholder" v-model="searchValue" @keyup.enter="clickToSearch(searchValue)"></input>
+                    <div class="search-button"
+                         style="width: 100px; line-height: 45px; display: flex; align-content: center; flex-wrap: wrap; justify-content: center;"
+                         @click="clickToSearch(searchValue)"
+                    >
                         <img :src="searchSrc" width="16px" height="16px" alt="" style="display: inline-block;" />
                     </div>
                 </div>
                 <div class="search-input-bottom">
                     <span class="title" style="font-width: 500;">推荐搜索：</span>
-                    <span class="search-tag" style="margin-left: 20px;" v-for="item in hotSearch">{{ item}}</span>
-                    <span class="search-tag" style="margin-left: 20px">开发文档</span>
-                    <span class="search-tag" style="margin-left: 20px">开发文档</span>
-                    <span class="search-tag" style="margin-left: 20px">开发文档</span>
+                    <span class="search-tag" style="margin-left: 20px;"
+                          v-for="item in hotSearch"
+                            @click="clickToSearch(item)"
+                    >{{ item}}</span>
                 </div>
             </div>
         </div>
@@ -41,8 +44,15 @@ export default {
         }
     },
     methods: {
-        clickToSearch() {
-
+        clickToSearch(value) {
+            if(value != "" ) {
+                this.$router.push({
+                    path:'/searchResult',
+                    query:{
+                        keyWord: value
+                    }
+                })
+            }
         }
     }
 }

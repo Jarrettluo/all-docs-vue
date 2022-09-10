@@ -1,6 +1,8 @@
 <template>
     <div class="hot-trend">
-        <div class="first-group">
+        <div class="first-group"
+             @click="getDocView(top1.id)"
+        >
             <div class="doc-thumb">
                 <DocThumb :flag="true" :title="top1.name"></DocThumb>
                 <div class="top-1">
@@ -15,7 +17,7 @@
             </div>
         </div>
         <div class="second-group">
-            <div class="trend-item" v-for="(item, index) in hotTrend" :key="index">
+            <div class="trend-item" v-for="(item, index) in hotTrend" :key="index" @click="getDocView(item.id)">
                 <div class="trend-num" :style="index | xxx">
                     {{ index+2 }}
                 </div>
@@ -84,36 +86,36 @@ export default {
         init() {
             let data = {
                 top1: {
-                    name: "这是一个超级长的额文档.pdf",
-                    id: "dslfjlsjfldsjljl",
+                    name: "5g零售行业应用白皮书-苏宁易购+尼尔森-202008.pdf",
+                    id: "631456fe15c5d23bfb1ea730",
                     commentNum: 121,
                     likeNum: 2332,
                     collectNum: 324535
                 },
                 others: [{
-                    hit: 12,
-                    name: "这是一个超级长的",
-                    id: "jsflsjflslglsdj"
+                    hit: 456,
+                    name: "好车购平台.pptx",
+                    id: "63136f528c86d1646ac411d0"
                 },{
                     hit: 12,
-                    name: "这是一个超级长的文档说明，哈哈冯绍峰会发生",
-                    id: "jsflsjflslglsdj"
+                    name: "中国金融科技生态白皮书2021年.pdf",
+                    id: "63136f448c86d1646ac411ca"
                 },{
                     hit: 12,
-                    name: "这是风俗礼节睡懒觉啦水果减肥撒了一个超级长的",
-                    id: "jsflsjflslglsdj"
+                    name: "工作条例.docx",
+                    id: "631315e69faed23bb3baf607"
                 },{
                     hit: 12,
-                    name: "这是一烦死啦放假啦十几个辣椒咖喱个超级长的",
-                    id: "jsflsjflslglsdj"
+                    name: "中国领导者十年领导力图鉴.pdf",
+                    id: "630821f829905176a6cb4293"
                 },{
                     hit: 12,
-                    name: "这是一极乐世界阿拉斯加发了个个超级长的",
-                    id: "jsflsjflslglsdj"
+                    name: "金融数学专业白皮书.pdf",
+                    id: "62b9bc2c845f9a73b891bd1d"
                 },{
                     hit: 12,
-                    name: "这是烦死啦放假睡懒觉撒了感觉啦一个超级长的",
-                    id: "jsflsjflslglsdj"
+                    name: "金融学院-金融学专业电子白皮书.pdf",
+                    id: "62b9bc38845f9a73b891bd23"
                 }]
             }
 
@@ -133,6 +135,15 @@ export default {
                 var value2 = b[property];
                 return value1 - value2;
             }
+        },
+        getDocView(id) {
+            this.$router.push({
+                path:'/preview',
+                query:{
+                    docId: id
+                }
+            })
+
         }
     }
 

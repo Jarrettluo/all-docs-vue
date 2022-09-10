@@ -3,6 +3,10 @@
         <div class="top-group" style="text-align: center; ">
             <img :src="imgSrc" width="100%" height="100%" alt="" />
             <SearchGroup></SearchGroup>
+            <div class="user-zone" @click="$router.push('/admin/allDocuments')">
+                <span>管理员</span>
+                <div class="user-tag"></div>
+            </div>
         </div>
         <div class="bottom-group">
             <div class="left-panel">
@@ -19,10 +23,14 @@
                     </div>
                 </div>
                 <div class="doc-thumb-1">
-                    <DocThumb class="doc-thumb" :flag="false" :title="doc.name" v-for="doc in currentData.slice(0, 6)"></DocThumb>
+                    <DocThumb class="doc-thumb" :flag="false" :title="doc.name" v-for="doc in currentData.slice(0, 6)"
+                              @click.native="getDocView(doc.id)"
+                    ></DocThumb>
                 </div>
                 <div class="doc-thumb-1 second-group">
-                    <DocThumb class="doc-thumb" :flag="false" :title="doc.name" v-for="doc in currentData.slice(6, 12)"></DocThumb>
+                    <DocThumb class="doc-thumb" :flag="false" :title="doc.name" v-for="doc in currentData.slice(6, 12)"
+                              @click.native="getDocView(doc.id)"
+                    ></DocThumb>
                 </div>
             </div>
             <div class="right-panel">
@@ -68,54 +76,51 @@ export default {
                     tagId: "sjflsjdfl",
                     docList: [
                         {
-                            name: "附件1：中共中央党组织布拉.docx",
-                            id: "122343243",
+                            name: "中国金融科技生态白皮书2021年.pdf",
+                            id: "63136f448c86d1646ac411ca"
                         }, {
-                            name: "附件1：分类圣诞f节福利的手机铃声关电视了.docx",
-                            id: "122343243",
+                            name: "工作条例.docx",
+                            id: "631315e69faed23bb3baf607"
                         },
                         {
-                            name: "副书记分类圣诞节给力的价格.pdf",
-                            id: "122343243",
+                            name: "中国领导者十年领导力图鉴.pdf",
+                            id: "630821f829905176a6cb4293"
                         }, {
-                            name: "flsjljsalglsgjlsjd都是浪费精力的手机.pptx",
-                            id: "122343243",
+                            name: "知识库管理系统建设方案.pptx",
+                            id: "62f215f218e3331d7725d508",
                         },
                         {
-                            name: "附件1：中共中央党组织布拉.docx",
-                            id: "122343243",
+                            name: "附件1第二轮双一流建设高校及建设学科名单.pdf",
+                            id: "63162367d14f8f0678d69efd",
                         }, {
-                            name: "附件1：分类圣诞f节福利的手机铃声关电视了.docx",
-                            id: "122343243",
+                            name: "日志管理技术研究与实现.pdf",
+                            id: "630f370599290b366738a261",
                         },
                         {
-                            name: "副书记分类圣诞节给力的价格.pdf",
-                            id: "122343243",
-                        }, {
-                            name: "flsjljsalglsgjlsjd都是浪费精力的手机.pptx",
-                            id: "122343243",
-                        },
+                            name: "图数据库白皮书-信通院.pdf",
+                            id: "62b9bdfe845f9a73b891bd44",
+                        },{
+                            name: "大数据白皮书（2020年）.pdf",
+                            id: "62bb016fcd82a62d74c0ac48",
+                        }
                     ],
                 },{
                     name: "中央决定",
                     tagId: "23324",
                     docList: [
                         {
-                            name: "附件1：中共中央党组织布拉.docx",
-                            id: "122343243",
-                        },{
-                            name: "flsjljsalglsgjlsjd都是浪费精力的手机.pptx",
-                            id: "122343243",
+                            name: "习近平在厦门的副本.pdf",
+                            id: "62dd55bd8034871a36422364",
+                        }, {
+                            name: "工作条例.docx",
+                            id: "631315e69faed23bb3baf607"
                         },
                         {
-                            name: "附件1：中共中央党组织布拉.docx",
-                            id: "122343243",
+                            name: "中国领导者十年领导力图鉴.pdf",
+                            id: "630821f829905176a6cb4293"
                         }, {
-                            name: "附件1：分类圣诞f节福利的手机铃声关电视了.docx",
-                            id: "122343243",
-                        },{
-                            name: "罗佳瑞附件1：分类圣诞节福利的手机铃声关电视了.docx",
-                            id: "122343243",
+                            name: "知识库管理系统建设方案.pptx",
+                            id: "62f215f218e3331d7725d508",
                         },
                     ]
                 }, {
@@ -123,22 +128,25 @@ export default {
                     tagId: "dsfds",
                     docList: [
                         {
-                            name: "附件1：中共中央党组织布拉.docx",
-                            id: "122343243",
+                            name: "图数据库白皮书-信通院.pdf",
+                            id: "62b9bdfe845f9a73b891bd44",
                         },{
-                            name: "附件1：分类圣诞节福利的手机铃声关电视了.docx",
-                            id: "122343243",
+                            name: "大数据白皮书（2020年）.pdf",
+                            id: "62bb016fcd82a62d74c0ac48",
                         },{
-                            name: "flsjljsalglsgjlsjd都是浪费精力的手机.pptx",
-                            id: "122343243",
+                            name: "阿里巴巴Java开发手册1.4.0.pdf",
+                            id: "62b9be1c845f9a73b891bd4b",
+                        }, {
+                            name: "工作条例.docx",
+                            id: "631315e69faed23bb3baf607"
                         },
                         {
-                            name: "附件1：中共中央党组织布拉.docx",
-                            id: "122343243",
+                            name: "中国领导者十年领导力图鉴.pdf",
+                            id: "630821f829905176a6cb4293"
                         }, {
-                            name: "sfdlsjl附件1：分类圣诞f节福利的手机铃声关电视了.docx",
-                            id: "122343243",
-                        }
+                            name: "知识库管理系统建设方案.pptx",
+                            id: "62f215f218e3331d7725d508",
+                        },
                     ]
                 }
             ]
@@ -162,6 +170,15 @@ export default {
                     item.clicked = false
                 }
             })
+        },
+        getDocView(id) {
+            this.$router.push({
+                path:'/preview',
+                query:{
+                    docId: id
+                }
+            })
+
         }
     }
 }
@@ -177,6 +194,35 @@ export default {
             width: 100%;
             padding-bottom: 40px;
             z-index:-1;
+            .user-zone {
+                position: absolute;
+                right: 40px;
+                top: 20px;
+                display: flex;
+                justify-content: flex-start;
+                padding: 0 10px;
+                span{
+                    height: 36px;
+                    line-height: 36px;
+                    font-size: 14px;
+                    font-family: PingFangSC-Regular, PingFang SC;
+                    font-weight: 400;
+                    color: #000000;
+                    padding-right: 10px;
+                }
+                .user-tag {
+                    height: 36px;
+                    width: 36px;
+                    border: 1px solid #000;
+                    border-radius: 36px;
+                    background-color: #ffffff;
+                }
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(#fff, 0.2);
+                    border-radius: 8px;
+                }
+            }
         }
         .bottom-group {
             margin: auto;

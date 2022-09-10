@@ -18,7 +18,7 @@ const routes = [
     component: Home
   },
   {
-    path: "/new",
+    path: "/",
     name: "New",
     component: function () {
       return import("../home/index")

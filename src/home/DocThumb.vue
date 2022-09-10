@@ -74,8 +74,8 @@ export default {
             background-color: #ffffff;
             .doc-tag {
                 position: absolute;
-                bottom: 0px;
-                right: 0px;
+                bottom: -1px;
+                right: -1px;
             }
         }
         .thumb-title {
