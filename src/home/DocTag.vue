@@ -1,7 +1,8 @@
 <template>
     <div class="doc-tag"
     :style="{borderColor: tag.color, fill: tag.color, color: tag.color, fillOpacity: 0.1}">
-        <span :style="{ fontSize: tag.size }">
+        <span
+            :style="{ fontSize: tag.size }">
             {{ tag.name }}
         </span>
     </div>
@@ -26,6 +27,11 @@ const docTypeMap= {
         name: "PDF",
         size: '12px'
     },
+    pic: {
+        color: "#71cd4a",
+        name: "PIC",
+        size: '12px'
+    },
     others: {
         color: "#AAAAAA",
         name: "A"
@@ -33,7 +39,7 @@ const docTypeMap= {
 
 }
 export default {
-    name: "DocTag1",
+    name: "DocTag",
     data() {
         return {
         }

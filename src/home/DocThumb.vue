@@ -6,13 +6,13 @@
             </DocTag>
         </div>
         <div class="thumb-title" v-if="!flag">
-            <span>{{docTitle}}</span>
+            <span>{{ title }}</span>
         </div>
     </div>
 </template>
 
 <script>
-import DocTag from "@/home/DocTag1";
+import DocTag from "@/home/DocTag";
 
 export default {
     name: "DocThumb",
@@ -41,12 +41,20 @@ export default {
             }
         },
         filterType(title) {
-            console.log(title)
             if ( title == null || title == '') {
                 return 'ohters'
             } else {
                 let arr = title.split(".");
-                return arr.slice(-1)[0]
+                let suffix = arr.slice(-1)[0]
+                switch (suffix){
+                    case "pdf":
+                        return 'pdf'
+                    case 'doc':
+                    case 'docx':
+                        return 'word'
+                    case 'pptx':
+                        return 'ppt'
+                }
             }
         }
     }

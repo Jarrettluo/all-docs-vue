@@ -1,7 +1,8 @@
 <template>
     <div class="homepage">
-        <div class="top-group">
+        <div class="top-group" style="text-align: center; ">
             <img :src="imgSrc" width="100%" height="100%" alt="" />
+            <SearchGroup></SearchGroup>
         </div>
         <div class="bottom-group">
             <div class="left-panel">
@@ -9,31 +10,19 @@
                     <div class="panel-title left-pane-title">
                         <span>全部文档</span>
                     </div>
-                    <div class="tag-info">
-                        <span>金融</span>
-                    </div>
-                    <div class="tag-info-unchecked">
-                        <span>金融dslfjsdlfjs</span>
-                    </div>
-                    <div class="tag-info-unchecked">
-                        <span>金融</span>
+                    <div
+                        :class=" item.clicked ? 'tag-info' : 'tag-info-unchecked' "
+                        v-for="item in data"
+                        @click="changeToCurrentTag(item.name, item.tagId)"
+                    >
+                        <span>{{ item.name }}</span>
                     </div>
                 </div>
-                <div class="doc-thumb">
-                    <DocThumb ></DocThumb>
-                    <DocThumb></DocThumb>
-                    <DocThumb></DocThumb>
-                    <DocThumb></DocThumb>
-                    <DocThumb></DocThumb>
-                    <DocThumb></DocThumb>
+                <div class="doc-thumb-1">
+                    <DocThumb class="doc-thumb" :flag="false" :title="doc.name" v-for="doc in currentData.slice(0, 6)"></DocThumb>
                 </div>
-                <div class="doc-thumb second-group">
-                    <DocThumb></DocThumb>
-                    <DocThumb></DocThumb>
-                    <DocThumb></DocThumb>
-                    <DocThumb></DocThumb>
-                    <DocThumb></DocThumb>
-                    <DocThumb></DocThumb>
+                <div class="doc-thumb-1 second-group">
+                    <DocThumb class="doc-thumb" :flag="false" :title="doc.name" v-for="doc in currentData.slice(6, 12)"></DocThumb>
                 </div>
             </div>
             <div class="right-panel">
@@ -49,33 +38,33 @@
 </template>
 
 <script>
-import DocTag from '@/home/DocTag1';
+import DocTag from '@/home/DocTag';
 import DocThumb from '@/home/DocThumb'
 import HotTrend from '@/home/HotTrend'
+import SearchGroup from '@/home/SearchGroup'
 
 export default {
     name: "index.vue",
     components: {
         HotTrend,
         DocTag,
-        DocThumb
+        DocThumb,
+        SearchGroup
     },
     data() {
         return {
             imgSrc: require("../assets/source/banner.png"),
-            data: {
-
-            }
+            data: {},
+            currentData: []
         }
     },
-    mounted() {
+    created() {
       this.init()
     },
     methods: {
         init() {
-            let data = {
-                tag1: {
-                    name: "tag111",
+            let data = [{
+                    name: "最近的文档",
                     tagId: "sjflsjdfl",
                     docList: [
                         {
@@ -107,8 +96,7 @@ export default {
                             id: "122343243",
                         },
                     ],
-                },
-                tag2: {
+                },{
                     name: "中央决定",
                     tagId: "23324",
                     docList: [
@@ -116,13 +104,22 @@ export default {
                             name: "附件1：中共中央党组织布拉.docx",
                             id: "122343243",
                         },{
-                            name: "附件1：分类圣诞节福利的手机铃声关电视了.docx",
+                            name: "flsjljsalglsgjlsjd都是浪费精力的手机.pptx",
+                            id: "122343243",
+                        },
+                        {
+                            name: "附件1：中共中央党组织布拉.docx",
+                            id: "122343243",
+                        }, {
+                            name: "附件1：分类圣诞f节福利的手机铃声关电视了.docx",
+                            id: "122343243",
+                        },{
+                            name: "罗佳瑞附件1：分类圣诞节福利的手机铃声关电视了.docx",
                             id: "122343243",
                         },
                     ]
-                },
-                tag3: {
-                    name: "pdf",
+                }, {
+                    name: "pdf的文档",
                     tagId: "dsfds",
                     docList: [
                         {
@@ -131,13 +128,41 @@ export default {
                         },{
                             name: "附件1：分类圣诞节福利的手机铃声关电视了.docx",
                             id: "122343243",
+                        },{
+                            name: "flsjljsalglsgjlsjd都是浪费精力的手机.pptx",
+                            id: "122343243",
                         },
+                        {
+                            name: "附件1：中共中央党组织布拉.docx",
+                            id: "122343243",
+                        }, {
+                            name: "sfdlsjl附件1：分类圣诞f节福利的手机铃声关电视了.docx",
+                            id: "122343243",
+                        }
                     ]
                 }
-            }
-        },
-        // this.data = data
+            ]
+            this.data = data;
+            this.changeToCurrentTag(this.data[0].name, this.data[0].tagId)
 
+
+        },
+        /**
+         * 切换到某一个标签上
+         * @param name
+         * @param tagId
+         */
+        changeToCurrentTag(name, tagId) {
+            this.currentData = []
+            this.data.forEach( item => {
+                if(item.name == name && item.tagId == tagId) {
+                    item.clicked = true
+                    this.currentData = item.docList
+                } else {
+                    item.clicked = false
+                }
+            })
+        }
     }
 }
 </script>
@@ -163,7 +188,7 @@ export default {
                 height: 100%;
                 width: 900px;
                 float: left;
-                padding: 0px 30px 0 0;
+                padding: 0px 0px 0 0;
             }
             .right-panel {
                 height: 100%;
@@ -204,12 +229,10 @@ export default {
                         font-weight: 400;
                         line-height: 20px;
                     }
-                    //&:hover {
-                    //    cursor: pointer;
-                    //    border: 1px solid #AAAAAA;
-                    //    color: #AAAAAA;
-                    //    background: none;
-                    //}
+                    &:hover {
+                        cursor: pointer;
+                        background: #FFFAE4;
+                    }
                 }
 
                 .tag-info-unchecked {
@@ -235,11 +258,15 @@ export default {
                     }
                 }
             }
-            .doc-thumb {
+            .doc-thumb-1 {
                 display: flex;
                 flex-wrap: wrap;
-                justify-content: space-around;
+                justify-content: flex-start;
                 overflow: hidden;
+                padding-left: 20px;
+                .doc-thumb {
+                    margin-right: 38px;
+                }
             }
             .second-group {
                 margin-top: 40px;
