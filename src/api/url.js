@@ -29,6 +29,8 @@ const COMMENT_UPDATE_URL = '/comment/auth/update'; // 评论更新
 
 const STATS_TREND_URL = '/statistics/trend'; //
 const STATS_ALL_URL = '/statistics/all';
+const STATS_HOT_TREND = '/statistics/getHotTrend';
+const STATS_SEARCH_HISTORY = 'statistics/getSearchResult';
 
 module.exports = {
     ADD_RELATE_URL,
@@ -61,4 +63,6 @@ module.exports = {
 
     STATS_TREND_URL,
     STATS_ALL_URL,
+    STATS_HOT_TREND,
+    STATS_SEARCH_HISTORY
 }

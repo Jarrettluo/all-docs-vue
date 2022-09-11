@@ -23,12 +23,12 @@
                     </div>
                 </div>
                 <div class="doc-thumb-1">
-                    <DocThumb class="doc-thumb" :flag="false" :title="doc.name" v-for="doc in currentData.slice(0, 6)"
+                    <DocThumb class="doc-thumb" :flag="false" :title="doc.name" v-for="doc in currentData.slice(0, 6)" :key="doc.id"
                               @click.native="getDocView(doc.id)"
                     ></DocThumb>
                 </div>
                 <div class="doc-thumb-1 second-group">
-                    <DocThumb class="doc-thumb" :flag="false" :title="doc.name" v-for="doc in currentData.slice(6, 12)"
+                    <DocThumb class="doc-thumb" :flag="false" :title="doc.name" v-for="doc in currentData.slice(6, 12)" :key="doc.id"
                               @click.native="getDocView(doc.id)"
                     ></DocThumb>
                 </div>
@@ -50,6 +50,9 @@ import DocTag from '@/home/DocTag';
 import DocThumb from '@/home/DocThumb'
 import HotTrend from '@/home/HotTrend'
 import SearchGroup from '@/home/SearchGroup'
+
+import StatsRequest from "@/api/stats";
+
 
 export default {
     name: "index.vue",
@@ -150,6 +153,8 @@ export default {
                     ]
                 }
             ]
+
+
             this.data = data;
             this.changeToCurrentTag(this.data[0].name, this.data[0].tagId)
 
@@ -188,7 +193,8 @@ export default {
 
     .homepage {
         width: 100%;
-        height: 100vh;
+        //height: 100vh;
+        padding-bottom: 20px;
         .top-group {
             height: 340px;
             width: 100%;

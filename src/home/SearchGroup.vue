@@ -17,7 +17,7 @@
                         <img :src="searchSrc" width="16px" height="16px" alt="" style="display: inline-block;" />
                     </div>
                 </div>
-                <div class="search-input-bottom">
+                <div class="search-input-bottom" v-show="hotSearch.length">
                     <span class="title" style="font-width: 500;">推荐搜索：</span>
                     <span class="search-tag" style="margin-left: 20px;"
                           v-for="item in hotSearch"
@@ -30,6 +30,9 @@
 </template>
 
 <script>
+
+import StatsRequest from "@/api/stats";
+
 export default {
     name: "SearchGroup",
     data() {
@@ -38,12 +41,21 @@ export default {
             searchSrc: require("../assets/svg/search.svg"),
             placeholder: '请输入您想要查找的文档',
             hotSearch: [
-                '金融','美妆','博主','开发文档'
             ],
             searchValue: ''
         }
     },
+    created() {
+      this.init();
+    },
     methods: {
+        init() {
+            StatsRequest.getSearchHistory().then(response => {
+                if (response.code == 200) {
+                    this.hotSearch = response.data.hotSearch;
+                }
+            })
+        },
         clickToSearch(value) {
             if(value != "" ) {
                 this.$router.push({

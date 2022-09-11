@@ -32,6 +32,8 @@
 
 <script>
 import DocThumb from '@/home/DocThumb'
+import StatsRequest from "@/api/stats";
+
 export default {
     name: "HotTrend.vue",
     components: {DocThumb},
@@ -119,15 +121,25 @@ export default {
                 }]
             }
 
-            let topValue = data.top1 | null;
-            if ( topValue != null) {
-                this.top1 = data.top1
-            }
 
-            let xx = data.others;
-            if (xx != null) {
-                this.hotTrend = xx.sort(this.compare('hit'))
-            }
+            StatsRequest.getHotTrend().then(response => {
+                if (response.code == 200) {
+                    data = response.data;
+
+                    let topValue = data.top1 | null;
+                    if ( topValue != null) {
+                        this.top1 = data.top1
+                    }
+
+                    let xx = data.others;
+                    if (xx != null) {
+                        this.hotTrend = xx.sort(this.compare('hit'))
+                    }
+                }
+            })
+
+
+
         },
         compare(property){
             return function(a,b){
