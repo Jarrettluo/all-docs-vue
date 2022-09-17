@@ -3,7 +3,8 @@ import {
     STATS_TREND_URL,
     STATS_ALL_URL,
     STATS_HOT_TREND,
-    STATS_SEARCH_HISTORY
+    STATS_SEARCH_HISTORY,
+    STATS_RECENT_DOC
 } from './url'
 
 export default {
@@ -22,6 +23,10 @@ export default {
 
     getSearchHistory: (params) => {
         return Get(STATS_SEARCH_HISTORY,params);
+    },
+
+    getRecentDoc: (params) => {
+        return Get(STATS_RECENT_DOC,params);
     },
 
 }

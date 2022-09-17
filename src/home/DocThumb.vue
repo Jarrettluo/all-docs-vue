@@ -1,7 +1,7 @@
 <template>
     <div class="thumb-group" :style="flag|styleByFlag">
         <div class="thumb-pic">
-            <img :src="wordURL" width="100%" height="99">
+            <img :src="'http://81.69.247.172:8082/files/image2/814939a8d6824728bede4f322c9d2b59'" width="100%" height="99">
             <DocTag :type="docTitle | filterType">
             </DocTag>
         </div>
@@ -28,7 +28,14 @@ export default {
     },
     props: {
         flag: Boolean,
-        title: String
+        title: String,
+        docId: String,
+    },
+    watch: {
+        docId: function (value) {
+            console.log(value)
+            this.wordURL = this.imgSrc(value);
+        }
     },
     filters: {
         styleByFlag(value) {
@@ -55,6 +62,16 @@ export default {
                     case 'pptx':
                         return 'ppt'
                 }
+            }
+        },
+    },
+    methods: {
+        imgSrc(value) {
+            console.log(value)
+            if(value === "" || value == null) {
+                return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
+            } else {
+                return "http://81.69.247.172:8082/files/image2/" + value;
             }
         }
     }

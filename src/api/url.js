@@ -31,6 +31,7 @@ const STATS_TREND_URL = '/statistics/trend'; //
 const STATS_ALL_URL = '/statistics/all';
 const STATS_HOT_TREND = '/statistics/getHotTrend';
 const STATS_SEARCH_HISTORY = 'statistics/getSearchResult';
+const STATS_RECENT_DOC = 'statistics/recentDocs';
 
 module.exports = {
     ADD_RELATE_URL,
@@ -64,5 +65,6 @@ module.exports = {
     STATS_TREND_URL,
     STATS_ALL_URL,
     STATS_HOT_TREND,
-    STATS_SEARCH_HISTORY
+    STATS_SEARCH_HISTORY,
+    STATS_RECENT_DOC
 }

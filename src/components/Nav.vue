@@ -39,7 +39,7 @@ export default {
     top: 0px;
     left: 0px;
     position: fixed;
-    z-index: 999;
+    z-index: 998;
 }
 .nav-logo {
     line-height: 50px;

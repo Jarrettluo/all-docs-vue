@@ -124,14 +124,21 @@ export default {
 
             StatsRequest.getHotTrend().then(response => {
                 if (response.code == 200) {
+
                     data = response.data;
+
 
                     let topValue = data.top1 | null;
                     if ( topValue != null) {
                         this.top1 = data.top1
                     }
 
-                    let xx = data.others;
+                    let xx;
+                    if ( data.others.length > 8) {
+                        xx = data.others.slice(0, 7)
+                    } else {
+                        xx = data.others
+                    }
                     if (xx != null) {
                         this.hotTrend = xx.sort(this.compare('hit'))
                     }

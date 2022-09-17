@@ -1,5 +1,6 @@
 <template>
     <div class="homepage">
+
         <div class="top-group" style="text-align: center; ">
             <img :src="imgSrc" width="100%" height="100%" alt="" />
             <SearchGroup></SearchGroup>
@@ -23,12 +24,20 @@
                     </div>
                 </div>
                 <div class="doc-thumb-1">
-                    <DocThumb class="doc-thumb" :flag="false" :title="doc.name" v-for="doc in currentData.slice(0, 6)" :key="doc.id"
+                    <DocThumb class="doc-thumb"
+                              :flag="false"
+                              :title="doc.name"
+                              :docId="doc.id"
+                              v-for="doc in currentData.slice(0, 6)" :key="doc.id"
                               @click.native="getDocView(doc.id)"
                     ></DocThumb>
                 </div>
                 <div class="doc-thumb-1 second-group">
-                    <DocThumb class="doc-thumb" :flag="false" :title="doc.name" v-for="doc in currentData.slice(6, 12)" :key="doc.id"
+                    <DocThumb class="doc-thumb"
+                              :flag="false"
+                              :title="doc.name"
+                              :docId="doc.id"
+                              v-for="doc in currentData.slice(6, 12)" :key="doc.id"
                               @click.native="getDocView(doc.id)"
                     ></DocThumb>
                 </div>
@@ -52,7 +61,6 @@ import HotTrend from '@/home/HotTrend'
 import SearchGroup from '@/home/SearchGroup'
 
 import StatsRequest from "@/api/stats";
-
 
 export default {
     name: "index.vue",
@@ -154,9 +162,12 @@ export default {
                 }
             ]
 
-
-            this.data = data;
-            this.changeToCurrentTag(this.data[0].name, this.data[0].tagId)
+            StatsRequest.getRecentDoc().then(response => {
+              if ( response.code == 200) {
+                  this.data = response.data;
+                  this.changeToCurrentTag(this.data[0].name, this.data[0].tagId)
+              }
+            })
 
 
         },
@@ -195,6 +206,7 @@ export default {
         width: 100%;
         //height: 100vh;
         padding-bottom: 20px;
+
         .top-group {
             height: 340px;
             width: 100%;

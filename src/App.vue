@@ -4,11 +4,35 @@
 <!--      <router-link to="/">Home</router-link> |-->
 <!--      <router-link to="/about">About</router-link>-->
 <!--    </div>-->
+      <div class="information" style="">
+          如果您喜欢这个项目， 拜托给
+          <a href="https://github.com/Jarrettluo/document-sharing-site">https://github.com/Jarrettluo/document-sharing-site</a>
+          点亮star
+      </div>
     <router-view/>
   </div>
 </template>
 
 <style lang="scss">
+.information {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 30px;
+    width:100%;
+    background-color: rgba(#fff, 0.2);
+    line-height: 30px;
+    color: #333;
+    z-index: 999;
+    a {
+        color: #408FFF;
+        &:hover {
+            cursor: pointer;
+            color: blue;
+        }
+    }
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
