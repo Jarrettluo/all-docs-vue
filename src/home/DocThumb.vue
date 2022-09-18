@@ -1,7 +1,7 @@
 <template>
     <div class="thumb-group" :style="flag|styleByFlag">
         <div class="thumb-pic">
-            <img :src="'http://81.69.247.172:8082/files/image2/814939a8d6824728bede4f322c9d2b59'" width="100%" height="99">
+            <img :src="docId | imgSrc " >
             <DocTag :type="docTitle | filterType">
             </DocTag>
         </div>
@@ -32,10 +32,10 @@ export default {
         docId: String,
     },
     watch: {
-        docId: function (value) {
-            console.log(value)
-            this.wordURL = this.imgSrc(value);
-        }
+        // docId: function (value) {
+        //     console.log(value)
+        //     this.wordURL = this.imgSrc(value);
+        // }
     },
     filters: {
         styleByFlag(value) {
@@ -49,7 +49,7 @@ export default {
         },
         filterType(title) {
             if ( title == null || title == '') {
-                return 'ohters'
+                return 'others'
             } else {
                 let arr = title.split(".");
                 let suffix = arr.slice(-1)[0]
@@ -61,12 +61,25 @@ export default {
                         return 'word'
                     case 'pptx':
                         return 'ppt'
+                    case  'xlsx':
+                        return 'excel'
+                    default:
+                        return suffix.slice(0, 1)
+
                 }
             }
         },
+        imgSrc(value) {
+            console.log(value)
+            if(value === "" || value == null) {
+                return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
+            } else {
+                return "http://81.69.247.172:8082/files/image2/" + value;
+            }
+        }
     },
     methods: {
-        imgSrc(value) {
+        imgSrc1(value) {
             console.log(value)
             if(value === "" || value == null) {
                 return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
@@ -89,6 +102,14 @@ export default {
             border: 1px solid #AAAAAA;
             position: relative;
             background-color: #ffffff;
+
+            overflow: hidden;//img如果超出这个div会隐藏超出部分
+            display: flex;//flex布局
+            align-items: center;//让img放在div的中间，居中
+            img {
+                width: 100%;
+            }
+
             .doc-tag {
                 position: absolute;
                 bottom: -1px;

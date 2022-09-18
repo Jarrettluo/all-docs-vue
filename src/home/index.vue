@@ -27,7 +27,7 @@
                     <DocThumb class="doc-thumb"
                               :flag="false"
                               :title="doc.name"
-                              :docId="doc.id"
+                              :docId="doc.thumbId"
                               v-for="doc in currentData.slice(0, 6)" :key="doc.id"
                               @click.native="getDocView(doc.id)"
                     ></DocThumb>
@@ -36,7 +36,7 @@
                     <DocThumb class="doc-thumb"
                               :flag="false"
                               :title="doc.name"
-                              :docId="doc.id"
+                              :docId="doc.thumbId"
                               v-for="doc in currentData.slice(6, 12)" :key="doc.id"
                               @click.native="getDocView(doc.id)"
                     ></DocThumb>

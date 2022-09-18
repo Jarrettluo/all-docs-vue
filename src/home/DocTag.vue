@@ -52,7 +52,11 @@ export default {
             if ( docTypeMap.hasOwnProperty(this.type) ) {
                 return docTypeMap[this.type]
             } else {
-                return docTypeMap.others
+                let result = docTypeMap.others
+                if ( this.type != '') {
+                    result.name = (this.type).toUpperCase()
+                }
+                return result
             }
         }
     }
