@@ -70,7 +70,6 @@ export default {
             }
         },
         imgSrc(value) {
-            console.log(value)
             if(value === "" || value == null) {
                 return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
             } else {
@@ -80,7 +79,6 @@ export default {
     },
     methods: {
         imgSrc1(value) {
-            console.log(value)
             if(value === "" || value == null) {
                 return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
             } else {

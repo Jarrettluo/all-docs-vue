@@ -1,11 +1,17 @@
 <template>
     <div class="word-wrap">
+        <div v-show="view_flag" style="padding: 400px; color: #ffcc4f;">
+            <div class="demo-spin-icon-load" >
+                <Icon type="md-refresh" style="font-size: 48px;"/>
+            </div>
+            <div style='font-size:16px' >加载中...</div>
+        </div>
+
         <div v-if="xlsFile" class="excel-view-container">
             <!-- Excel使用tab选项卡来模拟表格里的sheet业 -->
             <Tabs type="card" v-if="sheetNames && sheetNames.length" @tab-click="handleClick">
                 <TabPane :label="item" v-for="(item, index) in sheetNames" :key="index">
                     <div class="excelView" v-html="excelView"></div>
-                    <div id="excelView"></div>
                 </TabPane>
             </Tabs>
         </div>
@@ -28,6 +34,10 @@ export default {
             xlsFile: false, //是否是Excel文件
             execlArraybufferData: null, //Excelblob转换为arraybuff数据
             sheetNames: null, //从数据中获取到的sheet页数组
+            result: '',
+
+            view_flag: true,
+
         };
     },
     created() {
@@ -47,15 +57,15 @@ export default {
                 data: {},
                 url: wordURL,
             }).then( res => {
-                console.log(res)
                 // 表格类型的用xlsx插件
                 this.xlsFile = true
                 let XLSX = require("xlsx")
                 this.XLSX = XLSX
-                this.execlType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                let blob = new Blob([res], {type: this.execlType})
+                // 这里不需要进行转换，已经是xlsx的文件
+                // this.execlType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                // let blob = new Blob([res], {type: this.execlType})
                 let reader = new FileReader()
-                reader.readAsArrayBuffer(blob) // blob类型转换为ArrayBuffer类型
+                reader.readAsArrayBuffer(res.data) // blob类型转换为ArrayBuffer类型
                 this.tabChange(0, reader)
                 }
             )
@@ -65,6 +75,8 @@ export default {
             this.tabChange(data.index)
         },
         tabChange(index, reader) {
+            // 关闭
+            this.view_flag = false
             this.excelView = ''
             let XLSX = this.XLSX
             let _this = this
@@ -77,7 +89,6 @@ export default {
                     this.execlArraybufferData = arraybufferData
                     let data = new Uint8Array(arraybufferData) // es2017的方法
                     let workbook = XLSX.read(data, { type: "array" })  // 得到表格的array数据
-                    console.log(workbook)
                     _this.workbooks = workbook  // 赋值到此组件最外面，一会要用
                     let sheetNames = workbook.SheetNames; // 得到execl工作表名称集合，结果类似这样['sheet1','sheet2']
                     _this.sheetNames = sheetNames  // 赋值到此组件最外面，一会要用
@@ -118,6 +129,8 @@ export default {
                 }
             }
         },
+
+        // 废弃
         getWordText() {
             const xhr = new XMLHttpRequest();
             let docId = this.$route.query.docId;
@@ -160,5 +173,54 @@ export default {
     img {
         width: 100%;
     }
+}
+/* 旋转效果 */
+.demo-spin-icon-load{
+    animation: ani-demo-spin 1s linear infinite;
+}
+@keyframes ani-demo-spin {
+    from { transform: rotate(0deg);}
+    50% { transform: rotate(180deg);}
+    to { transform: rotate(360deg);}
+}
+/* 遮罩 */
+/* 假如内容过长，一屏放不下，滚动条下拉覆盖不全 */
+.ivu-spin-fix {
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 8;
+    width: 100%;
+    height:100%;
+    background-color: hsla(0,0%,100%,.8);
+}
+</style>
+
+<!--由于采用了v-html所以采用这种方式进行样式渲染-->
+<style scoped>
+>>> table
+{
+    border-collapse: collapse;
+    margin: 0 auto;
+    text-align: center;
+}
+>>> table td, table th
+{
+    border: 1px solid #cad9ea;
+    color: #666;
+    height: 30px;
+}
+>>> table thead th
+{
+    background-color: #CCE8EB;
+    width: 100px;
+}
+>>> table tr:nth-child(odd)
+{
+    background: #fff;
+}
+>>> table tr:nth-child(even)
+{
+    background: #F5FAFA;
 }
 </style>
