@@ -54,7 +54,7 @@ export default {
             docId: this.$route.query.docId,
 
             currentPage: 1,
-            totalItems: 4,
+            totalItems: 0,
             pageSize: 6,
 
         }

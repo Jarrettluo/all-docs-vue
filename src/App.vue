@@ -17,9 +17,9 @@
 .information {
     position: fixed;
     top: 0px;
-    left: 0px;
+    left: calc( 50% - 300px);
     height: 30px;
-    width:100%;
+    width: 600px;
     background-color: rgba(#fff, 0.2);
     line-height: 30px;
     color: #333;

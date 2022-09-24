@@ -35,7 +35,8 @@
             </div>
 
             <div style="padding: 30px 10px; color: #555" v-show="data.length < 1">
-                <span>暂无内容，试试其他呢～</span>
+                <span v-if="!loading">暂无内容，试试其他呢～</span>
+                <span v-else>拼命查找中，请等待...</span>
             </div>
 
 
@@ -62,6 +63,7 @@ export default {
             currentPage: 1,
             totalItems: 4,
             pageSize: 6,
+            loading: true,
         }
     },
     components: {
@@ -72,6 +74,7 @@ export default {
     },
     methods: {
         getListData() {
+            this.loading = true
             let keyword = this.$route.query.keyWord
             if(keyword == "") return;
             const params = {
@@ -83,6 +86,7 @@ export default {
                 "type": "FILTER"
             }
             DocumentRequest.getListData(params).then(res => {
+                this.loading = false;
                 if(res.code == 200) {
                     this.totalItems = res.data.totalNum;
                     this.data = res.data.documents;
