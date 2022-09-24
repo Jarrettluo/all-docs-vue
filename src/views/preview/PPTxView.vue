@@ -2,9 +2,9 @@
     <div class="word-wrap">
         <!--        <div id="wordView" v-html="wordText" />-->
         <!--        <img :src="wordURL" width="100%">-->
-<!--        <iframe :src="wordURL" width="100%" height="100%" frameborder="no">-->
+        <iframe :src="wordURL" width="100%" height="100%" frameborder="no">
 
-<!--        </iframe>-->
+        </iframe>
     </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
         };
     },
     created() {
-        this.getWordText();
+        // this.getWordText();
     },
     methods: {
         getWordText() {

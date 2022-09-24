@@ -70,6 +70,7 @@ export default {
         border: 1px solid ;
         border-radius: 2px;
         text-align: center;
+        background-color: #ffffff;
 
         span {
             font-size: 16px;

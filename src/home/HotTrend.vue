@@ -40,25 +40,13 @@ export default {
     data() {
         return {
             top1: {
-                name: "这是一个超级长的额文档.word",
+                name: "document.docx",
                 id: null,
                 commentNum: 0,
                 likeNum: 0,
                 collectNum: 0
             },
-            hotTrend: [{
-                name: "jdslfjdsfjdslfjds",
-            }, {
-                name: "jdslfjsdljfsdljsdl",
-            },{
-                name: "jdslfjdsfjdslfjds",
-            }, {
-                name: "jdslfjsdljfsdljsdl",
-            },{
-                name: "超级超级住哪页的中山佛山的高速公路上z这是一个超级长的极乐世界尴尬了",
-            }, {
-                name: "jdslfjsdljfsdljsdl",
-            }]
+            hotTrend: []
         }
     },
     filters: {
@@ -121,37 +109,29 @@ export default {
                 }]
             }
 
-
             StatsRequest.getHotTrend().then(response => {
                 if (response.code == 200) {
-
                     data = response.data;
-
-
                     let topValue = data.top1 | null;
                     if ( topValue != null) {
                         this.top1 = data.top1
                     }
-
-                    let xx;
+                    let tempData;
                     if ( data.others.length > 8) {
-                        xx = data.others.slice(0, 7)
+                        tempData = data.others.slice(0, 7)
                     } else {
-                        xx = data.others
+                        tempData = data.others
                     }
-                    if (xx != null) {
-                        this.hotTrend = xx.sort(this.compare('hit'))
+                    if (tempData != null) {
+                        this.hotTrend = tempData.sort(this.compare('hit'))
                     }
                 }
             })
-
-
-
         },
         compare(property){
             return function(a,b){
-                var value1 = a[property];
-                var value2 = b[property];
+                let value1 = a[property];
+                let value2 = b[property];
                 return value1 - value2;
             }
         },

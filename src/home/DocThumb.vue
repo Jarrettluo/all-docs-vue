@@ -1,10 +1,13 @@
 <template>
     <div class="thumb-group" :style="flag|styleByFlag">
-        <div class="thumb-pic">
-            <img :src="docId | imgSrc " >
-            <DocTag :type="docTitle | filterType">
+        <div class="thumb-com">
+            <div class="thumb-pic">
+                <img :src="docId | imgSrc " >
+            </div>
+            <DocTag :type="title | filterType">
             </DocTag>
         </div>
+
         <div class="thumb-title" v-if="!flag">
             <span>{{ title }}</span>
         </div>
@@ -31,12 +34,6 @@ export default {
         title: String,
         docId: String,
     },
-    watch: {
-        // docId: function (value) {
-        //     console.log(value)
-        //     this.wordURL = this.imgSrc(value);
-        // }
-    },
     filters: {
         styleByFlag(value) {
             if (value) {
@@ -61,11 +58,10 @@ export default {
                         return 'word'
                     case 'pptx':
                         return 'ppt'
-                    case  'xlsx':
+                    case 'xlsx':
                         return 'excel'
                     default:
                         return suffix.slice(0, 1)
-
                 }
             }
         },
@@ -93,27 +89,32 @@ export default {
     .thumb-group {
         width: 108px;
         padding: 4px;
-        .thumb-pic {
+        .thumb-com {
             width: 100%;
             height: 140px;
-            border-radius: 2px;
-            border: 1px solid #AAAAAA;
             position: relative;
-            background-color: #ffffff;
-
-            overflow: hidden;//img如果超出这个div会隐藏超出部分
-            display: flex;//flex布局
-            align-items: center;//让img放在div的中间，居中
-            img {
+            .thumb-pic {
                 width: 100%;
-            }
+                height: 140px;
+                border-radius: 2px;
+                border: 1px solid #AAAAAA;
+                position: relative;
+                background-color: #ffffff;
 
+                overflow: hidden;//img如果超出这个div会隐藏超出部分
+                display: flex;//flex布局
+                align-items: center;//让img放在div的中间，居中
+                img {
+                    width: 100%;
+                }
+            }
             .doc-tag {
                 position: absolute;
-                bottom: -1px;
-                right: -1px;
+                bottom: 0;
+                right: 0;
             }
         }
+
         .thumb-title {
             width: 100%;
             height: 64px;
