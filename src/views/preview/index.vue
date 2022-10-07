@@ -12,8 +12,8 @@
                     <div class="doc-info-title">
                         {{title}}
                     </div>
-                    <div class="doc-info-tag" v-for="item in tags" :index="item.index">
-                        <Tag :color="item.color">{{ item.name }}</Tag>
+                    <div class="doc-info-tag">
+                        <Tag :color="item.color" v-for="item in tags" :index="item.index">{{ item.name }}</Tag>
                     </div>
                     <div class="doc-info-detail">
                         {{ userName }} {{ createTime }}
@@ -73,7 +73,8 @@ export default {
     filters: {
         imgSrc(value) {
             if(value === "" || value == null) {
-                return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
+                // return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
+                return require('@/assets/source/doc.png');
             } else {
                 return "http://81.69.247.172:8082/files/image2/" + value;
             }
@@ -194,6 +195,9 @@ export default {
                 .doc-info-tag {
                     height: 40px;
                     line-height: 40px;
+                    display: flex;
+                    align-items: flex-start;
+                    padding-top: 8px;
                 }
                 .doc-info-detail {
                     height: 40px;

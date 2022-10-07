@@ -2,7 +2,7 @@
     <div class="thumb-group" :style="flag|styleByFlag">
         <div class="thumb-com">
             <div class="thumb-pic">
-                <img :src="docId | imgSrc " >
+                <img :src="docId | imgSrc">
             </div>
             <DocTag :type="title | filterType">
             </DocTag>
@@ -26,7 +26,7 @@ export default {
         return {
             wordURL: 'http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec',
             img: "",
-            docTitle: this.title, // "金融学院-金融学专业电子白皮书.pdf"
+            docTitle: this.title
         }
     },
     props: {
@@ -67,7 +67,8 @@ export default {
         },
         imgSrc(value) {
             if(value === "" || value == null) {
-                return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
+                // return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
+                return require('@/assets/source/doc.png')
             } else {
                 return "http://81.69.247.172:8082/files/image2/" + value;
             }
