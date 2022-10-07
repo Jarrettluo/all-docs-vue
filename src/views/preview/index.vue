@@ -175,6 +175,7 @@ export default {
             }
             .doc-info {
                 display: block;
+                width: calc( 100% - 40px);
                 float: left;
                 padding: 0 10px;
                 text-align: left;
@@ -184,6 +185,11 @@ export default {
                     font-weight: 600;
                     color: #000000;
                     line-height: 33px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
                 }
                 .doc-info-tag {
                     height: 40px;
