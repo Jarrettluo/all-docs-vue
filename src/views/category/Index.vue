@@ -3,8 +3,8 @@
         <Split v-model="split" min="180px" max="900px">
             <template #left>
                 <div class="demo-split-pane">
-<!--                    <CategoryGroup titleName="文档分类" category-type="CATEGORY" @categoryChange="handleChange"></CategoryGroup>-->
-                    <CategoryItems titleName="文档分类" category-type="CATEGORY" @categoryChange="handleChange"></CategoryItems>
+                    <CategoryItems titleName="文档分类" category-type="CATEGORY" @categoryChange="handleChange">
+                    </CategoryItems>
                 </div>
             </template>
             <template #right>

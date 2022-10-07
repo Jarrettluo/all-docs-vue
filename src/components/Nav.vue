@@ -1,7 +1,7 @@
 <template>
     <div class="nav-container">
         <div class="nav-logo" @click="$router.push('/')">
-            All Docs
+            <img :src="logoSrc" width="80%" height="80%" alt="" />
         </div>
         <div class="nav-setting">
             <Button type="text" @click="$router.push('/admin/newDocument')">
@@ -20,7 +20,8 @@ export default {
     name: "Nav",
     data() {
         return {
-            buttonSize: "min"
+            buttonSize: "min",
+            logoSrc: require("../assets/svg/newLogo.svg"),
         }
     }
 }

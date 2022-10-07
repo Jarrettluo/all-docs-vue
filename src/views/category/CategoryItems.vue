@@ -1,10 +1,14 @@
 <template>
-    <div ref="categoryItem" style="height: 100%;" >
+    <div ref="categoryItem" style="height: 100%; position: relative" >
         <div class="title">
             <p>
                 <Icon type="logo-buffer" />
                 <span>  {{titleName}}</span>
             </p>
+        </div>
+        <div style="background-color: #fdffe8; font-size: 12px; color: #badc62;padding: 0px 16px; position: absolute;
+top: 52px; left: 0px;z-index: 999; width: 100%;">
+            <span>右键可操作</span>
         </div>
         <Table
             context-menu
@@ -26,14 +30,21 @@
             </template>
         </Table>
 
+        <div style="width: 100%; height: 300px; position: absolute; top: 52px; left: 0px;"
+             @contextmenu.prevent="handleContextMenuAdd"
+             v-if="listData.length == 0 "
+        >
+        </div>
+
+
         <Modal
             v-model="modal1"
             title="编辑提示"
             @on-ok="saveEditor"
             @on-cancel="cancelEditor"
             width="400">
-                名称：
-                <Input v-model="editValue" placeholder="请输入..." style="width: 300px"></Input>
+            名称：
+            <Input v-model="editValue" placeholder="请输入..." style="width: 300px"></Input>
         </Modal>
     </div>
 </template>
@@ -77,7 +88,7 @@ export default {
     },
     methods: {
         calcTableHeight() {
-          this.tableHeight = this.$refs.categoryItem.clientHeight - 51;
+            this.tableHeight = this.$refs.categoryItem.clientHeight - 51;
         },
         handleClearCurrentRow () {
             this.$refs.currentRowTable.clearCurrentRow();
@@ -103,19 +114,23 @@ export default {
                 type: this.categoryType
             };
             CategoryRequest.getListData(params).then(response => {
+                if ( response.code != 200) {
+                    return;
+                }
                 this.listData = response.data
                 this.listLoading = false
-                if( this.currentCatId == null) {
-                    let firstCate = this.listData[this.currentCatIndex]
-                    this.currentCatId = firstCate.id
-                    this.changeCategoryValue(firstCate)
-                } else {
-                    this.$nextTick(() => {
-                        this.$emit("categoryChange", this.currentCatId)
-                    })
+                if ( response.data.length > 0) {
+                    if( this.currentCatId == null) {
+                        let firstCate = this.listData[this.currentCatIndex]
+                        this.currentCatId = firstCate.id
+                        this.changeCategoryValue(firstCate)
+                    } else {
+                        this.$nextTick(() => {
+                            this.$emit("categoryChange", this.currentCatId)
+                        })
+                    }
+                    this.setCurrentItem()
                 }
-                this.setCurrentItem()
-
             })
         },
         /**
@@ -137,6 +152,9 @@ export default {
             }
         },
         saveEditor() {
+            if ( this.listData.length == 0) {
+                this.currentItem = new Object();
+            }
             this.currentItem.name = this.editValue
             if(this.isEditState) {
                 this.updateItem(this.currentItem)
