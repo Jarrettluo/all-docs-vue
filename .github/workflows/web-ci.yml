@@ -40,4 +40,4 @@ jobs:
         # The login password for the registry
         password: ${{secrets.DOCKER_PASSWORD}}
         # tag
-        tag: latest
+        tags: latest
