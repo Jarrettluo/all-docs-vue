@@ -16,9 +16,9 @@ jobs:
       uses: actions/checkout@master # 将代码拷贝到虚拟机中
 
     - name: Use Node.js 8
-        uses: actions/setup-node@v3
-        with:
-          node-version: 8
+      uses: actions/setup-node@v3
+      with:
+        node-version: 8
 
   - name: npm install, build, and test
       run:
