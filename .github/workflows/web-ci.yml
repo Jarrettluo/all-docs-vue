@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: 8
 
-  - name: npm install, build, and test
-      run:
-        npm install
-        npm run build
+    - name: npm install, build, and test
+        run:
+          npm install
+          npm run build
