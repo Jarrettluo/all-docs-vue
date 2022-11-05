@@ -126,6 +126,8 @@ export default {
                         this.hotTrend = tempData.sort(this.compare('hit'))
                     }
                 }
+            }).catch(err => {
+                console.log(err)
             })
         },
         compare(property){

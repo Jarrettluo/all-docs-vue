@@ -54,6 +54,8 @@ export default {
                 if (response.code == 200) {
                     this.hotSearch = response.data.hotSearch;
                 }
+            }).catch(err => {
+                console.log(err)
             })
         },
         clickToSearch(value) {

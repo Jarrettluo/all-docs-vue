@@ -167,6 +167,8 @@ export default {
                   this.data = response.data;
                   this.changeToCurrentTag(this.data[0].name, this.data[0].tagId)
               }
+            }).catch(err => {
+                console.log(err)
             })
 
 
