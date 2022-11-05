@@ -48,11 +48,11 @@ export default {
             }
             if (item.index == 1 || item.index == 2) {
 
-                if( !localStorage.getItem('token')) {
+                if (!localStorage.getItem('token')) {
                     this.$Message.error('跳转到登录页面，请先登录！');
                     this.$router.push({
-                        path:'/login',
-                        query:{
+                        path: '/login',
+                        query: {
                             userName: this.userName
                         }
                     })
@@ -66,7 +66,7 @@ export default {
                         title: '通知信息',
                         desc: '收藏点赞成功！'
                     });
-                }).catch( res => {
+                }).catch(res => {
                     console.log(res)
                 })
             }
@@ -76,53 +76,57 @@ export default {
 </script>
 
 <style scoped>
-    .operation-container {
-        width: 50%;
-        min-width: 400px;
-        display: flex;
-        justify-content: space-between;
-        margin: auto;
-        height: 200px;
-    }
-    .item {
-        width: 120px;
-        height: 120px;
-        border-radius: 120px;
-        margin: auto;
-        position: relative;
+.operation-container {
+    width: 50%;
+    min-width: 400px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    height: 200px;
+}
 
-        background: #FACF36;
-        border: 2px solid #000000;
-    }
-    .item:hover {
-        background-color: #f1db77;
-        cursor: pointer;
-        border: 2px #2d2c2b solid;
-    }
+.item {
+    width: 120px;
+    height: 120px;
+    border-radius: 120px;
+    margin: auto;
+    position: relative;
 
-    .operation-title {
-        font-size: 14px;
-        font-family: PingFangSC-Medium, PingFang SC;
-        font-weight: 500;
-        color: #000000;
-        line-height: 20px;
-    }
+    background: #FACF36;
+    border: 2px solid #000000;
+}
 
-    .item-logo {
-        height: 80px;
-        line-height: 80px;
-        width: 120px;
-    }
-    .item-logo img {
-        position:absolute;
-        top:40%;
-        left:50%;
-        transform:translate(-50%,-50%);
-        -webkit-transform:translate(-50%,-50%);
-        -moz-transform:translate(-50%,-50%);
-    }
-    img {
-        /*width: 48px;*/
-        /*height: 48px;*/
-    }
+.item:hover {
+    background-color: #f1db77;
+    cursor: pointer;
+    border: 2px #2d2c2b solid;
+}
+
+.operation-title {
+    font-size: 14px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #000000;
+    line-height: 20px;
+}
+
+.item-logo {
+    height: 80px;
+    line-height: 80px;
+    width: 120px;
+}
+
+.item-logo img {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+}
+
+img {
+    /*width: 48px;*/
+    /*height: 48px;*/
+}
 </style>

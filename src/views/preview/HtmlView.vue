@@ -1,7 +1,7 @@
 <template>
     <div class="word-wrap">
         <!--        <div id="wordView" v-html="wordText" />-->
-<!--        <img :src="wordURL" width="100%">-->
+        <!--        <img :src="wordURL" width="100%">-->
         <iframe :src="wordURL" width="100%" height="100%" frameborder="no">
 
         </iframe>
@@ -43,6 +43,7 @@ export default {
     img {
         width: 100%;
     }
+
     height: 100vh;
 }
 </style>

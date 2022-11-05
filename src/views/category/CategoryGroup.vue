@@ -1,17 +1,18 @@
 <template>
-    <div style="padding: 0px;background: #f8f8f9; text-align: left; position: absolute; left: 0px; top: 0px; height: calc( 100vh - 180px); width: 100%;">
-        <Card :title = name icon="ios-options" :padding="0" style="width: 100%;">
-            <CellGroup >
+    <div
+        style="padding: 0;background: #f8f8f9; text-align: left; position: absolute; left: 0; top: 0; height: calc( 100vh - 180px); width: 100%;">
+        <Card :title=name icon="ios-options" :padding="0" style="width: 100%;">
+            <CellGroup>
                 <Cell v-for="item in listData" :title="item.name" on-click="changeCategoryValue"/>
-<!--                <Cell title="Only show titles" />-->
-<!--                <Cell title="Only show titles" >-->
-<!--                    <template #extra>-->
-<!--                        <div class="more-info" @click="clickGo($event)">-->
-<!--                            <Icon type="ios-more" />-->
-<!--                        </div>-->
-<!--                    </template>-->
-<!--                </Cell>-->
-<!--                <Cell title="这是一个分类的信息"/>-->
+                <!--                <Cell title="Only show titles" />-->
+                <!--                <Cell title="Only show titles" >-->
+                <!--                    <template #extra>-->
+                <!--                        <div class="more-info" @click="clickGo($event)">-->
+                <!--                            <Icon type="ios-more" />-->
+                <!--                        </div>-->
+                <!--                    </template>-->
+                <!--                </Cell>-->
+                <!--                <Cell title="这是一个分类的信息"/>-->
 
             </CellGroup>
         </Card>
@@ -36,7 +37,7 @@
 import CategoryRequest from "@/api/category"
 
 export default {
-    data () {
+    data() {
         return {
             showMsgDropdown: false,
             name: this.titleName,
@@ -45,23 +46,13 @@ export default {
         }
     },
     props: {
-        titleName: { type: String, requires: true },
-        categoryType: { type: String, requires: true}
+        titleName: {type: String, requires: true},
+        categoryType: {type: String, requires: true}
     },
     created() {
         this.getAllItems()
     },
     methods: {
-        clickGo(e) {
-            this.showMsgDropdown = true;
-            this.Msgcontextmenu(e);
-        },
-        Msgcontextmenu(event) {
-            // event.preventDefault();
-            // this.$refs.contentMenu.$refs.reference = event.target;//在此dom附件弹出
-            // console.log(this.$refs.contentMenu.$refs.reference);
-            // this.$refs.contentMenu.currentVisible = !this.$refs.contentMenu.currentVisible;//仿click弹出界面
-        },
         getAllItems() {
             const params = {
                 type: this.categoryType
@@ -75,10 +66,10 @@ export default {
         },
         /**
          * 分类的信息发生了变化
-         * @param categoryValue
+         * @param data
          */
         changeCategoryValue(data) {
-            if( JSON.stringify(data) !== '{}' && data.id !== undefined) {
+            if (JSON.stringify(data) !== '{}' && data.id !== undefined) {
 
                 this.$emit("categoryChange", data['id'])
             }
@@ -91,23 +82,4 @@ export default {
 
 <style scoped>
 
-    /*/deep/ .ivu-cell-extra {*/
-    /*    padding-right: 8px;*/
-    /*}*/
-
-    /deep/ .ivu-cell-footer {
-        right: 8px;
-    }
-  .more-info {
-      width: 28px;
-      height: 28px;
-      line-height: 28px;
-      text-align: center;
-      font-size: 21px;
-      font-weight: bold;
-  }
-
-  .more-info:hover {
-      color: #f1db77;
-  }
 </style>

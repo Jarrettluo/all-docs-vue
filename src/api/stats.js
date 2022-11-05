@@ -1,4 +1,4 @@
-import { Get,Post,Put,Patch,Delete } from "@/api/request";
+import {Get} from "@/api/request";
 import {
     STATS_TREND_URL,
     STATS_ALL_URL,
@@ -10,23 +10,23 @@ import {
 export default {
 
     getTrendData: (params) => {
-        return Get(STATS_TREND_URL,params);
+        return Get(STATS_TREND_URL, params);
     },
 
     postStatsData: (params) => {
-        return Get(STATS_ALL_URL,params);
+        return Get(STATS_ALL_URL, params);
     },
 
     getHotTrend: (params) => {
-        return Get(STATS_HOT_TREND,params);
+        return Get(STATS_HOT_TREND, params);
     },
 
     getSearchHistory: (params) => {
-        return Get(STATS_SEARCH_HISTORY,params);
+        return Get(STATS_SEARCH_HISTORY, params);
     },
 
     getRecentDoc: (params) => {
-        return Get(STATS_RECENT_DOC,params);
+        return Get(STATS_RECENT_DOC, params);
     },
 
 }

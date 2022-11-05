@@ -1,4 +1,3 @@
-
 const ADD_RELATE_URL = '/category/addRelationship'; // 增加文档和分类、标签的关系
 const CATE_NO_RELATE_URL = '/category/removeRelationship'; // 取消关系
 

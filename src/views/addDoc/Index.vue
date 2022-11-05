@@ -15,9 +15,7 @@
 <script>
 export default {
     data() {
-        return{
-
-        }
+        return {}
     },
     methods: {
         response(response, file, fileList) {

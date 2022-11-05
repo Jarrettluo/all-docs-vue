@@ -57,7 +57,7 @@ export default {
     },
     methods: {
         routeToCategory(value) {
-            if(value == "" || value == undefined) {
+            if(value === "" || value === undefined) {
                 return;
             }
             this.$router.push({
@@ -90,7 +90,7 @@ export default {
     line-height: 36px;
     height: 36px;
     text-align: left;
-    padding: 0px 10px;
+    padding: 0 10px;
     font-size: 16px;
     border-bottom: 1px solid #dcdee2;
     color: #f1db77;
@@ -109,8 +109,8 @@ export default {
 }
 ul,li {
     list-style: none;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 .document-abstract {
@@ -128,7 +128,7 @@ ul,li {
 .more-info {
     height: 32px;
     /*line-height: 32px;*/
-    padding: 0px 10px;
+    padding: 0 10px;
 }
 .more-info-button {
     border: 1px solid #dcdee2;

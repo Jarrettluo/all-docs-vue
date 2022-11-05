@@ -51,11 +51,12 @@ export default {
     background-color: rgba(245, 245, 245, 100);
     color: rgba(16, 16, 16, 100);
 }
+
 .home-content {
     margin: auto;
     width: 872px;
     display: flex;
-    padding: 16px 0px;
+    padding: 16px 0;
     justify-content: space-between;
 }
 </style>

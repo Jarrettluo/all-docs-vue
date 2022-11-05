@@ -1,14 +1,14 @@
-import { Get,Post,Put,Patch,Delete } from "@/api/request";
+import {Get, Post, Put, Patch, Delete} from "@/api/request";
 
 export default {
     getListData: (params) => {
         console.log(params)
-        return Get('/category/all',params);
+        return Get('/category/all', params);
     },
     postListData: (params) => {
-        return Post('../../static/data.json',params);
+        return Post('../../static/data.json', params);
     },
     deleteListData: (params) => {
-        return Delete('../../static/data.json',params);
+        return Delete('../../static/data.json', params);
     }
 }

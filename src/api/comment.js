@@ -5,23 +5,20 @@ import {
     COMMENT_UPDATE_URL
 } from './url'
 
-import { Get,Post,Put,Delete } from "@/api/request";
+import {Post, Put, Delete} from "@/api/request";
 
 export default {
 
     getListData: (params) => {
-        return Post(COMMENT_LIST_URL,params);
+        return Post(COMMENT_LIST_URL, params);
     },
 
     postData: (params) => {
-        return Post(COMMENT_ADD_URL,params);
+        return Post(COMMENT_ADD_URL, params);
     },
 
     deleteData: (params) => {
-        return Delete(COMMENT_REMOVE_URL,params);
-    },
-    putData: (params) => {
-        return Put(COMMENT_UPDATE_URL,params);
+        return Delete(COMMENT_REMOVE_URL, params);
     }
 }
 

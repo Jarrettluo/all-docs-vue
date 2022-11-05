@@ -1,7 +1,7 @@
 <template>
     <Card style="width:320px; margin-left: 5px;">
         <div style="text-align:center">
-<!--            <img src="https://dev-file.iviewui.com/stJXDnKhL5qEBD0dHSDDTKbdnptK6mV5/large">-->
+            <!--            <img src="https://dev-file.iviewui.com/stJXDnKhL5qEBD0dHSDDTKbdnptK6mV5/large">-->
             <div class="number">
                 <h1>{{ number }}</h1>
             </div>
@@ -12,11 +12,9 @@
 <script>
 
 export default {
-    name: "StasCard",
+    name: "StatsCard",
     data() {
-        return {
-
-        }
+        return {}
     },
     props: {
         number: {
@@ -34,11 +32,11 @@ export default {
 </script>
 
 <style scoped>
-    .number {
-        height: 120px;
-        line-height: 120px;
-        font-size: 36px;
-        font-weight: 100;
-        color: #f4d057;
-    }
+.number {
+    height: 120px;
+    line-height: 120px;
+    font-size: 36px;
+    font-weight: 100;
+    color: #f4d057;
+}
 </style>

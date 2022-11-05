@@ -25,7 +25,9 @@
                @on-ok="saveEditor"
                @on-cancel="cancelEditor"
         >
-            <div><doc-table ref="addDocTable" type="ADD" cateId=""></doc-table></div>
+            <div>
+                <doc-table ref="addDocTable" type="ADD" cateId=""></doc-table>
+            </div>
         </Modal>
     </div>
 </template>
@@ -37,7 +39,7 @@ import CategoryItems from "@/views/category/CategoryItems";
 import CategoryRequest from "@/api/category";
 
 export default {
-    data () {
+    data() {
         return {
             split: 0.2,
             modal: false,
@@ -65,7 +67,7 @@ export default {
             })
         },
         cancelEditor() {
-            this.modal= false
+            this.modal = false
         },
         addRelate(cateId, docId) {
             const params = {
@@ -73,12 +75,12 @@ export default {
                 "docId": docId,
                 "type": "CATEGORY"
             }
-            if(cateId == "") {
+            if (cateId === "") {
                 return;
             }
             CategoryRequest.postRelateData(params).then(
                 response => {
-                    if(response.code == 200) {
+                    if (response.code === 200) {
                         this.handleChange(cateId)
                     } else {
                         this.$Message.info("错误：" + response.message)
@@ -91,15 +93,15 @@ export default {
          * @param docItem
          */
         removeDoc(docItem) {
-            if(docItem === null || docItem.id ==null || docItem.categoryVO == null) {
+            if (docItem === null || docItem.id == null || docItem.categoryVO == null) {
                 return
             }
             var params = {
-                id : this.cateId,
+                id: this.cateId,
                 docId: docItem.id,
                 type: "CATEGORY"
             }
-            CategoryRequest.deleteRelateData(params).then( response => {
+            CategoryRequest.deleteRelateData(params).then(response => {
                 // 删除以后再发起请求
                 this.$refs.docTable.getListData(this.cateId);
             })
@@ -109,11 +111,12 @@ export default {
 }
 </script>
 <style scoped>
-.demo-split{
+.demo-split {
     height: 100%;
     border: 1px solid #dcdee2;
 }
-/deep/ .demo-split-pane{
+
+/deep/ .demo-split-pane {
     padding: 0;
     text-align: left;
     height: 100%;
@@ -126,7 +129,7 @@ export default {
 
 .content {
     width: calc(100%);
-    height: calc( 100%) ;
+    height: calc(100%);
     background-color: #ffffff;
     box-sizing: border-box;
     border-radius: 4px;

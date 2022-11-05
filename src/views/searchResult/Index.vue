@@ -76,7 +76,7 @@ export default {
         getListData() {
             this.loading = true
             let keyword = this.$route.query.keyWord
-            if(keyword == "") return;
+            if(keyword === "") return;
             const params = {
                 "categoryId": "",
                 "filterWord": keyword,
@@ -87,14 +87,14 @@ export default {
             }
             DocumentRequest.getListData(params).then(res => {
                 this.loading = false;
-                if(res.code == 200) {
+                if(res.code === 200) {
                     this.totalItems = res.data.totalNum;
                     this.data = res.data.documents;
                 } else {
                     this.data = []
                 }
                 this.listLoading = false
-                if(this.data == null || this.data.length == 0) {
+                if(this.data == null || this.data.length === 0) {
                     this.info(false)
                 }
             })
@@ -125,7 +125,6 @@ export default {
 .doc-group {
     width: 1200px;
     /*position: absolute;*/
-    margin-top: 50px;
     margin: auto;
     /*background-color: #dcdee2;*/
     /*background-color: rgba(245, 245, 245, 100);*/

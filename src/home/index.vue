@@ -2,7 +2,7 @@
     <div class="homepage">
 
         <div class="top-group" style="text-align: center; ">
-            <img :src="imgSrc" width="100%" height="100%" alt="" />
+            <img :src="imgSrc" width="100%" height="100%" alt=""/>
             <SearchGroup></SearchGroup>
             <div class="user-zone" @click="$router.push('/admin/allDocuments')">
                 <span>管理员</span>
@@ -78,95 +78,15 @@ export default {
         }
     },
     created() {
-      this.init()
+        this.init()
     },
     methods: {
         init() {
-            let data = [{
-                    name: "最近的文档",
-                    tagId: "sjflsjdfl",
-                    docList: [
-                        {
-                            name: "中国金融科技生态白皮书2021年.pdf",
-                            id: "63136f448c86d1646ac411ca"
-                        }, {
-                            name: "工作条例.docx",
-                            id: "631315e69faed23bb3baf607"
-                        },
-                        {
-                            name: "中国领导者十年领导力图鉴.pdf",
-                            id: "630821f829905176a6cb4293"
-                        }, {
-                            name: "知识库管理系统建设方案.pptx",
-                            id: "62f215f218e3331d7725d508",
-                        },
-                        {
-                            name: "附件1第二轮双一流建设高校及建设学科名单.pdf",
-                            id: "63162367d14f8f0678d69efd",
-                        }, {
-                            name: "日志管理技术研究与实现.pdf",
-                            id: "630f370599290b366738a261",
-                        },
-                        {
-                            name: "图数据库白皮书-信通院.pdf",
-                            id: "62b9bdfe845f9a73b891bd44",
-                        },{
-                            name: "大数据白皮书（2020年）.pdf",
-                            id: "62bb016fcd82a62d74c0ac48",
-                        }
-                    ],
-                },{
-                    name: "中央决定",
-                    tagId: "23324",
-                    docList: [
-                        {
-                            name: "习近平在厦门的副本.pdf",
-                            id: "62dd55bd8034871a36422364",
-                        }, {
-                            name: "工作条例.docx",
-                            id: "631315e69faed23bb3baf607"
-                        },
-                        {
-                            name: "中国领导者十年领导力图鉴.pdf",
-                            id: "630821f829905176a6cb4293"
-                        }, {
-                            name: "知识库管理系统建设方案.pptx",
-                            id: "62f215f218e3331d7725d508",
-                        },
-                    ]
-                }, {
-                    name: "pdf的文档",
-                    tagId: "dsfds",
-                    docList: [
-                        {
-                            name: "图数据库白皮书-信通院.pdf",
-                            id: "62b9bdfe845f9a73b891bd44",
-                        },{
-                            name: "大数据白皮书（2020年）.pdf",
-                            id: "62bb016fcd82a62d74c0ac48",
-                        },{
-                            name: "阿里巴巴Java开发手册1.4.0.pdf",
-                            id: "62b9be1c845f9a73b891bd4b",
-                        }, {
-                            name: "工作条例.docx",
-                            id: "631315e69faed23bb3baf607"
-                        },
-                        {
-                            name: "中国领导者十年领导力图鉴.pdf",
-                            id: "630821f829905176a6cb4293"
-                        }, {
-                            name: "知识库管理系统建设方案.pptx",
-                            id: "62f215f218e3331d7725d508",
-                        },
-                    ]
-                }
-            ]
-
             StatsRequest.getRecentDoc().then(response => {
-              if ( response.code == 200) {
-                  this.data = response.data;
-                  this.changeToCurrentTag(this.data[0].name, this.data[0].tagId)
-              }
+                if (response.code === 200) {
+                    this.data = response.data;
+                    this.changeToCurrentTag(this.data[0].name, this.data[0].tagId)
+                }
             }).catch(err => {
                 console.log(err)
             })
@@ -180,8 +100,8 @@ export default {
          */
         changeToCurrentTag(name, tagId) {
             this.currentData = []
-            this.data.forEach( item => {
-                if(item.name == name && item.tagId == tagId) {
+            this.data.forEach(item => {
+                if (item.name === name && item.tagId === tagId) {
                     item.clicked = true
                     this.currentData = item.docList
                 } else {
@@ -191,8 +111,8 @@ export default {
         },
         getDocView(id) {
             this.$router.push({
-                path:'/preview',
-                query:{
+                path: '/preview',
+                query: {
                     docId: id
                 }
             })
@@ -204,141 +124,159 @@ export default {
 
 <style lang="scss" scoped>
 
-    .homepage {
+.homepage {
+    width: 100%;
+    //height: 100vh;
+    padding-bottom: 20px;
+
+    .top-group {
+        height: 340px;
         width: 100%;
-        //height: 100vh;
-        padding-bottom: 20px;
+        padding-bottom: 40px;
+        z-index: -1;
 
-        .top-group {
-            height: 340px;
-            width: 100%;
-            padding-bottom: 40px;
-            z-index:-1;
-            .user-zone {
-                position: absolute;
-                right: 40px;
-                top: 20px;
-                display: flex;
-                justify-content: flex-start;
-                padding: 0 10px;
-                span{
-                    height: 36px;
-                    line-height: 36px;
-                    font-size: 14px;
-                    font-family: PingFangSC-Regular, PingFang SC;
-                    font-weight: 400;
-                    color: #000000;
-                    padding-right: 10px;
-                }
-                .user-tag {
-                    height: 36px;
-                    width: 36px;
-                    border: 1px solid #000;
-                    border-radius: 36px;
-                    background-color: #ffffff;
-                }
-                &:hover {
-                    cursor: pointer;
-                    background-color: rgba(#fff, 0.2);
-                    border-radius: 8px;
-                }
-            }
-        }
-        .bottom-group {
-            margin: auto;
-            width: 1200px;
-            height: 619px;
-            box-shadow: 0px 0px 5px 0px rgba(64,64,64,0.3);
-            border-radius: 8px;
-            .left-panel {
-                height: 100%;
-                width: 900px;
-                float: left;
-                padding: 0px 0px 0 0;
-            }
-            .right-panel {
-                height: 100%;
-                width: 300px;
-                float: left;
-                padding: 0 24px 0px 40px;
-            }
-            .top-container {
-                height: 110px;
-                width: 100%;
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
-                .panel-title {
-                    span {
-                        font-size: 20px;
-                        font-family: PingFangSC-Semibold, PingFang SC;
-                        font-weight: 600;
-                        color: #464646;
-                        line-height: 28px;
-                    }
-                }
-                .left-pane-title {
-                    margin-left: 24px;
-                }
-                .tag-info {
-                    height: 30px;
-                    background: #FACF36;
-                    border-radius: 15px;
-                    border: 1px solid #000000;
-                    padding: 0 10px;
-                    margin-left: 20px;
-                    line-height: 32px;
-                    color: #000000;
-                    span {
-                        font-size: 14px;
-                        font-family: PingFangSC-Regular, PingFang SC;
-                        font-weight: 400;
-                        line-height: 20px;
-                    }
-                    &:hover {
-                        cursor: pointer;
-                        background: #FFFAE4;
-                    }
-                }
+        .user-zone {
+            position: absolute;
+            right: 40px;
+            top: 20px;
+            display: flex;
+            justify-content: flex-start;
+            padding: 0 10px;
 
-                .tag-info-unchecked {
-                    height: 30px;
-                    border-radius: 15px;
-                    border: 1px solid #AAAAAA;
-                    padding: 0 10px;
-                    margin-left: 20px;
-                    line-height: 32px;
-                    color: #AAAAAA;
-                    &:hover {
-                        cursor: pointer;
-                        background: #FACF36;
-                        border: 1px solid #000000;
-                        color: #000000;
-                    }
-                    span {
-                        height: 20px;
-                        font-size: 14px;
-                        font-family: PingFangSC-Regular, PingFang SC;
-                        font-weight: 400;
-                        line-height: 20px;
-                    }
-                }
-            }
-            .doc-thumb-1 {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: flex-start;
-                overflow: hidden;
-                padding-left: 20px;
-                .doc-thumb {
-                    margin-right: 38px;
-                }
-            }
-            .second-group {
-                margin-top: 40px;
+            span {
+                height: 36px;
+                line-height: 36px;
+                font-size: 14px;
+                font-family: PingFangSC-Regular, PingFang SC, serif;
+                font-weight: 400;
+                color: #000000;
+                padding-right: 10px;
             }
 
+            .user-tag {
+                height: 36px;
+                width: 36px;
+                border: 1px solid #000;
+                border-radius: 36px;
+                background-color: #ffffff;
+            }
+
+            &:hover {
+                cursor: pointer;
+                background-color: rgba(#fff, 0.2);
+                border-radius: 8px;
+            }
         }
     }
+
+    .bottom-group {
+        margin: auto;
+        width: 1200px;
+        height: 619px;
+        box-shadow: 0 0 5px 0 rgba(64, 64, 64, 0.3);
+        border-radius: 8px;
+
+        .left-panel {
+            height: 100%;
+            width: 900px;
+            float: left;
+            padding: 0 0 0 0;
+        }
+
+        .right-panel {
+            height: 100%;
+            width: 300px;
+            float: left;
+            padding: 0 24px 0 40px;
+        }
+
+        .top-container {
+            height: 110px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            .panel-title {
+                span {
+                    font-size: 20px;
+                    font-family: PingFangSC-Semibold, PingFang SC, serif;
+                    font-weight: 600;
+                    color: #464646;
+                    line-height: 28px;
+                }
+            }
+
+            .left-pane-title {
+                margin-left: 24px;
+            }
+
+            .tag-info {
+                height: 30px;
+                background: #FACF36;
+                border-radius: 15px;
+                border: 1px solid #000000;
+                padding: 0 10px;
+                margin-left: 20px;
+                line-height: 32px;
+                color: #000000;
+
+                span {
+                    font-size: 14px;
+                    font-family: PingFangSC-Regular, PingFang SC, serif;
+                    font-weight: 400;
+                    line-height: 20px;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background: #FFFAE4;
+                }
+            }
+
+            .tag-info-unchecked {
+                height: 30px;
+                border-radius: 15px;
+                border: 1px solid #AAAAAA;
+                padding: 0 10px;
+                margin-left: 20px;
+                line-height: 32px;
+                color: #AAAAAA;
+
+                &:hover {
+                    cursor: pointer;
+                    background: #FACF36;
+                    border: 1px solid #000000;
+                    color: #000000;
+                }
+
+                span {
+                    height: 20px;
+                    font-size: 14px;
+                    font-family: PingFangSC-Regular, PingFang SC, serif;
+                    font-weight: 400;
+                    line-height: 20px;
+                }
+            }
+        }
+
+        .doc-thumb-1 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            overflow: hidden;
+            padding-left: 20px;
+
+            .doc-thumb {
+                margin-right: 38px;
+            }
+        }
+
+        .second-group {
+            margin-top: 40px;
+        }
+
+    }
+}
 
 </style>

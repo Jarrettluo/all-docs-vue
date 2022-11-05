@@ -10,7 +10,7 @@ import DocumentRequest from "@/api/document"
 import DocTable from "@/views/category/DocTable";
 
 export default {
-    data () {
+    data() {
         return {
             columns: [
                 {
@@ -105,8 +105,8 @@ export default {
         DocTable
     },
     props: {
-        type: { type: String, requires: true },
-        keyword: { type: String, requires: false}
+        type: {type: String, requires: true},
+        keyword: {type: String, requires: false}
     },
     mounted() {
 
@@ -115,7 +115,7 @@ export default {
         filterColumns() {
             //根据自己的要求去显示和隐藏某一列  我这里想要隐藏操作列
             if (this.type != "ALL") {
-                return this.columns.filter(col => col.key !== 'categoryVO' );
+                return this.columns.filter(col => col.key !== 'categoryVO');
             }
         }
     },
@@ -125,13 +125,13 @@ export default {
          * @param docItem
          */
         removeDoc(docItem) {
-            if(docItem === null || docItem.id == null) {
+            if (docItem === null || docItem.id == null) {
                 return
             }
             var params = {
-                id : docItem.id
+                id: docItem.id
             }
-            DocumentRequest.deleteData(params).then( response => {
+            DocumentRequest.deleteData(params).then(response => {
                 // 删除以后再发起请求
                 this.queryTable()
             })
@@ -146,7 +146,7 @@ export default {
 <style scoped>
 .content {
     width: calc(100% - 16px);
-    height: calc( 100% - 16px) ;
+    height: calc(100% - 16px);
     background-color: #ffffff;
     margin: 8px;
     box-sizing: border-box;

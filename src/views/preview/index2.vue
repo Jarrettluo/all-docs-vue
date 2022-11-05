@@ -1,20 +1,20 @@
 <template>
     <div class="home_wrap">
         <div v-show="view_flag" style="padding: 400px; color: #ffcc4f;">
-            <div class="demo-spin-icon-load" >
+            <div class="demo-spin-icon-load">
                 <Icon type="md-refresh" style="font-size: 48px;"/>
             </div>
-            <div style='font-size:16px' >加载中...</div>
+            <div style='font-size:16px'>加载中...</div>
         </div>
 
 
-        <div class="pdf_down" >
-            <div class="pdf_set_left"  @click="scaleD()">放大</div>
+        <div class="pdf_down">
+            <div class="pdf_set_left" @click="scaleD()">放大</div>
             <div class="pdf_set_middle" @click="scaleX()">缩小</div>
         </div>
 
 
-        <div :style="{width:pdf_div_width,margin:'0 auto', height: '500'}" >
+        <div :style="{width:pdf_div_width,margin:'0 auto', height: '500'}">
             <canvas v-for="page in pdf_pages" :id="'the_canvas'+page" :key="page"></canvas>
         </div>
     </div>
@@ -24,12 +24,12 @@
 let PDFJS = require('pdfjs-dist');
 PDFJS.GlobalWorkerOptions.workerSrc = require("pdfjs-dist/build/pdf.worker.entry.js");
 export default {
-    data(){
-        return{
-            pdf_scale:1.5,//pdf放大系数
-            pdf_pages:[],
-            pdf_div_width:'',
-            pdf_src:null,
+    data() {
+        return {
+            pdf_scale: 1.5,//pdf放大系数
+            pdf_pages: [],
+            pdf_div_width: '',
+            pdf_src: null,
             loading: false,
 
             view_flag: true,
@@ -37,33 +37,33 @@ export default {
             docId: this.$route.query.docId,
         }
     },
-    mounted(){
+    mounted() {
         this.get_pdfurl()
     },
 
-    methods:{
+    methods: {
         scaleD() {  //放大
             let max = 0
             if (window.screen.width > 1440) {
                 max = 1.4
-            }else{
+            } else {
                 max = 1.2
             }
-            if(this.pdf_scale >= max){
+            if (this.pdf_scale >= max) {
                 return
             }
-            this.pdf_scale = this.pdf_scale+0.1
+            this.pdf_scale = this.pdf_scale + 0.1
             this._loadFile(this.pdf_src)
         },
         scaleX() {  //缩小
             let min = 1.0
-            if(this.pdf_scale <= min){
+            if (this.pdf_scale <= min) {
                 return
             }
             this.pdf_scale = this.pdf_scale - 0.1
             this._loadFile(this.pdf_src)
         },
-        get_pdfurl(){  //获得pdf教案
+        get_pdfurl() {  //获得pdf教案
             this.loading = true
             let docId = this.docId
 
@@ -84,7 +84,7 @@ export default {
             //  	this._loadFile(this.pdf_src)
             //  })
         },
-        _loadFile (url) {  //初始化pdf
+        _loadFile(url) {  //初始化pdf
             let loadingTask = PDFJS.getDocument(url)
             loadingTask.promise
                 .then((pdf) => {
@@ -96,7 +96,7 @@ export default {
                     })
                 })
         },
-        _renderPage (num) {  //渲染pdf页
+        _renderPage(num) {  //渲染pdf页
             const that = this
             this.pdfDoc.getPage(num)
                 .then((page) => {
@@ -109,7 +109,7 @@ export default {
                         ctx.oBackingStorePixelRatio ||
                         ctx.backingStorePixelRatio || 1
                     let ratio = dpr / bsr
-                    let viewport = page.getViewport({ scale: this.pdf_scale })
+                    let viewport = page.getViewport({scale: this.pdf_scale})
 
                     canvas.width = viewport.width * ratio
                     canvas.height = viewport.height * ratio
@@ -137,33 +137,36 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.home_wrap{
+.home_wrap {
     //width: 100%;
     width: 1200px;
     //height: 100%;
     height: 900px;
-    .pdf_down{
-        position:fixed;
+
+    .pdf_down {
+        position: fixed;
         display: flex;
         z-index: 20;
-        right:26px;
-        bottom:7%;
-        .pdf_set_left{
+        right: 26px;
+        bottom: 7%;
+
+        .pdf_set_left {
             width: 30px;
             height: 40px;
             color: #408FFF;
             font-size: 11px;
-            padding-top:25px;
+            padding-top: 25px;
             text-align: center;
             margin-right: 5px;
             cursor: pointer;
         }
-        .pdf_set_middle{
+
+        .pdf_set_middle {
             width: 30px;
             height: 40px;
             color: #408FFF;
             font-size: 11px;
-            padding-top:25px;
+            padding-top: 25px;
             text-align: center;
             margin-right: 5px;
             cursor: pointer;
@@ -172,23 +175,31 @@ export default {
 }
 
 /* 旋转效果 */
-.demo-spin-icon-load{
+.demo-spin-icon-load {
     animation: ani-demo-spin 1s linear infinite;
 }
+
 @keyframes ani-demo-spin {
-    from { transform: rotate(0deg);}
-    50% { transform: rotate(180deg);}
-    to { transform: rotate(360deg);}
+    from {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
+
 /* 遮罩 */
 /* 假如内容过长，一屏放不下，滚动条下拉覆盖不全 */
 .ivu-spin-fix {
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     z-index: 8;
     width: 100%;
-    height:100%;
-    background-color: hsla(0,0%,100%,.8);
+    height: 100%;
+    background-color: hsla(0, 0%, 100%, .8);
 }
 </style>

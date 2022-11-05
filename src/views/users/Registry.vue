@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         registry() {
-            if( this.checkPassword != this.password) {
+            if( this.checkPassword !== this.password) {
                 this.$Message.error('两次密码不相同，请检查');
                 return;
             }

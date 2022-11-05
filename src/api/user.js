@@ -5,7 +5,7 @@ import {
     ALL_USER_URL
 } from './url'
 
-import { Get,Post,Put,Delete } from "@/api/request";
+import {Get, Post, Delete} from "@/api/request";
 
 export default {
 

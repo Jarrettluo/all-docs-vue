@@ -11,12 +11,12 @@ export default {
 </script>
 
 <style scoped>
-    .error-preview {
-        height: 100vh;
-        width: 100%;
-        line-height: 100vh;
-        text-align: center;
-        color: #fceac8;
-        overflow: hidden;
-    }
+.error-preview {
+    height: 100vh;
+    width: 100%;
+    line-height: 100vh;
+    text-align: center;
+    color: #fceac8;
+    overflow: hidden;
+}
 </style>

@@ -1,9 +1,9 @@
 <template>
-    <div ref="categoryItem" style="height: 100%; position: relative" >
+    <div ref="categoryItem" style="height: 100%; position: relative">
         <div class="title">
             <p>
-                <Icon type="logo-buffer" />
-                <span>  {{titleName}}</span>
+                <Icon type="logo-buffer"/>
+                <span>  {{ titleName }}</span>
             </p>
         </div>
         <div style="background-color: #fdffe8; font-size: 12px; color: #badc62;padding: 0px 16px; position: absolute;
@@ -53,7 +53,7 @@ import CategoryRequest from "@/api/category";
 import {Input} from "view-design";
 
 export default {
-    data () {
+    data() {
         return {
             columns: [
                 {
@@ -75,14 +75,13 @@ export default {
         }
     },
     props: {
-        titleName: { type: String, requires: true },
-        categoryType: { type: String, requires: true}
+        titleName: {type: String, requires: true},
+        categoryType: {type: String, requires: true}
     },
     created() {
         this.getAllItems()
     },
-    computed: {
-    },
+    computed: {},
     mounted() {
         this.calcTableHeight();
     },
@@ -90,23 +89,23 @@ export default {
         calcTableHeight() {
             this.tableHeight = this.$refs.categoryItem.clientHeight - 51;
         },
-        handleClearCurrentRow () {
+        handleClearCurrentRow() {
             this.$refs.currentRowTable.clearCurrentRow();
         },
-        handleContextMenu (row) {
+        handleContextMenu(row) {
             const index = this.listData.findIndex(item => item.name === row.name);
             this.contextLine = index + 1;
             this.currentItem = this.listData[index]
             this.editValue = ""
         },
 
-        handleContextMenuAdd () {
+        handleContextMenuAdd() {
             this.handleRender(false);
         },
-        handleContextMenuEdit () {
+        handleContextMenuEdit() {
             this.handleRender(true);
         },
-        handleContextMenuDelete () {
+        handleContextMenuDelete() {
             this.removeItem(this.currentItem)
         },
         getAllItems() {
@@ -114,13 +113,13 @@ export default {
                 type: this.categoryType
             };
             CategoryRequest.getListData(params).then(response => {
-                if ( response.code != 200) {
+                if (response.code != 200) {
                     return;
                 }
                 this.listData = response.data
                 this.listLoading = false
-                if ( response.data.length > 0) {
-                    if( this.currentCatId == null) {
+                if (response.data.length > 0) {
+                    if (this.currentCatId == null) {
                         let firstCate = this.listData[this.currentCatIndex]
                         this.currentCatId = firstCate.id
                         this.changeCategoryValue(firstCate)
@@ -138,7 +137,7 @@ export default {
          * @param categoryValue
          */
         changeCategoryValue(data) {
-            if( JSON.stringify(data) !== '{}' && data.id !== undefined) {
+            if (JSON.stringify(data) !== '{}' && data.id !== undefined) {
                 this.$emit("categoryChange", data['id'])
                 this.currentCatId = data.id
                 this.setCurrentItem()
@@ -147,18 +146,18 @@ export default {
         handleRender(isEdit) {
             this.modal1 = true
             this.isEditState = isEdit ? true : false;
-            if(isEdit) {
+            if (isEdit) {
                 this.editValue = this.currentItem.name;
             }
         },
         saveEditor() {
-            if ( this.listData.length == 0) {
+            if (this.listData.length == 0) {
                 this.currentItem = new Object();
             }
             this.currentItem.name = this.editValue
-            if(this.isEditState) {
+            if (this.isEditState) {
                 this.updateItem(this.currentItem)
-            }else {
+            } else {
                 this.currentItem.id = ""
                 this.addItem(this.currentItem)
             }
@@ -200,8 +199,8 @@ export default {
         },
         // 设置高亮
         setCurrentItem() {
-            for(let i = 0; i < this.listData.length; i ++) {
-                if(this.listData[i].id == this.currentCatId) {
+            for (let i = 0; i < this.listData.length; i++) {
+                if (this.listData[i].id == this.currentCatId) {
                     this.currentCatIndex = i;
                 }
             }
@@ -236,6 +235,7 @@ export default {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .i {
     line-height: 22px;
     width: 22px;

@@ -16,7 +16,7 @@
 <style lang="scss">
 .information {
     position: fixed;
-    top: 0px;
+    top: 0;
     left: calc( 50% - 300px);
     height: 30px;
     width: 600px;

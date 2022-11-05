@@ -1,14 +1,14 @@
 <template>
     <div class="nav-container">
         <div class="nav-logo" @click="$router.push('/')">
-            <img :src="logoSrc" width="80%" height="80%" alt="" />
+            <img :src="logoSrc" width="80%" height="80%" alt=""/>
         </div>
         <div class="nav-setting">
             <Button type="text" @click="$router.push('/admin/newDocument')">
                 + 添加文档
             </Button>
             <Button type="text" @click="$router.push('/admin/allDocuments')">
-                <Icon type="ios-settings" />
+                <Icon type="ios-settings"/>
             </Button>
         </div>
 
@@ -34,14 +34,15 @@ export default {
     line-height: 50px;
     background-color: #f4d057;
     color: rgba(208, 164, 1, 100);
-    font-family: Roboto;
+    font-family: Roboto, serif;
     float: left;
 
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     position: fixed;
     z-index: 998;
 }
+
 .nav-logo {
     line-height: 50px;
     color: rgba(87, 77, 24, 100);
@@ -62,7 +63,6 @@ export default {
 .nav-setting {
     float: right;
 }
-
 
 
 </style>

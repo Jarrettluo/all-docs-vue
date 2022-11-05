@@ -50,8 +50,6 @@
 <script>
 import {parseTime} from "@/utils/index"
 
-import DocRequest from "@/api/document"
-
 export default {
     name: "SearchItem",
     data() {
@@ -195,8 +193,7 @@ export default {
     float: left;
 }
 ul {
-    margin: 0;
-    margin-top: 16px;
+    margin: 16px 0 0;
 }
 li {
     padding: 0 20px;

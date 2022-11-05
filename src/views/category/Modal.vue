@@ -1,7 +1,7 @@
 <template>
     <Space direction="vertical">
         Name: {{ value }}
-<!--        <Button @click="handleRender">Custom content</Button>-->
+        <!--        <Button @click="handleRender">Custom content</Button>-->
     </Space>
 </template>
 <script>
@@ -9,7 +9,7 @@
 
 export default {
     name: 'Modal',
-    data () {
+    data() {
         return {
             value: ''
         }

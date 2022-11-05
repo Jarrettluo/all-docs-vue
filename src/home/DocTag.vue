@@ -1,6 +1,6 @@
 <template>
     <div class="doc-tag"
-    :style="{borderColor: tag.color, fill: tag.color, color: tag.color, fillOpacity: 0.1}">
+         :style="{borderColor: tag.color, fill: tag.color, color: tag.color, fillOpacity: 0.1}">
         <span
             :style="{ fontSize: tag.size }">
             {{ tag.name }}
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-const docTypeMap= {
+const docTypeMap = {
     word: {
         color: "#367CFA",
         name: "W"
@@ -41,19 +41,18 @@ const docTypeMap= {
 export default {
     name: "DocTag",
     data() {
-        return {
-        }
+        return {}
     },
     props: {
         type: String
     },
     computed: {
         tag() {
-            if ( docTypeMap.hasOwnProperty(this.type) ) {
+            if (docTypeMap.hasOwnProperty(this.type)) {
                 return docTypeMap[this.type]
             } else {
                 let result = docTypeMap.others
-                if ( this.type != '') {
+                if (this.type !== '') {
                     result.name = (this.type).toUpperCase()
                 }
                 return result
@@ -64,19 +63,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .doc-tag {
-        width: 24px;
-        height: 24px;
-        border: 1px solid ;
-        border-radius: 2px;
-        text-align: center;
-        background-color: #ffffff;
+.doc-tag {
+    width: 24px;
+    height: 24px;
+    border: 1px solid;
+    border-radius: 2px;
+    text-align: center;
+    background-color: #ffffff;
 
-        span {
-            font-size: 16px;
-            font-family: PingFangSC-Semibold, PingFang SC;
-            font-weight: 600;
-            line-height: 22px;
-        }
+    span {
+        font-size: 16px;
+        font-family: PingFangSC-Semibold, PingFang SC, serif;
+        font-weight: 600;
+        line-height: 22px;
     }
+}
 </style>

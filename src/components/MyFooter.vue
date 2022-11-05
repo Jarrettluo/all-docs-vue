@@ -1,13 +1,13 @@
 <template>
     <div style="height: 80px">
-<!--        <GlobalFooter :links="links" :copyright="copyright" />-->
-<!--        {{ links }}-->
+        <!--        <GlobalFooter :links="links" :copyright="copyright" />-->
+        <!--        {{ links }}-->
     </div>
 </template>
 <script>
 export default {
     name: "MyFooter",
-    data () {
+    data() {
         return {
             links: [
                 {

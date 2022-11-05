@@ -2,7 +2,7 @@
     <div class="thumb-group" :style="flag|styleByFlag">
         <div class="thumb-com">
             <div class="thumb-pic">
-                <img :src="docId | imgSrc">
+                <img :src="docId | imgSrc" alt="docId">
             </div>
             <DocTag :type="title | filterType">
             </DocTag>
@@ -45,12 +45,12 @@ export default {
             }
         },
         filterType(title) {
-            if ( title == null || title == '') {
+            if (title == null || title === '') {
                 return 'others'
             } else {
                 let arr = title.split(".");
                 let suffix = arr.slice(-1)[0]
-                switch (suffix){
+                switch (suffix) {
                     case "pdf":
                         return 'pdf'
                     case 'doc':
@@ -66,7 +66,7 @@ export default {
             }
         },
         imgSrc(value) {
-            if(value === "" || value == null) {
+            if (value === "" || value == null) {
                 // return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
                 return require('@/assets/source/doc.png')
             } else {
@@ -74,74 +74,69 @@ export default {
             }
         }
     },
-    methods: {
-        imgSrc1(value) {
-            if(value === "" || value == null) {
-                return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
-            } else {
-                return "http://81.69.247.172:8082/files/image2/" + value;
-            }
-        }
-    }
+    methods: {}
 }
 </script>
 
 <style lang="scss" scoped>
-    .thumb-group {
-        width: 108px;
-        padding: 4px;
-        .thumb-com {
+.thumb-group {
+    width: 108px;
+    padding: 4px;
+
+    .thumb-com {
+        width: 100%;
+        height: 140px;
+        position: relative;
+
+        .thumb-pic {
             width: 100%;
             height: 140px;
+            border-radius: 2px;
+            border: 1px solid #AAAAAA;
             position: relative;
-            .thumb-pic {
+            background-color: #ffffff;
+
+            overflow: hidden; //img如果超出这个div会隐藏超出部分
+            display: flex; //flex布局
+            align-items: center; //让img放在div的中间，居中
+            img {
                 width: 100%;
-                height: 140px;
-                border-radius: 2px;
-                border: 1px solid #AAAAAA;
-                position: relative;
-                background-color: #ffffff;
-
-                overflow: hidden;//img如果超出这个div会隐藏超出部分
-                display: flex;//flex布局
-                align-items: center;//让img放在div的中间，居中
-                img {
-                    width: 100%;
-                }
-            }
-            .doc-tag {
-                position: absolute;
-                bottom: 0;
-                right: 0;
             }
         }
 
-        .thumb-title {
-            width: 100%;
-            height: 64px;
-            padding: 10px 0px 5px 0px;
-            text-align: left;
-
-
-            span {
-                font-size: 12px;
-                font-family: PingFangSC-Regular, PingFang SC;
-                font-weight: 400;
-                color: #000000;
-                line-height: 17px;
-
-                overflow: hidden;
-                -webkit-line-clamp: 2;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-            }
-        }
-
-        &:hover {
-            background-color: #eee;
-            cursor: pointer;
-            border-radius: 4px;
+        .doc-tag {
+            position: absolute;
+            bottom: 0;
+            right: 0;
         }
     }
+
+    .thumb-title {
+        width: 100%;
+        height: 64px;
+        padding: 10px 0 5px 0;
+        text-align: left;
+
+
+        span {
+            font-size: 12px;
+            font-family: PingFangSC-Regular, PingFang SC, serif;
+            font-weight: 400;
+            color: #000000;
+            line-height: 17px;
+
+            overflow: hidden;
+            -webkit-line-clamp: 2;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+        }
+    }
+
+    &:hover {
+        background-color: #eee;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+}
 </style>

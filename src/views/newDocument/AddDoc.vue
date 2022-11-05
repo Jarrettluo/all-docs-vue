@@ -15,9 +15,7 @@
 export default {
     name: "AddDoc",
     data() {
-        return{
-
-        }
+        return {}
     },
     methods: {
         response(response, file, fileList) {

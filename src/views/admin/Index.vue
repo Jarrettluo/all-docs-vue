@@ -12,8 +12,8 @@
             </Content>
         </Layout>
         <Footer>
-<!--            <MyFooter></MyFooter>-->
-<!--            <GlobalFooter></GlobalFooter>-->
+            <!--            <MyFooter></MyFooter>-->
+            <!--            <GlobalFooter></GlobalFooter>-->
         </Footer>
     </Layout>
 </template>
@@ -22,6 +22,7 @@
 import Nav from "@/components/Nav"
 import SideBar from "@/views/admin/SideBar";
 import MyFooter from "@/components/MyFooter";
+
 export default {
     name: "Index",
     components: {Nav, SideBar, MyFooter},

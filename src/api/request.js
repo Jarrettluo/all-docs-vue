@@ -10,9 +10,9 @@ const instance = axios.create({
     // baseURL: 'http://localhost:8082',
     timeout: 100000,
     headers: {
-      post: {
-        'Content-Type': 'application/json;charset=UTF-8'
-      }
+        post: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        }
     }
 })
 
@@ -23,7 +23,7 @@ instance.interceptors.request.use(config => {
     //   config.headers.token = store.state.app.token;
     //   config.headers.timestamp = new Date().getTime();
     // }
-    if(localStorage.getItem("token")) {
+    if (localStorage.getItem("token")) {
         config.headers.authorization = localStorage.getItem("token");
         config.headers.id = localStorage.getItem("id")
         config.headers.username = localStorage.getItem("username")
@@ -37,7 +37,7 @@ instance.interceptors.request.use(config => {
 instance.interceptors.response.use(response => {
     const resCode = response.status;
     if (resCode === 200) {
-      return Promise.resolve(response);
+        return Promise.resolve(response);
     } else if (resCode === 401) {
         // this.$route().push()
 
@@ -59,7 +59,7 @@ instance.interceptors.response.use(response => {
             setTimeout(() => {
                 router.replace({
                     name: 'Login'
-                });
+                }).then(r => console.log(r));
             }, 3000)
             break;
         case 404:
@@ -68,7 +68,7 @@ instance.interceptors.response.use(response => {
         case 500:
             vm.$Message.error('服务器连接错误');
             break;
-      // 其他状态码错误提示
+        // 其他状态码错误提示
         default:
             vm.$Message.error(error.response.data.message);
     }
@@ -144,7 +144,7 @@ export function Patch(url, params) {
  */
 export function Delete(url, params) {
     return new Promise((resolve, reject) => {
-        instance.delete(url, {data:params}).then((res) => {
+        instance.delete(url, {data: params}).then((res) => {
             resolve(res.data);
         }).catch((error) => {
             reject(error.data);

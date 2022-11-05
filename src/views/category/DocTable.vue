@@ -4,7 +4,7 @@
             <Table border ref="selection" :columns="filterColumns||columns" :data="data">
                 <template #name="{ row }">
                     <!--            <strong>{{ row.name }}</strong>-->
-                    <p class="doc-title" @click="preview(row.id)">{{row.title}}</p>
+                    <p class="doc-title" @click="preview(row.id)">{{ row.title }}</p>
                 </template>
                 <template #action="{ row, index }">
                     <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
@@ -26,12 +26,12 @@
 
 <script>
 import DocumentRequest from "@/api/document"
-import {parseTime} from "@/utils/index"
+import {parseTime} from "@/utils"
 import fileTool from "@/utils/fileUtil"
 
 export default {
 
-    data () {
+    data() {
         return {
             columns: [
                 {
@@ -68,15 +68,15 @@ export default {
                     // slot: 'category'
                     render: (h, params) => {
                         let temp = ""
-                        if(params.row.categoryVO != null ){
+                        if (params.row.categoryVO != null) {
                             temp = params.row.categoryVO.name
-                            if(temp.length > 10) {
+                            if (temp.length > 10) {
                                 temp = temp.substring(0, 10) + "..."
                             }
                         }
 
                         return h('div', [
-                            h('span',  temp)
+                            h('span', temp)
                         ]);
                     }
                 },
@@ -98,11 +98,11 @@ export default {
                     render: (h, params) => {
                         let temp = ""
                         let time = params.row.createTime
-                        if( time != null ){
+                        if (time != null) {
                             temp = parseTime(new Date(time), '{y}年{m}月{d}日 {h}:{i}:{s}');
                         }
                         return h('div', [
-                            h('span',  temp)
+                            h('span', temp)
                         ]);
                     }
                 },
@@ -121,14 +121,14 @@ export default {
         }
     },
     filters: {
-        sizeFilter: function(value) {
+        sizeFilter: function (value) {
             return bytesToSize(value)
         }
     },
     props: {
-        type: { type: String, requires: true, default: 'ALL' },
-        keyword: { type: String, requires: false},
-        cateId: { type: String, requires: true }
+        type: {type: String, requires: true, default: 'ALL'},
+        keyword: {type: String, requires: false},
+        cateId: {type: String, requires: true}
     },
     mounted() {
         this.getListData()
@@ -136,13 +136,13 @@ export default {
     computed: {
         filterColumns() {
             //根据自己的要求去显示和隐藏某一列  我这里想要隐藏操作列
-            if (this.type == "CATEGORY" || this.type == "TAG") {
+            if (this.type === "CATEGORY" || this.type === "TAG") {
                 // if (this.type != "ADD") {
                 //     return this.columns.filter(col => col.type !== 'selection')
                 // }
-                return this.columns.filter(col => col.key !== 'categoryVO' && col.type !== "selection" );
-            } else if (this.type == "ALL") {
-                return this.columns.filter(col => col.type !== "selection" );
+                return this.columns.filter(col => col.key !== 'categoryVO' && col.type !== "selection");
+            } else if (this.type === "ALL") {
+                return this.columns.filter(col => col.type !== "selection");
             } else {
                 return this.columns
             }
@@ -159,13 +159,13 @@ export default {
         // }
     },
     methods: {
-        show (index) {
+        show(index) {
             this.$Modal.info({
                 title: `${this.data[index].title}`,
                 content: `size：${this.data[index].size}<br>categoryVO：${this.data[index].categoryVO}<br>tagVOList：${this.data[index].tagVOList}`
             })
         },
-        remove (index) {
+        remove(index) {
             // this.data.splice(index, 1);
             this.$emit("removeDoc", this.data[index])
         },
@@ -173,13 +173,13 @@ export default {
             const params = {
                 "categoryId": categoryId,
                 "filterWord": filterWord,
-                "page": this.currentPage-1,
+                "page": this.currentPage - 1,
                 "rows": this.pageSize,
                 "tagId": categoryId,
                 "type": this.currentType
             }
             DocumentRequest.getListData(params).then(res => {
-                if(res.code == 200) {
+                if (res.code === 200) {
                     this.data = res.data.documents;
                     this.totalItems = res.data.totalNum;
                 } else {
@@ -187,24 +187,13 @@ export default {
                     // this.$Message.error('请稍后重试！');
                 }
                 this.listLoading = false
-                if(this.data == null) {
+                if (this.data == null) {
                     this.data = []
                 }
             })
         },
-        getSelect(){
-            // 通过getSelection方法获取table所有选中行数据
-            let selectedList = this.$refs.selection.getSelection();
-            // if(selectedList.length == 0){
-            //     this.$Message.info('当前选中了' + selectedList.length + '行');
-            //     return;
-            // }
-            // let selectedNames = '';
-            // for(var i = 0; i < selectedList.length; i++){
-            //     selectedNames += ',' + selectedList[i].title;
-            // }
-            // this.$Message.info('当前选中了[' + selectedNames.substring(1) + ']行');
-            return selectedList;
+        getSelect() {
+            return this.$refs.selection.getSelection();
         },
         pageChange(page) {
             this.currentPage = page
@@ -212,8 +201,8 @@ export default {
         },
         preview(value) {
             this.$router.push({
-                path:'/preview',
-                query:{
+                path: '/preview',
+                query: {
                     docId: value
                 }
             })
@@ -225,7 +214,7 @@ export default {
 <style scoped>
 .content {
     width: calc(100% - 16px);
-    height: calc( 100% - 16px) ;
+    height: calc(100% - 16px);
     background-color: #ffffff;
     margin: 8px;
     box-sizing: border-box;
@@ -247,6 +236,7 @@ export default {
 .doc-title {
     color: #8d7b25;
 }
+
 .doc-title:hover {
     cursor: pointer;
     font-weight: bold;

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="stats-panel">
-           <stats-card v-for="item in titles" :number="data[item.key]" :title="item.title"></stats-card>
+            <stats-card v-for="item in titles" :number="data[item.key]" :title="item.title"></stats-card>
         </div>
     </div>
 </template>
@@ -18,13 +18,13 @@ export default {
             titles: [{
                 key: "docNum",
                 title: '文档总数'
-            },{
+            }, {
                 key: 'commentNum',
                 title: '评论总数',
-            },{
+            }, {
                 key: "tagNum",
                 title: '标签总数'
-            },{
+            }, {
                 key: 'categoryNum',
                 title: '分类总数',
             },
