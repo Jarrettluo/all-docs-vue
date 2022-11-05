@@ -9,8 +9,13 @@ on:
 
 jobs:
   build:
-    # 使用最新的ubuntu系统
-    runs-on: ubuntu-latest
+
+    runs-on: ubuntu-latest # 使用最新的ubuntu系统
+
+    strategy:
+      matrix:
+        node-version: [ 8.x, 10.x, 12.x ]
+
     steps:
     - name: checkout
       uses: actions/checkout@master # 将代码拷贝到虚拟机中
