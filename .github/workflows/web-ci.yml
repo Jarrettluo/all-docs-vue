@@ -1,0 +1,26 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: web-CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    # 使用最新的ubuntu系统
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@master # 将代码拷贝到虚拟机中
+
+    - name: Use Node.js 8
+        uses: actions/setup-node@v3
+        with:
+          node-version: 8
+
+  - name: npm install, build, and test
+      run:
+        npm install
+        npm run build
