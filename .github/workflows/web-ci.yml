@@ -26,9 +26,9 @@ jobs:
         node-version: 8
 
     - name: npm install, build, and test
-      run:
+      run: |
         npm install
-        npm run build
+        npm build
 
     - name: Publish Docker
       uses: elgohr/Publish-Docker-Github-Action@v4
