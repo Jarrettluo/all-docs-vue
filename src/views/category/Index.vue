@@ -21,7 +21,7 @@
                 </div>
             </template>
         </Split>
-        <Modal v-model="modal" fullscreen title="Fullscreen Modal"
+        <Modal v-model="modal" fullscreen title="添加文档"
                @on-ok="saveEditor"
                @on-cancel="cancelEditor"
         >

@@ -32,11 +32,9 @@ top: 52px; left: 0px;z-index: 999; width: 100%;">
 
         <div style="width: 100%; height: 300px; position: absolute; top: 52px; left: 0px;"
              @contextmenu.prevent="handleContextMenuAdd"
-             v-if="listData.length == 0 "
+             v-if="listData.length === 0 "
         >
         </div>
-
-
         <Modal
             v-model="modal1"
             title="编辑提示"
@@ -44,7 +42,7 @@ top: 52px; left: 0px;z-index: 999; width: 100%;">
             @on-cancel="cancelEditor"
             width="400">
             名称：
-            <Input v-model="editValue" placeholder="请输入..." style="width: 300px"></Input>
+            <Input v-model="editValue" placeholder="请输入..." style="width: 300px" :maxlength="64"></Input>
         </Modal>
     </div>
 </template>
@@ -151,8 +149,8 @@ export default {
             }
         },
         saveEditor() {
-            if (this.listData.length == 0) {
-                this.currentItem = new Object();
+            if (this.listData.length === 0) {
+                this.currentItem = {};
             }
             this.currentItem.name = this.editValue
             if (this.isEditState) {
@@ -173,6 +171,11 @@ export default {
             };
             CategoryRequest.postData(params).then(response => {
                 this.getAllItems();
+                if (response.code !== 200) {
+                    this.$Message.error('添加失败，请检查后重试！');
+                }
+            }).catch(err => {
+                this.$Message.error('添加失败，请检查后重试！错误信息' + err);
             })
         },
         updateItem(category) {
@@ -183,6 +186,11 @@ export default {
             };
             CategoryRequest.putData(params).then(response => {
                 this.getAllItems();
+                if (response.code !== 200) {
+                    this.$Message.error('添加失败，请检查后重试！');
+                }
+            }).catch(err => {
+                this.$Message.error('添加失败，请检查后重试！错误信息' + err);
             })
         },
         removeItem(category) {

@@ -1,7 +1,7 @@
 <template>
     <div class="docTable">
         <div class="table-container">
-            <Table border ref="selection" :columns="filterColumns||columns" :data="data">
+            <Table border ref="selection" :columns="filterColumns||columns" :data="data" :loading="loading">
                 <template #name="{ row }">
                     <!--            <strong>{{ row.name }}</strong>-->
                     <p class="doc-title" @click="preview(row.id)">{{ row.title }}</p>
@@ -44,6 +44,7 @@ export default {
                     // width: 260,
                     slot: 'name',
                     // key: "title"
+                    resizable: true,
                 },
                 // {
                 //     title: '摘要',
@@ -54,6 +55,7 @@ export default {
                     width: 120,
                     key: 'size',
                     align: 'center',
+                    resizable: true,
                     render: (h, params) => {
                         return h('div', [
                             h('span', fileTool.bytesToSize(params.row.size))
@@ -65,6 +67,7 @@ export default {
                     width: 240,
                     key: 'categoryVO',
                     align: 'center',
+                    resizable: true,
                     // slot: 'category'
                     render: (h, params) => {
                         let temp = ""
@@ -88,13 +91,15 @@ export default {
                     title: '创建人',
                     width: 120,
                     key: 'userName',
-                    align: 'center'
+                    align: 'center',
+                    resizable: true
                 },
                 {
                     title: '创建时间',
                     width: 220,
                     key: 'createTime',
                     align: 'center',
+                    resizable: true,
                     render: (h, params) => {
                         let temp = ""
                         let time = params.row.createTime
@@ -117,7 +122,7 @@ export default {
             currentPage: 1,
             totalItems: 100,
             pageSize: 10,
-
+            loading: true
         }
     },
     filters: {
@@ -179,6 +184,7 @@ export default {
                 "type": this.currentType
             }
             DocumentRequest.getListData(params).then(res => {
+                this.loading = false
                 if (res.code === 200) {
                     this.data = res.data.documents;
                     this.totalItems = res.data.totalNum;
