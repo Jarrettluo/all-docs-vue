@@ -20,6 +20,22 @@
                 @on-change="pageChange"
             />
         </div>
+
+        <Modal v-model="modal1" width="360">
+            <template #header>
+                <p style="color:#f60;text-align:left">
+                    <Icon type="ios-information-circle"></Icon>
+                    <span>删除警告</span>
+                </p>
+            </template>
+            <div style="text-align:left;white-space:normal">
+                <p style="word-wrap: break-word;word-break: break-all;">您准备删除《{{remove_item.title}}》</p>
+                <p>是否确定删除？</p>
+            </div>
+            <template #footer>
+                <Button type="error" size="large" long :loading="modal_loading" @click="del">删除</Button>
+            </template>
+        </Modal>
     </div>
 
 </template>
@@ -122,7 +138,10 @@ export default {
             currentPage: 1,
             totalItems: 100,
             pageSize: 10,
-            loading: true
+            loading: true,
+            modal1: false,
+            modal_loading: false,
+            remove_item: {},
         }
     },
     filters: {
@@ -171,8 +190,12 @@ export default {
             })
         },
         remove(index) {
-            // this.data.splice(index, 1);
-            this.$emit("removeDoc", this.data[index])
+            this.modal1 = true
+            this.remove_item = this.data[index];
+        },
+        del() {
+            this.$emit("removeDoc", this.remove_item)
+            this.modal1 = false
         },
         getListData(categoryId, filterWord) {
             const params = {

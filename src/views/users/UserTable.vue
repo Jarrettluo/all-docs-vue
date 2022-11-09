@@ -18,6 +18,22 @@
                 @on-change="pageChange"
             />
         </div>
+
+        <Modal v-model="remove_modal" width="360">
+            <template #header>
+                <p style="color:#f60;text-align:left">
+                    <Icon type="ios-information-circle"></Icon>
+                    <span>删除警告</span>
+                </p>
+            </template>
+            <div style="text-align:left;white-space:normal">
+                <p style="word-wrap: break-word;word-break: break-all;">您准备删除{{remove_item.username}}</p>
+                <p>是否确定删除？</p>
+            </div>
+            <template #footer>
+                <Button type="error" size="large" long :loading="modal_loading" @click="del">删除</Button>
+            </template>
+        </Modal>
     </div>
 
 </template>
@@ -63,7 +79,11 @@ export default {
             data: [],
             currentPage: 1,
             totalItems: 5,
-            pageSize: 10
+            pageSize: 10,
+
+            remove_modal: false,
+            modal_loading: false,
+            remove_item: {},
         }
     },
     mounted() {
@@ -77,9 +97,13 @@ export default {
             })
         },
         remove (index) {
+            this.remove_item = this.data[index];
+            this.remove_modal = true;
+        },
+        del() {
             // this.data.splice(index, 1);
             let param = {
-                id: this.data[index].id
+                id: this.remove_item.id
             }
             UserRequest.deleteData(param).then(res => {
                 // console.log(res)

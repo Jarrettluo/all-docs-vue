@@ -44,6 +44,22 @@ top: 52px; left: 0px;z-index: 999; width: 100%;">
             名称：
             <Input v-model="editValue" placeholder="请输入..." style="width: 300px" :maxlength="64"></Input>
         </Modal>
+
+        <Modal v-model="remove_modal" width="360">
+            <template #header>
+                <p style="color:#f60;text-align:left">
+                    <Icon type="ios-information-circle"></Icon>
+                    <span>删除警告</span>
+                </p>
+            </template>
+            <div style="text-align:left;white-space:normal">
+                <p style="word-wrap: break-word;word-break: break-all;">您准备删除{{remove_item.name}}</p>
+                <p>是否确定删除？</p>
+            </div>
+            <template #footer>
+                <Button type="error" size="large" long :loading="remove_loading" @click="del">删除</Button>
+            </template>
+        </Modal>
     </div>
 </template>
 <script>
@@ -69,7 +85,11 @@ export default {
             tableHeight: 260,
 
             currentCatId: this.$route.query.cateId,
-            currentCatIndex: 0
+            currentCatIndex: 0,
+
+            remove_modal: false,
+            remove_loading: false,
+            remove_item: {}
         }
     },
     props: {
@@ -104,6 +124,11 @@ export default {
             this.handleRender(true);
         },
         handleContextMenuDelete() {
+            // this.removeItem(this.currentItem)
+            this.remove_item = this.currentItem;
+            this.remove_modal = true;
+        },
+        del() {
             this.removeItem(this.currentItem)
         },
         getAllItems() {
@@ -200,6 +225,9 @@ export default {
             };
             CategoryRequest.deleteData(params).then(response => {
                 this.getAllItems();
+                if (response.code === 200 ) {
+                    this.remove_modal = false
+                }
             })
         },
 
