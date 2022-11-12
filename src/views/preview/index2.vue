@@ -72,7 +72,8 @@ export default {
             // this.pdf_src = 'http://81.69.247.172:8082/files/view/62cee7d6ff703f08647e0bbe'
             // this.pdf_src = 'http://81.69.247.172:8082/files/view/62ba6d2c845f9a73b891bdc4'
             // this.pdf_src = 'adminapi/blogs/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/4%E3%80%81%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%2814%E9%A2%98%29.pdf'
-            this.pdf_src = 'http://81.69.247.172:8082/files/view/' + docId
+            this.pdf_src = 'http://localhost:8082/files/view/' + docId
+            // this.pdf_src = 'http://81.69.247.172:8082/files/view/' + docId
             this._loadFile(this.pdf_src)
             return
 

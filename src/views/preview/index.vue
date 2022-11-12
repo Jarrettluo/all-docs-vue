@@ -76,7 +76,8 @@ export default {
                 // return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
                 return require('@/assets/source/doc.png');
             } else {
-                return "http://81.69.247.172:8082/files/image2/" + value;
+                return "http://localhost:8082/files/image2/" + value;
+                // return "http://81.69.247.172:8082/files/image2/" + value;
             }
         }
     },

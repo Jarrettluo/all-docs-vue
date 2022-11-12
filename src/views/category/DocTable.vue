@@ -26,19 +26,35 @@
             title="文档详情"
             :loading="action_loading"
             @on-ok="asyncOK">
-            <strong>标题</strong>
-            <p>{{document_info.title}}</p>
-            <strong>大小</strong>
-            <p>{{document_info.size1}}</p>
-            <strong>分类</strong>
-            <p>{{document_info['category']}}</p>
-            <strong>创建人</strong>
-            <p>{{document_info.userName}}</p>
-            <strong>标签</strong>
-            <p v-if="document_info['tags'] === undefined || document_info['tags'].length < 1">无标签</p>
-            <Tag :color="item.color" v-else v-for="item in document_info['tags']" :index="item.index">{{ item.name }}</Tag>
-            <strong>创建时间</strong>
-            <p>{{document_info.time}}</p>
+            <div>
+                <strong>标题</strong>
+                <p>{{ document_info.title }}</p>
+            </div>
+            <div style="padding-top: 10px">
+                <strong>大小</strong>
+                <p>{{ document_info.size1 }}</p>
+            </div>
+            <div style="padding-top: 10px">
+                <strong>分类</strong>
+                <p>{{ document_info['category'] }}</p>
+            </div>
+            <div style="padding-top: 10px">
+                <strong style="padding-top: 10px;">创建人</strong>
+                <p>{{ document_info.userName }}</p>
+            </div>
+            <div style="padding-top: 10px">
+                <strong style="padding-top: 10px;">标签</strong>
+                <p></p>
+                <p v-if="document_info['tags'] === undefined || document_info['tags'].length < 1">无标签</p>
+                <Tag :color="item.color" v-else v-for="item in document_info['tags']" :index="item.index">{{
+                        item.name
+                    }}
+                </Tag>
+            </div>
+            <div style="padding-top: 10px">
+                <strong style="padding-top: 10px;">创建时间</strong>
+                <p>{{ document_info.time }}</p>
+            </div>
         </Modal>
 
         <Modal v-model="modal1" width="360">
@@ -49,7 +65,7 @@
                 </p>
             </template>
             <div style="text-align:left;white-space:normal">
-                <p style="word-wrap: break-word;word-break: break-all;">您准备删除《{{remove_item.title}}》</p>
+                <p style="word-wrap: break-word;word-break: break-all;">您准备删除《{{ remove_item.title }}》</p>
                 <p>是否确定删除？</p>
             </div>
             <template #footer>
@@ -107,9 +123,9 @@ export default {
                     // slot: 'category'
                     render: (h, params) => {
                         let temp = ""
-                        if (params.row.categoryVO != null) {
-                            temp = params.row.categoryVO.name
-                            if ( temp !== null && temp !== undefined && temp.length > 10) {
+                        if (params.row['categoryVO'] != null) {
+                            temp = params.row['categoryVO'].name
+                            if (temp !== null && temp !== undefined && temp.length > 10) {
                                 temp = temp.substring(0, 10) + "..."
                             }
                         }
@@ -169,7 +185,7 @@ export default {
     },
     filters: {
         sizeFilter: function (value) {
-            return bytesToSize(value)
+            return fileTool.bytesToSize(value)
         }
     },
     props: {
@@ -213,8 +229,12 @@ export default {
             this.document_info["time"] = parseTime(new Date(checked_doc.createTime),
                 '{y}年{m}月{d}日 {h}:{i}:{s}')
             this.document_info["size1"] = fileTool.bytesToSize(checked_doc.size)
-            this.document_info['category'] = checked_doc['categoryVO'] || "无"
-            this.document_info['tags'] = checked_doc['tagVOList'] || new Array();
+            if (checked_doc['categoryVO'] === null || !checked_doc['categoryVO'].hasOwnProperty("name") || checked_doc['categoryVO'].name === null) {
+                this.document_info['category'] = "无"
+            } else {
+                this.document_info['category'] = checked_doc['categoryVO'].name
+            }
+            this.document_info['tags'] = checked_doc['tagVOList'] || [];
         },
         remove(index) {
             this.modal1 = true
@@ -236,8 +256,8 @@ export default {
             DocumentRequest.getListData(params).then(res => {
                 this.loading = false
                 if (res.code === 200) {
-                    this.data = res.data.documents;
-                    this.totalItems = res.data.totalNum;
+                    this.data = res.data['documents'];
+                    this.totalItems = res.data['totalNum'];
                 } else {
                     this.data = []
                     // this.$Message.error('请稍后重试！');

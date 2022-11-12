@@ -2,7 +2,7 @@
     <Upload
         multiple
         type="drag"
-        action="http://81.69.247.172:8082/files/upload"
+        action="http://localhost:8082/files/upload"
         :on-success="response"
     >
         <div style="padding: 20px 0">
