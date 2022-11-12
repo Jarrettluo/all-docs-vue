@@ -6,8 +6,8 @@
                 <span>  {{ titleName }}</span>
             </p>
         </div>
-        <div style="background-color: #fdffe8; font-size: 12px; color: #badc62;padding: 0px 16px; position: absolute;
-top: 52px; left: 0px;z-index: 999; width: 100%;">
+        <div style="background-color: #fdffe8; font-size: 12px; color: #badc62;padding: 0 16px; position: absolute;
+top: 52px; left: 0;z-index: 999; width: 100%;">
             <span>右键可操作</span>
         </div>
         <Table
@@ -22,6 +22,7 @@ top: 52px; left: 0px;z-index: 999; width: 100%;">
             @on-row-click="changeCategoryValue"
             :height=tableHeight
             @on-current-change="handleCurrentChange"
+            :loading="loading"
         >
             <template #contextMenu>
                 <div class="ivu-dropdown-item" @click="handleContextMenuAdd">增加一条记录</div>
@@ -30,7 +31,7 @@ top: 52px; left: 0px;z-index: 999; width: 100%;">
             </template>
         </Table>
 
-        <div style="width: 100%; height: 300px; position: absolute; top: 52px; left: 0px;"
+        <div style="width: 100%; height: 300px; position: absolute; top: 52px; left: 0;"
              @contextmenu.prevent="handleContextMenuAdd"
              v-if="listData.length === 0 "
         >
@@ -64,7 +65,6 @@ top: 52px; left: 0px;z-index: 999; width: 100%;">
 </template>
 <script>
 import CategoryRequest from "@/api/category";
-import {Input} from "view-design";
 
 export default {
     data() {
@@ -89,7 +89,9 @@ export default {
 
             remove_modal: false,
             remove_loading: false,
-            remove_item: {}
+            remove_item: {},
+
+            loading: false
         }
     },
     props: {
@@ -132,11 +134,13 @@ export default {
             this.removeItem(this.currentItem)
         },
         getAllItems() {
+            this.loading = true
             const params = {
                 type: this.categoryType
             };
             CategoryRequest.getListData(params).then(response => {
-                if (response.code != 200) {
+                this.loading = false;
+                if (response.code !== 200) {
                     return;
                 }
                 this.listData = response.data
@@ -153,11 +157,12 @@ export default {
                     }
                     this.setCurrentItem()
                 }
+
             })
         },
         /**
          * 分类的信息发生了变化
-         * @param categoryValue
+         * @param data -> 改变的数据
          */
         changeCategoryValue(data) {
             if (JSON.stringify(data) !== '{}' && data.id !== undefined) {
@@ -168,7 +173,7 @@ export default {
         },
         handleRender(isEdit) {
             this.modal1 = true
-            this.isEditState = isEdit ? true : false;
+            this.isEditState = !!isEdit;
             if (isEdit) {
                 this.editValue = this.currentItem.name;
             }
@@ -236,7 +241,7 @@ export default {
         // 设置高亮
         setCurrentItem() {
             for (let i = 0; i < this.listData.length; i++) {
-                if (this.listData[i].id == this.currentCatId) {
+                if (this.listData[i].id === this.currentCatId) {
                     this.currentCatIndex = i;
                 }
             }

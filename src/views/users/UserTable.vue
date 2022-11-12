@@ -51,13 +51,15 @@ export default {
                 {
                     title: '用户名',
                     // width: 260,
-                    slot: 'name'
+                    slot: 'name',
+                    resizable: true
                 },
                 {
                     title: '创建时间',
                     width: 220,
                     key: 'createDate',
                     align: 'center',
+                    resizable: true,
                     render: (h, params) => {
                         let temp = ""
                         let time = params.row.createDate
@@ -70,7 +72,7 @@ export default {
                     }
                 },
                 {
-                    title: 'Action',
+                    title: '操作',
                     slot: 'action',
                     width: 150,
                     align: 'center'

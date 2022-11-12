@@ -21,6 +21,26 @@
             />
         </div>
 
+        <Modal
+            v-model="action_modal"
+            title="文档详情"
+            :loading="action_loading"
+            @on-ok="asyncOK">
+            <strong>标题</strong>
+            <p>{{document_info.title}}</p>
+            <strong>大小</strong>
+            <p>{{document_info.size1}}</p>
+            <strong>分类</strong>
+            <p>{{document_info['category']}}</p>
+            <strong>创建人</strong>
+            <p>{{document_info.userName}}</p>
+            <strong>标签</strong>
+            <p v-if="document_info['tags'] === undefined || document_info['tags'].length < 1">无标签</p>
+            <Tag :color="item.color" v-else v-for="item in document_info['tags']" :index="item.index">{{ item.name }}</Tag>
+            <strong>创建时间</strong>
+            <p>{{document_info.time}}</p>
+        </Modal>
+
         <Modal v-model="modal1" width="360">
             <template #header>
                 <p style="color:#f60;text-align:left">
@@ -89,7 +109,7 @@ export default {
                         let temp = ""
                         if (params.row.categoryVO != null) {
                             temp = params.row.categoryVO.name
-                            if (temp.length > 10) {
+                            if ( temp !== null && temp !== undefined && temp.length > 10) {
                                 temp = temp.substring(0, 10) + "..."
                             }
                         }
@@ -128,7 +148,7 @@ export default {
                     }
                 },
                 {
-                    title: 'Action',
+                    title: '操作',
                     slot: 'action',
                     width: 150,
                     align: 'center'
@@ -142,6 +162,9 @@ export default {
             modal1: false,
             modal_loading: false,
             remove_item: {},
+            action_modal: false,
+            action_loading: false,
+            document_info: {}
         }
     },
     filters: {
@@ -184,10 +207,14 @@ export default {
     },
     methods: {
         show(index) {
-            this.$Modal.info({
-                title: `${this.data[index].title}`,
-                content: `size：${this.data[index].size}<br>categoryVO：${this.data[index].categoryVO}<br>tagVOList：${this.data[index].tagVOList}`
-            })
+            this.action_modal = true
+            let checked_doc = Object.create(this.data[index])
+            this.document_info = checked_doc;
+            this.document_info["time"] = parseTime(new Date(checked_doc.createTime),
+                '{y}年{m}月{d}日 {h}:{i}:{s}')
+            this.document_info["size1"] = fileTool.bytesToSize(checked_doc.size)
+            this.document_info['category'] = checked_doc['categoryVO'] || "无"
+            this.document_info['tags'] = checked_doc['tagVOList'] || new Array();
         },
         remove(index) {
             this.modal1 = true
@@ -235,6 +262,11 @@ export default {
                     docId: value
                 }
             })
+        },
+        asyncOK() {
+            setTimeout(() => {
+                this.action_modal = false;
+            }, 2000);
         }
     }
 }
