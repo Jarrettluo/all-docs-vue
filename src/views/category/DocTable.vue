@@ -27,24 +27,62 @@
             :loading="action_loading"
             @on-ok="asyncOK">
             <div>
-                <strong>标题</strong>
-                <p>{{ document_info.title }}</p>
+                <p><strong>标题</strong> {{ document_info.title }}</p>
             </div>
             <div style="padding-top: 10px">
-                <strong>大小</strong>
-                <p>{{ document_info.size1 }}</p>
+                <p><strong>大小</strong> {{ document_info.size1 }}</p>
             </div>
             <div style="padding-top: 10px">
-                <strong>分类</strong>
-                <p>{{ document_info['category'] }}</p>
+                <p><strong style="vertical-align: bottom;">索引状态</strong>
+                    <span>  </span>
+                    <Button style="margin-left: 10px" v-if="document_info['docState'] === 'SUCCESS'" type='success'
+                            size="small"
+                            @click="infoVisible ? infoVisible=false:infoVisible=true">
+                        成功
+                    </Button>
+                    <Button style="margin-left: 10px" v-else-if="document_info['docState'] === 'WAITE'" type='info'
+                            size="small"
+                            @click="infoVisible ? infoVisible=false:infoVisible=true">
+                        等待中
+                    </Button>
+                    <Button style="margin-left: 10px" v-else-if="document_info['docState'] === 'ON_PROCESS'"
+                            type='warning' size="small"
+                            @click="infoVisible ? infoVisible=false:infoVisible=true">
+                        进行中
+                    </Button>
+                    <Button style="margin-left: 10px" v-else type='error' size="small"
+                            @click="infoVisible ? infoVisible=false:infoVisible=true">
+                        失败
+                    </Button>
+                </p>
+                <div v-show="infoVisible"
+                     style="background-color: #f6f8fa;color: #da702b;border-radius: 4px;padding: 4px;font-size: 12px;
+                margin-top: 8px;
+">
+                    <span v-if="document_info['docState'] === 'SUCCESS'">
+                        索引建立成功，可以下载<span style="color: #408FFF; cursor: pointer">文本文件</span>。
+                        您可以选择 <span style="color: #dc4e2b; cursor: pointer">重建索引</span>。
+                    </span>
+                    <span v-else-if="document_info['docState'] === 'WAITE'">
+                        等待中，请稍等。您可以选择 <span style="color: #dc4e2b; cursor: pointer">重建索引</span>。
+                    </span>
+                    <span v-else-if="document_info['docState'] === 'ON_PROCESS'">
+                        正在进行中，请稍等
+                    </span>
+                    <span v-else>
+                        立即<span style="color: #dc4e2b; cursor: pointer">重建索引</span>。
+                        错误信息：{{ document_info["errorMsg"] }}
+                    </span>
+                </div>
             </div>
             <div style="padding-top: 10px">
-                <strong style="padding-top: 10px;">创建人</strong>
-                <p>{{ document_info.userName }}</p>
+                <p><strong style="padding-top: 10px;">创建人</strong> {{ document_info.userName }}</p>
             </div>
             <div style="padding-top: 10px">
-                <strong style="padding-top: 10px;">标签</strong>
-                <p></p>
+                <p><strong>分类</strong> {{ document_info['category'] }}</p>
+            </div>
+            <div style="padding-top: 10px">
+                <p><strong style="padding-top: 10px;">标签</strong></p>
                 <p v-if="document_info['tags'] === undefined || document_info['tags'].length < 1">无标签</p>
                 <Tag :color="item.color" v-else v-for="item in document_info['tags']" :index="item.index">{{
                         item.name
@@ -52,8 +90,13 @@
                 </Tag>
             </div>
             <div style="padding-top: 10px">
-                <strong style="padding-top: 10px;">创建时间</strong>
-                <p>{{ document_info.time }}</p>
+                <strong>文档概述</strong>
+                <div style="background-color: #f6f8fa;color: #64b687;border-radius: 4px;padding: 4px;font-size: 12px">
+                    <p>{{ document_info.description }}</p>
+                </div>
+            </div>
+            <div style="padding-top: 10px">
+                <p><strong>创建时间</strong> {{ document_info.time }}</p>
             </div>
         </Modal>
 
@@ -80,6 +123,29 @@
 import DocumentRequest from "@/api/document"
 import {parseTime} from "@/utils"
 import fileTool from "@/utils/fileUtil"
+
+const stateMap = {
+    WAITE: {
+        buttonType: 'info',
+        buttonContent: '等待中',
+        errorInfo: '排队解析中，请稍后！',
+    },
+    ON_PROCESS: {
+        buttonType: 'warning',
+        buttonContent: '解析中',
+        errorInfo: '正在解析中，请稍后！',
+    },
+    SUCCESS: {
+        buttonType: 'success',
+        buttonContent: '成功',
+        errorInfo: '',
+    },
+    FAIL: {
+        buttonType: 'error',
+        buttonContent: '失败',
+        errorInfo: '',
+    }
+}
 
 export default {
 
@@ -180,7 +246,9 @@ export default {
             remove_item: {},
             action_modal: false,
             action_loading: false,
-            document_info: {}
+            document_info: {},
+
+            infoVisible: false
         }
     },
     filters: {
@@ -235,6 +303,7 @@ export default {
                 this.document_info['category'] = checked_doc['categoryVO'].name
             }
             this.document_info['tags'] = checked_doc['tagVOList'] || [];
+            this.document_info['description'] = checked_doc['description'] || "无";
         },
         remove(index) {
             this.modal1 = true
