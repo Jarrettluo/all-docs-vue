@@ -3,11 +3,13 @@ import {
     DOC_LIST_URL,
     DOC_REMOVE_URL,
 
-    DOC_VIEW_URL
+    DOC_VIEW_URL,
+    DOC_TXT_URL,
+    DOC_REBUILD_URL
 
 } from './url'
 
-import {Get, Post, Delete} from "@/api/request";
+import {Get, Post, Delete, Download} from "@/api/request";
 
 export default {
 
@@ -25,6 +27,14 @@ export default {
 
     getView: (param) => {
         return Get(DOC_VIEW_URL + param, null)
+    },
+
+    getTxtFile: (param) => {
+        return Download(DOC_TXT_URL + param, {params: {}, responseType: 'blob'})
+    },
+
+    getRebuildIndex: (param) => {
+        return Get(DOC_REBUILD_URL, param);
     }
 
 }

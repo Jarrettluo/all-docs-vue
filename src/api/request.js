@@ -48,8 +48,6 @@ instance.interceptors.response.use(response => {
 
 }, error => {
     const resCode = error.response.status;
-    console.log("+****")
-    console.log(resCode)
     switch (resCode) {
         case 401:
             vm.$Notice.error({
@@ -91,6 +89,22 @@ export function Get(url, params) {
         })
     })
 }
+
+/*
+ *封装get方法
+ *@param{String} url [请求地址]
+ *@param{Object} params 请求参数
+ */
+export function Download(url, config) {
+    return new Promise((resolve, reject) => {
+        instance.get(url, config).then((res) => {
+            resolve(res.data);
+        }).catch((error) => {
+            reject(error.data);
+        })
+    })
+}
+
 
 /**
  *封装post方法

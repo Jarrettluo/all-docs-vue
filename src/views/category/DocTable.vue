@@ -3,8 +3,12 @@
         <div class="table-container">
             <Table border ref="selection" :columns="filterColumns||columns" :data="data" :loading="loading">
                 <template #name="{ row }">
-                    <!--            <strong>{{ row.name }}</strong>-->
-                    <p class="doc-title" @click="preview(row.id)">{{ row.title }}</p>
+                    <p class="doc-title" @click="preview(row.id)">
+                        <Badge status="error" v-if="row['docState']==='FAIL'"/>
+                        <Badge status="warning" v-else-if="row['docState']==='ON_PROCESS'"/>
+                        <Badge status="processing"  v-else-if="row['docState']==='WAITE'" />
+                        <Badge status="success"  v-else />
+                        {{ row.title }}</p>
                 </template>
                 <template #action="{ row, index }">
                     <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
@@ -60,17 +64,21 @@
                 margin-top: 8px;
 ">
                     <span v-if="document_info['docState'] === 'SUCCESS'">
-                        索引建立成功，可以下载<span style="color: #408FFF; cursor: pointer">文本文件</span>。
-                        您可以选择 <span style="color: #dc4e2b; cursor: pointer">重建索引</span>。
+                        索引建立成功，可以下载<span style="color: #408FFF; cursor: pointer"
+                                         @click="downloadTxt(document_info)">文本文件</span>。
+                        您可以选择 <span style="color: #dc4e2b; cursor: pointer"
+                                    @click="rebuildIndex(document_info)">重建索引</span>。
                     </span>
                     <span v-else-if="document_info['docState'] === 'WAITE'">
-                        等待中，请稍等。您可以选择 <span style="color: #dc4e2b; cursor: pointer">重建索引</span>。
+                        等待中，请稍等。您可以选择 <span style="color: #dc4e2b; cursor: pointer"
+                                            @click="rebuildIndex(document_info)">重建索引</span>。
                     </span>
                     <span v-else-if="document_info['docState'] === 'ON_PROCESS'">
                         正在进行中，请稍等
                     </span>
                     <span v-else>
-                        立即<span style="color: #dc4e2b; cursor: pointer">重建索引</span>。
+                        立即<span style="color: #dc4e2b; cursor: pointer"
+                                @click="rebuildIndex(document_info)">重建索引</span>。
                         错误信息：{{ document_info["errorMsg"] }}
                     </span>
                 </div>
@@ -163,6 +171,15 @@ export default {
                     slot: 'name',
                     // key: "title"
                     resizable: true,
+                    // render: (h, params) => {
+                    //     let temp = params.row['title']
+                    //     if (params.row['docState'] === 'FAIL') {
+                    //         temp += '失败！'
+                    //     }
+                    //     return h('div', [
+                    //         h('span', temp)
+                    //     ]);
+                    // }
                 },
                 // {
                 //     title: '摘要',
@@ -292,6 +309,7 @@ export default {
     methods: {
         show(index) {
             this.action_modal = true
+            this.infoVisible = false
             let checked_doc = Object.create(this.data[index])
             this.document_info = checked_doc;
             this.document_info["time"] = parseTime(new Date(checked_doc.createTime),
@@ -356,29 +374,49 @@ export default {
             setTimeout(() => {
                 this.action_modal = false;
             }, 2000);
+        },
+        /**
+         * 下载文本文件
+         * @param doc
+         */
+        downloadTxt(doc) {
+            let fileId = doc['txtId']
+            if (fileId === null || fileId === '') {
+                return;
+            }
+            DocumentRequest.getTxtFile(fileId).then(res => {
+                const dom = document.createElement('a');
+                dom.href = URL.createObjectURL(res);
+                dom.download = doc['title'] + '.txt';
+                dom.click();
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+        /**
+         * 对文档进行重新建立索引
+         * @param doc
+         */
+        rebuildIndex(doc) {
+            let docId = doc['id']
+            if (docId === null || docId === '') {
+                return;
+            }
+            DocumentRequest.getRebuildIndex({docId: docId}).then(res => {
+                if (res.code === 200) {
+                    this.action_modal = false
+                } else {
+                    this.$Message.error("重建失败，请检查！")
+                }
+            })
         }
     }
 }
 </script>
 
 <style scoped>
-.content {
-    width: calc(100% - 16px);
-    height: calc(100% - 16px);
-    background-color: #ffffff;
-    margin: 8px;
-    box-sizing: border-box;
-    border-radius: 4px;
-    padding: 16px;
-    text-align: left;
-}
-
-.table-container {
-    /*background-color: red;*/
-}
 
 .page-container {
-    /*background-color: yellow;*/
     text-align: right;
     padding: 5px;
 }
