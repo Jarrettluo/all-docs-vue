@@ -2,6 +2,7 @@ import {
     DOC_DETAIL_URL,
     DOC_LIST_URL,
     DOC_REMOVE_URL,
+    DOC_WITH_CHECK_URL,
 
     DOC_VIEW_URL,
     DOC_TXT_URL,
@@ -23,6 +24,10 @@ export default {
 
     deleteData: (params) => {
         return Delete(DOC_REMOVE_URL, params);
+    },
+
+    getDataWithCheck: (params) => {
+        return Get(DOC_WITH_CHECK_URL, params);
     },
 
     getView: (param) => {

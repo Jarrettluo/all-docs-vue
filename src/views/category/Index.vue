@@ -11,7 +11,7 @@
                 <div class="demo-split-pane">
                     <div class="content">
                         <div class="add-doc">
-                            <Button type="text" @click="modal = true">添加文档</Button>
+                            <Button type="text" @click="addDoc">添加文档</Button>
                         </div>
                         <doc-table ref="docTable" type="CATEGORY" cateId=""
                                    @removeDoc="removeDoc"
@@ -26,13 +26,14 @@
                @on-cancel="cancelEditor"
         >
             <div>
-                <doc-table ref="addDocTable" type="ADD" cateId=""></doc-table>
+                <check-table ref="addDocTable" type="CATEGORY" :cateId="cateId"></check-table>
             </div>
         </Modal>
     </div>
 </template>
 <script>
 import DocTable from "@/views/category/DocTable";
+import CheckTable from '@/views/category/CheckTable'
 
 
 import CategoryItems from "@/views/category/CategoryItems";
@@ -47,6 +48,7 @@ export default {
         }
     },
     components: {
+        CheckTable,
         DocTable,
         CategoryItems
     },
@@ -105,6 +107,11 @@ export default {
                 // 删除以后再发起请求
                 this.$refs.docTable.getListData(this.cateId);
             })
+        },
+        // 触发面板
+        addDoc() {
+            this.modal = true
+            this.$refs.addDocTable.getListData(this.cateId, "");
         }
 
     }
