@@ -114,6 +114,7 @@ export default {
         // 触发面板
         addDoc() {
             this.modal = true
+            this.$refs.addDocTable.filterWord = null
             this.$refs.addDocTable.getListData(this.cateId, "");
         }
 

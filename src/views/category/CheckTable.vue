@@ -4,20 +4,14 @@
             <Space>
                 筛选:
                 <Input v-model="filterWord" prefix="ios-search" placeholder="输入关键字" style="width: auto;margin-right: 12px;"/>
-                <Button @click="getListData(cateId, filterWord)">搜索</Button>
+                <Button @click="search">搜索</Button>
             </Space>
         </div>
         <div class="docTable">
             <div class="table-container">
-                <Table border ref="selection" :columns="filterColumns||columns" :data="data" :loading="loading">
+                <Table border ref="selection" :columns="columns" :data="data" :loading="loading">
                     <template #name="{ row }">
-                        <p @click="preview(row.id)">
-                            <Badge status="error" v-if="row['docState']==='FAIL'"/>
-                            <Badge status="warning" v-else-if="row['docState']==='ON_PROCESS'"/>
-                            <Badge status="processing" v-else-if="row['docState']==='WAITE'"/>
-                            <Badge status="success" v-else/>
-                            {{ row.title }}
-                        </p>
+                        <p>{{row.title}}</p>
                     </template>
                 </Table>
             </div>
@@ -128,7 +122,7 @@ export default {
             document_info: {},
 
             infoVisible: false,
-            filterWord: null
+            filterWord: ""
         }
     },
     filters: {
@@ -194,6 +188,12 @@ export default {
             this.$emit("removeDoc", this.remove_item)
             this.modal1 = false
         },
+
+        search() {
+            this.currentPage = 1;
+            this.pageSize = 10;
+            this.getListData(this.cateId, this.filterWord)
+        },
         getListData(categoryId, filterWord) {
             const params = {
                 "categoryId": categoryId || this.cateId,
@@ -207,15 +207,18 @@ export default {
             DocumentRequest.getDataWithCheck(params).then(res => {
                 this.loading = false
                 if (res.code === 200) {
-                    this.data = res.data['documents'];
+                    let documents = res.data['documents'];
+                    documents.forEach( item => {
+                        if(item.checked === true) {
+                            item['_checked'] = true
+                            item['_disabled'] = true
+                        }
+                    })
+                    this.data = documents;
                     this.totalItems = res.data['totalNum'];
                 } else {
                     this.data = []
-                    // this.$Message.error('请稍后重试！');
-                }
-                this.listLoading = false
-                if (this.data == null) {
-                    this.data = []
+                    this.$Message.error('请稍后重试！');
                 }
             })
         },
@@ -224,7 +227,7 @@ export default {
         },
         pageChange(page) {
             this.currentPage = page
-            this.$emit("on-page-change", true)
+            this.getListData(this.cateId, this.filterWord);
         },
         preview(value) {
             this.$router.push({
