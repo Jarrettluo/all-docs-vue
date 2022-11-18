@@ -408,6 +408,7 @@ export default {
                 } else {
                     this.$Message.error("重建失败，请检查！")
                 }
+                this.getListData(this.cateId, this.filterWord)
             })
         }
     }
