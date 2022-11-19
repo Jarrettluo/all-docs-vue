@@ -13,6 +13,8 @@
 // docx文档预览(只能转换.docx文档，转换过程中复杂样式被忽，居中、首行缩进等)
 import mammoth from "mammoth";
 
+import { BackendUrl } from '@/api/request'
+
 
 import axios from 'axios'
 
@@ -21,7 +23,7 @@ export default {
     name: "WordView",
     data() {
         return {
-            wordURL: 'http://81.69.247.172:8082/files/view/' + this.$route.query.docId
+            wordURL: BackendUrl() + '/files/view/' + this.$route.query.docId
         };
     },
     created() {
@@ -32,7 +34,7 @@ export default {
             const xhr = new XMLHttpRequest();
             let docId = this.$route.query.docId;
 
-            let wordURL = 'http://81.69.247.172:8082/files/view/' + docId
+            let wordURL = BackendUrl() + '/files/view/' + docId
 
             axios({
                 method: 'get',

@@ -20,6 +20,8 @@ const docx = require('docx-preview');
 
 window.JSZip = require('jszip')
 
+import { BackendUrl } from '@/api/request'
+
 export default {
     name: "WordView3.vue",
     data() {
@@ -29,17 +31,8 @@ export default {
         }
     },
     mounted(){
-
-        // let result = ""
-
         let docId = this.$route.query.docId;
-
-        let wordURL = 'http://81.69.247.172:8082/files/view/' + docId
-        // let wordURL = 'http://81.69.247.172/myWord.docx'
-        // let wordURL = 'http://localhost:8080/设计报告.docx'
-        // let wordURL = 'http://localhost:8080/d51e5ec3-6ec7-4df0-9152-d909121d22d4.doc'
-        // console.log(wordURL)
-        // let that = this;
+        let wordURL = BackendUrl() + '/files/view/' + docId
         axios({
             method: 'get',
             responseType: 'blob', // 设置响应文件格式

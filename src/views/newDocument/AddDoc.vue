@@ -2,7 +2,7 @@
     <Upload
         multiple
         type="drag"
-        action="http://localhost:8082/files/upload"
+        :action="actionUrl"
         :on-success="response"
     >
         <div style="padding: 20px 0">
@@ -12,10 +12,13 @@
     </Upload>
 </template>
 <script>
+import { BackendUrl } from '@/api/request'
 export default {
     name: "AddDoc",
     data() {
-        return {}
+        return {
+            actionUrl: BackendUrl() + "/files/upload",
+        }
     },
     methods: {
         response(response, file, fileList) {

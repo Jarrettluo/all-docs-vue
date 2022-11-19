@@ -49,6 +49,7 @@
 
 <script>
 import {parseTime} from "@/utils/index"
+import { BackendUrl } from '@/api/request'
 
 export default {
     name: "SearchItem",
@@ -108,7 +109,6 @@ export default {
             // DocRequest.getView(this.id).then(response => {
             //     console.log(response)
             // })
-            // window.open('http://81.69.247.172:8082/files/view/' + this.id,"_blank")
 
             this.$router.push({
                 path:'/preview',
@@ -122,9 +122,9 @@ export default {
     filters: {
         imgSrc(value) {
             if(value === "" || value === undefined || value == null) {
-                return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
+                return BackendUrl() + "/files/image2/d2d9933cf295443990b2bed036a534ec";
             } else {
-                return "http://81.69.247.172:8082/files/image2/" + value;
+                return BackendUrl() + "/files/image2/" + value;
             }
         }
     }

@@ -41,7 +41,7 @@
 
 <script>
 // import PdfView from "./PngView"
-
+import { BackendUrl } from '@/api/request'
 
 import Nav from "@/components/Nav"
 import DocRequest from "@/api/document"
@@ -73,11 +73,9 @@ export default {
     filters: {
         imgSrc(value) {
             if (value === "" || value == null) {
-                // return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
                 return require('@/assets/source/doc.png');
             } else {
-                return "http://localhost:8082/files/image2/" + value;
-                // return "http://81.69.247.172:8082/files/image2/" + value;
+                return BackendUrl() + "/files/image2/" + value;
             }
         }
     },

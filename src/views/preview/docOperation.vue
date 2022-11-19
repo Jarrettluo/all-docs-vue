@@ -13,6 +13,7 @@
 
 <script>
 import CollectRequest from '@/api/collect'
+import { BackendUrl } from '@/api/request'
 
 export default {
     name: "docOperation",
@@ -43,10 +44,9 @@ export default {
     },
     methods: {
         operate(item) {
-            if (item.index == 3) {
-                window.open("http://81.69.247.172:8082/files/view/" + this.docId, "_blank");
-            }
-            if (item.index == 1 || item.index == 2) {
+            if (item.index === "3") {
+                window.open(BackendUrl() + "/files/view/" + this.docId, "_blank");
+            } else if (item.index === "1" || item.index === "2") {
 
                 if (!localStorage.getItem('token')) {
                     this.$Message.error('跳转到登录页面，请先登录！');
@@ -104,7 +104,7 @@ export default {
 
 .operation-title {
     font-size: 14px;
-    font-family: PingFangSC-Medium, PingFang SC;
+    font-family: PingFangSC-Medium, PingFang SC, serif;
     font-weight: 500;
     color: #000000;
     line-height: 20px;

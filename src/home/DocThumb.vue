@@ -16,6 +16,7 @@
 
 <script>
 import DocTag from "@/home/DocTag";
+import { BackendUrl } from '@/api/request'
 
 export default {
     name: "DocThumb",
@@ -24,8 +25,6 @@ export default {
     },
     data() {
         return {
-            // wordURL: 'http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec',
-            wordURL: 'http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec',
             img: "",
             docTitle: this.title
         }
@@ -68,11 +67,9 @@ export default {
         },
         imgSrc(value) {
             if (value === "" || value == null) {
-                // return "http://81.69.247.172:8082/files/image2/d2d9933cf295443990b2bed036a534ec";
                 return require('@/assets/source/doc.png')
             } else {
-                // return "http://81.69.247.172:8082/files/image2/" + value;
-                return "http://localhost:8082/files/image2/" + value;
+                return BackendUrl() + "/files/image2/" + value;
             }
         }
     },

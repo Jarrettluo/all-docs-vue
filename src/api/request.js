@@ -165,3 +165,7 @@ export function Delete(url, params) {
         })
     })
 }
+
+export function BackendUrl() {
+    return instance.defaults.baseURL;
+}

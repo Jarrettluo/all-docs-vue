@@ -12,6 +12,8 @@ const DOC_LIST_URL = '/document/list'; // 文档列表
 const DOC_REMOVE_URL = '/document/auth/remove'; // 文档删除
 const DOC_WITH_CHECK_URL = '/document/listWithCategory'; // 返回已经选中的信息
 
+const ABC = '/files/view/'
+
 const DOC_VIEW_URL = '/files/view/'; // 预览文档
 const DOC_TXT_URL = '/files/text/'; // 下载文本文件
 const DOC_REBUILD_URL = '/files/rebuildIndex'; // 重建文档索引
@@ -71,5 +73,7 @@ module.exports = {
     STATS_ALL_URL,
     STATS_HOT_TREND,
     STATS_SEARCH_HISTORY,
-    STATS_RECENT_DOC
+    STATS_RECENT_DOC,
+
+    ABC
 }
