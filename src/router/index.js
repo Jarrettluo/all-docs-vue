@@ -127,6 +127,13 @@ const routes = [
             return import('../views/category/Index.vue')
         }
     },
+    {
+        path: '/doc',
+        name: "doc",
+        component: function () {
+            return import('../views/DocPage.vue')
+        }
+    },
 ]
 
 const router = new VueRouter({

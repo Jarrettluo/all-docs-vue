@@ -14,3 +14,11 @@ https://blog.csdn.net/wenhui6/article/details/126308083?spm=1001.2101.3001.6650.
 
 action的使用教程
 https://blog.csdn.net/qq_36752632/article/details/103709668
+
+自适应前端界面
+
+管理者控制普通用户的权限
+- 能否自行上传
+- 能否删除文档？
+- 能否自行添加标签
+- 
