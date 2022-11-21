@@ -131,7 +131,14 @@ const routes = [
         path: '/doc',
         name: "doc",
         component: function () {
-            return import('../views/DocPage.vue')
+            return import('../views/filterDoc/Index.vue')
+        }
+    },
+    {
+        path: '/userPage',
+        name: "userPage",
+        component: function () {
+            return import('../views/userPage/Index.vue')
         }
     },
 ]

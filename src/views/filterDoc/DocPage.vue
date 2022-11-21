@@ -41,7 +41,6 @@ export default {
 <style scoped lang="scss">
 .main-container {
     padding: 30px;
-    background-color: #FFFFFF;
 
     .tab {
         /deep/ .ivu-tabs-nav {

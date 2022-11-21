@@ -111,7 +111,7 @@ export default {
 <style scoped lang="scss">
 .doc-group {
     width: 100%;
-    height: 470px;
+    height: 660px;
     position: relative;
 
     .doc-thumb-group {
@@ -126,7 +126,7 @@ export default {
         align-content: flex-start;
         /*子元素之间取消空白间隙，并把项目放在容器顶部。*/
         .doc-thumb {
-            margin-right: 20px;
+            margin-right: 34px;
         }
     }
 
