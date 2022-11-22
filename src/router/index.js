@@ -139,7 +139,16 @@ const routes = [
         name: "userPage",
         component: function () {
             return import('../views/userPage/Index.vue')
-        }
+        },
+        children: [
+            {
+                path: "doc",
+                name: "doc",
+                component: function () {
+                    return import("../views/filterDoc/DocPage")
+                }
+            }
+        ]
     },
 ]
 
