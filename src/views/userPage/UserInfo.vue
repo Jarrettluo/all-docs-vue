@@ -16,22 +16,47 @@
                             <div class="info-time">
                                 {{ item.time }}
                             </div>
-
                             <div class="info-mask" v-if="item.readState">
-
                             </div>
                         </div>
                     </div>
                     <div class="page-bottom">
                         <Page :total="100"/>
                     </div>
-
-
                 </div>
 
             </TabPane>
             <TabPane label="评论信息" name="name2">
 <!--                <filter-list-page></filter-list-page>-->
+
+                <div class="page-panel">
+                    <div class="info-group">
+                        <div class="" style="width: 100%; padding: 15px; text-align: left;
+                        border-bottom: 1px solid #AAAAAA;
+" v-for="item in comments">
+
+                            <div style="height: 22px; width: 100%; white-space: nowrap;">
+                                <span class="doc-title tile-span" >
+                                    {{item.doc}}
+                                </span>
+                            </div>
+                            <div style="padding: 5px 0;">
+                                <span>
+                                    {{item.content}}
+                                </span>
+                            </div>
+                            <div>
+                                <span class="doc-time">
+                                    {{item.createTime}}
+                                </span>
+                                <Icon type="md-trash" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-bottom">
+                        <Page :total="100"/>
+                    </div>
+                </div>
             </TabPane>
         </Tabs>
     </div>
@@ -72,6 +97,22 @@ export default {
                 errorMsg: "文档涉及到不正当信息请注意沙发上，已经删除",
                 time: "1022rljlfjslf",
                 readState: true,
+            }],
+            comments: [{
+                id: "dsjflds",
+                doc: "sdjfldfld",
+                createTime: "2022年10月18日 12：10：12",
+                content: "这是评论内容，可以删除"
+            },{
+                id: "dsjflds",
+                doc: "sdjfldfld",
+                createTime: "2022年10月18日 12：10：12",
+                content: "这是评论内容，可以删除"
+            },{
+                id: "dsjf这是文档的内容lds",
+                doc: "sdd方方搜索sjf这是文档粉色的范德萨范德萨的内容ldsjfldfld",
+                createTime: "2022年10月18日 12:10:12",
+                content: "这是评论是对方手里的积分拉萨大家咖喱方萨拉升级了房间阿什拉夫就算了内容，可以删除"
             }]
         }
     }
@@ -164,6 +205,8 @@ export default {
                 background-color: #fff;
                 opacity: 0.3;
             }
+
+
         }
 
     }
@@ -176,6 +219,22 @@ export default {
     }
 }
 
+.doc-title {
+    font-size: 14px;
+    font-family: PingFangSC-Medium, PingFang SC,serif;
+    font-weight: 500;
+    line-height: 20px;
+
+    color: #8F6100;
+}
+
+.doc-time {
+    font-size: 12px;
+    font-family: PingFangSC-Regular, PingFang SC,serif;
+    font-weight: 400;
+    color: #464646;
+    line-height: 17px;
+}
 
 
 </style>
