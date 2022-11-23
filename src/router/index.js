@@ -129,7 +129,7 @@ const routes = [
     },
     {
         path: '/doc',
-        name: "doc",
+        name: "userdoc",
         component: function () {
             return import('../views/filterDoc/Index.vue')
         }
@@ -146,6 +146,27 @@ const routes = [
                 name: "doc",
                 component: function () {
                     return import("../views/filterDoc/DocPage")
+                }
+            },
+            {
+                path: "info",
+                name: "info",
+                component: function () {
+                    return import("../views/userPage/UserInfo")
+                }
+            },
+            {
+                path: "msg",
+                name: "msg",
+                component: function () {
+                    return import("../views/userPage/UserMsg")
+                }
+            },
+            {
+                path: "upload",
+                name: "upload",
+                component: function () {
+                    return import("../views/userPage/UserUpload")
                 }
             }
         ]

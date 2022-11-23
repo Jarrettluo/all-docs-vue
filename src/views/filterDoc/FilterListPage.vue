@@ -116,7 +116,7 @@ export default {
 
     .doc-thumb-group {
         width: 100%;
-        height: calc(100% - 100px);
+        height: calc(100% - 60px);
         position: relative;
         overflow-y: auto;
         overflow-x: hidden;
@@ -126,7 +126,7 @@ export default {
         align-content: flex-start;
         /*子元素之间取消空白间隙，并把项目放在容器顶部。*/
         .doc-thumb {
-            margin-right: 34px;
+            margin-right: 30px;
         }
     }
 
