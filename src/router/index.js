@@ -152,7 +152,7 @@ const routes = [
                 path: "info",
                 name: "info",
                 component: function () {
-                    return import("../views/userPage/UserInfo")
+                    return import("../views/userPage/UserConfig")
                 }
             },
             {
@@ -166,7 +166,7 @@ const routes = [
                 path: "upload",
                 name: "upload",
                 component: function () {
-                    return import("../views/userPage/UserUpload")
+                    return import("../views/userPage/Avatar")
                 }
             }
         ]

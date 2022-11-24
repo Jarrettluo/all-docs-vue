@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "ali-oss": "^6.17.1",
     "axios": "^0.27.2",
     "docx-preview": "^0.1.4",
     "jszip": "^3.10.1",
@@ -14,6 +15,7 @@
     "pdfjs-dist": "^2.3.200",
     "view-design": "^4.7.0",
     "vue": "^2.6.11",
+    "vue-cropper": "^0.5.8",
     "vue-router": "^3.2.0",
     "xlsx": "^0.18.5"
   },
