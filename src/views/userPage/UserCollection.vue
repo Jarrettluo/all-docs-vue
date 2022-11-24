@@ -1,12 +1,14 @@
 <template>
-    <doc-page></doc-page>
+    <DocPage></DocPage>
 </template>
 
 <script>
 import DocPage from "@/views/filterDoc/DocPage"
 export default {
-    name: "UserUpload",
-    components: {DocPage}
+    name: "UserCollection",
+    components: {
+        DocPage
+    }
 }
 </script>
 

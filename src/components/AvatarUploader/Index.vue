@@ -2,31 +2,32 @@
 <template>
     <div class="AvatarUploader">
         <div>
-      <span
-          v-if="!avatarUrl"
-          @click="openEditAvatarDialog()"
-          style="
-          display: inline-block;
-          padding: 70px;
-          border: 1px dashed gray;
-          cursor: pointer;
-        "
-      >
-        <tooltip effect="dark" content="上传头像" placement="top">
-<!--          <i class="el-icon-plus" />-->
-            <Icon type="ios-add"/>
-        </tooltip>
-      </span>
-
+          <span
+              v-if="!avatarUrl"
+              @click="openEditAvatarDialog()"
+              style="
+              display: inline-block;
+              padding: 70px;
+              border: 1px dashed gray;
+              cursor: pointer;
+            "
+          >
+            <tooltip effect="dark" content="上传头像" placement="top">
+                <Icon type="ios-add"/>
+            </tooltip>
+          </span>
             <div v-else class="image">
                 <Image :src="avatarUrl" fit="fill"/>
                 <div class="mask">
                     <tooltip effect="dark" content="预览头像" placement="top">
-                        <i
-                            class="el-icon-zoom-in"
-                            style="cursor: pointer"
-                            @click="isVisible_previewAvatarDialog = true"
-                        />
+
+                        <Icon type="md-checkbox-outline" style="cursor: pointer"
+                              @click="isVisible_previewAvatarDialog = true"/>
+                        <!--                        <i-->
+                        <!--                            class="el-icon-zoom-in"-->
+                        <!--                            style="cursor: pointer"-->
+                        <!--                            @click="isVisible_previewAvatarDialog = true"-->
+                        <!--                        />-->
                     </tooltip>
                     <tooltip effect="dark" content="删除头像" placement="top">
                         <i
@@ -38,10 +39,12 @@
                 </div>
             </div>
         </div>
+
         <!-- 预览头像窗口 -->
         <Modal v-model="isVisible_previewAvatarDialog">
             <img width="100%" :src="avatarUrl"/>
         </Modal>
+
         <!-- 修改头像窗口 -->
         <Modal
             title="修改头像"
@@ -61,7 +64,7 @@
                         @realTime="realTime"
                     >
                     </vue-cropper>
-                    <div style="display: flex; padding-top: 20px">
+                    <div style="display: flex; justify-content: space-between; padding-top: 20px; ">
                         <Upload
                             ref="uploadCropper"
                             :before-upload="beforeAvatarUpload"
@@ -69,7 +72,7 @@
                             action
                             style="margin-right: 10px"
                         >
-                            <Button type="primary" size="small">上传头像</Button>
+                            <Button type="primary">上传头像</Button>
                         </Upload>
                         <tooltip
                             class="item"
@@ -77,11 +80,8 @@
                             content="向左旋转"
                             placement="top"
                         >
-                            <Button size="small" @click="rotateLeft"
-                            >
-                                <Icon type="ios-checkmark" />
-
-                                <i class="el-icon-refresh-left"></i>
+                            <Button @click="rotateLeft">
+                                <Icon type="md-refresh" style="transform: rotateY(180deg);" />
                             </Button>
                         </tooltip>
                         <tooltip
@@ -90,12 +90,9 @@
                             content="向右旋转"
                             placement="top"
                         >
-                            <Button size="small" @click="rotateRight"
-                            >
-                                <Icon type="ios-checkmark" />
-
-                                <i class="el-icon-refresh-right"></i
-                            ></Button>
+                            <Button @click="rotateRight">
+                                <Icon type="md-refresh" />
+                            </Button>
                         </tooltip>
                         <tooltip
                             class="item"
@@ -103,12 +100,9 @@
                             content="放大"
                             placement="top"
                         >
-                            <Button size="small" @click="changeScale(1)"
-                            >
-                                <Icon type="ios-checkmark" />
-
-                                <i class="el-icon-plus"></i
-                            ></Button>
+                            <Button @click="changeScale(1)">
+                                <Icon type="md-add" />
+                            </Button>
                         </tooltip>
                         <tooltip
                             class="item"
@@ -116,12 +110,8 @@
                             content="缩小"
                             placement="top"
                         >
-                            <Button size="small" @click="changeScale(-1)"
-                            >
-                                <Icon type="ios-checkmark" />
-
-                                <i class="el-icon-minus"></i
-                            ></Button>
+                            <Button @click="changeScale(-1)">
+                                <Icon type="md-remove" /></Button>
                         </tooltip>
                     </div>
                 </Col>
@@ -135,16 +125,16 @@
                     </div>
                 </Col>
             </Row>
+            <div style="width: 100%; height: 60px;">
+            </div>
             <span slot="footer" class="dialog-footer">
-        <Button @click="isVisible_editAvatarDialog = false" size="small">取 消</Button>
-        <Button
-            type="primary"
-            :loading="loading"
-            @click="submitUpdate"
-            size="small"
-        >确 定</Button
-        >
-      </span>
+                <Button @click="isVisible_editAvatarDialog = false">关 闭</Button>
+                <Button
+                    type="primary"
+                    :loading="loading"
+                    @click="submitUpdate"
+                >确  认</Button>
+            </span>
         </Modal>
     </div>
 </template>
@@ -322,6 +312,7 @@ export default {
     }
 
     .upload-preview {
+        background-color: red;
         position: relative;
         top: 50%;
         transform: translate(50%, -50%);
@@ -331,5 +322,16 @@ export default {
         box-shadow: 0 0 4px #bbbbbb;
         overflow: hidden;
     }
+}
+
+.upload-preview {
+    position: relative;
+    top: 50%;
+    transform: translate(50%, -50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: 0 0 4px #bbbbbb;
+    overflow: hidden;
 }
 </style>

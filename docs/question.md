@@ -22,3 +22,10 @@ https://blog.csdn.net/qq_36752632/article/details/103709668
 - 能否删除文档？
 - 能否自行添加标签
 - 
+
+
+修改头像的组件：
+
+- https://blog.csdn.net/qq_41107231/article/details/109725839
+
+- https://blog.csdn.net/qq_40323256/article/details/118415257

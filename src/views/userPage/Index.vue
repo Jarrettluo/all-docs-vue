@@ -87,19 +87,19 @@ export default {
             navData: [
                 {
                     name: '消息列表',
-                    route: 'doc'
-                },
-                {
-                    name: '我的收藏夹',
-                    route: 'info'
-                },
-                {
-                    name: '我上传的文档',
                     route: 'msg'
                 },
                 {
+                    name: '我的收藏夹',
+                    route: 'userCollection'
+                },
+                {
+                    name: '我上传的文档',
+                    route: 'userUpload'
+                },
+                {
                     name: '个人设置',
-                    route: 'upload'
+                    route: 'userInfo'
                 }
             ],
             checkedNav: {

@@ -137,24 +137,11 @@ const routes = [
     {
         path: '/userPage',
         name: "userPage",
+        redirect: "/userPage/msg",  //重定向到第一个子路由
         component: function () {
             return import('../views/userPage/Index.vue')
         },
         children: [
-            {
-                path: "doc",
-                name: "doc",
-                component: function () {
-                    return import("../views/filterDoc/DocPage")
-                }
-            },
-            {
-                path: "info",
-                name: "info",
-                component: function () {
-                    return import("../views/userPage/UserConfig")
-                }
-            },
             {
                 path: "msg",
                 name: "msg",
@@ -163,10 +150,25 @@ const routes = [
                 }
             },
             {
-                path: "upload",
-                name: "upload",
+                path: "userCollection",
+                name: "userCollection",
                 component: function () {
-                    return import("../views/userPage/Avatar")
+                    return import("../views/userPage/UserCollection")
+                }
+            },
+            {
+                path: "userInfo",
+                name: "userInfo",
+                component: function () {
+                    return import("../views/userPage/UserInfo")
+                }
+            },
+
+            {
+                path: "userUpload",
+                name: "userUpload",
+                component: function () {
+                    return import("../views/userPage/UserUpload")
                 }
             }
         ]
