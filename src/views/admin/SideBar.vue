@@ -1,8 +1,12 @@
 <template>
     <Menu mode="vertical" :theme="theme" active-name="1" width="200px" @on-select="turnUrl" :active-name="$route.name">
-        <MenuItem name="newDocument">
+        <MenuItem name="newDocument1">
             <Icon type="ios-paper"/>
             添加文档
+        </MenuItem>
+        <MenuItem name="docReview">
+            <Icon type="ios-paper"/>
+            文档审核
         </MenuItem>
         <MenuItem name="allDocuments">
             <Icon type="md-folder-open"/>

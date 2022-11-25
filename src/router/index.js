@@ -84,6 +84,20 @@ const routes = [
                 }
             },
             {
+                path: "newDocument1",
+                name: "newDocument1",
+                component: function () {
+                    return import("../views/userPage/DocUpload")
+                }
+            },
+            {
+                path: "docReview",
+                name: "docReview",
+                component: function () {
+                    return import("../views/admin/DocReview")
+                }
+            },
+            {
                 path: "category",
                 name: "category",
                 component: function () {
