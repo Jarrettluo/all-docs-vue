@@ -34,12 +34,16 @@ box-shadow: 0px 0px 10px 0px rgba(129,100,0,0.3);
 border-radius: 8px;
 display: flex;
 justify-content: center;
-">
+"
+                                         @click="selected(uploadRoute)"
+                                    >
                                         <div style="padding: 5px; line-height: 45px;">
                                             <img :src="buttonSrc" width="24px" height="28px"/>
                                         </div>
                                         <span
-                                            style="line-height: 45px; color: #000; font-size: 16px; font-weight: 600;">
+                                            style="line-height: 45px; color: #000; font-size: 16px; font-weight: 600;"
+
+                                        >
                                             点我上传文档</span>
 
                                     </div>
@@ -108,7 +112,11 @@ export default {
             },
             isRouterAlive: true,
             buttonSrc: require("@/assets/source/upload.png"),
-            userSrc: require("@/assets/source/user_avater.png")
+            userSrc: require("@/assets/source/user_avater.png"),
+            uploadRoute: {
+                name: "上传",
+                route: "docUpload"
+            }
         }
     },
     components: {

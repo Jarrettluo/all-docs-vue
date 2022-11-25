@@ -170,7 +170,15 @@ const routes = [
                 component: function () {
                     return import("../views/userPage/UserUpload")
                 }
-            }
+            },{
+                path: "docUpload",
+                name: "docUpload",
+                component: function () {
+                    return import("../views/userPage/DocUpload")
+                }
+            },
+
+
         ]
     },
 ]
