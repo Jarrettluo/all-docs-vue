@@ -2,19 +2,29 @@
     <div class="content">
         <Tabs value="name1">
             <TabPane label="待审核" name="name1">
+                <AdminReview></AdminReview>
             </TabPane>
             <TabPane label="审核完成" name="name2s">
+                <ReviewInfo></ReviewInfo>
             </TabPane>
             <TabPane label="文档日志" name="name24">
-                一些变更的记录，都存在这里的
+                <DocLog></DocLog>
             </TabPane>
         </Tabs>
     </div>
 </template>
 
 <script>
+import AdminReview from '@/views/admin/AdminReview'
+import ReviewInfo from '@/views/admin/ReviewInfo'
+import DocLog from '@/views/admin/DocLog'
 export default {
-    name: "DocReview"
+    name: "DocReview",
+    components: {
+        AdminReview,
+        ReviewInfo,
+        DocLog
+    }
 }
 </script>
 
