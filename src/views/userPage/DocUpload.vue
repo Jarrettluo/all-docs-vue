@@ -4,7 +4,7 @@
             <span>上传文档</span>
         </div>
         <Row>
-            <Col span="1">
+            <Col span="1" class="star-tag">
                 <span>*</span>
             </Col>
             <Col span="12">
@@ -25,8 +25,8 @@
             </Col>
         </Row>
 
-        <Row style="padding: 10px 0; margin-top: 40px;">
-            <Col span="1">
+        <Row style="padding: 5px 0; margin-top: 30px;">
+            <Col span="1" class="star-tag">
                 <span>*</span>
             </Col>
             <Col span="20">
@@ -36,8 +36,8 @@
                 </div>
             </Col>
         </Row>
-        <Row style="padding: 10px 0;">
-            <Col span="1">
+        <Row style="padding: 5px 0;">
+            <Col span="1" class="star-tag">
                 <span>*</span>
             </Col>
             <Col span="6">
@@ -61,19 +61,19 @@
                 </div>
             </Col>
         </Row>
-        <Row style="padding: 10px 0;">
-            <Col span="1">
+        <Row style="padding: 5px 0;">
+            <Col span="1" class="star-tag">
                 <span>*</span>
             </Col>
             <Col span="20" class="description-area">
 
                 <Input v-model="value1" maxlength="140" type="textarea" placeholder="Enter something..."
-                       :autosize="{minRows: 2,maxRows: 5}" />
+                       :autosize="{minRows: 2,maxRows: 5}"/>
             </Col>
         </Row>
 
-        <Row style="margin-top: 40px;">
-            <Col span="1">
+        <Row style="margin-top: 30px;">
+            <Col span="1" class="star-tag">
 
             </Col>
             <Col>
@@ -128,7 +128,7 @@ export default {
         color: #000000;
         line-height: 33px;
 
-        margin-bottom: 40px;
+        margin-bottom: 30px;
     }
 
     .upload-panel {
@@ -183,10 +183,17 @@ export default {
             border: none;
         }
     }
+
     .description-area {
         /deep/ .ivu-input {
             border: 1px solid #000000;
         }
+    }
+
+    .star-tag {
+        padding-right: 10px;
+        text-align: right;
+        color: red;
     }
 }
 

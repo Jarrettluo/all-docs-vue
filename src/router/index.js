@@ -87,7 +87,7 @@ const routes = [
                 path: "newDocument1",
                 name: "newDocument1",
                 component: function () {
-                    return import("../views/userPage/DocUpload")
+                    return import("../views/admin/NewUpload")
                 }
             },
             {
@@ -118,6 +118,15 @@ const routes = [
                     return import('../views/allDocument/Index.vue')
                 }
             },
+
+
+            {
+                path: 'commentManage',
+                name: "commentManage",
+                component: function () {
+                    return import('../views/admin/CommentManage.vue')
+                }
+            },
             {
                 path: "users",
                 name: "users",
@@ -129,6 +138,12 @@ const routes = [
                 name: "stats",
                 component: function () {
                     return import("../views/stats/Index")
+                }
+            }, {
+                path: "systemConfig",
+                name: "systemConfig",
+                component: function () {
+                    return import("../views/admin/SystemConfig")
                 }
             }
             // ...其他子路由
