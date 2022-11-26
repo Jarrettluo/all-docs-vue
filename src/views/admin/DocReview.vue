@@ -1,7 +1,7 @@
 <template>
     <div class="content">
-        <Tabs value="name1">
-            <TabPane label="待审核" name="name1">
+        <Tabs value="name1" style="height: 100%;">
+            <TabPane label="待审核" name="name1" style="height: 100%;">
                 <AdminReview></AdminReview>
             </TabPane>
             <TabPane label="审核完成" name="name2s">
@@ -39,6 +39,10 @@ export default {
     border-radius: 4px;
     padding: 16px;
     text-align: left;
+
+    /deep/ .ivu-tabs-content {
+        height: 100%;
+    }
 }
 
 </style>

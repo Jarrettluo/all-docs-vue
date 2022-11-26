@@ -1,16 +1,23 @@
 <template>
-    <div>
-        <Table width="550" height="200" border :columns="columns" :data="data">
+    <div class="main" ref="tableRef">
+        <Table width="100%" :height="height" border :columns="columns" :data="data">
             <template #action="{ row, index }">
-                <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">View</Button>
                 <Button type="error" size="small" @click="remove(index)">Delete</Button>
             </template>
         </Table>
-        <div style="display: flex; justify-content: left">
-            <Button type="primary" ghost>全部拒绝</Button>
-            <Button type="primary" ghost>全部通过</Button>
-            <Page :total="100" />
+
+        <div class="bottom-zone" >
+            <Row>
+                <Col span="12" class="bottom-zone-left">
+                    <Button type="primary" ghost>全部删除</Button>
+                </Col>
+                <Col span="12" class="bottom-zone-right">
+                    <Page :total="100" />
+                </Col>
+            </Row>
         </div>
+
+
 
     </div>
 
@@ -28,41 +35,31 @@ export default {
                     fixed: "left"
                 },
                 {
-                    title: 'Name',
+                    title: '时间',
                     key: 'name',
-                    width: 100,
+                    width: 200,
                     fixed: 'left'
                 },
                 {
-                    title: 'Age',
+                    title: '用户',
                     key: 'age',
-                    width: 100
-                },
-                {
-                    title: 'Province',
-                    key: 'province',
-                    width: 100
-                },
-                {
-                    title: 'City',
-                    key: 'city',
-                    width: 100
-                },
-                {
-                    title: 'Address',
-                    key: 'address',
                     width: 200
                 },
                 {
-                    title: 'Postcode',
-                    key: 'zip',
-                    width: 100
+                    title: '动作',
+                    key: 'province',
+                    width: 180
                 },
                 {
-                    title: 'Action',
+                    title: '文档名称',
+                    key: 'city',
+                    // width: 300
+                },
+                {
+                    title: '操作',
                     slot: 'action',
                     fixed: 'right',
-                    width: 160
+                    width: 90
                 }
             ],
             data: [
@@ -130,8 +127,51 @@ export default {
                     city: 'Ottawa',
                     zip: 100000
                 }
-            ]
+            ],
+
+            height: 600,
+        }
+    },
+    created() {
+        this.initHeight()
+    },
+    methods: {
+        initHeight() {
+            this.$nextTick(() => {
+                this.height = this.$refs.tableRef.offsetHeight - 120;
+            })
+
         }
     }
 }
 </script>
+
+<style scoped lang="scss">
+
+.main {
+    height: 100%;
+    width: 100%;
+
+    position: relative;
+
+    .bottom-zone {
+        position: absolute;
+
+        bottom: 50px;
+        left: 0;
+
+        width: 100%;
+        height: 80px;
+        line-height: 80px;
+
+        .bottom-zone-left {
+
+        }
+
+        .bottom-zone-right {
+            text-align: right;
+        }
+    }
+
+}
+</style>
