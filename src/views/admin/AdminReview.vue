@@ -17,11 +17,30 @@
                 </Col>
             </Row>
         </div>
+
+        <Modal
+            v-model="modal"
+            title="Common Modal dialog box title"
+            @on-ok="ok"
+            @on-cancel="cancel">
+            <p>Content of dialog</p>
+            <p>Content of dialog</p>
+            <p>Content of dialog</p>
+
+            <Select v-model="model" filterable allow-create @on-create="handleCreate1">
+                <Option v-for="item in cityList3" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+
+        </Modal>
     </div>
 
 </template>
 <script>
 import {resolveComponent} from 'vue'
+
+import fileTool from "@/utils/fileUtil"
+
+import {parseTime} from "@/utils"
 
 export default {
     data() {
@@ -41,32 +60,32 @@ export default {
                 },
                 {
                     title: '大小',
-                    key: 'age',
-                    width: 100
+                    key: 'size',
+                    width: 120
                 },
                 {
                     title: '分类',
-                    key: 'province',
-                    width: 100
+                    key: 'category',
+                    width: 180
                 },
                 {
                     title: '标签',
-                    key: 'city',
-                    // width: 280
+                    key: 'tag',
+                    minWidth: 280
                 },
                 {
                     title: '创建时间',
-                    key: 'address',
+                    key: 'time',
                     width: 200
                 },
                 {
                     title: '创建人',
-                    key: 'zip',
-                    width: 100
+                    key: 'user',
+                    width: 110
                 },
                 {
                     title: '违禁词',
-                    key: 'zip',
+                    key: 'sensitiveWord',
                     width: 200
                 },
                 {
@@ -76,142 +95,45 @@ export default {
                     width: 160
                 }
             ],
-            data: [
-                {
-                    name: 'John Brown',
-                    age: 18,
-                    address: 'New York No. 1 Lake Park',
-                    province: 'America',
-                    city: 'New York',
-                    zip: 100000
-                },
-                {
-                    name: 'Jim Green',
-                    age: 24,
-                    address: 'Washington, D.C. No. 1 Lake Park',
-                    province: 'America',
-                    city: 'Washington, D.C.',
-                    zip: 100000
-                },
-                {
-                    name: 'Joe Black',
-                    age: 30,
-                    address: 'Sydney No. 1 Lake Park',
-                    province: 'Australian',
-                    city: 'Sydney',
-                    zip: 100000
-                },
-                {
-                    name: 'Jon Snow',
-                    age: 26,
-                    address: 'Ottawa No. 2 Lake Park',
-                    province: 'Canada',
-                    city: 'Ottawa',
-                    zip: 100000
-                },
-                {
-                    name: 'John Brown',
-                    age: 18,
-                    address: 'New York No. 1 Lake Park',
-                    province: 'America',
-                    city: 'New York',
-                    zip: 100000
-                },
-                {
-                    name: 'Jim Green',
-                    age: 24,
-                    address: 'Washington, D.C. No. 1 Lake Park',
-                    province: 'America',
-                    city: 'Washington, D.C.',
-                    zip: 100000
-                },
-                {
-                    name: 'Joe Black',
-                    age: 30,
-                    address: 'Sydney No. 1 Lake Park',
-                    province: 'Australian',
-                    city: 'Sydney',
-                    zip: 100000
-                },
-                {
-                    name: 'Jon Snow',
-                    age: 26,
-                    address: 'Ottawa No. 2 Lake Park',
-                    province: 'Canada',
-                    city: 'Ottawa',
-                    zip: 100000
-                },
-                {
-                    name: 'John Brown',
-                    age: 18,
-                    address: 'New York No. 1 Lake Park',
-                    province: 'America',
-                    city: 'New York',
-                    zip: 100000
-                },
-                {
-                    name: 'Jim Green',
-                    age: 24,
-                    address: 'Washington, D.C. No. 1 Lake Park',
-                    province: 'America',
-                    city: 'Washington, D.C.',
-                    zip: 100000
-                },
-                {
-                    name: 'Joe Black',
-                    age: 30,
-                    address: 'Sydney No. 1 Lake Park',
-                    province: 'Australian',
-                    city: 'Sydney',
-                    zip: 100000
-                },
-                {
-                    name: 'Jon Snow',
-                    age: 26,
-                    address: 'Ottawa No. 2 Lake Park',
-                    province: 'Canada',
-                    city: 'Ottawa',
-                    zip: 100000
-                },
-                {
-                    name: 'John Brown',
-                    age: 18,
-                    address: 'New York No. 1 Lake Park',
-                    province: 'America',
-                    city: 'New York',
-                    zip: 100000
-                },
-                {
-                    name: 'Jim Green',
-                    age: 24,
-                    address: 'Washington, D.C. No. 1 Lake Park',
-                    province: 'America',
-                    city: 'Washington, D.C.',
-                    zip: 100000
-                },
-                {
-                    name: 'Joe Black',
-                    age: 30,
-                    address: 'Sydney No. 1 Lake Park',
-                    province: 'Australian',
-                    city: 'Sydney',
-                    zip: 100000
-                },
-                {
-                    name: 'Jon Snowfsdflsjfl罗佳瑞',
-                    age: 26,
-                    address: 'Ottawa No. 2 Lake Park',
-                    province: 'Canada',
-                    city: 'Ottawa',
-                    zip: 100000
-                }
-            ],
+            data: [],
 
             height: 600,
+
+            modal: false,
+
+            cityList3: [
+                {
+                    value: 'New York',
+                    label: 'New York'
+                },
+                {
+                    value: 'London',
+                    label: 'London'
+                },
+                {
+                    value: 'Sydney',
+                    label: 'Sydney'
+                },
+                {
+                    value: 'Ottawa',
+                    label: 'Ottawa'
+                },
+                {
+                    value: 'Paris',
+                    label: 'Paris'
+                },
+                {
+                    value: 'Canberra',
+                    label: 'Canberra'
+                }
+            ],
         }
     },
     created() {
         this.initHeight()
+    },
+    mounted() {
+        this.getDocData()
     },
     methods: {
         initHeight() {
@@ -219,7 +141,124 @@ export default {
                 this.height = this.$refs.tableRef.offsetHeight - 120;
             })
 
-        }
+        },
+
+        getDocData() {
+            let result = [{
+                id: "1223",
+                docName: "2324",
+                size: 123567,
+                category: "分类的信息",
+                tags: [{
+                    id: "233",
+                    name: "abc"
+                }],
+                createTime: "2022年11月22日",
+                createUser: "232",
+                filterWord: ["abc", "edf", "dsff"]
+            }, {
+                id: "1223",
+                docName: "文档的名字等等",
+                size: 123000567,
+                category: "分类的信息",
+                tags: [{
+                    id: "233",
+                    name: "abc"
+                }, {
+                    id: "233",
+                    name: "abc"
+                }, {
+                    id: "233",
+                    name: "abc"
+                }],
+                createTime: "2022年11月22日",
+                createUser: "232",
+                filterWord: ["abc", "edf", "dsff"]
+            }, {
+                id: "1223",
+                size: 1344323567,
+                docName: "文档的名字等等",
+                category: "分类的附近丢失了封疆大吏分手多久了信息",
+                tags: [{
+                    id: "233",
+                    name: "abc"
+                }],
+                createTime: "2022年11月22日",
+                createUser: "这是一个巨长无比的用户名",
+                filterWord: ["abc", "edf", "dsff"]
+            }]
+
+            let obj = {}
+            this.data = []
+            for (let resultElement of result) {
+
+                obj['id'] = resultElement['id']
+                obj['name'] = resultElement['docName']
+
+                // 计算文档的大小
+                obj['size'] = '0B'
+                let docSize = resultElement['size'];
+                if (typeof docSize === "number" && docSize > 0) {
+                    obj['size'] = fileTool.bytesToSize(docSize)
+                }
+
+
+                let cateObj = resultElement['category']
+                if (cateObj.length > 8) {
+                    cateObj = cateObj.slice(0, 8) + "..."
+                }
+                obj['category'] = cateObj
+
+                let tagStrList = []
+                let tagArray = resultElement['tags']
+                for (let tagArrayElement of tagArray) {
+                    if (tagArrayElement.hasOwnProperty("name")) {
+                        tagStrList.push(tagArrayElement["name"])
+                    }
+                }
+                let tagStr = tagStrList.join("/");
+                if (tagStr.length > 16) {
+                    tagStr = tagStr.slice(0, 16) + '...'
+                }
+                obj['tag'] = tagStr
+
+
+                const docTime = resultElement['createTime']
+                // if ( typeof docTime === )
+                obj['time'] = parseTime(new Date(), '{y}年{m}月{d}日 {h}:{i}:{s}');
+
+                let userName = resultElement['createUser'] || "未知用户"
+                if (userName.length > 4) {
+                    userName = userName.slice(0, 4) + "..."
+                }
+
+                obj['user'] = userName
+                obj['sensitiveWord'] = "这些都是违禁词"
+
+                this.data.push(obj)
+                obj = {}
+            }
+        },
+
+        remove(index) {
+            this.modal = true
+
+            console.log(index)
+        },
+
+        ok () {
+            this.$Message.info('Clicked ok');
+        },
+        cancel () {
+            this.$Message.info('Clicked cancel');
+        },
+
+        handleCreate1 (val) {
+            this.cityList3.push({
+                value: val,
+                label: val
+            });
+        },
     }
 }
 </script>

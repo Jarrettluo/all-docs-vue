@@ -29,3 +29,10 @@ https://blog.csdn.net/qq_36752632/article/details/103709668
 - https://blog.csdn.net/qq_41107231/article/details/109725839
 
 - https://blog.csdn.net/qq_40323256/article/details/118415257
+
+审核不通过的原因：
+
+包含违禁词
+低质量
+重复
+自由输入等

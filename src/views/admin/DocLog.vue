@@ -2,7 +2,7 @@
     <div class="main" ref="tableRef">
         <Table width="100%" :height="height" border :columns="columns" :data="data">
             <template #action="{ row, index }">
-                <Button type="error" size="small" @click="remove(index)">Delete</Button>
+                <Button type="error" size="small" @click="remove(index)">删  除</Button>
             </template>
         </Table>
 
