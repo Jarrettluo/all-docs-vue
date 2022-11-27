@@ -20,16 +20,21 @@
 
         <Modal
             v-model="modal"
-            title="Common Modal dialog box title"
+            title="文档评审信息确认"
             @on-ok="ok"
             @on-cancel="cancel">
-            <p>Content of dialog</p>
-            <p>Content of dialog</p>
-            <p>Content of dialog</p>
+            <div style="height: 200px;">
+                <p>您可以下载文档，或者查看文本信息</p>
+                <Divider></Divider>
+                <div style="margin-bottom: 10px">
+                    <p>评审意见选择：</p>
+                </div>
 
-            <Select v-model="model" filterable allow-create @on-create="handleCreate1">
-                <Option v-for="item in cityList3" :value="item.value" :key="item.value">{{ item.label }}</Option>
-            </Select>
+                <Select v-model="model" filterable allow-create @on-create="handleCreate1">
+                    <Option v-for="item in cityList3" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </Select>
+            </div>
+
 
         </Modal>
     </div>

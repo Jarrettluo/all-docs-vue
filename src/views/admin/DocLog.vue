@@ -2,30 +2,32 @@
     <div class="main" ref="tableRef">
         <Table width="100%" :height="height" border :columns="columns" :data="data">
             <template #action="{ row, index }">
-                <Button type="error" size="small" @click="remove(index)">删  除</Button>
+                <Button type="error" size="small" @click="remove(index)">删 除</Button>
             </template>
         </Table>
 
-        <div class="bottom-zone" >
+        <div class="bottom-zone">
             <Row>
                 <Col span="12" class="bottom-zone-left">
                     <Button type="primary" ghost>全部删除</Button>
                 </Col>
                 <Col span="12" class="bottom-zone-right">
-                    <Page :total="100" />
+                    <Page :total="100"/>
                 </Col>
             </Row>
         </div>
-
 
 
     </div>
 
 </template>
 <script>
-import { resolveComponent } from 'vue'
+import {resolveComponent} from 'vue'
+
+import {parseTime} from "@/utils"
+
 export default {
-    data () {
+    data() {
         return {
             columns: [
                 {
@@ -36,23 +38,23 @@ export default {
                 },
                 {
                     title: '时间',
-                    key: 'name',
+                    key: 'time',
                     width: 200,
                     fixed: 'left'
                 },
                 {
                     title: '用户',
-                    key: 'age',
+                    key: 'user',
                     width: 200
                 },
                 {
                     title: '动作',
-                    key: 'province',
+                    key: 'action',
                     width: 180
                 },
                 {
                     title: '文档名称',
-                    key: 'city',
+                    key: 'name',
                     // width: 300
                 },
                 {
@@ -135,12 +137,55 @@ export default {
     created() {
         this.initHeight()
     },
+    mounted() {
+        this.getPageData()
+    },
     methods: {
         initHeight() {
             this.$nextTick(() => {
                 this.height = this.$refs.tableRef.offsetHeight - 120;
             })
 
+        },
+        getPageData() {
+            const result = [{
+                id: "id",
+                createTime: new Date(),
+                user: "sdjfsljfdsjl",
+                action: "下载",
+                docName: "文档名称脸上的肌肤来说减肥路上"
+            }, {
+                id: "id",
+                createTime: new Date(),
+                user: "sdjfsljfdsjl",
+                action: "下载",
+                docName: "文档名称脸上的肌肤来说减肥路上"
+            }, {
+                id: "id",
+                createTime: new Date(),
+                user: "sdjfsljfdsjl",
+                action: "下载",
+                docName: "文档名称脸上的肌肤来说减肥路上"
+            }, {
+                id: "id",
+                createTime: new Date(),
+                user: "sdjfsljfdsjl",
+                action: "下载",
+                docName: "文档名称脸上的肌肤来说减肥路上"
+            }]
+
+            this.data = []
+            let obj = {}
+
+            for (let resultElement of result) {
+                obj['time'] = parseTime(new Date(), '{y}年{m}月{d}日 {h}:{i}:{s}');// resultElement['createTime']
+                obj['user'] = resultElement['user']
+                obj['action'] = resultElement['action']
+                obj['name'] = resultElement['docName']
+
+                this.data.push(obj)
+                obj = {}
+            }
         }
     }
 }
