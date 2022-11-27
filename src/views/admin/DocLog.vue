@@ -9,17 +9,14 @@
         <div class="bottom-zone">
             <Row>
                 <Col span="12" class="bottom-zone-left">
-                    <Button type="primary" ghost>全部删除</Button>
+                    <Button type="primary" ghost @click="remove">全部删除</Button>
                 </Col>
                 <Col span="12" class="bottom-zone-right">
                     <Page :total="100"/>
                 </Col>
             </Row>
         </div>
-
-
     </div>
-
 </template>
 <script>
 import {resolveComponent} from 'vue'
@@ -186,6 +183,10 @@ export default {
                 this.data.push(obj)
                 obj = {}
             }
+        },
+
+        remove(item) {
+            this.$Message.info('receive cancel');
         }
     }
 }

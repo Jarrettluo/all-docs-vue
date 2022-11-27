@@ -1,22 +1,30 @@
 <template>
-    <div>
-        <Table border :columns="columns" :data="data">
+    <div class="main" ref="tableRef">
+        <Table width="100%" :height="height" border :columns="columns" :data="data">
             <template #name="{ row }">
                 <!--            <strong>{{ row.name }}</strong>-->
                 {{row.username}}
             </template>
             <template #action="{ row, index }">
-                <!--            <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">View</Button>-->
+                <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">屏蔽</Button>
                 <Button type="error" size="small" @click="remove(index)">删除</Button>
             </template>
         </Table>
-        <div class="page-container">
-            <Page
-                :model-value="currentPage"
-                :total="totalItems"
-                :page-size="pageSize"
-                @on-change="pageChange"
-            />
+
+        <div class="bottom-zone">
+            <Row>
+                <Col span="12" class="bottom-zone-left">
+                    <Button type="primary" ghost @click="remove">全部删除</Button>
+                </Col>
+                <Col span="12" class="bottom-zone-right">
+                    <Page
+                        :model-value="currentPage"
+                        :total="totalItems"
+                        :page-size="pageSize"
+                        @on-change="pageChange"
+                    />
+                </Col>
+            </Row>
         </div>
 
         <Modal v-model="remove_modal" width="360">
@@ -86,12 +94,22 @@ export default {
             remove_modal: false,
             modal_loading: false,
             remove_item: {},
+
+            height: 600,
         }
+    },
+    created() {
+        this.initHeight()
     },
     mounted() {
         this.init();
     },
     methods: {
+        initHeight() {
+            this.$nextTick(() => {
+                this.height = this.$refs.tableRef.offsetHeight - 60;
+            })
+        },
         show (index) {
             this.$Modal.info({
                 title: 'User Info',
@@ -130,7 +148,32 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+.main {
+    height: 100%;
+    width: 100%;
+
+    position: relative;
+    .bottom-zone {
+        position: absolute;
+
+        bottom: -20px;
+        left: 0;
+
+        width: 100%;
+        height: 80px;
+        line-height: 80px;
+
+        .bottom-zone-left {
+
+        }
+
+        .bottom-zone-right {
+            text-align: right;
+        }
+    }
+}
 
     .page-container {
         /*background-color: yellow;*/

@@ -9,22 +9,21 @@
         <div class="bottom-zone">
             <Row>
                 <Col span="12" class="bottom-zone-left">
-                    <Button type="primary" ghost>全部拒绝</Button>
-                    <Button type="primary" ghost style="margin-left: 10px">全部通过</Button>
+                    <Button type="primary" ghost @click="refuse">全部拒绝</Button>
+                    <Button type="primary" ghost style="margin-left: 10px" @click="receive">全部通过</Button>
                 </Col>
                 <Col span="12" class="bottom-zone-right">
                     <Page :total="100"/>
                 </Col>
             </Row>
         </div>
-
         <Modal
             v-model="modal"
             title="文档评审信息确认"
             @on-ok="ok"
             @on-cancel="cancel">
             <div style="height: 200px;">
-                <p>您可以下载文档，或者查看文本信息</p>
+                <p>您可以<a>下载文档</a>，或者查看<a>文本信息</a></p>
                 <Divider></Divider>
                 <div style="margin-bottom: 10px">
                     <p>评审意见选择：</p>
@@ -34,8 +33,6 @@
                     <Option v-for="item in cityList3" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
             </div>
-
-
         </Modal>
     </div>
 
@@ -109,27 +106,15 @@ export default {
             cityList3: [
                 {
                     value: 'New York',
-                    label: 'New York'
+                    label: '文档中包含违禁词'
                 },
                 {
                     value: 'London',
-                    label: 'London'
+                    label: '文档属于低质量'
                 },
                 {
                     value: 'Sydney',
-                    label: 'Sydney'
-                },
-                {
-                    value: 'Ottawa',
-                    label: 'Ottawa'
-                },
-                {
-                    value: 'Paris',
-                    label: 'Paris'
-                },
-                {
-                    value: 'Canberra',
-                    label: 'Canberra'
+                    label: '已存在相似文档'
                 }
             ],
         }
@@ -264,6 +249,14 @@ export default {
                 label: val
             });
         },
+
+        refuse() {
+            this.$Message.info('refuse cancel');
+        },
+        receive() {
+            this.$Message.info('receive cancel');
+        }
+
     }
 }
 </script>
