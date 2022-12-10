@@ -142,6 +142,9 @@ export default {
             this.$nextTick(() => {
                 this.height = this.$refs.tableRef.offsetHeight - 60;
             })
+        },
+        getPageData() {
+
         }
 
     }

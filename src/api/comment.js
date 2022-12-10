@@ -2,7 +2,9 @@ import {
     COMMENT_ADD_URL,
     COMMENT_LIST_URL,
     COMMENT_REMOVE_URL,
-    COMMENT_UPDATE_URL
+    COMMENT_UPDATE_URL,
+
+    COMMENT_ALL_URL
 } from './url'
 
 import {Post, Put, Delete} from "@/api/request";
@@ -19,6 +21,11 @@ export default {
 
     deleteData: (params) => {
         return Delete(COMMENT_REMOVE_URL, params);
-    }
+    },
+
+
+    getAllComments: (params) => {
+        return Post(COMMENT_ALL_URL, params);
+    },
 }
 

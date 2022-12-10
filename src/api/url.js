@@ -30,12 +30,26 @@ const COMMENT_ADD_URL = '/comment/auth/insert'; // 评论增加
 const COMMENT_LIST_URL = '/comment/list'; // 评论列表
 const COMMENT_REMOVE_URL = '/comment/auth/remove'; // 评论删除
 const COMMENT_UPDATE_URL = '/comment/auth/update'; // 评论更新
+const COMMENT_ALL_URL = '/comment/listALL'; // 管理员及用户主页查询评论列表
 
 const STATS_TREND_URL = '/statistics/trend'; //
 const STATS_ALL_URL = '/statistics/all';
 const STATS_HOT_TREND = '/statistics/getHotTrend';
 const STATS_SEARCH_HISTORY = 'statistics/getSearchResult';
 const STATS_RECENT_DOC = 'statistics/recentDocs';
+
+
+const ADMIN_DOC_REVIEW_URL = '/docReview/queryDocForReview';
+const DOC_REVIEW_REFUSE_URL = '/docReview/refuse';
+const DOC_REVIEW_REFUSE_BATCH_URL = '/docReview/refuseBatch';
+const DOC_REVIEW_APPROVE_URL = '/docReview/approve';
+const DOC_REVIEW_LOG_URL = '/docReview/queryReviewResultList';
+const DOC_REVIEW_REMOVE_URL = 'docReview/removeDocReview';
+const DOC_REVIEW_USER_READ_URL = '/docReview/userRead';
+
+const DOC_LOG_LIST_URL = '/docLog/queryLogList';
+const DOC_LOG_REMOVE_URL = '/docLog/removeLog';
+
 
 module.exports = {
     ADD_RELATE_URL,
@@ -68,12 +82,24 @@ module.exports = {
     COMMENT_LIST_URL,
     COMMENT_REMOVE_URL,
     COMMENT_UPDATE_URL,
+    COMMENT_ALL_URL,
 
     STATS_TREND_URL,
     STATS_ALL_URL,
     STATS_HOT_TREND,
     STATS_SEARCH_HISTORY,
     STATS_RECENT_DOC,
+
+    ADMIN_DOC_REVIEW_URL,
+    DOC_REVIEW_REFUSE_URL,
+    DOC_REVIEW_REFUSE_BATCH_URL,
+    DOC_REVIEW_APPROVE_URL,
+    DOC_REVIEW_LOG_URL,
+    DOC_REVIEW_REMOVE_URL,
+    DOC_REVIEW_USER_READ_URL,
+
+    DOC_LOG_LIST_URL,
+    DOC_LOG_REMOVE_URL,
 
     ABC
 }
