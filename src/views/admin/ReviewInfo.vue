@@ -188,6 +188,26 @@ export default {
             }
             reviewRequest.getReviewLog(param).then(res => {
                 console.log(res)
+                if (res.code === 200 ){
+                    let result = res.data.data;
+                    this.data = []
+                    let obj = {}
+                    for (let resultElement of result) {
+                        obj['name'] = resultElement['docName']
+
+                        obj['user'] = resultElement['createUser'] || '未知'
+
+                        obj['time'] = parseTime(new Date(), '{y}年{m}月{d}日 {h}:{i}:{s}'); //resultElement['createTime']
+
+                        obj['checkState'] = resultElement['checkState']
+
+                        let viewInfo = resultElement['reviewLog']
+                        obj['viewInfo'] = viewInfo
+                        obj['readState'] = resultElement['readState']
+                        this.data.push(obj)
+                        obj = {}
+                    }
+                }
             }).catch(err => {
                 console.log(err)
             })
@@ -221,23 +241,7 @@ export default {
                 readState: true
             }];
 
-            this.data = []
-            let obj = {}
-            for (let resultElement of result) {
-                obj['name'] = resultElement['docName']
 
-                obj['user'] = resultElement['createUser'] || '未知'
-
-                obj['time'] = parseTime(new Date(), '{y}年{m}月{d}日 {h}:{i}:{s}'); //resultElement['createTime']
-
-                obj['checkState'] = resultElement['checkState']
-
-                let viewInfo = resultElement['checkMsg']
-                obj['viewInfo'] = viewInfo
-                obj['readState'] = resultElement['readState']
-                this.data.push(obj)
-                obj = {}
-            }
         },
 
         remove(item) {

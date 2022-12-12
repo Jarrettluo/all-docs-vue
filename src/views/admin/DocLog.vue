@@ -160,6 +160,22 @@ export default {
             }
             docLogRequest.getDocLogList(param).then(res => {
                 console.log(res)
+                if (res.code === 200) {
+                    let result = res.data.data;
+                    this.totalItems = res.data.total;
+                    this.data = []
+                    let obj = {}
+
+                    for (let resultElement of result) {
+                        obj['time'] = parseTime(new Date(), '{y}年{m}月{d}日 {h}:{i}:{s}');// resultElement['createTime']
+                        obj['user'] = resultElement['user']
+                        obj['action'] = resultElement['action']
+                        obj['name'] = resultElement['docName']
+
+                        this.data.push(obj)
+                        obj = {}
+                    }
+                }
             }).catch(err => {
                 console.log(err)
             })
@@ -189,18 +205,7 @@ export default {
                 docName: "文档名称脸上的肌肤来说减肥路上"
             }]
 
-            this.data = []
-            let obj = {}
 
-            for (let resultElement of result) {
-                obj['time'] = parseTime(new Date(), '{y}年{m}月{d}日 {h}:{i}:{s}');// resultElement['createTime']
-                obj['user'] = resultElement['user']
-                obj['action'] = resultElement['action']
-                obj['name'] = resultElement['docName']
-
-                this.data.push(obj)
-                obj = {}
-            }
         },
 
         remove(item) {

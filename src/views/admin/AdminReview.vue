@@ -111,15 +111,15 @@ export default {
 
             cityList3: [
                 {
-                    value: 'New York',
+                    value: '文档中包含违禁词',
                     label: '文档中包含违禁词'
                 },
                 {
-                    value: 'London',
+                    value: '文档属于低质量',
                     label: '文档属于低质量'
                 },
                 {
-                    value: 'Sydney',
+                    value: '已存在相似文档',
                     label: '已存在相似文档'
                 }
             ],
@@ -128,7 +128,9 @@ export default {
             totalItems: 10,
             pageSize: 10,
 
-            model: null
+            model: null,
+
+            choosedItem: {}
         }
     },
     created() {
@@ -262,12 +264,25 @@ export default {
 
         remove(index) {
             this.modal = true
-
             console.log(index)
+            let item = this.data[index]
+            this.choosedItem = item;
         },
 
-        ok() {
+        async ok() {
             this.$Message.info('Clicked ok');
+            let param = {
+                docId: this.choosedItem.id,
+                reason: this.model
+            }
+            reviewRequest.updateRefuseDoc(param).then(res => {
+                console.log(res)
+                if (res.code == 200) {
+                    this.getDocData()
+                }
+            }).catch(err => {
+                console.log(err)
+            })
         },
         cancel() {
             this.$Message.info('Clicked cancel');
