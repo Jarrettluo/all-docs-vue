@@ -2,7 +2,7 @@
     <div class="main" ref="tableRef">
         <Table width="100%" :height="height" class="table-zone" border :columns="columns" :data="data">
             <template #action="{ row, index }">
-                <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">通过</Button>
+                <Button type="primary" size="small" style="margin-right: 5px" @click="approve(index)">通过</Button>
                 <Button type="error" size="small" @click="remove(index)">拒绝</Button>
             </template>
         </Table>
@@ -13,7 +13,12 @@
                     <Button type="primary" ghost style="margin-left: 10px" @click="receive">全部通过</Button>
                 </Col>
                 <Col span="12" class="bottom-zone-right">
-                    <Page :total="100"/>
+                    <Page
+                        :model-value="currentPage"
+                        :total="totalItems"
+                        :page-size="pageSize"
+                        @on-change="pageChange"
+                    />
                 </Col>
             </Row>
         </div>
@@ -39,6 +44,7 @@
 </template>
 <script>
 import {resolveComponent} from 'vue'
+import reviewRequest from '@/api/docReview'
 
 import fileTool from "@/utils/fileUtil"
 
@@ -117,6 +123,12 @@ export default {
                     label: '已存在相似文档'
                 }
             ],
+
+            currentPage: 1,
+            totalItems: 10,
+            pageSize: 10,
+
+            model: null
         }
     },
     created() {
@@ -133,7 +145,74 @@ export default {
 
         },
 
-        getDocData() {
+        /**
+         * 获取全部数据
+         * @returns {Promise<void>}
+         */
+        async getDocData() {
+            let param = {
+                page: this.currentPage,
+                rows: this.pageSize
+            }
+            reviewRequest.getAdminDocReview(param).then(res => {
+                console.log(res)
+                let result = res.data.data;
+                this.totalItems = res.data.total;
+                let obj = {}
+                this.data = []
+                for (let resultElement of result) {
+
+                    obj['id'] = resultElement['id']
+                    obj['name'] = resultElement['name']
+
+                    // 计算文档的大小
+                    obj['size'] = '0B'
+                    let docSize = resultElement['size'];
+                    if (typeof docSize === "number" && docSize > 0) {
+                        obj['size'] = fileTool.bytesToSize(docSize)
+                    }
+
+
+                    // let cateObj = resultElement['category']
+                    // if (cateObj.length > 8) {
+                    //     cateObj = cateObj.slice(0, 8) + "..."
+                    // }
+                    // obj['category'] = cateObj
+
+                    // let tagStrList = []
+                    // let tagArray = resultElement['tags']
+                    // for (let tagArrayElement of tagArray) {
+                    //     if (tagArrayElement.hasOwnProperty("name")) {
+                    //         tagStrList.push(tagArrayElement["name"])
+                    //     }
+                    // }
+                    // let tagStr = tagStrList.join("/");
+                    // if (tagStr.length > 16) {
+                    //     tagStr = tagStr.slice(0, 16) + '...'
+                    // }
+                    // obj['tag'] = tagStr
+
+
+                    const docTime = resultElement['uploadDate']
+                    // if ( typeof docTime === )
+                    obj['time'] = parseTime(new Date(), '{y}年{m}月{d}日 {h}:{i}:{s}');
+
+                    let userName = resultElement['userName'] || "未知用户"
+                    if (userName.length > 4) {
+                        userName = userName.slice(0, 4) + "..."
+                    }
+
+                    obj['user'] = userName
+                    obj['sensitiveWord'] = "这些都是违禁词"
+
+                    this.data.push(obj)
+                    obj = {}
+                }
+
+            }).catch(err => {
+                console.log(err)
+            })
+
             let result = [{
                 id: "1223",
                 docName: "2324",
@@ -178,56 +257,7 @@ export default {
                 filterWord: ["abc", "edf", "dsff"]
             }]
 
-            let obj = {}
-            this.data = []
-            for (let resultElement of result) {
 
-                obj['id'] = resultElement['id']
-                obj['name'] = resultElement['docName']
-
-                // 计算文档的大小
-                obj['size'] = '0B'
-                let docSize = resultElement['size'];
-                if (typeof docSize === "number" && docSize > 0) {
-                    obj['size'] = fileTool.bytesToSize(docSize)
-                }
-
-
-                let cateObj = resultElement['category']
-                if (cateObj.length > 8) {
-                    cateObj = cateObj.slice(0, 8) + "..."
-                }
-                obj['category'] = cateObj
-
-                let tagStrList = []
-                let tagArray = resultElement['tags']
-                for (let tagArrayElement of tagArray) {
-                    if (tagArrayElement.hasOwnProperty("name")) {
-                        tagStrList.push(tagArrayElement["name"])
-                    }
-                }
-                let tagStr = tagStrList.join("/");
-                if (tagStr.length > 16) {
-                    tagStr = tagStr.slice(0, 16) + '...'
-                }
-                obj['tag'] = tagStr
-
-
-                const docTime = resultElement['createTime']
-                // if ( typeof docTime === )
-                obj['time'] = parseTime(new Date(), '{y}年{m}月{d}日 {h}:{i}:{s}');
-
-                let userName = resultElement['createUser'] || "未知用户"
-                if (userName.length > 4) {
-                    userName = userName.slice(0, 4) + "..."
-                }
-
-                obj['user'] = userName
-                obj['sensitiveWord'] = "这些都是违禁词"
-
-                this.data.push(obj)
-                obj = {}
-            }
         },
 
         remove(index) {
@@ -236,14 +266,14 @@ export default {
             console.log(index)
         },
 
-        ok () {
+        ok() {
             this.$Message.info('Clicked ok');
         },
-        cancel () {
+        cancel() {
             this.$Message.info('Clicked cancel');
         },
 
-        handleCreate1 (val) {
+        handleCreate1(val) {
             this.cityList3.push({
                 value: val,
                 label: val
@@ -255,6 +285,23 @@ export default {
         },
         receive() {
             this.$Message.info('receive cancel');
+        },
+
+        pageChange(page) {
+            this.currentPage = page
+        },
+
+        async approve(index) {
+            console.log(this.data[index])
+            let item = this.data[index]
+            let param = {
+                ids: [item.id]
+            }
+            reviewRequest.updateApproveDoc(param).then(res => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            })
         }
 
     }

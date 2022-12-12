@@ -24,7 +24,12 @@
                     <Button type="primary" ghost @click="remove">全部删除</Button>
                 </Col>
                 <Col span="12" class="bottom-zone-right">
-                    <Page :total="100"/>
+                    <Page
+                        :model-value="currentPage"
+                        :total="totalItems"
+                        :page-size="pageSize"
+                        @on-change="pageChange"
+                    />
                 </Col>
             </Row>
         </div>
@@ -34,6 +39,8 @@
 <script>
 
 import {parseTime} from "@/utils"
+
+import reviewRequest from '@/api/docReview'
 
 export default {
     name: "ReviewInfo",
@@ -156,6 +163,10 @@ export default {
             ],
 
             height: 600,
+
+            currentPage: 1,
+            totalItems: 10,
+            pageSize: 10,
         }
     },
     created() {
@@ -170,7 +181,16 @@ export default {
                 this.height = this.$refs.tableRef.offsetHeight - 120;
             })
         },
-        getDocData() {
+        async getDocData() {
+            let param = {
+                page: this.currentPage,
+                rows: this.pageSize
+            }
+            reviewRequest.getReviewLog(param).then(res => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            })
             const result = [{
                 id: "id",
                 docName: "则为了激励我减肥为了减肥",
@@ -222,7 +242,12 @@ export default {
 
         remove(item) {
             this.$Message.info('remove cancel');
-        }
+        },
+
+        pageChange(page) {
+            this.currentPage = page
+            this.getDocData()
+        },
 
 
 

@@ -13,7 +13,12 @@
                         <Button type="primary" ghost @click="remove">全部删除</Button>
                     </Col>
                     <Col span="12" class="bottom-zone-right">
-                        <Page :total="100"/>
+                        <Page
+                            :model-value="currentPage"
+                            :total="totalItems"
+                            :page-size="pageSize"
+                            @on-change="pageChange"
+                        />
                     </Col>
                 </Row>
             </div>
@@ -22,6 +27,9 @@
 </template>
 
 <script>
+import commentRequest from '@/api/comment'
+import {parseTime} from "@/utils"
+
 export default {
     name: "CommentManage",
     data() {
@@ -35,13 +43,23 @@ export default {
                 },
                 {
                     title: '时间',
-                    key: 'time',
+                    key: 'createDate',
                     width: 200,
                     // fixed: 'left'
+                    render: (h, params) => {
+                        let temp = ""
+                        let time = params.row.createDate
+                        if (time != null) {
+                            temp = parseTime(new Date(time), '{y}年{m}月{d}日 {h}:{i}:{s}');
+                        }
+                        return h('div', [
+                            h('span', temp)
+                        ]);
+                    }
                 },
                 {
                     title: '用户',
-                    key: 'user',
+                    key: 'userName',
                     width: 200
                 },
                 {
@@ -129,6 +147,10 @@ export default {
             ],
 
             height: 600,
+
+            currentPage: 1,
+            totalItems: 10,
+            pageSize: 10,
         }
     },
     created() {
@@ -143,9 +165,26 @@ export default {
                 this.height = this.$refs.tableRef.offsetHeight - 60;
             })
         },
-        getPageData() {
-
-        }
+        async getPageData() {
+            let param = {
+                page: this.currentPage,
+                rows: this.pageSize
+            }
+            commentRequest.getAllComments(param).then(res => {
+                if (res.code === 200) {
+                    this.data = res.data.data
+                    this.totalItems = res.data.total
+                } else {
+                    this.data = []
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+        pageChange(page) {
+            this.currentPage = page
+            this.getPageData()
+        },
 
     }
 }

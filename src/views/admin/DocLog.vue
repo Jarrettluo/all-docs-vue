@@ -12,7 +12,12 @@
                     <Button type="primary" ghost @click="remove">全部删除</Button>
                 </Col>
                 <Col span="12" class="bottom-zone-right">
-                    <Page :total="100"/>
+                    <Page
+                        :model-value="currentPage"
+                        :total="totalItems"
+                        :page-size="pageSize"
+                        @on-change="pageChange"
+                    />
                 </Col>
             </Row>
         </div>
@@ -22,6 +27,7 @@
 import {resolveComponent} from 'vue'
 
 import {parseTime} from "@/utils"
+import docLogRequest from '@/api/docLog'
 
 export default {
     data() {
@@ -129,6 +135,9 @@ export default {
             ],
 
             height: 600,
+            currentPage: 1,
+            totalItems: 10,
+            pageSize: 10,
         }
     },
     created() {
@@ -144,7 +153,16 @@ export default {
             })
 
         },
-        getPageData() {
+        async getPageData() {
+            let param = {
+                page: this.currentPage,
+                rows: this.pageSize
+            }
+            docLogRequest.getDocLogList(param).then(res => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            })
             const result = [{
                 id: "id",
                 createTime: new Date(),
@@ -187,7 +205,11 @@ export default {
 
         remove(item) {
             this.$Message.info('receive cancel');
-        }
+        },
+        pageChange(page) {
+            this.currentPage = page
+            this.getPageData()
+        },
     }
 }
 </script>

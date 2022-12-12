@@ -11,7 +11,7 @@
                 <div class="upload-panel">
                     <Upload
                         type="drag"
-                        action="//jsonplaceholder.typicode.com/posts/">
+                        :action="actionUrl">
                         <div style="padding: 30px 0;">
                             <div style="padding: 5px; line-height: 45px;">
                                 <img :src="buttonSrc" width="68px" height="68px"/>
@@ -102,12 +102,15 @@ justify-content: center;
 </template>
 
 <script>
+import { BackendUrl } from '@/api/request'
 export default {
     name: "DocUpload",
     data() {
         return {
             placeholder: "输入一些内容",
             buttonSrc: require("@/assets/source/folder.png"),
+
+            actionUrl: BackendUrl() + "/files/upload",
         }
 
     }
