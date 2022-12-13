@@ -1,6 +1,6 @@
 <template>
     <div class="main" ref="tableRef">
-        <Table width="100%" :height="height" border :columns="columns" :data="data">
+        <Table ref="logTable" width="100%" :height="height" border :columns="columns" :data="data">
             <template #action="{ row, index }">
                 <Button type="error" size="small" @click="remove(index)">删 除</Button>
             </template>
@@ -144,7 +144,7 @@ export default {
         this.initHeight()
     },
     mounted() {
-        this.getPageData()
+        // this.getPageData()
     },
     methods: {
         initHeight() {
@@ -210,6 +210,11 @@ export default {
 
         remove(item) {
             this.$Message.info('receive cancel');
+        },
+
+        removeBatch() {
+            let selection = this.$refs.logTable.getSelection();
+            console.log(selection)
         },
         pageChange(page) {
             this.currentPage = page

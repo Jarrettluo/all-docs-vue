@@ -1,14 +1,14 @@
 <template>
     <div class="content">
-        <Tabs value="name1" style="height: 100%;">
+        <Tabs value="name1" style="height: 100%;" @on-click="switchTab">
             <TabPane label="待审核" name="name1" style="height: 100%;">
-                <AdminReview></AdminReview>
+                <AdminReview ref="adminReview"></AdminReview>
             </TabPane>
-            <TabPane label="审核完成" name="name2s">
-                <ReviewInfo></ReviewInfo>
+            <TabPane label="审核完成" name="name2s" >
+                <ReviewInfo ref='reviewInfo'></ReviewInfo>
             </TabPane>
             <TabPane label="文档日志" name="name24">
-                <DocLog></DocLog>
+                <DocLog ref='docLog'></DocLog>
             </TabPane>
         </Tabs>
     </div>
@@ -24,6 +24,26 @@ export default {
         AdminReview,
         ReviewInfo,
         DocLog
+    },
+    mounted() {
+        this.$refs.adminReview.getDocData()
+    },
+    methods: {
+        switchTab(name) {
+            switch (name){
+                case "name1":
+                    this.$refs.adminReview.getDocData()
+                    break;
+                case "name2s":
+                    this.$refs.reviewInfo.getDocData();
+                    break;
+                case "name24":
+                    this.$refs.docLog.getPageData()
+                    break
+            }
+
+
+        }
     }
 }
 </script>

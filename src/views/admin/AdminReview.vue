@@ -1,6 +1,6 @@
 <template>
     <div class="main" ref="tableRef">
-        <Table width="100%" :height="height" class="table-zone" border :columns="columns" :data="data">
+        <Table ref="reviewDocTable" width="100%" :height="height" class="table-zone" border :columns="columns" :data="data">
             <template #action="{ row, index }">
                 <Button type="primary" size="small" style="margin-right: 5px" @click="approve(index)">通过</Button>
                 <Button type="error" size="small" @click="remove(index)">拒绝</Button>
@@ -39,6 +39,23 @@
                 </Select>
             </div>
         </Modal>
+
+        <Modal
+            v-model="modal1"
+            title="文档评审信息确认"
+            @on-ok="ok1"
+            @on-cancel="cancel1">
+            <div style="height: 200px;">
+                <div style="margin-bottom: 10px">
+                    <p>评审意见选择：</p>
+                </div>
+
+                <Select v-model="model" filterable allow-create @on-create="handleCreate1">
+                    <Option v-for="item in cityList3" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </Select>
+            </div>
+        </Modal>
+
     </div>
 
 </template>
@@ -130,14 +147,16 @@ export default {
 
             model: null,
 
-            choosedItem: {}
+            choosedItem: {},
+
+            modal1: false
         }
     },
     created() {
         this.initHeight()
     },
     mounted() {
-        this.getDocData()
+        // this.getDocData()
     },
     methods: {
         initHeight() {
@@ -297,11 +316,24 @@ export default {
 
         refuse() {
             this.$Message.info('refuse cancel');
+
+            this.modal1 = true
         },
         receive() {
             this.$Message.info('receive cancel');
+            let currentSelection = this.$refs.reviewDocTable.getSelection();
+            console.log(currentSelection)
         },
 
+        ok1() {
+
+            let a = this.$refs.reviewDocTable.getSelection();
+            console.log(a)
+
+        },
+        cancel1() {
+
+        },
         pageChange(page) {
             this.currentPage = page
         },

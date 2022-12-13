@@ -1,7 +1,7 @@
 <template>
     <div class="main" ref="tableRef">
 
-        <Table width="100%" :height="height" border :columns="columns" :data="data">
+        <Table ref="reviewInfoTable" width="100%" :height="height" border :columns="columns" :data="data">
             <template #checkSate="{row ,index}">
                 <Tag v-if="row.checkState === true" color="success">通过</Tag>
                 <Tag v-else-if="row.checkState === false" color="error">拒绝</Tag>
@@ -21,7 +21,7 @@
         <div class="bottom-zone">
             <Row>
                 <Col span="12" class="bottom-zone-left">
-                    <Button type="primary" ghost @click="remove">全部删除</Button>
+                    <Button type="primary" ghost @click="removeBatch">全部删除</Button>
                 </Col>
                 <Col span="12" class="bottom-zone-right">
                     <Page
@@ -173,7 +173,7 @@ export default {
         this.initHeight()
     },
     mounted() {
-        this.getDocData()
+        // this.getDocData()
     },
     methods: {
         initHeight() {
@@ -187,12 +187,12 @@ export default {
                 rows: this.pageSize
             }
             reviewRequest.getReviewLog(param).then(res => {
-                console.log(res)
                 if (res.code === 200 ){
                     let result = res.data.data;
                     this.data = []
                     let obj = {}
                     for (let resultElement of result) {
+                        obj['id'] = resultElement['id']
                         obj['name'] = resultElement['docName']
 
                         obj['user'] = resultElement['createUser'] || '未知'
@@ -211,41 +211,30 @@ export default {
             }).catch(err => {
                 console.log(err)
             })
-            const result = [{
-                id: "id",
-                docName: "则为了激励我减肥为了减肥",
-                createTime: "2022年12月2日",
-                checkState: true,
-                checkMsg: "这是检查的状态",
-                readState: true
-            },{
-                id: "id",
-                docName: "则为了激励我减肥为了减肥",
-                createTime: "2022年12月2日",
-                checkState: true,
-                checkMsg: "这是检查的状态",
-                readState: true
-            },{
-                id: "id",
-                docName: "则为了激励我减肥为了减肥",
-                createTime: "2022年12月2日",
-                checkState: false,
-                checkMsg: "这是检查的状态",
-                readState: true
-            },{
-                id: "id",
-                docName: "则为了激励我减肥为了减肥",
-                createTime: "2022年12月2日",
-                checkState: null,
-                checkMsg: "这是检查的状态",
-                readState: true
-            }];
-
 
         },
 
-        remove(item) {
+        async remove(index) {
             this.$Message.info('remove cancel');
+
+            let item = this.data[index]
+            let param = {
+                ids: [item.id]
+            }
+            reviewRequest.removeReviewLog(param).then(res => {
+                if (res.code === 200) {
+                    this.getDocData()
+                }
+
+            }).catch(err => {
+                console.log(err)
+            })
+
+        },
+
+        removeBatch() {
+            let selection = this.$refs.reviewInfoTable.getSelection();
+            console.log(selection)
         },
 
         pageChange(page) {

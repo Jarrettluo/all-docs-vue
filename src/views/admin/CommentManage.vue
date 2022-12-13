@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <div class="main" ref="tableRef">
-            <Table width="100%" :height="height" border :columns="columns" :data="data">
+            <Table ref="commentTable" width="100%" :height="height" border :columns="columns" :data="data">
                 <template #action="{ row, index }">
                     <Button type="error" size="small" @click="remove(index)">删 除</Button>
                 </template>
@@ -10,7 +10,7 @@
             <div class="bottom-zone">
                 <Row>
                     <Col span="12" class="bottom-zone-left">
-                        <Button type="primary" ghost @click="remove">全部删除</Button>
+                        <Button type="primary" ghost @click="removeBatch">全部删除</Button>
                     </Col>
                     <Col span="12" class="bottom-zone-right">
                         <Page
@@ -184,6 +184,24 @@ export default {
         pageChange(page) {
             this.currentPage = page
             this.getPageData()
+        },
+
+        async remove(index) {
+            let item = this.data[index]
+            let param = {
+                ids: item.id
+            }
+            commentRequest.deleteData(param).then(res => {
+                if (res.code === 200) {
+                    this.getPageData()
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+        removeBatch() {
+            let selection = this.$refs.commentTable.getSelection();
+            console.log(selection)
         },
 
     }
