@@ -21,7 +21,12 @@
                         </div>
                     </div>
                     <div class="page-bottom">
-                        <Page :total="100"/>
+                        <Page
+                            :model-value="currentPage"
+                            :total="totalItems"
+                            :page-size="pageSize"
+                            @on-change="pageChange"
+                        />
                     </div>
                 </div>
 
@@ -64,6 +69,10 @@
 </template>
 
 <script>
+import docReviewRequest from '@/api/docReview'
+import {parseTime} from "@/utils"
+import commentRequest from '@/api/comment'
+
 export default {
     name: "UserInfo",
     data() {
@@ -116,8 +125,78 @@ export default {
                 createTime: "2022年10月18日 12:10:12",
                 content: "这是评论是对方手里的积分拉萨大家咖喱fslfjsljf阿娇分类收集分类介绍了个是分类收集分类介绍法律手段官商勾结啦时间管理上飞机但是" +
                     "方萨拉升级了房间阿什拉夫就算了内容，可以删除"
-            }]
+            }],
+            currentPage: 1,
+            totalItems: 10,
+            pageSize: 10,
         }
+    },
+    mounted() {
+        this.getAllReviews()
+        this.getPageData()
+    },
+    methods: {
+        // 获取用户的全部评审状态
+        async getAllReviews() {
+            let param = {
+                page: this.currentPage,
+                rows: this.pageSize
+            }
+            docReviewRequest.getReviewLog(param).then(res => {
+                if (res.code === 200) {
+                    let result = res.data.data
+                    this.totalItems = res.data.total
+
+                    this.infoList = []
+                    let tempObj = {}
+                    for (let resultKey of result) {
+                        console.log(resultKey)
+                        tempObj['id'] = resultKey['id']
+                        tempObj['title'] = resultKey['docName']
+                        tempObj['time'] = parseTime(new Date(resultKey['updateDate']), '{y}年{m}月{d}日');
+                        tempObj['errorMsg'] = resultKey['reviewLog']
+                        tempObj['readState'] = resultKey['readState']
+                        tempObj['checkState'] = resultKey['checkState']
+                        this.infoList.push(tempObj)
+                        tempObj = {}
+                    }
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+
+        async getPageData() {
+            let param = {
+                page: this.currentPage,
+                rows: this.pageSize
+            }
+            commentRequest.getAllComments(param).then(res => {
+                if (res.code === 200) {
+                    let result = res.data.data
+
+                    this.comments = []
+
+                    for (let resultElement of result) {
+                        let tempObj = resultElement
+                        tempObj['createTime'] = parseTime(new Date(resultElement['createDate']), '{y}年{m}月{d}日');
+                        this.comments.push(tempObj)
+                    }
+
+
+                    this.totalItems = res.data.total
+                } else {
+                    this.data = []
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+
+        pageChange(page) {
+            this.currentPage = page
+            this.getAllReviews()
+        },
     }
 }
 </script>
