@@ -14,7 +14,7 @@
         <div class="bottom-zone">
             <Row>
                 <Col span="12" class="bottom-zone-left">
-                    <Button type="primary" ghost @click="remove">全部删除</Button>
+                    <Button type="primary" ghost @click="removeBatch">全部删除</Button>
                 </Col>
                 <Col span="12" class="bottom-zone-right">
                     <Page
@@ -143,6 +143,9 @@ export default {
         },
         pageChange(page) {
 
+        },
+        removeBatch() {
+            this.$Message.error("功能尚未开发，请等待！")
         }
     }
 }

@@ -6,7 +6,6 @@
                     <Button type="error" size="small" @click="remove(index)">删 除</Button>
                 </template>
             </Table>
-
             <div class="bottom-zone">
                 <Row>
                     <Col span="12" class="bottom-zone-left">
@@ -45,7 +44,6 @@ export default {
                     title: '时间',
                     key: 'createDate',
                     width: 200,
-                    // fixed: 'left'
                     render: (h, params) => {
                         let temp = ""
                         let time = params.row.createDate
@@ -79,77 +77,10 @@ export default {
                     width: 90
                 }
             ],
-            data: [
-                {
-                    name: 'John Brown',
-                    age: 18,
-                    address: 'New York No. 1 Lake Park',
-                    province: 'America',
-                    city: 'New York',
-                    zip: 100000
-                },
-                {
-                    name: 'Jim Green',
-                    age: 24,
-                    address: 'Washington, D.C. No. 1 Lake Park',
-                    province: 'America',
-                    city: 'Washington, D.C.',
-                    zip: 100000
-                },
-                {
-                    name: 'Joe Black',
-                    age: 30,
-                    address: 'Sydney No. 1 Lake Park',
-                    province: 'Australian',
-                    city: 'Sydney',
-                    zip: 100000
-                },
-                {
-                    name: 'Jon Snow',
-                    age: 26,
-                    address: 'Ottawa No. 2 Lake Park',
-                    province: 'Canada',
-                    city: 'Ottawa',
-                    zip: 100000
-                },
-                {
-                    name: 'John Brown',
-                    age: 18,
-                    address: 'New York No. 1 Lake Park',
-                    province: 'America',
-                    city: 'New York',
-                    zip: 100000
-                },
-                {
-                    name: 'Jim Green',
-                    age: 24,
-                    address: 'Washington, D.C. No. 1 Lake Park',
-                    province: 'America',
-                    city: 'Washington, D.C.',
-                    zip: 100000
-                },
-                {
-                    name: 'Joe Black',
-                    age: 30,
-                    address: 'Sydney No. 1 Lake Park',
-                    province: 'Australian',
-                    city: 'Sydney',
-                    zip: 100000
-                },
-                {
-                    name: 'Jon Snow',
-                    age: 26,
-                    address: 'Ottawa No. 2 Lake Park',
-                    province: 'Canada',
-                    city: 'Ottawa',
-                    zip: 100000
-                }
-            ],
-
             height: 600,
 
             currentPage: 1,
-            totalItems: 10,
+            totalItems: 20,
             pageSize: 10,
         }
     },
@@ -165,6 +96,11 @@ export default {
                 this.height = this.$refs.tableRef.offsetHeight - 60;
             })
         },
+
+        /**
+         * 管理评论页面查询列表方法
+         * @returns {Promise<void>}
+         */
         async getPageData() {
             let param = {
                 page: this.currentPage,
@@ -176,9 +112,10 @@ export default {
                     this.totalItems = res.data.total
                 } else {
                     this.data = []
+                    this.$Message.error(res.message)
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.error(err)
             })
         },
         pageChange(page) {
@@ -194,14 +131,16 @@ export default {
             commentRequest.deleteData(param).then(res => {
                 if (res.code === 200) {
                     this.getPageData()
+                } else {
+                    this.$Message.error(res.message)
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.error(err)
             })
         },
         removeBatch() {
             let selection = this.$refs.commentTable.getSelection();
-            console.log(selection)
+            this.$Message.error("暂未开发，请等待")
         },
 
     }
@@ -226,6 +165,7 @@ export default {
         width: 100%;
 
         position: relative;
+
         .bottom-zone {
             position: absolute;
 
