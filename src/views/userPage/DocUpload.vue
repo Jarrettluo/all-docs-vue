@@ -14,7 +14,7 @@
                         :action="actionUrl">
                         <div style="padding: 30px 0;">
                             <div style="padding: 5px; line-height: 45px;">
-                                <img :src="buttonSrc" width="68px" height="68px"/>
+                                <img :src="buttonSrc" width="68px" height="68px" alt="pic"/>
                             </div>
                             <!--                            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>-->
                             <p>支持Word/Excel/PPT/PDF，不超过100M</p>
@@ -25,7 +25,7 @@
             </Col>
         </Row>
 
-        <Row style="padding: 5px 0; margin-top: 30px;">
+        <Row style="padding: 5px 0; margin-top: 38px;">
             <Col span="1" class="star-tag">
                 <span>*</span>
             </Col>
@@ -79,7 +79,7 @@
             <Col>
                 <div class="upload-button" style="width: 180px; height: 45px; border: 2px solid #000;
                                     background: #FFF7D6;
-box-shadow: 0px 0px 10px 0px rgba(129,100,0,0.3);
+box-shadow: 0 0 10px 0 rgba(129,100,0,0.3);
 border-radius: 8px;
 display: flex;
 justify-content: center;
@@ -87,7 +87,7 @@ justify-content: center;
                      @click="selected(uploadRoute)"
                 >
                     <div style="padding: 5px; line-height: 45px;">
-                        <img :src="buttonSrc" width="24px" height="28px"/>
+                        <img :src="buttonSrc" width="24px" height="28px" alt="pic"/>
                     </div>
                     <span
                         style="line-height: 45px; color: #000; font-size: 16px; font-weight: 600;"
@@ -126,7 +126,7 @@ export default {
         width: 96px;
         height: 33px;
         font-size: 24px;
-        font-family: PingFangSC-Medium, PingFang SC;
+        font-family: PingFangSC-Medium, PingFang SC,serif;
         font-weight: 500;
         color: #000000;
         line-height: 33px;

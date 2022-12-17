@@ -28,7 +28,7 @@
             @on-ok="ok"
             @on-cancel="cancel">
             <div style="height: 200px;">
-                <p>您可以<a>下载文档</a>，或者查看<a>文本信息</a></p>
+                <p>您可以<a @click="download">下载文档</a>，或者查看<a @click="showText">文本信息</a></p>
                 <Divider></Divider>
                 <div style="margin-bottom: 10px">
                     <p>评审意见选择：</p>
@@ -224,7 +224,7 @@ export default {
                     }
 
                     obj['user'] = userName
-                    obj['sensitiveWord'] = "这些都是违禁词"
+                    obj['sensitiveWord'] = "违禁词"
 
                     this.data.push(obj)
                     obj = {}
@@ -304,7 +304,7 @@ export default {
             })
         },
         cancel() {
-            this.$Message.info('Clicked cancel');
+            this.$Message.info('取消选择');
         },
 
         handleCreate1(val) {
@@ -315,7 +315,7 @@ export default {
         },
 
         refuse() {
-            this.$Message.info('refuse cancel');
+            this.$Message.info('关闭');
 
             this.modal1 = true
         },
@@ -346,9 +346,16 @@ export default {
             }
             reviewRequest.updateApproveDoc(param).then(res => {
                 console.log(res)
+                this.getDocData()
             }).catch(err => {
                 console.log(err)
             })
+        },
+        download() {
+            this.$Message.error("功能尚未开发，请等待！")
+        },
+        showText() {
+            this.$Message.error("功能尚未开发，请等待！")
         }
 
     }
