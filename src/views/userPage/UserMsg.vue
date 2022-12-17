@@ -6,7 +6,7 @@
 
                 <div class="page-panel">
                     <div class="info-group">
-                        <div class="info-item" v-for="item in infoList">
+                        <div class="info-item" v-for="item in infoList" @click="userRead(item)">
                             <div class="info-title">
                                 <span class="tile-span">{{ item.title }}</span>
                                 <span class="ok-span">  管理员审核</span>
@@ -197,6 +197,23 @@ export default {
             this.currentPage = page
             this.getAllReviews()
         },
+
+        async userRead(item) {
+            if(item.readState === true) {
+                return;
+            }
+            let param = {
+                ids: [item.id]
+            }
+            docReviewRequest.updateDocReviewUserRead(param).then(res => {
+                if (res.code === 200) {
+                    this.getAllReviews()
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+
+        }
     }
 }
 </script>
