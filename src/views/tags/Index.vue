@@ -14,7 +14,9 @@
                         </div>
                         <doc-table ref="docTable" type="TAG" cateId=""
                                    @removeDoc="removeDoc"
-                                   @on-page-change="queryTable"></doc-table>
+                                   @on-page-change="queryTable"
+                                   class="table-panel"
+                        ></doc-table>
                     </div>
 
                 </div>
@@ -152,4 +154,7 @@ export default {
     text-align: left;
 }
 
+.table-panel {
+    height: calc(100% - 40px);
+}
 </style>

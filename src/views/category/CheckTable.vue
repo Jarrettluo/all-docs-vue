@@ -42,14 +42,16 @@ export default {
                 {
                     type: 'selection',
                     width: 60,
-                    align: 'center'
+                    align: 'center',
+                    fixed: 'left'
                 },
                 {
                     title: '名称',
-                    // width: 260,
+                    minWidth: 260,
                     slot: 'name',
                     // key: "title"
-                    resizable: true
+                    resizable: true,
+                    fixed: 'left'
                 },
                 {
                     title: '大小',

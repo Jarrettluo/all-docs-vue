@@ -1,7 +1,7 @@
 <template>
     <div class="docTable">
-        <div class="table-container">
-            <Table border ref="selection" :columns="filterColumns||columns" :data="data" :loading="loading">
+        <div class="table-container" ref="docTable">
+            <Table border ref="selection" width="100%" :height="height" :columns="filterColumns||columns" :data="data" :loading="loading">
                 <template #name="{ row }">
                     <p class="doc-title" @click="preview(row.id)">
                         <Badge status="error" v-if="row['docState']==='FAIL'"/>
@@ -15,14 +15,22 @@
                     <Button type="error" size="small" @click="remove(index)">删除</Button>
                 </template>
             </Table>
-        </div>
-        <div class="page-container">
-            <Page
-                :model-value="currentPage"
-                :total="totalItems"
-                :page-size="pageSize"
-                @on-change="pageChange"
-            />
+            <div class="bottom-zone">
+                <Row>
+                    <Col span="12" class="bottom-zone-left">
+                        <Button type="primary" ghost @click="removeBatch">全部删除</Button>
+                    </Col>
+                    <Col span="12" class="bottom-zone-right">
+                        <Page
+                            :model-value="currentPage"
+                            :total="totalItems"
+                            :page-size="pageSize"
+                            @on-change="pageChange"
+                        />
+                    </Col>
+                </Row>
+            </div>
+
         </div>
 
         <Modal
@@ -167,7 +175,7 @@ export default {
                 },
                 {
                     title: '名称',
-                    // width: 260,
+                    minWidth: 260,
                     slot: 'name',
                     // key: "title"
                     resizable: true,
@@ -179,7 +187,8 @@ export default {
                     //     return h('div', [
                     //         h('span', temp)
                     //     ]);
-                    // }
+                    // }，
+                    fixed: "left"
                 },
                 // {
                 //     title: '摘要',
@@ -250,13 +259,14 @@ export default {
                     title: '操作',
                     slot: 'action',
                     width: 150,
-                    align: 'center'
+                    align: 'center',
+                    fixed: 'right',
                 }
             ],
             data: [],
             currentPage: 1,
             totalItems: 100,
-            pageSize: 10,
+            pageSize: 20,
             loading: true,
             modal1: false,
             modal_loading: false,
@@ -265,7 +275,8 @@ export default {
             action_loading: false,
             document_info: {},
 
-            infoVisible: false
+            infoVisible: false,
+            height: 600,
         }
     },
     filters: {
@@ -277,6 +288,9 @@ export default {
         type: {type: String, requires: true, default: 'ALL'},
         keyword: {type: String, requires: false},
         cateId: {type: String, requires: true}
+    },
+    created() {
+        this.initHeight()
     },
     mounted() {
         this.getListData()
@@ -307,6 +321,13 @@ export default {
         // }
     },
     methods: {
+
+        initHeight() {
+            this.$nextTick(() => {
+                this.height = this.$refs.docTable.offsetHeight - 60;
+            })
+        },
+
         show(index) {
             this.action_modal = true
             this.infoVisible = false
@@ -410,12 +431,55 @@ export default {
                 }
                 this.getListData(this.cateId, this.filterWord)
             })
+        },
+
+        removeBatch() {
+            this.$Message.error("功能正在开发中，请等待！")
         }
     }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+
+
+.docTable {
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    background-color: #ffffff;
+    //margin: 8px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    //padding: -16px;
+    text-align: left;
+
+    .table-container {
+        height: 100%;
+        width: 100%;
+
+        position: relative;
+
+        .bottom-zone {
+            position: absolute;
+
+            bottom: -20px;
+            left: 0;
+
+            width: 100%;
+            height: 80px;
+            line-height: 80px;
+
+            .bottom-zone-left {
+
+            }
+
+            .bottom-zone-right {
+                text-align: right;
+            }
+        }
+    }
+}
 
 .page-container {
     text-align: right;

@@ -57,10 +57,17 @@ export default {
         return {
             columns: [
                 {
+                    type: 'selection',
+                    width: 60,
+                    align: 'center',
+                    fixed: "left",
+                },
+                {
                     title: '用户名',
-                    // width: 260,
+                    minWidth: 260,
                     slot: 'name',
-                    resizable: true
+                    resizable: true,
+                    fixed: "left",
                 },
                 {
                     title: '创建时间',
@@ -83,7 +90,8 @@ export default {
                     title: '操作',
                     slot: 'action',
                     width: 150,
-                    align: 'center'
+                    align: 'center',
+                    fixed: "right",
                 }
             ],
             data: [],
