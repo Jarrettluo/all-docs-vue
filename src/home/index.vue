@@ -4,9 +4,11 @@
         <div class="top-group" style="text-align: center; ">
             <img :src="imgSrc" width="100%" height="100%" alt=""/>
             <SearchGroup></SearchGroup>
-            <div class="user-zone" @click="$router.push('/admin/allDocuments')">
-                <span>管理员</span>
-                <div class="user-tag"></div>
+            <div class="user-zone" >
+                <span @click="$router.push('/admin/allDocuments')">管理员</span>
+                <div class="user-tag" @click="$router.push('/userPage')" style="text-align: center">
+                    <span style="padding: 0 5px">A</span>
+                </div>
             </div>
         </div>
         <div class="bottom-group">
