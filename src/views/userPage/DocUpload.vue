@@ -42,6 +42,11 @@
             </Col>
             <Col span="6">
                 <div class="cate-dropdown">
+
+<!--                    <Select v-model="model" style="width:200px">-->
+<!--                        <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
+<!--                    </Select>-->
+
                     <Dropdown @on-click="switchCategory">
                         <a href="javascript:void(0)">
                             切换分类

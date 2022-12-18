@@ -2,48 +2,20 @@
 <template>
     <div class="AvatarUploader">
         <div>
-          <span
-              v-if="!avatarUrl"
-              @click="openEditAvatarDialog()"
-              style="
-              display: inline-block;
-              padding: 70px;
-              border: 1px dashed gray;
-              cursor: pointer;
-            "
-          >
-            <tooltip effect="dark" content="上传头像" placement="top">
-                <Icon type="ios-add"/>
-            </tooltip>
-          </span>
-            <div v-else class="image">
+            <div class="image">
                 <Image :src="avatarUrl" fit="fill"/>
                 <div class="mask">
-                    <tooltip effect="dark" content="预览头像" placement="top">
-
-                        <Icon type="md-checkbox-outline" style="cursor: pointer"
-                              @click="isVisible_previewAvatarDialog = true"/>
-                        <!--                        <i-->
-                        <!--                            class="el-icon-zoom-in"-->
-                        <!--                            style="cursor: pointer"-->
-                        <!--                            @click="isVisible_previewAvatarDialog = true"-->
-                        <!--                        />-->
+                    <tooltip effect="dark" content="更换头像" placement="top">
+                        <Icon type="md-sync" style="cursor: pointer"
+                              @click="openEditAvatarDialog()"/>
                     </tooltip>
                     <tooltip effect="dark" content="删除头像" placement="top">
-                        <i
-                            class="el-icon-delete"
-                            style="cursor: pointer"
-                            @click="deleteAvatar()"
-                        />
+                        <Icon type="md-trash" style="cursor: pointer"
+                              @click="deleteAvatar"/>
                     </tooltip>
                 </div>
             </div>
         </div>
-
-        <!-- 预览头像窗口 -->
-        <Modal v-model="isVisible_previewAvatarDialog">
-            <img width="100%" :src="avatarUrl"/>
-        </Modal>
 
         <!-- 修改头像窗口 -->
         <Modal
@@ -81,7 +53,7 @@
                             placement="top"
                         >
                             <Button @click="rotateLeft">
-                                <Icon type="md-refresh" style="transform: rotateY(180deg);" />
+                                <Icon type="md-refresh" style="transform: rotateY(180deg);"/>
                             </Button>
                         </tooltip>
                         <tooltip
@@ -91,7 +63,7 @@
                             placement="top"
                         >
                             <Button @click="rotateRight">
-                                <Icon type="md-refresh" />
+                                <Icon type="md-refresh"/>
                             </Button>
                         </tooltip>
                         <tooltip
@@ -101,7 +73,7 @@
                             placement="top"
                         >
                             <Button @click="changeScale(1)">
-                                <Icon type="md-add" />
+                                <Icon type="md-add"/>
                             </Button>
                         </tooltip>
                         <tooltip
@@ -111,7 +83,8 @@
                             placement="top"
                         >
                             <Button @click="changeScale(-1)">
-                                <Icon type="md-remove" /></Button>
+                                <Icon type="md-remove"/>
+                            </Button>
                         </tooltip>
                     </div>
                 </Col>
@@ -196,7 +169,6 @@ export default {
     methods: {
         //打开编辑头像窗口
         openEditAvatarDialog() {
-            console.log("sjfljsdlfjlsdfjsd")
             this.isVisible_editAvatarDialog = true;
             if (this.previews.url) {
                 this.previews.url = "";
@@ -285,11 +257,15 @@ export default {
 
 <style lang="scss" scoped>
 .AvatarUploader {
+    //background-color: red;
+    width: 180px;
+    height: 180px;
+
     .image {
         position: relative;
         display: inline-block;
-        width: 150px;
-        height: 150px;
+        width: 180px;
+        height: 180px;
 
         .mask {
             opacity: 0;
@@ -300,6 +276,8 @@ export default {
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
+
+            border-radius: 8px;
 
             display: flex;
             justify-content: space-evenly;

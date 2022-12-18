@@ -23,7 +23,8 @@ export default {
                 accessKeySecret: "xxx",
                 bucket: "yimiao-manage",
             },
-            avatar: ""
+            // avatar: 'http://sflsdlfj'
+            avatar: ''
         };
     },
     methods: {
