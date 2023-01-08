@@ -5,7 +5,8 @@ import {
     CATE_LIST_URL,
     CATE_ADD_URL,
     CATE_REMOVE_URL,
-    CATE_UPDATE_URL
+    CATE_UPDATE_URL,
+    QUERY_BY_CATE_URL
 
 } from './url'
 
@@ -20,7 +21,6 @@ export default {
     },
 
     getListData: (params) => {
-        console.log(params)
         return Get(CATE_LIST_URL, params);
     },
 
@@ -33,6 +33,10 @@ export default {
     },
     putData: (params) => {
         return Put(CATE_UPDATE_URL, params);
-    }
+    },
+
+    getDocList: (params) => {
+        return Get(QUERY_BY_CATE_URL, params);
+    },
 }
 

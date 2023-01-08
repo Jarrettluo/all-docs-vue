@@ -69,9 +69,14 @@ export default {
     methods: {
         switchCategory(param) {
             this.checkedCategory = this.categoryOption.find(item => item.id === param)
+            if (param === 'ALL') {
+                param = ''
+            }
+            this.$emit("changeCate", param)
         },
         clickToSearch(searchValue) {
             console.log(searchValue)
+            this.$emit("changeKeyWord", searchValue)
         },
         getAllItems() {
             this.loading = true

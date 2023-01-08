@@ -2,98 +2,20 @@
     <div class="doc-group">
         <div class="doc-thumb-group">
             <DocThumb class="doc-thumb"
+                      v-for="item in data"
                       :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
-            ></DocThumb>
-            <DocThumb class="doc-thumb"
-                      :flag="false"
-                      title="bitcoin_zh_cn.pdf"
-                      docId="6377a4a1bc23bd4dad364d9a"
-                      @click.native="getDocView(doc.id)"
+                      :title="item.name"
+                      :docId="item.thumbId"
+                      @click.native="getDocView(item.id)"
             ></DocThumb>
         </div>
         <div class="doc-group-page">
-            <Page :total="100"/>
+            <Page
+                :page-size="pageSize"
+                :current="pageNum"
+                :total="total"
+                @on-change="pageChange"
+            />
         </div>
     </div>
 </template>
@@ -104,6 +26,17 @@ export default {
     name: "FilterListPage",
     components: {
         DocThumb
+    },
+    props: {
+        data: {type: Array, requires: true, default: []},
+        total: {type: Number, requires: false, default: 1},
+        pageNum: {type: Number, requires: false, default: 1},
+        pageSize: {type: Number, requires: false, default: 20}
+    },
+    methods: {
+        pageChange(page) {
+            this.$emit("on-page-change", page)
+        }
     }
 }
 </script>

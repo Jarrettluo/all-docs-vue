@@ -5,6 +5,7 @@ const CATE_LIST_URL = '/category/all'; // 分类列表
 const CATE_ADD_URL = '/category/insert'; // 分类增加
 const CATE_REMOVE_URL = '/category/remove'; // 分类删除
 const CATE_UPDATE_URL = '/category/update'; // 分类更新
+const QUERY_BY_CATE_URL = '/category/getDocByTagCateKeyWord'; // 根据分类进行查找文档
 
 
 const DOC_DETAIL_URL = '/document/detail'; // 文档详情
@@ -59,7 +60,7 @@ module.exports = {
     CATE_ADD_URL,
     CATE_REMOVE_URL,
     CATE_UPDATE_URL,
-
+    QUERY_BY_CATE_URL,
 
     DOC_DETAIL_URL,
     DOC_LIST_URL,

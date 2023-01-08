@@ -1,11 +1,12 @@
 <template>
     <div class="main-container">
-        <category-filter></category-filter>
-        <tag-filter></tag-filter>
+        <category-filter @changeCate="changeCate" @changeKeyWord="changeKeyWord"></category-filter>
+        <tag-filter @changeTag="changeTag"></tag-filter>
         <div class="tab">
             <Tabs value="name1">
                 <TabPane label="最近上传" name="name1">
-                    <filter-list-page></filter-list-page>
+                    <filter-list-page :data="docList" :total="total" :pageNum="pageNum"
+                                      :pageSize="pageSize" @on-page-change="changePage"></filter-list-page>
                 </TabPane>
                 <TabPane label="人气排名" name="name2">
                     <filter-list-page></filter-list-page>
@@ -20,11 +21,19 @@ import SearchGroup from '@/home/SearchGroup'
 import TagFilter from '@/views/filterDoc/TagFilter'
 import CategoryFilter from '@/views/filterDoc/CategoryFilter'
 import FilterListPage from '@/views/filterDoc/FilterListPage'
+import CategoryRequest from "@/api/category"
 
 export default {
     name: "DocPage",
     data() {
         return {
+            docList: [],
+            total: 1,
+            pageNum: 1,
+            pageSize: 18,
+            tagId: '',
+            cateId: '',
+            keyword: ''
         }
     },
     components: {
@@ -33,7 +42,47 @@ export default {
         CategoryFilter,
         FilterListPage
     },
+    mounted() {
+        this.getRecentDocList()
+    },
     methods: {
+        async getRecentDocList() {
+            let param = {
+                cateId: this.cateId,
+                tagId: this.tagId,
+                keyword: this.keyword,
+                page: this.pageNum,
+                rows: this.pageSize
+            }
+            CategoryRequest.getDocList(param).then(res => {
+                if (res.code === 200) {
+                    console.log(res.data)
+                    let result = res.data;
+                    this.docList = result.data
+                    this.pageNum = result.pageNum + 1;
+                    this.total = result.total;
+                    this.pageSize = result.pageSize
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+        changeCate(cateId) {
+            this.cateId = cateId
+            this.getRecentDocList()
+        },
+        changeKeyWord(keyword) {
+            this.keyword = keyword
+            this.getRecentDocList()
+        },
+        changeTag(tagId) {
+            this.tagId = tagId
+            this.getRecentDocList()
+        },
+        changePage(page) {
+            this.pageNum = page
+            this.getRecentDocList()
+        }
     }
 }
 </script>

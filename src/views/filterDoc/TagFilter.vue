@@ -37,6 +37,12 @@ export default {
     methods: {
         selected: function (tagName) {
             this.activeTagName = tagName
+            let id = tagName.id
+            if (id === 'ALL') {
+                id = ''
+            }
+            this.$emit("changeTag", id)
+
         },
         getAllItems() {
             this.loading = true
