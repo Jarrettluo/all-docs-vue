@@ -1,6 +1,6 @@
 <template>
     <div class="main-container">
-        <Tabs value="name1">
+        <Tabs value="name1" @on-click="switchTab">
             <TabPane label="文档动态" name="name1">
                 <!--                <filter-list-page></filter-list-page>-->
 
@@ -37,14 +37,13 @@
                 <div class="page-panel">
                     <div class="info-group">
                         <div class="" style="width: 100%; padding: 15px; text-align: left;
-                        border-bottom: 1px solid #f1f2f3;
-" v-for="item in comments">
+                        border-bottom: 1px solid #f1f2f3;" v-for="item in comments">
 
                             <div class="tile-span doc-title" style="height: 22px; width: 100%;
                             overflow: hidden; white-space: nowrap;text-overflow: ellipsis;
                             color: #8F6100;
-                            ">
-                                {{ item.doc }}
+                            " @click="documentPreview(item)">
+                                {{ item.docName }}
                             </div>
                             <div style="padding: 5px 0;">
                                 <span>
@@ -55,12 +54,17 @@
                                 <span class="doc-time">
                                     {{ item.createTime }}
                                 </span>
-                                <Icon type="md-trash" style="cursor: pointer"/>
+                                <Icon type="md-trash" style="cursor: pointer" @click="removeDocument(item)"/>
                             </div>
                         </div>
                     </div>
                     <div class="page-bottom">
-                        <Page :total="100"/>
+                        <Page
+                            :model-value="commentCurrentPage"
+                            :total="commentTotalItems"
+                            :page-size="commentPageSize"
+                            @on-change="commentPageChange"
+                            />
                     </div>
                 </div>
             </TabPane>
@@ -129,11 +133,15 @@ export default {
             currentPage: 1,
             totalItems: 10,
             pageSize: 10,
+
+            commentCurrentPage: 1,
+            commentTotalItems: 10,
+            commentPageSize: 10,
         }
     },
     mounted() {
         this.getAllReviews()
-        this.getPageData()
+        // this.getPageData()
     },
     methods: {
         // 获取用户的全部评审状态
@@ -168,8 +176,8 @@ export default {
 
         async getPageData() {
             let param = {
-                page: this.currentPage,
-                rows: this.pageSize
+                page: this.commentCurrentPage,
+                rows: this.commentPageSize
             }
             commentRequest.getAllComments(param).then(res => {
                 if (res.code === 200) {
@@ -182,9 +190,11 @@ export default {
                         tempObj['createTime'] = parseTime(new Date(resultElement['createDate']), '{y}年{m}月{d}日');
                         this.comments.push(tempObj)
                     }
-
-
                     this.totalItems = res.data.total
+
+                    this.commentCurrentPage = res.data.pageNum;
+                    this.commentPageSize = res.data.pageSize;
+                    this.commentTotalItems = res.data.total;
                 } else {
                     this.data = []
                 }
@@ -196,6 +206,11 @@ export default {
         pageChange(page) {
             this.currentPage = page
             this.getAllReviews()
+        },
+
+        commentPageChange(page) {
+            this.commentCurrentPage = page;
+            this.getPageData();
         },
 
         async userRead(item) {
@@ -213,7 +228,42 @@ export default {
                 console.log(err)
             })
 
+        },
+
+        switchTab(name) {
+            switch (name){
+                case "name1":
+                    this.getAllReviews()
+                    break;
+                case "name2":
+                    this.getPageData()
+                    break;
+            }
+        },
+        documentPreview(item) {
+            this.$router.push({
+                path:'/preview',
+                query:{
+                    docId: item.docId
+                }
+            })
+        },
+
+        async removeDocument(item) {
+            let param = {
+                id: item.id,
+                userId: item.userId
+            }
+            commentRequest.deleteData(param).then(res => {
+                if (res.code === 200){
+                    let data = res.data
+                    this.getPageData()
+                }
+            }).catch(err => {
+                console.log(err)
+            })
         }
+
     }
 }
 </script>

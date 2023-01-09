@@ -62,7 +62,7 @@ export default {
                 },
                 {
                     title: '文档名称',
-                    key: 'name',
+                    key: 'docName',
                     // width: 300
                 },
                 {

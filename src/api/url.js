@@ -31,7 +31,7 @@ const COMMENT_ADD_URL = '/comment/auth/insert'; // 评论增加
 const COMMENT_LIST_URL = '/comment/list'; // 评论列表
 const COMMENT_REMOVE_URL = '/comment/auth/remove'; // 评论删除
 const COMMENT_UPDATE_URL = '/comment/auth/update'; // 评论更新
-const COMMENT_ALL_URL = '/comment/listALL'; // 管理员及用户主页查询评论列表
+const COMMENT_ALL_URL = '/comment/auth/listALL'; // 管理员及用户主页查询评论列表
 
 const STATS_TREND_URL = '/statistics/trend'; //
 const STATS_ALL_URL = '/statistics/all';
