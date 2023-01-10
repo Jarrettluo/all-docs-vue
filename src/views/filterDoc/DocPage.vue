@@ -30,7 +30,7 @@ export default {
             docList: [],
             total: 1,
             pageNum: 1,
-            pageSize: 18,
+            pageSize: 24,
             tagId: '',
             cateId: '',
             keyword: ''

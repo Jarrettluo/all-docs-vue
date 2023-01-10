@@ -5,7 +5,7 @@
             <img :src="imgSrc" width="100%" height="100%" alt=""/>
             <SearchGroup></SearchGroup>
             <div class="user-zone" >
-                <span @click="$router.push('/admin/allDocuments')">管理员</span>
+<!--                <span @click="$router.push('/admin/allDocuments')">管理员</span>-->
                 <div class="user-tag" @click="$router.push('/userPage')" style="text-align: center">
                     <span style="padding: 0 5px">A</span>
                 </div>
@@ -14,7 +14,7 @@
         <div class="bottom-group">
             <div class="left-panel">
                 <div class="top-container">
-                    <div class="panel-title left-pane-title">
+                    <div class="panel-title left-pane-title" style="cursor: pointer" @click="routeTo">
                         <span>全部文档</span>
                     </div>
                     <div
@@ -83,6 +83,9 @@ export default {
         this.init()
     },
     methods: {
+        routeTo() {
+            this.$router.push('/doc')
+        },
         init() {
             StatsRequest.getRecentDoc().then(response => {
                 if (response.code === 200) {

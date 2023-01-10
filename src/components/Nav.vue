@@ -4,11 +4,11 @@
             <img :src="logoSrc" width="80%" height="80%" alt=""/>
         </div>
         <div class="nav-setting">
-            <Button type="text" @click="$router.push('/admin/newDocument')">
-                + 添加文档
-            </Button>
+<!--            <Button type="text" @click="$router.push('/admin/newDocument')">-->
+<!--                + 添加文档-->
+<!--            </Button>-->
             <Button type="text" @click="$router.push('/admin/allDocuments')">
-                <Icon type="ios-settings"/>
+                <Icon type="ios-keypad" />
             </Button>
         </div>
 

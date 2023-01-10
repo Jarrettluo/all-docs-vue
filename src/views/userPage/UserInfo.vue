@@ -15,14 +15,14 @@
             <FormItem label="密码">
                 <Row>
                     <Col span="6">
-                        <Input v-model="userForm.username" :placeholder="placeholder"></Input>
+                        <Input v-model="userForm.checkPassword" type="password" :placeholder="placeholder"></Input>
                     </Col>
                 </Row>
             </FormItem>
             <FormItem label="确认密码">
                 <Row>
                     <Col span="6">
-                        <Input v-model="userForm.username" :placeholder="placeholder"></Input>
+                        <Input v-model="userForm.password" type="password" :placeholder="placeholder"></Input>
                     </Col>
                 </Row>
             </FormItem>
@@ -58,7 +58,7 @@
                        :placeholder="placeholder"></Input>
             </FormItem>
             <FormItem>
-                <Button type="primary">提交</Button>
+                <Button type="primary" @click="updateUserInfo">提交</Button>
             </FormItem>
         </Form>
 
@@ -75,6 +75,8 @@
 
 <script>
 import Avatar from "./Avatar"
+import UserRequest from '@/api/user'
+
 export default {
     name: "UserInfo",
     components: {
@@ -82,17 +84,6 @@ export default {
     },
     data () {
         return {
-            formItem: {
-                input: '',
-                select: '',
-                radio: 'male',
-                checkbox: [],
-                switch: true,
-                date: '',
-                time: '',
-                slider: [20, 50],
-                textarea: ''
-            },
             userSrc: require("@/assets/source/user_avater.png"),
             placeholder: "请输入...",
             userForm: {
@@ -101,8 +92,55 @@ export default {
                 mail: '',
                 gender: 'female',
                 birthtime: '',
-                userComment: ''
+                userComment: '',
+                password: '',
+                checkPassword: ''
             }
+        }
+    },
+    mounted() {
+        this.getUserInfo();
+    },
+    methods:{
+        async getUserInfo(){
+            let param = {
+                id: localStorage.getItem("id")
+            }
+            UserRequest.getUser(param).then(res => {
+                if (res.code === 200) {
+                    let resData = res.data
+                    this.userForm['id'] = resData.id
+                    this.userForm['username'] = resData.username
+                    this.userForm['mail'] = resData.mail || ''
+                    this.userForm['gender'] = resData.male ? 'male' : 'female';
+                    this.userForm['phoneNum'] = resData.phone
+                    this.userForm['userComment'] = resData.description
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+        async updateUserInfo(){
+            if (this.userForm.password !== this.userForm.checkPassword) {
+                this.$Message.error("密码不相同，请检查！")
+                return
+            }
+            let params = {
+                id: this.userForm.id,
+                password: this.userForm.password,
+                phone: this.userForm.phoneNum,
+                mail: this.userForm.mail,
+                male: this.userForm.gender === 'male',
+                description: this.userForm.userComment
+            }
+            UserRequest.updateUser(params).then(res => {
+                this.$Message.success("修改成功！")
+                if (res.code === 200) {
+                    this.getUserInfo()
+                }
+            }).catch(err => {
+
+            })
         }
     }
 }

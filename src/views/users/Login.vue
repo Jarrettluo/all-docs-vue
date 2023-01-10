@@ -5,6 +5,10 @@
             <div class="form-wrapper">
                 <input type="text" v-model="username" name="username" placeholder="用户名" class="input-item">
                 <input type="password" v-model="pwd" name="password" placeholder="密码" class="input-item">
+                <div style="font-size: 12px; color: #2c3e50">
+                    试用账号：admin123， 密码：admin123
+                    <Icon type="md-copy" style="cursor: pointer" @click="tian"/>
+                </div>
                 <div class="btn" @click="login">登录</div>
             </div>
             <div class="msg">
@@ -28,6 +32,10 @@ export default {
         }
     },
     methods: {
+        tian() {
+            this.username = 'admin123';
+            this.pwd = 'admin123';
+        },
         login() {
             let params = {
                 "username": this.username,

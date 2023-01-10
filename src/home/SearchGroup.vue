@@ -6,7 +6,7 @@
             </div>
             <div class="search-input">
                 <div class="search-input-top">
-                    <div class="search-selection">
+                    <div class="search-selection" @click="routeTo">
                         <span>全部</span>
                     </div>
                     <input :placeholder="placeholder" v-model="searchValue"
@@ -49,6 +49,9 @@ export default {
         this.init();
     },
     methods: {
+        routeTo() {
+            this.$router.push('/doc')
+        },
         init() {
             StatsRequest.getSearchHistory().then(response => {
                 if (response.code === 200) {
@@ -66,6 +69,8 @@ export default {
                         keyWord: value
                     }
                 })
+            } else {
+                this.routeTo()
             }
         }
     }
@@ -115,6 +120,7 @@ export default {
 
                     &:hover {
                         cursor: pointer;
+                        color: #8d7b25;
                     }
 
                     span {
@@ -123,6 +129,9 @@ export default {
                         font-weight: 500;
                         color: #000000;
                         line-height: 20px;
+                        &:hover {
+                            color: #8d7b25;
+                        }
                     }
                 }
 
