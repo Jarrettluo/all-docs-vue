@@ -140,17 +140,26 @@ export default {
                 console.log(res)
             })
         },
-        init() {
-
-            UserRequest.getUserList().then(res => {
-                // console.log(res)
-                this.data = res.data
+        async init() {
+            let param = {
+                page: this.currentPage,
+                rows: this.pageSize
+            }
+            UserRequest.getUserList(param).then(res => {
+                if (res.code === 200) {
+                    let resData = res.data;
+                    this.data = resData.result;
+                    this.currentPage = resData.pageNum
+                    this.pageSize = resData.pageSize
+                    this.totalItems = resData.total
+                }
             }).catch(res => {
                 console.log(res)
             })
         },
         pageChange(page) {
-
+            this.currentPage = page
+            this.init()
         },
         removeBatch() {
             this.$Message.error("功能尚未开发，请等待！")

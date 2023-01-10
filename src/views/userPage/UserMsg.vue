@@ -81,55 +81,8 @@ export default {
     name: "UserInfo",
     data() {
         return {
-            infoList: [{
-                id: "sdjflsdjf",
-                title: "sjdlfjsdljflsdjl休闲鞋文档声嘶力竭咖喱是冯绍峰经历十分骄傲时光",
-                checkState: true,
-                errorMsg: "文档涉及到不正当信息请注意沙发上，已经删除",
-                time: "2022年12月18日",
-                readState: true
-            }, {
-                id: "sdjflsdjf",
-                title: "这是标题的呢绒酸辣粉家里睡大觉分类的时间管理及撒非常多的内容呢" +
-                    "粉色的分类第三节分类的时间酸辣粉时代峰峻上粉色几分三六九等老公就算了是封疆大吏封疆大吏" +
-                    "的垃圾分类睡大觉分类老师的过街老鼠就是来访接待室，发哈分类是个垃圾管理上",
-                checkState: true,
-                errorMsg: "文档涉及到不正当信息请注意沙发上，已经删除",
-                time: "1022rljlfjslf",
-                readState: false
-            }, {
-                id: "sdjflsdjf",
-                title: "sjdlfjsdljflsdjl休闲鞋文档声嘶力竭咖喱是冯绍峰经历十分骄傲时光",
-                checkState: true,
-                errorMsg: "文档涉及到不正当信息请注意沙发上，已经删除",
-                time: "1022rljlfjslf",
-                readState: false,
-            }, {
-                id: "sdjflsdjf",
-                title: "sjdlfjsdljflsdjl休闲鞋文档声嘶力竭咖喱是冯绍峰经历十分骄傲时光",
-                checkState: false,
-                errorMsg: "文档涉及到不正当信息请注意沙发上，已经删除",
-                time: "1022rljlfjslf",
-                readState: true,
-            }],
-            comments: [{
-                id: "dsjflds",
-                doc: "sdjfldfld",
-                createTime: "2022年10月18日 12：10：12",
-                content: "这是评论内容，可以删除"
-            }, {
-                id: "dsjflds",
-                doc: "sdjfldfld",
-                createTime: "2022年10月18日 12：10：12",
-                content: "这是评论内容，可以删除"
-            }, {
-                id: "dsjf这是文档的内容lds",
-                doc: "sdd方方搜索sjf这是文档sdd方方搜索sjf这是文sdd方方" +
-                    "搜索sjf这是文档粉色的范德萨范是对方极乐世界分类德萨的内容ldsjfldfld档粉色的范德萨范德萨的内容ldsjfldfld粉色的范德萨范德萨的内容ldsjfldfld",
-                createTime: "2022年10月18日 12:10:12",
-                content: "这是评论是对方手里的积分拉萨大家咖喱fslfjsljf阿娇分类收集分类介绍了个是分类收集分类介绍法律手段官商勾结啦时间管理上飞机但是" +
-                    "方萨拉升级了房间阿什拉夫就算了内容，可以删除"
-            }],
+            infoList: [],
+            comments: [],
             currentPage: 1,
             totalItems: 10,
             pageSize: 10,
@@ -158,10 +111,9 @@ export default {
                     this.infoList = []
                     let tempObj = {}
                     for (let resultKey of result) {
-                        console.log(resultKey)
                         tempObj['id'] = resultKey['id']
                         tempObj['title'] = resultKey['docName']
-                        tempObj['time'] = parseTime(new Date(resultKey['updateDate']), '{y}年{m}月{d}日');
+                        tempObj['time'] = parseTime(new Date(resultKey['createDate']), '{y}年{m}月{d}日');
                         tempObj['errorMsg'] = resultKey['reviewLog']
                         tempObj['readState'] = resultKey['readState']
                         tempObj['checkState'] = resultKey['checkState']
