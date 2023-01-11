@@ -67,72 +67,12 @@ export default {
                     width: 90
                 }
             ],
-            data: [
-                {
-                    name: 'John Brown',
-                    age: 18,
-                    address: 'New York No. 1 Lake Park',
-                    province: 'America',
-                    city: 'New York',
-                    zip: 100000
-                },
-                {
-                    name: 'Jim Green',
-                    age: 24,
-                    address: 'Washington, D.C. No. 1 Lake Park',
-                    province: 'America',
-                    city: 'Washington, D.C.',
-                    zip: 100000
-                },
-                {
-                    name: 'Joe Black',
-                    age: 30,
-                    address: 'Sydney No. 1 Lake Park',
-                    province: 'Australian',
-                    city: 'Sydney',
-                    zip: 100000
-                },
-                {
-                    name: 'Jon Snow',
-                    age: 26,
-                    address: 'Ottawa No. 2 Lake Park',
-                    province: 'Canada',
-                    city: 'Ottawa',
-                    zip: 100000
-                },
-                {
-                    name: 'John Brown',
-                    age: 18,
-                    address: 'New York No. 1 Lake Park',
-                    province: 'America',
-                    city: 'New York',
-                    zip: 100000
-                },
-                {
-                    name: 'Jim Green',
-                    age: 24,
-                    address: 'Washington, D.C. No. 1 Lake Park',
-                    province: 'America',
-                    city: 'Washington, D.C.',
-                    zip: 100000
-                },
-                {
-                    name: 'Joe Black',
-                    age: 30,
-                    address: 'Sydney No. 1 Lake Park',
-                    province: 'Australian',
-                    city: 'Sydney',
-                    zip: 100000
-                },
-                {
-                    name: 'Jon Snow',
-                    age: 26,
-                    address: 'Ottawa No. 2 Lake Park',
-                    province: 'Canada',
-                    city: 'Ottawa',
-                    zip: 100000
-                }
-            ],
+            data: [],
+
+            actionMap: {
+                DELETE: '删除',
+                GET: '查询'
+            },
 
             height: 600,
             currentPage: 1,
@@ -167,9 +107,9 @@ export default {
                     let obj = {}
 
                     for (let resultElement of result) {
-                        obj['time'] = parseTime(new Date(), '{y}年{m}月{d}日 {h}:{i}:{s}');// resultElement['createTime']
-                        obj['user'] = resultElement['user']
-                        obj['action'] = resultElement['action']
+                        obj['time'] = parseTime(new Date(resultElement['createDate']), '{y}年{m}月{d}日 {h}:{i}:{s}');// resultElement['createTime']
+                        obj['user'] = resultElement['userName']
+                        obj['action'] = this.actionMap[resultElement['action']] || "未知动作"
                         obj['name'] = resultElement['docName']
 
                         this.data.push(obj)

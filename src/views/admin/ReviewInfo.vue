@@ -79,7 +79,7 @@ export default {
                 {
                     title: '理由',
                     key: 'viewInfo',
-                    // width: 300
+                    minWidth: 200
                 },
                 {
                     // 已读/未读
@@ -95,72 +95,7 @@ export default {
                     width: 90
                 }
             ],
-            data: [
-                {
-                    name: 'John Brown',
-                    age: 18,
-                    address: 'New York No. 1 Lake Park',
-                    province: 'America',
-                    city: 'New York',
-                    zip: 100000
-                },
-                {
-                    name: 'Jim Green',
-                    age: 24,
-                    address: 'Washington, D.C. No. 1 Lake Park',
-                    province: 'America',
-                    city: 'Washington, D.C.',
-                    zip: 100000
-                },
-                {
-                    name: 'Joe Black',
-                    age: 30,
-                    address: 'Sydney No. 1 Lake Park',
-                    province: 'Australian',
-                    city: 'Sydney',
-                    zip: 100000
-                },
-                {
-                    name: 'Jon Snow',
-                    age: 26,
-                    address: 'Ottawa No. 2 Lake Park',
-                    province: 'Canada',
-                    city: 'Ottawa',
-                    zip: 100000
-                },
-                {
-                    name: 'John Brown',
-                    age: 18,
-                    address: 'New York No. 1 Lake Park',
-                    province: 'America',
-                    city: 'New York',
-                    zip: 100000
-                },
-                {
-                    name: 'Jim Green',
-                    age: 24,
-                    address: 'Washington, D.C. No. 1 Lake Park',
-                    province: 'America',
-                    city: 'Washington, D.C.',
-                    zip: 100000
-                },
-                {
-                    name: 'Joe Black',
-                    age: 30,
-                    address: 'Sydney No. 1 Lake Park',
-                    province: 'Australian',
-                    city: 'Sydney',
-                    zip: 100000
-                },
-                {
-                    name: 'Jon Snow',
-                    age: 26,
-                    address: 'Ottawa No. 2 Lake Park',
-                    province: 'Canada',
-                    city: 'Ottawa',
-                    zip: 100000
-                }
-            ],
+            data: [],
 
             height: 600,
 
@@ -197,7 +132,7 @@ export default {
 
                         obj['user'] = resultElement['createUser'] || '未知'
 
-                        obj['time'] = parseTime(new Date(), '{y}年{m}月{d}日 {h}:{i}:{s}'); //resultElement['createTime']
+                        obj['time'] = parseTime(new Date(resultElement['createDate']), '{y}年{m}月{d}日 {h}:{i}:{s}'); //
 
                         obj['checkState'] = resultElement['checkState']
 
@@ -207,6 +142,8 @@ export default {
                         this.data.push(obj)
                         obj = {}
                     }
+
+                    this.totalItems = result.total
                 }
             }).catch(err => {
                 console.log(err)
