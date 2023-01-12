@@ -28,6 +28,7 @@ const USER_LOGIN_URL = '/user/login'; // 用户登录
 const ALL_USER_URL = '/user/allUsers'; // 全部用户信息
 const USER_INFO_URL = '/user/getById'; // 根据用户id进行查询
 const USER_UPDATE_URL = '/user/updateUser'; // 根据用户id进行更新
+const USER_ADD_AVATAR_URL = '/user/auth/uploadUserAvatar'; // 用户增加头像
 
 const COMMENT_ADD_URL = '/comment/auth/insert'; // 评论增加
 const COMMENT_LIST_URL = '/comment/list'; // 评论列表
@@ -82,6 +83,7 @@ module.exports = {
     ALL_USER_URL,
     USER_INFO_URL,
     USER_UPDATE_URL,
+    USER_ADD_AVATAR_URL,
 
     COMMENT_ADD_URL,
     COMMENT_LIST_URL,

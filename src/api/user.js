@@ -5,6 +5,7 @@ import {
     ALL_USER_URL,
     USER_INFO_URL,
     USER_UPDATE_URL,
+    USER_ADD_AVATAR_URL
 
 } from './url'
 
@@ -34,6 +35,10 @@ export default {
 
     updateUser: (params) => {
         return Put(USER_UPDATE_URL, params);
+    },
+
+    addUserAvatar: (params) => {
+        return Post(USER_ADD_AVATAR_URL, params)
     }
 
 }

@@ -115,6 +115,8 @@
 <script>
 import {VueCropper} from "vue-cropper";
 
+import UserRequest from '@/api/user'
+
 export default {
     name: "AvatarUploader",
     components: {VueCropper},
@@ -221,13 +223,25 @@ export default {
             try {
                 this.loading = true;
                 this.$refs.cropper.getCropData(async (base64) => {
+
                     let file_img = this.base64toFile(base64, this.avatarName);
-                    let {name} = file_img;
-                    let {
-                        res: {requestUrls},
-                    } = await this.client_alioss.multipartUpload(name, file_img);
-                    this.deleteAvatar(); //删除服务器中的旧头像
-                    this.avatarUrl = requestUrls[0]; //展示新头像
+
+                    let params = {
+                        img: file_img
+                    }
+
+                    await UserRequest.addUserAvatar(params).then(res => {
+                        console.log(res)
+                    }).catch(err => {
+                        console.log(err)
+                    })
+
+                    // let {name} = file_img;
+                    // let {
+                    //     res: {requestUrls},
+                    // } = await this.client_alioss.multipartUpload(name, file_img);
+                    // this.deleteAvatar(); //删除服务器中的旧头像
+                    // this.avatarUrl = requestUrls[0]; //展示新头像
                     this.$Message.success("上传头像成功");
                     this.$emit("avatarUrl", this.avatarUrl); //把头像url传出去
                 });
