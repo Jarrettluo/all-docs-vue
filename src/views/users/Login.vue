@@ -49,7 +49,9 @@ export default {
                         console.log(response.data)
                         localStorage.setItem("token", response.data.token)
                         localStorage.setItem("id", response.data.userId)
-                        localStorage.setItem("username", this.username)
+                        localStorage.setItem("username", response.data.username)
+                        localStorage.setItem("avatar", response.data.avatar)
+                        localStorage.setItem("type", response.data['type'] || '普通用户');
                         this.$router.push({
                             path: '/',
                             query: {

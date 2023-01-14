@@ -3,7 +3,6 @@
     <div class="AvatarUploader">
         <div>
             <div class="image">
-                <Image :src="avatarUrl" fit="fill"/>
                 <div class="mask">
                     <tooltip effect="dark" content="更换头像" placement="top">
                         <Icon type="md-sync" style="cursor: pointer"
@@ -44,7 +43,7 @@
                             action
                             style="margin-right: 10px"
                         >
-                            <Button type="primary">上传头像</Button>
+                            <Button type="primary">选择图片</Button>
                         </Upload>
                         <tooltip
                             class="item"
@@ -116,18 +115,11 @@
 import {VueCropper} from "vue-cropper";
 
 import UserRequest from '@/api/user'
+const {BackendUrl} = require("@/api/request");
 
 export default {
     name: "AvatarUploader",
     components: {VueCropper},
-    props: {
-        avatar: String,
-
-        region: String,
-        accessKeyId: String,
-        accessKeySecret: String,
-        bucket: String,
-    },
     data() {
         return {
             isVisible_editAvatarDialog: false,
@@ -157,13 +149,6 @@ export default {
     },
 
     created() {
-        const OSS = require("ali-oss");
-        this.client_alioss = new OSS({
-            region: this.region,
-            accessKeyId: this.accessKeyId,
-            accessKeySecret: this.accessKeySecret,
-            bucket: this.bucket,
-        });
     },
     mounted() {
     },
@@ -206,17 +191,17 @@ export default {
         },
         //删除服务器中的头像
         async deleteAvatar() {
-            try {
-                if (this.avatarUrl) {
-                    let {pathname} = new URL(this.avatarUrl);
-                    await this.client_alioss.deleteMulti([decodeURIComponent(pathname)]); //删除服务器中的头像。decodeURIComponent解决中文乱码
-                    this.$Message.success("头像删除成功");
-                    this.avatarUrl = "";
-                    this.$emit("deleteAvatar");
-                }
-            } catch (error) {
-                this.$Message.error("头像删除失败");
-            }
+            // try {
+            //     if (this.avatarUrl) {
+            //         let {pathname} = new URL(this.avatarUrl);
+            //         await this.client_alioss.deleteMulti([decodeURIComponent(pathname)]); //删除服务器中的头像。decodeURIComponent解决中文乱码
+            //         this.$Message.success("头像删除成功");
+            //         this.avatarUrl = "";
+            //         this.$emit("deleteAvatar");
+            //     }
+            // } catch (error) {
+            //     this.$Message.error("头像删除失败");
+            // }
         },
         //上传头像
         submitUpdate() {
@@ -226,22 +211,23 @@ export default {
 
                     let file_img = this.base64toFile(base64, this.avatarName);
 
-                    let params = {
-                        img: file_img
-                    }
+                    let formData = new FormData();
 
-                    await UserRequest.addUserAvatar(params).then(res => {
+                    formData.append("img", file_img);
+                    // let params = {
+                    //     img: file_img
+                    // }
+
+                    // let a = {formData, headers: {
+                    //         "Content-Type": "multipart/form-data"
+                    //     },}
+
+                    await UserRequest.addUserAvatar(formData).then(res => {
                         console.log(res)
                     }).catch(err => {
                         console.log(err)
                     })
 
-                    // let {name} = file_img;
-                    // let {
-                    //     res: {requestUrls},
-                    // } = await this.client_alioss.multipartUpload(name, file_img);
-                    // this.deleteAvatar(); //删除服务器中的旧头像
-                    // this.avatarUrl = requestUrls[0]; //展示新头像
                     this.$Message.success("上传头像成功");
                     this.$emit("avatarUrl", this.avatarUrl); //把头像url传出去
                 });
@@ -277,9 +263,17 @@ export default {
 
     .image {
         position: relative;
-        display: inline-block;
+        //display: inline-block;
         width: 180px;
         height: 180px;
+
+        overflow: hidden; //img如果超出这个div会隐藏超出部分
+        display: flex; //flex布局
+        align-items: center; //让img放在div的中间，居中
+        img {
+            width: 100%;
+            border-radius: 8px;
+        }
 
         .mask {
             opacity: 0;
@@ -304,7 +298,6 @@ export default {
     }
 
     .upload-preview {
-        background-color: red;
         position: relative;
         top: 50%;
         transform: translate(50%, -50%);

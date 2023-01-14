@@ -15,17 +15,17 @@
                         padding: 60px 30px 0px 30px;
                         ">
                             <div style="width: 100%; height: 35%; text-align: center">
-                                <div style="border: 2px solid #2d2c2b; border-radius: 120px; width: 120px; height: 120px;
+                                <div class="user-avatar" style=" border-radius: 120px; width: 120px; height: 120px;
 margin: auto;">
-                                    <img :src="userSrc" alt="用户头像" width="130px" style="margin: -7px;"/>
+                                    <img :src="0 | userAvatar" alt="用户头像"/>
                                 </div>
                                 <div style="height: 22px; width: 100%; white-space: nowrap;color: #000;font-size: 16px; font-weight: 600px;
 line-height: 22px; margin-top: 18px;">
-                                    <span>我是用户123454</span>
+                                    <span>{{ username }}</span>
                                 </div>
                                 <div
                                     style="line-height: 22px; color: #aaa; font-size: 12px; font-weight: 400; line-height: 22px;">
-                                    <span>普通用户</span>
+                                    <span>{{ type }}</span>
                                 </div>
                                 <div style="padding: 30px 0px;">
                                     <div class="upload-button" style="width: 180px; height: 45px; border: 2px solid #000;
@@ -84,6 +84,8 @@ justify-content: center;
 import Nav from "@/components/Nav";
 import DocPage from "@/views/filterDoc/DocPage"
 
+const {BackendUrl} = require("@/api/request");
+
 export default {
     name: "Index.vue",
     data() {
@@ -116,23 +118,32 @@ export default {
             uploadRoute: {
                 name: "上传",
                 route: "docUpload"
-            }
+            },
+            username: localStorage.getItem("username"),
+            type: localStorage.getItem("type")
         }
     },
     components: {
         Nav,
         DocPage
     },
+    filters: {
+        userAvatar(param) {
+            let value = localStorage.getItem("avatar")
+            if (value === "" || value == null || value === undefined) {
+                return require("@/assets/source/user_avater.png");
+            } else {
+                return BackendUrl() + "/files/image2/" + value;
+            }
+        }
+    },
     methods: {
         selected(item) {
             console.log(item)
             this.checkedNav = item
-
             this.$router.replace({name: item.route})
             this.isRouterAlive = false
             this.$nextTick(() => (this.isRouterAlive = true))
-
-
         }
     }
 }
@@ -154,6 +165,16 @@ export default {
 
     &:hover {
         background-color: #ffcc4f;
+    }
+}
+
+.user-avatar {
+    box-shadow: 0 0 4px #bbbbbb;
+
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 120px;
     }
 }
 
@@ -219,8 +240,6 @@ ul {
             //}
         }
     }
-
-
 
 
 }

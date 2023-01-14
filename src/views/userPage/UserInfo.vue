@@ -1,6 +1,5 @@
 <template>
     <div style="text-align: left; padding: 30px; position: relative; width: 100%; height: 100%;">
-
         <div class="basic-info">
             基本信息
         </div>
@@ -63,24 +62,28 @@
         </Form>
 
         <div style="position: absolute; right: 40px; top: 40px;">
-            <div style="border: 2px solid #333333; border-radius: 8px; width: 180px; height: 180px">
-                <img :src="userSrc" alt="用户头像" width="100%" style=""/>
+            <div class="user-img-container" style="border-radius: 8px; width: 180px; height: 180px">
+                <img :src="userSrc" alt="用户头像" width="100%" style="" referrerpolicy="no-referrer"/>
             </div>
             <div style="position: absolute; top: 0px; right: 0;">
-                <avatar></avatar>
+                <AvatarUploader
+                    @avatarUrl="getAvatarUrl"
+                    @deleteAvatar="deleteAvatar"
+                ></AvatarUploader>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import Avatar from "./Avatar"
 import UserRequest from '@/api/user'
+const {BackendUrl} = require("@/api/request");
+import AvatarUploader from "@/components/AvatarUploader/Index.vue";
 
 export default {
     name: "UserInfo",
     components: {
-        Avatar
+        AvatarUploader
     },
     data () {
         return {
@@ -115,6 +118,10 @@ export default {
                     this.userForm['gender'] = resData.male ? 'male' : 'female';
                     this.userForm['phoneNum'] = resData.phone
                     this.userForm['userComment'] = resData.description
+                    if (resData.avatar !== '' || resData.avatar !== null) {
+                        this.userSrc = BackendUrl() + "/files/image2/" + resData.avatar
+                    }
+                    localStorage.setItem("avatar", resData.avatar)
                 }
             }).catch(err => {
                 console.log(err)
@@ -141,6 +148,13 @@ export default {
             }).catch(err => {
 
             })
+        },
+        getAvatarUrl() {
+            this.getUserInfo()
+        },
+        async deleteAvatar() {
+            // await UserRequest.deleteData()
+            // this.getUserInfo()
         }
     }
 }
@@ -168,5 +182,12 @@ export default {
     line-height: 20px;
 
     cursor: pointer;
+}
+
+.user-img-container {
+    box-shadow: 0 0 4px #bbbbbb;
+    img {
+        border-radius: 6px;
+    }
 }
 </style>

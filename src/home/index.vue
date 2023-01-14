@@ -4,11 +4,19 @@
         <div class="top-group" style="text-align: center; ">
             <img :src="imgSrc" width="100%" height="100%" alt=""/>
             <SearchGroup></SearchGroup>
-            <div class="user-zone" >
-<!--                <span @click="$router.push('/admin/allDocuments')">管理员</span>-->
-                <div class="user-tag" @click="$router.push('/userPage')" style="text-align: center">
-                    <span style="padding: 0 5px">A</span>
-                </div>
+            <div class="user-zone">
+                <Dropdown>
+                    <a class="user-tag" href="javascript:void(0)" style="text-align: center; width: 36px;">
+                        <img :src="0 | userAvatar" alt="">
+                    </a>
+                    <template #list>
+                        <DropdownMenu>
+                            <DropdownItem @click.native="$router.push('/admin/allDocuments')">系统管理</DropdownItem>
+                            <DropdownItem @click.native="$router.push('/userPage')">个人主页</DropdownItem>
+                            <DropdownItem @click.native="logout()" divided>退出登录</DropdownItem>
+                        </DropdownMenu>
+                    </template>
+                </Dropdown>
             </div>
         </div>
         <div class="bottom-group">
@@ -62,6 +70,7 @@ import DocThumb from '@/home/DocThumb'
 import HotTrend from '@/home/HotTrend'
 import SearchGroup from '@/home/SearchGroup'
 
+const {BackendUrl} = require("@/api/request");
 import StatsRequest from "@/api/stats";
 
 export default {
@@ -81,6 +90,16 @@ export default {
     },
     created() {
         this.init()
+    },
+    filters: {
+        userAvatar(param) {
+            let value = localStorage.getItem("avatar")
+            if (value === "" || value == null || value === undefined) {
+                return require("@/assets/source/user_avater.png");
+            } else {
+                return BackendUrl() + "/files/image2/" + value;
+            }
+        }
     },
     methods: {
         routeTo() {
@@ -122,6 +141,12 @@ export default {
                 }
             })
 
+        },
+        logout() {
+            localStorage.clear()
+            this.$router.push({
+                name: 'Login'
+            })
         }
     }
 }
@@ -146,7 +171,7 @@ export default {
             top: 20px;
             display: flex;
             justify-content: flex-start;
-            padding: 0 10px;
+            padding: 5px 5px 0px 5px;
 
             span {
                 height: 36px;
@@ -159,11 +184,17 @@ export default {
             }
 
             .user-tag {
-                height: 36px;
-                width: 36px;
-                border: 1px solid #000;
+
                 border-radius: 36px;
-                background-color: #ffffff;
+                //background-color: #ffffff;
+                box-sizing: content-box;
+
+                img {
+                    border-radius: 38px;
+                    height: 36px;
+                    width: 36px;
+                    box-shadow: 0 0 4px #bbbbbb;
+                }
             }
 
             &:hover {

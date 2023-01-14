@@ -2,7 +2,7 @@
     <div class="thumb-group" :style="flag|styleByFlag">
         <div class="thumb-com">
             <div class="thumb-pic">
-                <img :src="docId | imgSrc" alt="docId">
+                <img :src="docId | imgSrc" alt="docId" referrerpolicy="no-referrer">
             </div>
             <DocTag :type="title | filterType">
             </DocTag>
