@@ -53,11 +53,9 @@ export default {
             num: 22,
             comments: [],
             docId: this.$route.query.docId,
-
             currentPage: 1,
             totalItems: 0,
             pageSize: 6,
-
         }
     },
     filters: {

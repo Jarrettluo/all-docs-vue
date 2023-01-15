@@ -1,6 +1,5 @@
 <template>
     <div class="main" ref="tableRef">
-
         <Table ref="reviewInfoTable" width="100%" :height="height" border :columns="columns" :data="data">
             <template #checkSate="{row ,index}">
                 <Tag v-if="row.checkState === true" color="success">通过</Tag>
@@ -12,12 +11,9 @@
                 <Tag v-else type="border" color="primary">未读</Tag>
             </template>
             <template #action="{ row, index }">
-                <Button type="error" size="small" @click="remove(index)">清  除</Button>
+                <Button type="error" size="small" @click="remove(index)">清 除</Button>
             </template>
-
-
         </Table>
-
         <div class="bottom-zone">
             <Row>
                 <Col span="12" class="bottom-zone-left">
@@ -37,14 +33,11 @@
 </template>
 
 <script>
-
 import {parseTime} from "@/utils"
-
 import reviewRequest from '@/api/docReview'
-
 export default {
     name: "ReviewInfo",
-    data () {
+    data() {
         return {
             columns: [
                 {
@@ -96,9 +89,7 @@ export default {
                 }
             ],
             data: [],
-
             height: 600,
-
             currentPage: 1,
             totalItems: 10,
             pageSize: 10,
@@ -108,7 +99,6 @@ export default {
         this.initHeight()
     },
     mounted() {
-        // this.getDocData()
     },
     methods: {
         initHeight() {
@@ -122,38 +112,30 @@ export default {
                 rows: this.pageSize
             }
             reviewRequest.getReviewLog(param).then(res => {
-                if (res.code === 200 ){
+                if (res.code === 200) {
                     let result = res.data.data;
                     this.data = []
                     let obj = {}
                     for (let resultElement of result) {
                         obj['id'] = resultElement['id']
                         obj['name'] = resultElement['docName']
-
                         obj['user'] = resultElement['createUser'] || '未知'
-
                         obj['time'] = parseTime(new Date(resultElement['createDate']), '{y}年{m}月{d}日 {h}:{i}:{s}'); //
-
                         obj['checkState'] = resultElement['checkState']
-
                         let viewInfo = resultElement['reviewLog']
                         obj['viewInfo'] = viewInfo
                         obj['readState'] = resultElement['readState']
                         this.data.push(obj)
                         obj = {}
                     }
-
                     this.totalItems = result.total
                 }
             }).catch(err => {
                 console.log(err)
             })
-
         },
-
         async remove(index) {
             this.$Message.info('remove cancel');
-
             let item = this.data[index]
             let param = {
                 ids: [item.id]
@@ -162,25 +144,17 @@ export default {
                 if (res.code === 200) {
                     this.getDocData()
                 }
-
             }).catch(err => {
                 console.log(err)
             })
-
         },
-
         removeBatch() {
             let selection = this.$refs.reviewInfoTable.getSelection();
-            console.log(selection)
         },
-
         pageChange(page) {
             this.currentPage = page
             this.getDocData()
         },
-
-
-
     }
 }
 </script>

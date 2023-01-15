@@ -1,6 +1,7 @@
 <template>
     <div class="main" ref="tableRef">
-        <Table ref="reviewDocTable" width="100%" :height="height" class="table-zone" border :columns="columns" :data="data">
+        <Table ref="reviewDocTable" width="100%" :height="height" class="table-zone" border :columns="columns"
+               :data="data">
             <template #action="{ row, index }">
                 <Button type="primary" size="small" style="margin-right: 5px" @click="approve(index)">通过</Button>
                 <Button type="error" size="small" @click="remove(index)">拒绝</Button>
@@ -176,16 +177,13 @@ export default {
                 rows: this.pageSize
             }
             reviewRequest.getAdminDocReview(param).then(res => {
-                console.log(res)
                 let result = res.data.data;
                 this.totalItems = res.data.total;
                 let obj = {}
                 this.data = []
                 for (let resultElement of result) {
-
                     obj['id'] = resultElement['id']
                     obj['name'] = resultElement['name']
-
                     // 计算文档的大小
                     obj['size'] = '0B'
                     let docSize = resultElement['size'];
@@ -283,7 +281,6 @@ export default {
 
         remove(index) {
             this.modal = true
-            console.log(index)
             let item = this.data[index]
             this.choosedItem = item;
         },
@@ -295,8 +292,7 @@ export default {
                 reason: this.model
             }
             reviewRequest.updateRefuseDoc(param).then(res => {
-                console.log(res)
-                if (res.code == 200) {
+                if (res.code === 200) {
                     this.getDocData()
                 }
             }).catch(err => {
@@ -322,14 +318,10 @@ export default {
         receive() {
             this.$Message.info('receive cancel');
             let currentSelection = this.$refs.reviewDocTable.getSelection();
-            console.log(currentSelection)
         },
 
         ok1() {
-
             let a = this.$refs.reviewDocTable.getSelection();
-            console.log(a)
-
         },
         cancel1() {
 
@@ -339,7 +331,6 @@ export default {
         },
 
         async approve(index) {
-            console.log(this.data[index])
             let item = this.data[index]
             let param = {
                 ids: [item.id]
@@ -357,7 +348,6 @@ export default {
         showText() {
             this.$Message.error("功能尚未开发，请等待！")
         }
-
     }
 }
 </script>

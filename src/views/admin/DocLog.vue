@@ -5,7 +5,6 @@
                 <Button type="error" size="small" @click="remove(index)">删 除</Button>
             </template>
         </Table>
-
         <div class="bottom-zone">
             <Row>
                 <Col span="12" class="bottom-zone-left">
@@ -99,7 +98,6 @@ export default {
                 rows: this.pageSize
             }
             docLogRequest.getDocLogList(param).then(res => {
-                console.log(res)
                 if (res.code === 200) {
                     let result = res.data.data;
                     this.totalItems = res.data.total;
@@ -111,7 +109,6 @@ export default {
                         obj['user'] = resultElement['userName']
                         obj['action'] = this.actionMap[resultElement['action']] || "未知动作"
                         obj['name'] = resultElement['docName']
-
                         this.data.push(obj)
                         obj = {}
                     }
@@ -119,33 +116,6 @@ export default {
             }).catch(err => {
                 console.log(err)
             })
-            const result = [{
-                id: "id",
-                createTime: new Date(),
-                user: "sdjfsljfdsjl",
-                action: "下载",
-                docName: "文档名称脸上的肌肤来说减肥路上"
-            }, {
-                id: "id",
-                createTime: new Date(),
-                user: "sdjfsljfdsjl",
-                action: "下载",
-                docName: "文档名称脸上的肌肤来说减肥路上"
-            }, {
-                id: "id",
-                createTime: new Date(),
-                user: "sdjfsljfdsjl",
-                action: "下载",
-                docName: "文档名称脸上的肌肤来说减肥路上"
-            }, {
-                id: "id",
-                createTime: new Date(),
-                user: "sdjfsljfdsjl",
-                action: "下载",
-                docName: "文档名称脸上的肌肤来说减肥路上"
-            }]
-
-
         },
 
         remove(item) {
@@ -154,7 +124,6 @@ export default {
 
         removeBatch() {
             let selection = this.$refs.logTable.getSelection();
-            console.log(selection)
         },
         pageChange(page) {
             this.currentPage = page
