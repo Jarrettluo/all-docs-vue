@@ -2,7 +2,6 @@
     <div class="search-doc">
         <div class="doc-title-group">
             <div class="doc-pic" style="text-align: center;">
-<!--                <Avatar :style="{background: color}">{{ user }}</Avatar>-->
                 <img :src=" thumbId | imgSrc " alt="thumb" style="width: 36px;max-height: 48px;border: 1px solid #dcdee2; border-radius: 2px">
             </div>
             <div class="title-group">
@@ -20,16 +19,12 @@
                         {{ categoryIn }}
                     </div>
                     <Tag color="blue" v-for="item in tagsIn">{{item}}</Tag>
-<!--                    <Tag color="geekblue">geekblue</Tag>-->
-<!--                    <Tag color="purple">purple</Tag>-->
                 </div>
             </div>
         </div>
         <div class="doc-abstract">
             <p v-html="description"></p>
-<!--            {{description}}-->
         </div>
-<!--        <div class="ivu-list-container">-->
             <ul class="ivu-list-item-action">
                 <li>
                     <i class="ivu-icon ivu-icon-ios-star-outline"></i>
@@ -55,8 +50,6 @@ export default {
     name: "SearchItem",
     data() {
         return {
-            // categoryIn: "String",
-            // tagsIn: []
         }
     },
     props: {
@@ -103,13 +96,6 @@ export default {
             return parseTime(new Date(this.time), '{y}年{m}月{d}日 {h}:{i}:{s}');
         },
         getDocView() {
-            // let params = {
-            //     docId: this.id
-            // }
-            // DocRequest.getView(this.id).then(response => {
-            //     console.log(response)
-            // })
-
             this.$router.push({
                 path:'/preview',
                 query:{
@@ -128,7 +114,6 @@ export default {
             }
         }
     }
-
 }
 </script>
 

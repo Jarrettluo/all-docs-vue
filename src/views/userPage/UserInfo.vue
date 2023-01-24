@@ -153,8 +153,6 @@ export default {
             this.getUserInfo()
         },
         async deleteAvatar() {
-            // await UserRequest.deleteData()
-            // this.getUserInfo()
         }
     }
 }

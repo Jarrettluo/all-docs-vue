@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@vue-office/excel": "0.0.13",
     "ali-oss": "^6.17.1",
     "axios": "^0.27.2",
     "docx-preview": "^0.1.4",

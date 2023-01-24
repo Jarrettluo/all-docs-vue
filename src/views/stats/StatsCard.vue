@@ -1,7 +1,6 @@
 <template>
     <Card style="width:320px; margin-left: 5px; cursor: pointer;">
         <div style="text-align:center">
-            <!--            <img src="https://dev-file.iviewui.com/stJXDnKhL5qEBD0dHSDDTKbdnptK6mV5/large">-->
             <div class="number">
                 <h1>{{ number }}</h1>
             </div>

@@ -17,9 +17,6 @@
                     345
                 </li>
             </template>
-            <!--            <template #extra>-->
-            <!--                <img src="https://dev-file.iviewui.com/5wxHCQMUyrauMCGSVEYVxHR5JmvS7DpH/large" style="width: 280px">-->
-            <!--            </template>-->
         </ListItem>
     </List>
 </template>
@@ -28,26 +25,7 @@ export default {
     name: "DocItem",
     data() {
         return {
-            data: [
-                {
-                    title: 'This is title 1',
-                    description: 'This is description, this is description, this is description.',
-                    avatar: 'https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar',
-                    content: 'This is the content, this is the content, this is the content, this is the content.'
-                },
-                {
-                    title: 'This is title 2',
-                    description: 'This is description, this is description, this is description.',
-                    avatar: 'https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar',
-                    content: 'This is the content, this is the content, this is the content, this is the content.'
-                },
-                {
-                    title: 'This is title 3',
-                    description: 'This is description, this is description, this is description.',
-                    avatar: 'https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar',
-                    content: 'This is the content, this is the content, this is the content, this is the content.'
-                }
-            ]
+            data: []
         }
     },
     methods: {
