@@ -64,6 +64,12 @@
 
 前端技术：Vue + axios
 
+- docx预览方案：docx
+
+- ppt预览方案：暂无
+
+- excel预览方案：xx
+
 <!-- ROADMAP -->
 
 ## 路线图

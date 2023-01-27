@@ -1,11 +1,17 @@
 <template>
-    <Menu mode="vertical" :theme="theme" active-name="1" width="200px" @on-select="turnUrl" :active-name="$route.name">
+    <Menu mode="vertical"
+          :theme="theme"
+          active-name="1"
+          width="200px"
+          @on-select="turnUrl"
+          :active-name="$route.name"
+    >
         <MenuItem name="newDocument1">
-            <Icon type="ios-paper"/>
+            <Icon type="md-arrow-round-up" />
             添加文档
         </MenuItem>
         <MenuItem name="docReview">
-            <Icon type="ios-paper"/>
+            <Icon type="md-checkmark-circle-outline" />
             文档审核
         </MenuItem>
         <MenuItem name="allDocuments">
@@ -21,7 +27,7 @@
             文档标签
         </MenuItem>
         <MenuItem name="commentManage">
-            <Icon type="md-pricetag"/>
+            <Icon type="md-chatboxes" />
             评论管理
         </MenuItem>
         <MenuItem name="users">
@@ -33,7 +39,7 @@
             文档统计
         </MenuItem>
         <MenuItem name="systemConfig">
-            <Icon type="ios-podium"/>
+            <Icon type="ios-hammer" />
             系统设置
         </MenuItem>
     </Menu>
