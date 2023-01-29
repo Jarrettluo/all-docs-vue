@@ -54,6 +54,11 @@ const DOC_REVIEW_USER_READ_URL = '/docReview/userRead';
 const DOC_LOG_LIST_URL = '/docLog/queryLogList';
 const DOC_LOG_REMOVE_URL = '/docLog/removeLog';
 
+const SYSTEM_CONFIG_URL = '/system/getConfig'; // 获取系统设置信息
+const SYSTEM_CONFIG_UPDATE_URL = '/system/updateConfig'; // 更新系统设置
+const DOWN_PROHIBITED_WORD_URL = '/system/getProhibitedWord'; // 下载敏感词文件
+const UP_PROHIBITED_WORD_URL = '/system/updateProhibitedWord'; // 更新敏感词文件
+
 
 module.exports = {
     ADD_RELATE_URL,
@@ -107,6 +112,11 @@ module.exports = {
 
     DOC_LOG_LIST_URL,
     DOC_LOG_REMOVE_URL,
+
+    SYSTEM_CONFIG_URL,
+    SYSTEM_CONFIG_UPDATE_URL,
+    DOWN_PROHIBITED_WORD_URL,
+    UP_PROHIBITED_WORD_URL,
 
     ABC
 }
