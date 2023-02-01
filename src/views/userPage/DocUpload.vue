@@ -20,7 +20,7 @@
                 </div>
             </Col>
         </Row>
-        <Row>
+        <Row v-show="false">
             <Col span="1" class="star-tag">
             </Col>
             <Col span="20" style="text-align: left">
@@ -33,7 +33,7 @@
             </Col>
         </Row>
 
-        <Row style="padding: 5px 0; margin-top: 8px;">
+        <Row style="padding: 5px 0; margin-top: 8px;" v-show="false">
             <Col span="1" class="star-tag">
                 <span>*</span>
             </Col>
@@ -48,8 +48,8 @@
                 </div>
             </Col>
         </Row>
-        <Row style="padding: 5px 0;">
-            <Col span="1" class="star-tag">
+        <Row style="padding: 5px 0;" v-show="false">
+            <Col span="1" class="star-tag" >
                 <span>*</span>
             </Col>
             <Col span="6">
@@ -73,7 +73,7 @@
                 </div>
             </Col>
         </Row>
-        <Row style="padding: 5px 0;">
+        <Row style="padding: 5px 0;" v-show="false">
             <Col span="1" class="star-tag">
                 <span>*</span>
             </Col>

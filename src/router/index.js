@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 
 const originalPush = VueRouter.prototype.push
@@ -13,15 +12,10 @@ Vue.use(VueRouter)
 
 const routes = [
     {
-        path: '/x',
-        name: 'Home',
-        component: Home
-    },
-    {
         path: "/",
-        name: "New",
+        name: "homePage",
         component: function () {
-            return import("../home/index")
+            return import("../home/Index")
         }
     },
     {
@@ -36,16 +30,6 @@ const routes = [
         name: "Registry",
         component: function () {
             return import("../views/users/Registry")
-        }
-    },
-    {
-        path: '/about',
-        name: 'About',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: function () {
-            return import(/* webpackChunkName: "about" */ '../views/About.vue')
         }
     },
     {
@@ -75,14 +59,14 @@ const routes = [
         component: function () {
             return import('../views/admin/Index.vue')
         },
+        meta: { title: '管理员页面' },
+        beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("token")) {
+                return next()
+            }
+            return next(from.path)
+        },
         children: [
-            {
-                path: "newDocument",
-                name: "newDocument",
-                component: function () {
-                    return import("../views/newDocument/Index")
-                }
-            },
             {
                 path: "newDocument1",
                 name: "newDocument1",
@@ -118,8 +102,6 @@ const routes = [
                     return import('../views/allDocument/Index.vue')
                 }
             },
-
-
             {
                 path: 'commentManage',
                 name: "commentManage",
@@ -150,13 +132,6 @@ const routes = [
         ],
     },
     {
-        path: '/category',
-        name: "category",
-        component: function () {
-            return import('../views/category/Index.vue')
-        }
-    },
-    {
         path: '/doc',
         name: "userdoc",
         component: function () {
@@ -169,6 +144,13 @@ const routes = [
         redirect: "/userPage/msg",  //重定向到第一个子路由
         component: function () {
             return import('../views/userPage/Index.vue')
+        },
+        meta: { title: '用户页面' },
+        beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("token")) {
+                return next()
+            }
+            return next(from.path)
         },
         children: [
             {
@@ -215,5 +197,19 @@ const routes = [
 const router = new VueRouter({
     routes
 })
+
+
+
+// // 设置路由导航卫士,通过判断是否存在token,对网页访问权限进行设置
+// router.beforeEach((to, from, next) => {
+//     // to表示将要访问的地址
+//     // from表示从哪个路径跳转而来
+//     // next是放行函数  next()放行    next('/path')强制跳转
+//     if (to.path === '/login') return next()
+//     if (to.path.)
+//     const tokenStr = localStorage.getItem('token')
+//     if (!tokenStr) return next('/login')
+//     next()
+// })
 
 export default router

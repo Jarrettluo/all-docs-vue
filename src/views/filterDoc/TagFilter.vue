@@ -22,11 +22,8 @@ export default {
     name: "TagFilter",
     data() {
         return {
-            tagNames: [{id: 'ALL', name: '全部'}, {id: '1', name: '暗黑破坏神Ⅲ'}, {id: '2', name: '星际争霸Ⅱ'},
-                {id: '3', name: '炉石传说'}, {id: '4', name: '风暴英雄'},
-                {id: '4', name: '守望先锋'}, {id: '5', name: 'sfdlsjfldsjlfdsjl这是一个超长的文本'},
-                {id: '5', name: '绿巨人'}, {id: '6', name: '罗佳瑞'}, {id: '7', name: '梁静怡'}, {id: '8', name: '中国人民'}
-            ],
+            // {id: "All", name: "全部"}
+            tagNames: [],
             activeTagName: {id: 'ALL', name: '全部'},
             categoryType: 'TAG'
         }

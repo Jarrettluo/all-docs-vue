@@ -4,7 +4,7 @@
         <div class="top-group" style="text-align: center; ">
             <img :src="imgSrc" width="100%" height="100%" alt=""/>
             <SearchGroup></SearchGroup>
-            <div class="user-zone">
+            <div class="user-zone" v-if="!ad">
                 <Dropdown>
                     <a class="user-tag" href="javascript:void(0)" style="text-align: center; width: 36px;">
                         <img :src="0 | userAvatar" alt="">
@@ -17,6 +17,12 @@
                         </DropdownMenu>
                     </template>
                 </Dropdown>
+            </div>
+            <div class="user-zone" v-else>
+                <a class="user-tag" href="javascript:void(0)" style="text-align: center; width: 36px;"
+                   @click="$router.push('/login')">
+                    <img :src="defaultAvatar" alt="">
+                </a>
             </div>
         </div>
         <div class="bottom-group">
@@ -84,8 +90,15 @@ export default {
     data() {
         return {
             imgSrc: require("../assets/source/banner.png"),
+            defaultAvatar: require("@/assets/source/user_avater.png"),
             data: {},
             currentData: []
+        }
+    },
+    computed: {
+        ad() {
+            let item = localStorage.getItem("token");
+            return (item === null || item === undefined || item === "");
         }
     },
     created() {
@@ -95,7 +108,7 @@ export default {
         userAvatar(param) {
             let value = localStorage.getItem("avatar")
             if (value === "" || value == null || value === undefined) {
-                return require("@/assets/source/user_avater.png");
+                return this.defaultAvatar;
             } else {
                 return BackendUrl() + "/files/image2/" + value;
             }
@@ -112,10 +125,8 @@ export default {
                     this.changeToCurrentTag(this.data[0].name, this.data[0].tagId)
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.error("查询最近文档出错！")
             })
-
-
         },
         /**
          * 切换到某一个标签上

@@ -85,11 +85,11 @@ export default {
             comments: [],
             currentPage: 1,
             totalItems: 10,
-            pageSize: 10,
+            pageSize: 20,
 
             commentCurrentPage: 1,
             commentTotalItems: 10,
-            commentPageSize: 10,
+            commentPageSize: 20,
         }
     },
     mounted() {

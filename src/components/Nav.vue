@@ -3,7 +3,7 @@
         <div class="nav-logo" @click="$router.push('/')">
             <img :src="logoSrc" width="80%" height="80%" alt=""/>
         </div>
-        <div class="nav-setting">
+        <div class="nav-setting" v-show="false">
 <!--            <Button type="text" @click="$router.push('/admin/newDocument')">-->
 <!--                + 添加文档-->
 <!--            </Button>-->
