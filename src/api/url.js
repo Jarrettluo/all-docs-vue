@@ -59,6 +59,9 @@ const SYSTEM_CONFIG_UPDATE_URL = '/system/updateConfig'; // 更新系统设置
 const DOWN_PROHIBITED_WORD_URL = '/system/getProhibitedWord'; // 下载敏感词文件
 const UP_PROHIBITED_WORD_URL = '/system/updateProhibitedWord'; // 更新敏感词文件
 
+const ADD_LIKE_URL = '/like/';
+const GET_LIKE_URL = '/queryLikeInfo/';
+
 
 module.exports = {
     ADD_RELATE_URL,
@@ -117,6 +120,9 @@ module.exports = {
     SYSTEM_CONFIG_UPDATE_URL,
     DOWN_PROHIBITED_WORD_URL,
     UP_PROHIBITED_WORD_URL,
+
+    ADD_LIKE_URL,
+    GET_LIKE_URL,
 
     ABC
 }

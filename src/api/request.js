@@ -6,8 +6,8 @@ import router from '../router/index';
 let vm = new Vue();
 
 const instance = axios.create({
-    baseURL: 'http://81.69.247.172:8082',
-    // baseURL: 'http://localhost:8082',
+    // baseURL: 'http://81.69.247.172:8082',
+    baseURL: 'http://localhost:8082',
     timeout: 100000,
     headers: {
         post: {
@@ -111,9 +111,9 @@ export function Download(url, config) {
  *@param{String} url 请求地址
  *@param{Object} params 请求参数
  */
-export function Post(url, params) {
+export function Post(url, params, config) {
     return new Promise((resolve, reject) => {
-        instance.post(url, params).then((res) => {
+        instance.post(url, params, config).then((res) => {
             resolve(res.data);
         }).catch((error) => {
             reject(error.data);

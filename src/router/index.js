@@ -33,13 +33,6 @@ const routes = [
         }
     },
     {
-        path: "/",
-        name: "homePage",
-        component: function () {
-            return import("../views/homePage/Index")
-        }
-    },
-    {
         path: "/searchResult",
         name: "searchResult",
         component: function () {
@@ -133,7 +126,7 @@ const routes = [
     },
     {
         path: '/doc',
-        name: "userdoc",
+        name: "UserDoc",
         component: function () {
             return import('../views/filterDoc/Index.vue')
         }

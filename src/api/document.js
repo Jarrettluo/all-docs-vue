@@ -6,7 +6,10 @@ import {
 
     DOC_VIEW_URL,
     DOC_TXT_URL,
-    DOC_REBUILD_URL
+    DOC_REBUILD_URL,
+
+    ADD_LIKE_URL,
+    GET_LIKE_URL
 
 } from './url'
 
@@ -40,7 +43,15 @@ export default {
 
     getRebuildIndex: (param) => {
         return Get(DOC_REBUILD_URL, param);
-    }
+    },
+
+    addLike: (param) => {
+        return Post(ADD_LIKE_URL, null, param)
+    },
+
+    getLikeInfo: (param) => {
+        return Get(GET_LIKE_URL, param)
+    },
 
 }
 

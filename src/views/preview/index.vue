@@ -17,7 +17,7 @@
                         <Tag :color="item.color" v-for="item in tags" :index="item.index">{{ item.name }}</Tag>
                     </div>
                     <div class="doc-info-detail">
-                        {{ userName }} {{ createTime }}
+                        👍 {{likeCount}} 👋 {{collectCount}} 😊 {{ userName }}  ⏰ {{ createTime }}
                     </div>
 
                 </div>
@@ -28,7 +28,9 @@
                            v-if="component"/>
             </div>
             <div class="doc-operation-body">
-                <doc-operation/>
+                <doc-operation :likeStatus="likeStatus" :collectStatus="collectStatus"
+                               @addLike="addLike"
+                />
             </div>
             <div class="doc-comment">
                 <comment-page/>
@@ -61,14 +63,19 @@ export default {
             createTime: new Date(),
             thumbId: "",
             component: null,
-            tagColor: ['orange', 'gold', 'lime', 'cyan', 'blue', 'geekblue', 'magenta']
+            tagColor: ['orange', 'gold', 'lime', 'cyan', 'blue', 'geekblue', 'magenta'],
+
+            collectCount: 0,
+            likeCount: 0,
+            likeStatus: 0,
+            collectStatus: 0
         }
     },
     components: {
         Nav, DocOperation, CommentPage
     },
     mounted() {
-        this.init()
+
     },
     filters: {
         imgSrc(value) {
@@ -79,11 +86,15 @@ export default {
             }
         }
     },
+    created() {
+        this.init()
+        this.getLikeInfo();
+    },
     methods: {
         init() {
-            let docId = this.$route.query.docId;
+            this.docId = this.$route.query.docId;
             var params = {
-                docId: docId
+                docId: this.docId
             }
             DocRequest.getData(params).then(response => {
                 if (response.code == 200) {
@@ -135,7 +146,63 @@ export default {
                 item['color'] = this.tagColor[parseInt(Math.random() * this.tagColor.length)];
             })
             return tags;
+        },
+
+        async getLikeInfo() {
+            let param= {
+                entityId: this.docId
+            }
+            await DocRequest.getLikeInfo(param).then(res => {
+                if (res.code == 200) {
+                    let result = res.data;
+                    this.collectCount = result.collectCount || 0;
+                    this.likeCount = result.likeCount || 0;
+                    this.likeStatus = result.likeStatus || 0;
+                    this.collectStatus = result.collectStatus || 0
+                } else {
+                    this.$Message.info("error")
+                }
+            }).catch(err => {
+                this.$Message.info("error")
+            })
+        },
+        async addLike(entityType) {
+            if (entityType !== 1 && entityType !== 2) {
+                return
+            }
+
+            let params = {
+                entityType: entityType,
+                entityId: this.docId
+            }
+            await DocRequest.addLike({params}).then(res => {
+                if (res.code == 200) {
+                    let result = res.data;
+                    if (entityType === 1) {
+                        this.likeCount = result.likeCount || 0;
+                        this.likeStatus = result.likeStatus || 0;
+                        if (this.likeStatus === 0) {
+                            this.$Message.info("取消点赞！")
+                        } else {
+                            this.$Message.success("点赞成功！")
+                        }
+                    } else {
+                        this.collectCount = result.likeCount || 0;
+                        this.collectStatus = result.likeStatus || 0;
+                        if (this.collectStatus === 0) {
+                            this.$Message.info("取消收藏！")
+                        } else {
+                            this.$Message.success("收藏成功！")
+                        }
+                    }
+                } else {
+                    this.$Message.info("error")
+                }
+            }).catch(err => {
+                this.$Message.info("error")
+            })
         }
+
     }
 
 }
