@@ -17,7 +17,8 @@
                         <Tag :color="item.color" v-for="item in tags" :index="item.index">{{ item.name }}</Tag>
                     </div>
                     <div class="doc-info-detail">
-                        👍 {{likeCount}} 👋 {{collectCount}} 😊 {{ userName }}  ⏰ {{ createTime }}
+                         <Icon type="md-person" /> {{ userName }} <Icon type="md-time" /> {{ createTime }}
+                        <Icon type="md-thumbs-up" /> {{ likeCount }} <Icon type="md-heart" /> {{ collectCount }}
                     </div>
 
                 </div>
@@ -43,7 +44,7 @@
 
 <script>
 // import PdfView from "./PngView"
-import { BackendUrl } from '@/api/request'
+import {BackendUrl} from '@/api/request'
 
 import Nav from "@/components/Nav"
 import DocRequest from "@/api/document"
@@ -97,7 +98,7 @@ export default {
                 docId: this.docId
             }
             DocRequest.getData(params).then(response => {
-                if (response.code == 200) {
+                if (response.code === 200) {
                     this.title = response.data.title;
                     this.userName = response.data.userName;
                     this.thumbId = response.data.thumbId;
@@ -149,7 +150,7 @@ export default {
         },
 
         async getLikeInfo() {
-            let param= {
+            let param = {
                 entityId: this.docId
             }
             await DocRequest.getLikeInfo(param).then(res => {
