@@ -7,7 +7,8 @@ let vm = new Vue();
 
 const instance = axios.create({
     // baseURL: 'http://81.69.247.172:8082',
-    baseURL: '',
+    // baseURL: 'http://81.69.247.172:8082/api/v1.0',
+    baseURL: '/api/v1.0',
     timeout: 100000,
     headers: {
         post: {
@@ -167,6 +168,5 @@ export function Delete(url, params) {
 }
 
 export function BackendUrl() {
-    //return instance.defaults.baseURL;
-    return instance.defaults.baseURL+"/api/v1.0";
+    return instance.defaults.baseURL;
 }

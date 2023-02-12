@@ -20,7 +20,7 @@
                 </div>
             </Col>
         </Row>
-        <Row v-show="false">
+        <Row v-show="true">
             <Col span="1" class="star-tag">
             </Col>
             <Col span="20" style="text-align: left">
