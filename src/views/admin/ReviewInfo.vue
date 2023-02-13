@@ -143,13 +143,38 @@ export default {
             reviewRequest.removeReviewLog(param).then(res => {
                 if (res.code === 200) {
                     this.getDocData()
+                } else {
+
                 }
             }).catch(err => {
                 console.log(err)
             })
         },
-        removeBatch() {
-            let selection = this.$refs.reviewInfoTable.getSelection();
+        async removeBatch() {
+            let currentSelection = this.$refs.reviewInfoTable.getSelection();
+            if (currentSelection.length < 1) {
+                this.$Message.warning("请勾选！")
+                return
+            }
+
+            let ids = []
+            for (let item of currentSelection) {
+                ids.push(item.id)
+            }
+            let param = {
+                ids: ids
+            }
+            await reviewRequest.removeReviewLog(param).then(res => {
+                if (res.code === 200) {
+                    this.$Message.success("success")
+                } else {
+                    this.$Message.error("error!")
+                }
+                this.getDocData()
+            }).catch(err => {
+                this.$Message.error("error:" + err)
+            })
+
         },
         pageChange(page) {
             this.currentPage = page
