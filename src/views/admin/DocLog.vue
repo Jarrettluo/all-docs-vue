@@ -8,7 +8,7 @@
         <div class="bottom-zone">
             <Row>
                 <Col span="12" class="bottom-zone-left">
-                    <Button type="primary" ghost @click="remove">全部删除</Button>
+                    <Button type="primary" ghost @click="removeBatch">全部删除</Button>
                 </Col>
                 <Col span="12" class="bottom-zone-right">
                     <Page
@@ -105,6 +105,7 @@ export default {
                     let obj = {}
 
                     for (let resultElement of result) {
+                        obj['id'] = resultElement['id']
                         obj['time'] = parseTime(new Date(resultElement['createDate']), '{y}年{m}月{d}日 {h}:{i}:{s}');// resultElement['createTime']
                         obj['user'] = resultElement['userName']
                         obj['action'] = this.actionMap[resultElement['action']] || "未知动作"
@@ -118,12 +119,41 @@ export default {
             })
         },
 
-        remove(item) {
-            this.$Message.info('receive cancel');
+        remove(index) {
+            console.log(this.data[index])
+            this.removeFunc([this.data[index].id])
         },
 
         removeBatch() {
-            let selection = this.$refs.logTable.getSelection();
+
+            this.$Message.info('receive cancel');
+            let currentSelection = this.$refs.logTable.getSelection();
+            if (currentSelection.length < 1) {
+                this.$Message.warning("请勾选！")
+                return
+            }
+
+            let ids = []
+            for (let item of currentSelection) {
+                ids.push(item.id)
+            }
+            this.removeFunc(ids)
+        },
+
+        async removeFunc(ids) {
+            let param = {
+                ids: ids
+            }
+            await docLogRequest.removeDocLog(param).then(res => {
+                if (res.code === 200) {
+                    this.$Message.success("success")
+                } else {
+                    this.$Message.error("error!")
+                }
+                this.getPageData()
+            }).catch(err => {
+                this.$Message.error("error:" + err)
+            })
         },
         pageChange(page) {
             this.currentPage = page
