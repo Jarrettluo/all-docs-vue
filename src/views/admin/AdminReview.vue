@@ -232,51 +232,6 @@ export default {
                 console.log(err)
             })
 
-            let result = [{
-                id: "1223",
-                docName: "2324",
-                size: 123567,
-                category: "分类的信息",
-                tags: [{
-                    id: "233",
-                    name: "abc"
-                }],
-                createTime: "2022年11月22日",
-                createUser: "232",
-                filterWord: ["abc", "edf", "dsff"]
-            }, {
-                id: "1223",
-                docName: "文档的名字等等",
-                size: 123000567,
-                category: "分类的信息",
-                tags: [{
-                    id: "233",
-                    name: "abc"
-                }, {
-                    id: "233",
-                    name: "abc"
-                }, {
-                    id: "233",
-                    name: "abc"
-                }],
-                createTime: "2022年11月22日",
-                createUser: "232",
-                filterWord: ["abc", "edf", "dsff"]
-            }, {
-                id: "1223",
-                size: 1344323567,
-                docName: "文档的名字等等",
-                category: "分类的附近丢失了封疆大吏分手多久了信息",
-                tags: [{
-                    id: "233",
-                    name: "abc"
-                }],
-                createTime: "2022年11月22日",
-                createUser: "这是一个巨长无比的用户名",
-                filterWord: ["abc", "edf", "dsff"]
-            }]
-
-
         },
 
         remove(index) {
@@ -311,17 +266,73 @@ export default {
         },
 
         refuse() {
-            this.$Message.info('关闭');
-
-            this.modal1 = true
-        },
-        receive() {
-            this.$Message.info('receive cancel');
             let currentSelection = this.$refs.reviewDocTable.getSelection();
-        },
+            if (currentSelection.length > 0) {
+                this.modal1 = true
+            } else {
+                this.$Message.warning("请勾选！")
+            }
 
-        ok1() {
-            let a = this.$refs.reviewDocTable.getSelection();
+        },
+        async receive() {
+            let currentSelection = this.$refs.reviewDocTable.getSelection();
+            if (currentSelection.length < 1) {
+                this.$Message.warning("请勾选！")
+                return
+            }
+            let ids = []
+            for (let item of currentSelection) {
+                ids.push(item.id)
+            }
+            let param = {
+                ids: ids
+            }
+            await reviewRequest.updateApproveDoc(param).then(res => {
+                if (res.code === 200) {
+                    this.$Message.success("success")
+                } else {
+                    this.$Message.error("error!")
+                }
+                this.getDocData()
+            }).catch(err => {
+                this.$Message.error("error:" + err)
+            })
+
+        },
+        /**
+         * 管理员拒绝某一批数据
+         * @returns {Promise<void>}
+         */
+        async ok1() {
+            let currentSelection = this.$refs.reviewDocTable.getSelection();
+            if (currentSelection.length < 1) {
+                this.$Message.warning("请勾选！")
+                return
+            }
+            if (this.model == null || this.model == "") {
+                this.$Message.warning("请选择原因！")
+                this.modal1 = true
+                return
+            }
+            let ids = []
+            for (let item of currentSelection) {
+                ids.push(item.id)
+            }
+            let param = {
+                ids: ids,
+                reason: this.model
+            }
+
+            await reviewRequest.updateRefuseDocBatch(param).then(res => {
+                if (res.code === 200) {
+                    this.$Message.success("success")
+                } else {
+                    this.$Message.error("error!")
+                }
+                this.getDocData()
+            }).catch(err => {
+                this.$Message.error("error:" + err)
+            })
         },
         cancel1() {
 
