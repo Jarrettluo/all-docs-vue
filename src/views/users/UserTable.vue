@@ -6,7 +6,8 @@
                 {{row.username}}
             </template>
             <template #action="{ row, index }">
-                <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">屏蔽</Button>
+                <Button v-if="row['banning']" type="primary" size="small" style="margin-right: 5px" @click="show(index)">取消屏蔽</Button>
+                <Button v-else type="primary" size="small" style="margin-right: 5px" @click="show(index)">屏蔽</Button>
                 <Button type="error" size="small" @click="remove(index)">删除</Button>
             </template>
         </Table>
@@ -68,6 +69,30 @@ export default {
                     slot: 'name',
                     resizable: true,
                     fixed: "left",
+                },
+                {
+                    title: '角色',
+                    minWidth: 260,
+                    key: 'permissionEnum',
+                    resizable: true,
+                },
+                {
+                    title: '性别',
+                    minWidth: 260,
+                    key: 'male',
+                    resizable: true,
+                },
+                {
+                    title: '手机',
+                    minWidth: 260,
+                    key: 'phone',
+                    resizable: true,
+                },
+                {
+                    title: '邮箱',
+                    minWidth: 260,
+                    key: 'mail',
+                    resizable: true,
                 },
                 {
                     title: '创建时间',
