@@ -229,7 +229,7 @@ export default {
                 }
 
             }).catch(err => {
-                console.log(err)
+                this.$Message.error('操作失败！')
             })
 
         },
@@ -241,7 +241,6 @@ export default {
         },
 
         async ok() {
-            this.$Message.info('Clicked ok');
             let param = {
                 docId: this.choosedItem.id,
                 reason: this.model
@@ -249,9 +248,12 @@ export default {
             reviewRequest.updateRefuseDoc(param).then(res => {
                 if (res.code === 200) {
                     this.getDocData()
+                    this.$Message.success('操作成功！');
+                } else {
+                    this.$Message.error('操作失败!');
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.error('操作失败！');
             })
         },
         cancel() {
@@ -348,9 +350,15 @@ export default {
             }
             reviewRequest.updateApproveDoc(param).then(res => {
                 console.log(res)
-                this.getDocData()
+                if (res.code === 200) {
+                    this.getDocData()
+                    this.$Message.success('操作成功！')
+                } else {
+                    this.$Message.error('操作失败！')
+                }
+
             }).catch(err => {
-                console.log(err)
+                this.$Message.error('操作失败！')
             })
         },
         download() {

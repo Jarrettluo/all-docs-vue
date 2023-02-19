@@ -46,18 +46,18 @@ export default {
                     if (response.data == null) {
                         this.$Message.error('登录失败，请重试！');
                     } else {
-                        console.log(response.data)
                         localStorage.setItem("token", response.data.token)
                         localStorage.setItem("id", response.data.userId)
                         localStorage.setItem("username", response.data.username)
                         localStorage.setItem("avatar", response.data.avatar)
                         localStorage.setItem("type", response.data['type'] || '普通用户');
-                        this.$router.push({
-                            path: '/',
-                            query: {
-                                userName: this.userName
-                            }
-                        })
+                        // this.$router.push({
+                        //     path: '/',
+                        //     query: {
+                        //         userName: this.userName
+                        //     }
+                        // })
+                        this.$router.back()
                     }
                 }
             )

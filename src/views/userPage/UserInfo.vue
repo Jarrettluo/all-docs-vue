@@ -118,7 +118,7 @@ export default {
                     this.userForm['gender'] = resData.male ? 'male' : 'female';
                     this.userForm['phoneNum'] = resData.phone
                     this.userForm['userComment'] = resData.description
-                    if (resData.avatar !== '' || resData.avatar !== null) {
+                    if (resData.avatar !== '' && resData.avatar !== null && resData.avatar !== 'null') {
                         this.userSrc = BackendUrl() + "/files/image2/" + resData.avatar
                     }
                     localStorage.setItem("avatar", resData.avatar)
@@ -150,7 +150,9 @@ export default {
             })
         },
         getAvatarUrl() {
+            // this.$router.push({name:'userInfo'})
             this.getUserInfo()
+            this.$router.go(0)
         },
         async deleteAvatar() {
         }

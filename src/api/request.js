@@ -56,7 +56,7 @@ instance.interceptors.response.use(response => {
                 desc: '你没有登录，或者权限不足，请登录！'
             });
             setTimeout(() => {
-                router.replace({
+                router.push({
                     name: 'Login'
                 }).then(r => console.log(r));
             }, 3000)

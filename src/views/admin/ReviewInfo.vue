@@ -131,11 +131,10 @@ export default {
                     this.totalItems = result.total
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.warning("操作失败！")
             })
         },
         async remove(index) {
-            this.$Message.info('remove cancel');
             let item = this.data[index]
             let param = {
                 ids: [item.id]
@@ -143,11 +142,12 @@ export default {
             reviewRequest.removeReviewLog(param).then(res => {
                 if (res.code === 200) {
                     this.getDocData()
+                    this.$Message.success("清除成功！")
                 } else {
-
+                    this.$Message.warning("操作失败！")
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.warning("操作失败！")
             })
         },
         async removeBatch() {
@@ -166,13 +166,13 @@ export default {
             }
             await reviewRequest.removeReviewLog(param).then(res => {
                 if (res.code === 200) {
-                    this.$Message.success("success")
+                    this.$Message.success("清除成功！")
                 } else {
-                    this.$Message.error("error!")
+                    this.$Message.error("操作失败!")
                 }
                 this.getDocData()
             }).catch(err => {
-                this.$Message.error("error:" + err)
+                this.$Message.error("操作失败:" + err)
             })
 
         },
