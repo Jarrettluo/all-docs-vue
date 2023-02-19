@@ -3,7 +3,7 @@ import {
     COMMENT_LIST_URL,
     COMMENT_REMOVE_URL,
     COMMENT_UPDATE_URL,
-
+    COMMENT_USER_URL,
     COMMENT_ALL_URL
 } from './url'
 
@@ -23,6 +23,9 @@ export default {
         return Delete(COMMENT_REMOVE_URL, params);
     },
 
+    getMyComments: (params) => {
+        return Post(COMMENT_USER_URL, params);
+    },
 
     getAllComments: (params) => {
         return Post(COMMENT_ALL_URL, params);

@@ -131,7 +131,7 @@ export default {
                 page: this.commentCurrentPage,
                 rows: this.commentPageSize
             }
-            commentRequest.getAllComments(param).then(res => {
+            commentRequest.getMyComments(param).then(res => {
                 if (res.code === 200) {
                     let result = res.data.data
 

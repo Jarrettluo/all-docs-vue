@@ -107,8 +107,8 @@ export default {
     filters: {
         userAvatar(param) {
             let value = localStorage.getItem("avatar")
-            if (value === "" || value == null || value === undefined) {
-                return this.defaultAvatar;
+            if (value === "" || value === 'null' || value === null || value === undefined) {
+                return require("@/assets/source/user_avater.png");;
             } else {
                 return BackendUrl() + "/files/image2/" + value;
             }

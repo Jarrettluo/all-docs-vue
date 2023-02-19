@@ -113,6 +113,8 @@
 <script>
 import {BackendUrl} from '@/api/request'
 
+import DocRequest from '@/api/document'
+
 import axios from "axios";
 
 export default {
@@ -121,7 +123,7 @@ export default {
         return {
             placeholder: "输入一些内容",
             buttonSrc: require("@/assets/source/folder.png"),
-            actionUrl: BackendUrl() + "/files/upload",
+            actionUrl: BackendUrl() + "/files/auth/upload",
             filename: '',
             uploadProcess: 0.00,
             count: [0, ],
@@ -153,7 +155,7 @@ export default {
             this.uploadProcess = 0
         },
         // 最后上传
-        uploadFile() {
+        async uploadFile() {
             let param = this.uploadParam
 
             if (param === {} || param.file === undefined || param.fileId === undefined) {
@@ -172,13 +174,13 @@ export default {
                 },
             };
             this.progressFlag = true;
-            axios.post(this.actionUrl, formData, config).then(res => {
-                let {data}  = res
-                if (data['code'] === 200 || data['code'] === 'success') {
+            // axios.post(this.actionUrl, formData, config)
+            await DocRequest.docUpload(formData, config).then(res => {
+                if (res.code === 200) {
                     this.uploadProcess = 1;
                     this.$Message.success("成功！")
                 } else {
-                    this.$Message.error("出错：" + data['message'])
+                    this.$Message.error("上传出错：" + res.message)
                     this.uploadProcess = 0.00
                 }
 

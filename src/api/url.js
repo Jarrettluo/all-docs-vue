@@ -15,6 +15,7 @@ const DOC_WITH_CHECK_URL = '/document/listWithCategory'; // 返回已经选中�
 
 const ABC = '/files/view/'
 
+const DOC_UPLOAD_URL = '/files/auth/upload'; // 上传文档
 const DOC_VIEW_URL = '/files/view/'; // 预览文档
 const DOC_TXT_URL = '/files/text/'; // 下载文本文件
 const DOC_REBUILD_URL = '/files/rebuildIndex'; // 重建文档索引
@@ -34,7 +35,8 @@ const COMMENT_ADD_URL = '/comment/auth/insert'; // 评论增加
 const COMMENT_LIST_URL = '/comment/list'; // 评论列表
 const COMMENT_REMOVE_URL = '/comment/auth/remove'; // 评论删除
 const COMMENT_UPDATE_URL = '/comment/auth/update'; // 评论更新
-const COMMENT_ALL_URL = '/comment/auth/listALL'; // 管理员及用户主页查询评论列表
+const COMMENT_USER_URL = '/comment/auth/myComments'; // 用户主页查询评论列表
+const COMMENT_ALL_URL = '/comment/auth/allComments'; // 管理员查询评论列表
 
 const STATS_TREND_URL = '/statistics/trend'; //
 const STATS_ALL_URL = '/statistics/all';
@@ -78,6 +80,7 @@ module.exports = {
     DOC_REMOVE_URL,
     DOC_WITH_CHECK_URL,
 
+    DOC_UPLOAD_URL,
     DOC_VIEW_URL,
     DOC_TXT_URL,
     DOC_REBUILD_URL,
@@ -97,6 +100,7 @@ module.exports = {
     COMMENT_LIST_URL,
     COMMENT_REMOVE_URL,
     COMMENT_UPDATE_URL,
+    COMMENT_USER_URL,
     COMMENT_ALL_URL,
 
     STATS_TREND_URL,

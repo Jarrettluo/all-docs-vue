@@ -4,6 +4,7 @@ import {
     DOC_REMOVE_URL,
     DOC_WITH_CHECK_URL,
 
+    DOC_UPLOAD_URL,
     DOC_VIEW_URL,
     DOC_TXT_URL,
     DOC_REBUILD_URL,
@@ -31,6 +32,11 @@ export default {
 
     getDataWithCheck: (params) => {
         return Get(DOC_WITH_CHECK_URL, params);
+    },
+
+    // 必须登录以后进行上传
+    docUpload: (param, config) => {
+        return Post(DOC_UPLOAD_URL, param, config)
     },
 
     getView: (param) => {

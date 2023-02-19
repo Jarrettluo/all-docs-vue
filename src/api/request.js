@@ -61,6 +61,15 @@ instance.interceptors.response.use(response => {
                 }).then(r => console.log(r));
             }, 3000)
             break;
+        case 403:
+            vm.$Notice.error({
+                title: '权限不足',
+                desc: '管理员禁止此项操作！'
+            });
+            setTimeout(() => {
+                router.back();
+            }, 3000)
+            break;
         case 404:
             vm.$Message.error('网络请求不存在');
             break;
