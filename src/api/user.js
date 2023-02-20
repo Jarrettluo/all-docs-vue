@@ -5,7 +5,9 @@ import {
     ALL_USER_URL,
     USER_INFO_URL,
     USER_UPDATE_URL,
-    USER_ADD_AVATAR_URL
+    USER_ADD_AVATAR_URL,
+    USER_CHANGE_ROLE_URL,
+    BLOCK_USER_URL
 
 } from './url'
 
@@ -39,7 +41,15 @@ export default {
 
     addUserAvatar: (params) => {
         return Post(USER_ADD_AVATAR_URL, params)
-    }
+    },
+
+    changeRole: (params) => {
+        return Put(USER_CHANGE_ROLE_URL, params);
+    },
+
+    blockUser: (params) => {
+        return Get(BLOCK_USER_URL, params);
+    },
 
 }
 

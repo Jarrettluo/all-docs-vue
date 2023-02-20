@@ -3,12 +3,26 @@
         <Table width="100%" :height="height" border :columns="columns" :data="data">
             <template #name="{ row }">
                 <!--            <strong>{{ row.name }}</strong>-->
-                {{row.username}}
+                {{ row.username }}
+            </template>
+            <template #permissionEnum="{row, index}">
+                <Select v-model="row['permissionEnum']" style="width:100px" :disabled="row.id === currentUserId"
+                        @on-change="changeRole($event, row)">
+                    <Option v-for="item in roleList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </Select>
+            </template>
+            <template #sex="{row, index}">
+                <p v-if="row.male">男</p>
+                <p v-else>女</p>
             </template>
             <template #action="{ row, index }">
-                <Button v-if="row['banning']" type="primary" size="small" style="margin-right: 5px" @click="show(index)">取消屏蔽</Button>
-                <Button v-else type="primary" size="small" style="margin-right: 5px" @click="show(index)">屏蔽</Button>
-                <Button type="error" size="small" @click="remove(index)">删除</Button>
+                <Button v-if="row['banning']" type="primary" size="small" style="margin-right: 5px"
+                        @click="blockUser(row.id)">取消屏蔽
+                </Button>
+                <Button v-else type="primary" size="small" style="margin-right: 5px" @click="blockUser(row.id)"
+                        :disabled="row.id === currentUserId"
+                >屏蔽</Button>
+                <Button type="error" size="small" @click="remove(index)" :disabled="row.id === currentUserId">删除</Button>
             </template>
         </Table>
 
@@ -36,7 +50,7 @@
                 </p>
             </template>
             <div style="text-align:left;white-space:normal">
-                <p style="word-wrap: break-word;word-break: break-all;">您准备删除{{remove_item.username}}</p>
+                <p style="word-wrap: break-word;word-break: break-all;">您准备删除{{ remove_item.username }}</p>
                 <p>是否确定删除？</p>
             </div>
             <template #footer>
@@ -54,7 +68,7 @@ import {parseTime} from "@/utils/index"
 
 export default {
     name: "UserTable",
-    data () {
+    data() {
         return {
             columns: [
                 {
@@ -72,25 +86,25 @@ export default {
                 },
                 {
                     title: '角色',
-                    minWidth: 260,
-                    key: 'permissionEnum',
-                    resizable: true,
+                    minWidth: 130,
+                    slot: 'permissionEnum',
+                    resizable: false,
                 },
                 {
                     title: '性别',
-                    minWidth: 260,
-                    key: 'male',
+                    minWidth: 70,
+                    slot: 'sex',
                     resizable: true,
                 },
                 {
                     title: '手机',
-                    minWidth: 260,
+                    minWidth: 130,
                     key: 'phone',
                     resizable: true,
                 },
                 {
                     title: '邮箱',
-                    minWidth: 260,
+                    minWidth: 230,
                     key: 'mail',
                     resizable: true,
                 },
@@ -103,18 +117,18 @@ export default {
                     render: (h, params) => {
                         let temp = ""
                         let time = params.row.createDate
-                        if( time != null ){
+                        if (time != null) {
                             temp = parseTime(new Date(time), '{y}年{m}月{d}日 {h}:{i}:{s}');
                         }
                         return h('div', [
-                            h('span',  temp)
+                            h('span', temp)
                         ]);
                     }
                 },
                 {
                     title: '操作',
                     slot: 'action',
-                    width: 150,
+                    width: 170,
                     align: 'center',
                     fixed: "right",
                 }
@@ -129,6 +143,16 @@ export default {
             remove_item: {},
 
             height: 600,
+
+            roleList: [{
+                value: 'ADMIN',
+                label: '管理员'
+            },{
+                value: 'USER',
+                label: '普通用户'
+            },],
+
+            currentUserId: localStorage.getItem("id")
         }
     },
     created() {
@@ -143,13 +167,13 @@ export default {
                 this.height = this.$refs.tableRef.offsetHeight - 60;
             })
         },
-        show (index) {
+        show(index) {
             this.$Modal.info({
                 title: 'User Info',
                 content: `Name：${this.data[index].name}<br>Age：${this.data[index].age}<br>Address：${this.data[index].address}`
             })
         },
-        remove (index) {
+        remove(index) {
             this.remove_item = this.data[index];
             this.remove_modal = true;
         },
@@ -159,7 +183,6 @@ export default {
                 id: this.remove_item.id
             }
             UserRequest.deleteData(param).then(res => {
-                // console.log(res)
                 this.init();
             }).catch(res => {
                 console.log(res)
@@ -188,6 +211,41 @@ export default {
         },
         removeBatch() {
             this.$Message.error("功能尚未开发，请等待！")
+        },
+
+        async changeRole(event, row) {
+            let param = {
+                userId: row.id,
+                role: event,
+            }
+            await UserRequest.changeRole(param).then(res => {
+                if (res.code === 200) {
+                    this.init();
+                } else {
+                    this.$Message.error("操作失败！")
+                }
+            }).catch(err => {
+                this.$Message.error("操作失败！")
+            })
+        },
+        /**
+         * 管理员屏蔽用户
+         * @param userId 用户id
+         * @returns {Promise<void>} Promise
+         */
+        async blockUser(userId) {
+            let param = {
+                userId: userId
+            }
+            await UserRequest.blockUser(param).then(res => {
+                if (res.code === 200) {
+                    this.init();
+                } else {
+                    this.$Message.error("操作失败！")
+                }
+            }).catch(err => {
+                this.$Message.error("操作失败！")
+            })
         }
     }
 }
@@ -200,6 +258,7 @@ export default {
     width: 100%;
 
     position: relative;
+
     .bottom-zone {
         position: absolute;
 
@@ -220,9 +279,9 @@ export default {
     }
 }
 
-    .page-container {
-        /*background-color: yellow;*/
-        text-align: right;
-        padding: 5px;
-    }
+.page-container {
+    /*background-color: yellow;*/
+    text-align: right;
+    padding: 5px;
+}
 </style>

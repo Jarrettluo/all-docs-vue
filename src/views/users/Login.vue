@@ -44,7 +44,7 @@ export default {
             UserRequest.postUserLogin(params).then(
                 response => {
                     if (response.data == null) {
-                        this.$Message.error('登录失败，请重试！');
+                        this.$Message.error(response.message);
                     } else {
                         localStorage.setItem("token", response.data.token)
                         localStorage.setItem("id", response.data.userId)
