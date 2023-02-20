@@ -4,6 +4,7 @@ import {
     DOC_REVIEW_REFUSE_BATCH_URL,
     DOC_REVIEW_APPROVE_URL,
     DOC_REVIEW_LOG_URL,
+    DOC_REVIEW_MY_LOG_URL,
     DOC_REVIEW_REMOVE_URL,
     DOC_REVIEW_USER_READ_URL,
 
@@ -31,6 +32,10 @@ export default {
 
     getReviewLog: (params) => {
         return Get(DOC_REVIEW_LOG_URL, params);
+    },
+
+    getMyReviewLog: (params) => {
+        return Get(DOC_REVIEW_MY_LOG_URL, params);
     },
 
     removeReviewLog: (params) => {

@@ -146,13 +146,13 @@ export default {
             }
             await docLogRequest.removeDocLog(param).then(res => {
                 if (res.code === 200) {
-                    this.$Message.success("success")
+                    this.$Message.success("清除成功！")
                 } else {
-                    this.$Message.error("error!")
+                    this.$Message.error("操作失败!")
                 }
                 this.getPageData()
             }).catch(err => {
-                this.$Message.error("error:" + err)
+                this.$Message.error("操作失败:" + err)
             })
         },
         pageChange(page) {
