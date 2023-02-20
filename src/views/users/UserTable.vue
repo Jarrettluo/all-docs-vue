@@ -184,6 +184,7 @@ export default {
             }
             UserRequest.deleteData(param).then(res => {
                 this.init();
+                this.remove_modal = false
             }).catch(res => {
                 console.log(res)
             })

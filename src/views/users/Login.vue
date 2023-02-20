@@ -29,7 +29,13 @@ export default {
         return {
             username: "",
             pwd: "",
+            fromRouteName: ""
         }
+    },
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+          vm.fromRouteName = from.name
+      })
     },
     methods: {
         tian() {
@@ -51,13 +57,17 @@ export default {
                         localStorage.setItem("username", response.data.username)
                         localStorage.setItem("avatar", response.data.avatar)
                         localStorage.setItem("type", response.data['type'] || '普通用户');
-                        // this.$router.push({
-                        //     path: '/',
-                        //     query: {
-                        //         userName: this.userName
-                        //     }
-                        // })
-                        this.$router.back()
+
+                        if (this.fromRouteName === "Registry") {
+                            this.$router.push({
+                                path: '/',
+                                query: {
+                                    userName: this.userName
+                                }
+                            })
+                        } else {
+                            this.$router.back()
+                        }
                     }
                 }
             )

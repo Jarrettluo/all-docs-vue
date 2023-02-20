@@ -23,14 +23,14 @@ const routes = [
         name: "Login",
         component: function () {
             return import("../views/users/Login")
-        }
+        },
     },
     {
         path: "/registry",
         name: "Registry",
         component: function () {
             return import("../views/users/Registry")
-        }
+        },
     },
     {
         path: "/searchResult",
