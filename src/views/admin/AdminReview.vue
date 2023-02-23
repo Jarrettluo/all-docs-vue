@@ -61,7 +61,6 @@
 
 </template>
 <script>
-import {resolveComponent} from 'vue'
 import reviewRequest from '@/api/docReview'
 
 import fileTool from "@/utils/fileUtil"

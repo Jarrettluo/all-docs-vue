@@ -74,7 +74,8 @@ export default {
                 "page": this.currentPage - 1,
                 "rows": this.pageSize,
                 "tagId": "",
-                "type": "FILTER"
+                "type": "FILTER",
+                "userId": localStorage.getItem("id")
             }
             DocumentRequest.getListData(params).then(res => {
                 this.loading = false;

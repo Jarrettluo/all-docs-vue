@@ -102,7 +102,6 @@ export default {
                     docId: this.id
                 }
             })
-
         }
     },
     filters: {

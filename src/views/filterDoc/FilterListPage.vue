@@ -36,6 +36,14 @@ export default {
     methods: {
         pageChange(page) {
             this.$emit("on-page-change", page)
+        },
+        getDocView(id) {
+            this.$router.push({
+                path:'/preview',
+                query:{
+                    docId: id
+                }
+            })
         }
     }
 }

@@ -60,7 +60,7 @@ export default {
                 },
                 {
                     title: '提交用户',
-                    key: 'user',
+                    key: 'userName',
                     width: 200
                 },
                 {
@@ -125,6 +125,7 @@ export default {
                         let viewInfo = resultElement['reviewLog']
                         obj['viewInfo'] = viewInfo
                         obj['readState'] = resultElement['readState']
+                        obj['userName'] = resultElement['userName'] || '未知'
                         this.data.push(obj)
                         obj = {}
                     }
