@@ -1,9 +1,10 @@
-import {Get} from "@/api/request";
+import {Get, Put} from "@/api/request";
 import {
     STATS_TREND_URL,
     STATS_ALL_URL,
     STATS_HOT_TREND,
     STATS_SEARCH_HISTORY,
+    REMOVE_SEARCH_KEY,
     STATS_RECENT_DOC
 } from './url'
 
@@ -23,6 +24,10 @@ export default {
 
     getSearchHistory: (params) => {
         return Get(STATS_SEARCH_HISTORY, params);
+    },
+
+    removeSearchHistory: (params) => {
+        return Put(REMOVE_SEARCH_KEY, params);
     },
 
     getRecentDoc: (params) => {
