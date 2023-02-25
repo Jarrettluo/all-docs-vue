@@ -17,8 +17,14 @@
                         <Tag :color="item.color" v-for="item in tags" :index="item.index">{{ item.name }}</Tag>
                     </div>
                     <div class="doc-info-detail">
-                         <Icon type="md-person" /> {{ userName }} <Icon type="md-time" /> {{ createTime }}
-                        <Icon type="md-thumbs-up" /> {{ likeCount }} <Icon type="md-heart" /> {{ collectCount }}
+                        <Icon type="md-person"/>
+                        {{ userName }}
+                        <Icon type="md-time"/>
+                        {{ createTime }}
+                        <Icon type="md-thumbs-up"/>
+                        {{ likeCount }}
+                        <Icon type="md-heart"/>
+                        {{ collectCount }}
                     </div>
 
                 </div>
@@ -26,7 +32,9 @@
             <div class="doc-preview">
                 <!--                <PdfView></PdfView>-->
                 <component :is="component"
-                           v-if="component"/>
+                           v-if="component"
+                           :previewId="previewId"
+                />
             </div>
             <div class="doc-operation-body">
                 <doc-operation :likeStatus="likeStatus" :collectStatus="collectStatus"
@@ -69,7 +77,8 @@ export default {
             collectCount: 0,
             likeCount: 0,
             likeStatus: 0,
-            collectStatus: 0
+            collectStatus: 0,
+            previewId: null,
         }
     },
     components: {
@@ -109,6 +118,9 @@ export default {
                     this.tags = this.renderTags(tagList);
 
                     let title = response.data.title
+
+                    this.previewId = response.data.previewFileId
+
                     let suffix = title.split(".")[title.split('.').length - 1];
                     switch (suffix) {
                         case 'pdf':
@@ -128,7 +140,8 @@ export default {
                             this.component = () => import('@/views/preview/WordView3')
                             break
                         case 'pptx':
-                            this.component = () => import('@/views/preview/PPTxView')
+                            // this.component = () => import('@/views/preview/PPTxView')
+                            this.component = () => import('@/views/preview/PptxView2')
                             break
                         case 'xlsx':
                             this.component = () => import('@/views/preview/excel2')

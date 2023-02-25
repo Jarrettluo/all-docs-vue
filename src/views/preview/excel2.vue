@@ -38,7 +38,7 @@ export default {
     methods: {
         before() {
             let docId = this.$route.query.docId;
-            this.excel = 'http://81.69.247.172:8082/files/view/' + docId;
+            this.excel =  BackendUrl() + '/files/view/' + docId;
 
         },
         rendered(){
