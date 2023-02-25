@@ -59,7 +59,7 @@ export default {
             this._loadFile(this.pdf_src)
         },
         scaleX() {  //缩小
-            let min = 1.0
+            let min = 0.5
             if (this.pdf_scale <= min) {
                 return
             }
