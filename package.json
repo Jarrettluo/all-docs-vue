@@ -7,7 +7,10 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@vue-office/excel": "0.0.13",
+    "@vue-office/docx": "^0.2.1",
+    "@vue-office/excel": "^0.2.1",
+    "@vue-office/pdf": "^0.2.1",
+    "@vue/composition-api": "^1.7.1",
     "ali-oss": "^6.17.1",
     "axios": "^0.27.2",
     "docx-preview": "^0.1.4",
@@ -17,6 +20,7 @@
     "view-design": "^4.7.0",
     "vue": "^2.6.11",
     "vue-cropper": "^0.5.8",
+    "vue-demi": "^0.13.11",
     "vue-router": "^3.2.0",
     "xlsx": "^0.18.5"
   },
