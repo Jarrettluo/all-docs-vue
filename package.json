@@ -16,6 +16,7 @@
     "docx-preview": "^0.1.4",
     "jszip": "^3.10.1",
     "mammoth": "^1.4.21",
+    "marked": "^4.2.12",
     "pdfjs-dist": "^2.3.200",
     "view-design": "^4.7.0",
     "vue": "^2.6.11",
