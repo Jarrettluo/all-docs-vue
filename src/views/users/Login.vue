@@ -7,7 +7,7 @@
                 <input type="password" v-model="pwd" name="password" placeholder="密码" class="input-item">
                 <div style="font-size: 12px; color: #2c3e50">
                     试用账号：admin123， 密码：admin123
-                    <Icon type="md-copy" style="cursor: pointer" @click="tian"/>
+                    <span style="cursor: pointer; font-size: 12px; color: blue" @click="tian"><Icon type="md-copy" ></Icon>复制</span>
                 </div>
                 <div class="btn" @click="login">登录</div>
             </div>

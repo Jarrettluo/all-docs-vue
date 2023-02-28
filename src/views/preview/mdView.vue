@@ -73,6 +73,11 @@ export default {
 <!--由于采用了v-html所以采用这种方式进行样式渲染-->
 <style scoped>
 
+>>> h1 {
+    line-height: 72px;
+    text-align: center;
+}
+
 >>> pre {
     background: #2d2d2d;
     color: rgb(201,209,217);
@@ -138,4 +143,33 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+>>> table
+{
+    border-collapse: collapse;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    margin: 20px 0px;
+}
+>>> table td, table th
+{
+    border: 1px solid #cad9ea;
+    color: #666;
+    height: 30px;
+}
+>>> table thead th
+{
+    background-color: #CCE8EB;
+    width: 100px;
+}
+>>> table tr:nth-child(odd)
+{
+    background: #fff;
+}
+>>> table tr:nth-child(even)
+{
+    background: #F5FAFA;
+}
+
 </style>
