@@ -12,7 +12,8 @@
                 </Select>
             </template>
             <template #sex="{row, index}">
-                <p v-if="row.male">男</p>
+                <p v-if="row.male==true">男</p>
+                <p v-else-if="row.male==false">女</p>
                 <p v-else>女</p>
             </template>
             <template #action="{ row, index }">

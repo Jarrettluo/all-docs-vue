@@ -120,7 +120,6 @@ export default {
         },
 
         remove(index) {
-            console.log(this.data[index])
             this.removeFunc([this.data[index].id])
         },
 

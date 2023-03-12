@@ -108,11 +108,11 @@ export default {
                     key: 'user',
                     width: 110
                 },
-                {
-                    title: '违禁词',
-                    key: 'sensitiveWord',
-                    width: 200
-                },
+                // {
+                //     title: '违禁词',
+                //     key: 'sensitiveWord',
+                //     width: 200
+                // },
                 {
                     title: '操作',
                     slot: 'action',
@@ -348,7 +348,6 @@ export default {
                 ids: [item.id]
             }
             reviewRequest.updateApproveDoc(param).then(res => {
-                console.log(res)
                 if (res.code === 200) {
                     this.getDocData()
                     this.$Message.success('操作成功！')

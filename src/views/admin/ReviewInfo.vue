@@ -129,7 +129,7 @@ export default {
                         this.data.push(obj)
                         obj = {}
                     }
-                    this.totalItems = result.total
+                    this.totalItems = res.data.total
                 }
             }).catch(err => {
                 this.$Message.warning("操作失败！")
