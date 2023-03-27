@@ -31,7 +31,7 @@ jobs:
         npm run build
 
     - name: Publish Docker
-      uses: elgohr/Publish-Docker-Github-Action@v4
+      uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         # The name of the image you would like to push
         name: jarrettluo/all-docs-web
