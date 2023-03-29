@@ -26,6 +26,13 @@ const routes = [
         },
     },
     {
+        path: "/login-new",
+        name: "LoginNew",
+        component: function () {
+            return import("../views/users/LoginNew")
+        },
+    },
+    {
         path: "/registry",
         name: "Registry",
         component: function () {
