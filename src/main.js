@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 import router from './router/index.js';
 import iView from 'view-design'
-
+import "@/assets/font/font.css";
 
 import Api from './api/index';
 

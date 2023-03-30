@@ -14,27 +14,11 @@
                        @keyup.enter="registry"></input>
             </div>
         </div>
-        <div style="padding: 0px 0px 10px 0;margin-top: 40px;">
-            <div class="upload-button" style="width: 180px; height: 45px; border: 2px solid #000;
-                                    background: #FFF7D6;
-                box-shadow: 0px 0px 10px 0px rgba(129,100,0,0.3);
-                border-radius: 8px;
-                display: flex;
-                justify-content: center;
-                "
-                 @click="registry"
-                            >
-                                <div style="padding: 5px; line-height: 45px;">
-                                    <img :src="buttonSrc" width="24px" height="28px"/>
-                                </div>
-                                <span
-                                    style="line-height: 45px; color: #000; font-size: 16px; font-weight: 600;"
-
-                                >
-                                                            点我确定注册</span>
-
-                            </div>
-                        </div>
+        <submit-button
+            :src="buttonSrc"
+            label="点我立即注册"
+            @click="registry"
+        ></submit-button>
         <p>还没有账号，现在<span class="focus-word">
             <router-link to="/login">就要登录</router-link>
             </span></p>
@@ -43,6 +27,7 @@
 
 <script>
 import UserRequest from '@/api/user'
+import SubmitButton from '@/components/SubmitButton'
 
 export default {
     name: "RegistryForm.vue",
@@ -53,6 +38,9 @@ export default {
             password: "",
             checkPassword: "",
         }
+    },
+    components: {
+        SubmitButton
     },
     methods: {
         async registry() {
