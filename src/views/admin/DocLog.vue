@@ -23,7 +23,6 @@
     </div>
 </template>
 <script>
-import {resolveComponent} from 'vue'
 
 import {parseTime} from "@/utils"
 import docLogRequest from '@/api/docLog'
@@ -115,7 +114,7 @@ export default {
                     }
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.error("出错：" + err)
             })
         },
 

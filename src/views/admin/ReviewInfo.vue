@@ -49,7 +49,7 @@ export default {
                 {
                     title: '时间',
                     key: 'time',
-                    width: 200
+                    width: 220
                 },
                 {
                     title: '文档名称',
@@ -122,8 +122,7 @@ export default {
                         obj['user'] = resultElement['createUser'] || '未知'
                         obj['time'] = parseTime(new Date(resultElement['createDate']), '{y}年{m}月{d}日 {h}:{i}:{s}'); //
                         obj['checkState'] = resultElement['checkState']
-                        let viewInfo = resultElement['reviewLog']
-                        obj['viewInfo'] = viewInfo
+                        obj['viewInfo'] = resultElement['reviewLog']
                         obj['readState'] = resultElement['readState']
                         obj['userName'] = resultElement['userName'] || '未知'
                         this.data.push(obj)
@@ -131,7 +130,7 @@ export default {
                     }
                     this.totalItems = res.data.total
                 }
-            }).catch(err => {
+            }).catch(() => {
                 this.$Message.warning("操作失败！")
             })
         },
@@ -147,7 +146,7 @@ export default {
                 } else {
                     this.$Message.warning("操作失败！")
                 }
-            }).catch(err => {
+            }).catch(() => {
                 this.$Message.warning("操作失败！")
             })
         },

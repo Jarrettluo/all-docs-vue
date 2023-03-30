@@ -122,7 +122,7 @@ export default {
                     }
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.error("出错：" + err)
             })
         },
 
@@ -151,7 +151,7 @@ export default {
                     this.data = []
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.error("出错：" + err)
             })
         },
 
@@ -177,7 +177,7 @@ export default {
                     this.getAllReviews()
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.error("出错：" + err)
             })
 
         },
@@ -212,7 +212,7 @@ export default {
                     this.getPageData()
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.error("出错:" + err)
             })
         }
 

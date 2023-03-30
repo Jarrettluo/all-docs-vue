@@ -93,6 +93,7 @@
                             :src="previews.url"
                             :style="previews.img"
                             v-show="previews.url"
+                            alt="img"
                         />
                     </div>
                 </Col>
@@ -191,17 +192,6 @@ export default {
         },
         //删除服务器中的头像
         async deleteAvatar() {
-            // try {
-            //     if (this.avatarUrl) {
-            //         let {pathname} = new URL(this.avatarUrl);
-            //         await this.client_alioss.deleteMulti([decodeURIComponent(pathname)]); //删除服务器中的头像。decodeURIComponent解决中文乱码
-            //         this.$Message.success("头像删除成功");
-            //         this.avatarUrl = "";
-            //         this.$emit("deleteAvatar");
-            //     }
-            // } catch (error) {
-            //     this.$Message.error("头像删除失败");
-            // }
         },
         //上传头像
         submitUpdate() {
@@ -214,21 +204,13 @@ export default {
                     let formData = new FormData();
 
                     formData.append("img", file_img);
-                    // let params = {
-                    //     img: file_img
-                    // }
-
-                    // let a = {formData, headers: {
-                    //         "Content-Type": "multipart/form-data"
-                    //     },}
-
                     await UserRequest.addUserAvatar(formData).then(res => {
-                        console.log(res)
+                        this.$Message.success("上传头像成功");
                     }).catch(err => {
-                        console.log(err)
+                        this.$Message.error("出错：" + err)
                     })
 
-                    this.$Message.success("上传头像成功");
+
                     this.$emit("avatarUrl", this.avatarUrl); //把头像url传出去
                 });
             } catch (error) {
@@ -242,11 +224,11 @@ export default {
         base64toFile(base64, filename) {
             let arr = base64.split(","),
                 mime = arr[0].match(/:(.*?);/)[1],
-                bstr = atob(arr[1]),
-                n = bstr.length,
+                bStr = atob(arr[1]),
+                n = bStr.length,
                 u8arr = new Uint8Array(n);
             while (n--) {
-                u8arr[n] = bstr.charCodeAt(n);
+                u8arr[n] = bStr.charCodeAt(n);
             }
             return new File([u8arr], filename, {type: mime});
         },

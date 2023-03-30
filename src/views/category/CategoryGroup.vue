@@ -4,16 +4,6 @@
         <Card :title=name icon="ios-options" :padding="0" style="width: 100%;">
             <CellGroup>
                 <Cell v-for="item in listData" :title="item.name" on-click="changeCategoryValue"/>
-                <!--                <Cell title="Only show titles" />-->
-                <!--                <Cell title="Only show titles" >-->
-                <!--                    <template #extra>-->
-                <!--                        <div class="more-info" @click="clickGo($event)">-->
-                <!--                            <Icon type="ios-more" />-->
-                <!--                        </div>-->
-                <!--                    </template>-->
-                <!--                </Cell>-->
-                <!--                <Cell title="这是一个分类的信息"/>-->
-
             </CellGroup>
         </Card>
 
@@ -60,7 +50,6 @@ export default {
             CategoryRequest.getListData(params).then(response => {
                 this.listData = response.data
                 this.listLoading = false
-                // console.log(list)
                 this.changeCategoryValue(this.listData[0])
             })
         },

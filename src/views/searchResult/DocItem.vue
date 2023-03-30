@@ -29,15 +29,6 @@ export default {
         }
     },
     methods: {
-        getData() {
-            let data = {
-                id: 1
-            }
-            this.$axios.getListData(data)
-                .then((res) => {
-                    console.log(res);
-                })
-        }
     }
 }
 </script>

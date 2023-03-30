@@ -189,30 +189,6 @@ export default {
                     if (typeof docSize === "number" && docSize > 0) {
                         obj['size'] = fileTool.bytesToSize(docSize)
                     }
-
-
-                    // let cateObj = resultElement['category']
-                    // if (cateObj.length > 8) {
-                    //     cateObj = cateObj.slice(0, 8) + "..."
-                    // }
-                    // obj['category'] = cateObj
-
-                    // let tagStrList = []
-                    // let tagArray = resultElement['tags']
-                    // for (let tagArrayElement of tagArray) {
-                    //     if (tagArrayElement.hasOwnProperty("name")) {
-                    //         tagStrList.push(tagArrayElement["name"])
-                    //     }
-                    // }
-                    // let tagStr = tagStrList.join("/");
-                    // if (tagStr.length > 16) {
-                    //     tagStr = tagStr.slice(0, 16) + '...'
-                    // }
-                    // obj['tag'] = tagStr
-
-
-                    const docTime = resultElement['uploadDate']
-                    // if ( typeof docTime === )
                     obj['time'] = parseTime(new Date(), '{y}年{m}月{d}日 {h}:{i}:{s}');
 
                     let userName = resultElement['userName'] || "未知用户"
@@ -235,8 +211,7 @@ export default {
 
         remove(index) {
             this.modal = true
-            let item = this.data[index]
-            this.choosedItem = item;
+            this.choosedItem = this.data[index];
         },
 
         async ok() {
@@ -310,7 +285,7 @@ export default {
                 this.$Message.warning("请勾选！")
                 return
             }
-            if (this.model == null || this.model == "") {
+            if (this.model == null || this.model === "") {
                 this.$Message.warning("请选择原因！")
                 this.modal1 = true
                 return

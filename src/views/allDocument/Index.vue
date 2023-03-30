@@ -46,10 +46,6 @@ export default {
                         ]);
                     }
                 },
-                // {
-                //     title: '标签',
-                //     key: 'tag'
-                // },
                 {
                     title: '创建人',
                     width: 120,
@@ -114,7 +110,7 @@ export default {
     computed: {
         filterColumns() {
             //根据自己的要求去显示和隐藏某一列  我这里想要隐藏操作列
-            if (this.type != "ALL") {
+            if (this.type !== "ALL") {
                 return this.columns.filter(col => col.key !== 'categoryVO');
             }
         }
@@ -128,7 +124,7 @@ export default {
             if (docItem === null || docItem.id == null) {
                 return
             }
-            var params = {
+            let params = {
                 id: docItem.id
             }
             DocumentRequest.deleteData(params).then(response => {

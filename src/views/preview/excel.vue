@@ -138,21 +138,10 @@ export default {
             this.wordURL = 'http://81.69.247.172:8082/files/view/' + docId
 
             xhr.open("get", this.wordURL, true);
-            // xhr.responseType = "arraybuffer";
-            // xhr.onload = () => {
-            //     if (xhr.status == 200) {
-            //         console.log(xhr)
-            //         mammoth.convertToHtml({ arrayBuffer: new Uint8Array(xhr.response) }).then((resultObject) => {
-            //             this.$nextTick(() => {
-            //                 this.wordText = resultObject.value;
-            //             });
-            //         });
-            //     }
-            // };
 
             xhr.responseType = "arraybuffer";
             xhr.onload = () => {
-                if (xhr.status == 200) {
+                if (xhr.status === 200) {
                     console.log(xhr)
                     mammoth.convertToHtml({arrayBuffer: xhr.response}).then((resultObject) => {
                         this.$nextTick(() => {

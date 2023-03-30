@@ -74,7 +74,7 @@ export default {
 <style scoped lang="scss">
 .login-form-container {
     text-align: left;
-    font-family: PingFangSC-Medium, PingFang SC;
+    font-family: PingFangSC-Medium, PingFang SC, sans-serif;
     font-weight: 500;
     color: #000000;
     padding: 37px 86px 0;

@@ -71,8 +71,10 @@ export default {
         this.getSystemConfig()
     },
     watch: {
-        systemConfig: { //监听的对象
-            deep: true, //深度监听设置为 true
+        systemConfig: {
+            //监听的对象
+            deep: true,
+            //深度监听设置为 true
             handler: function (newV, oldV) {
                 this.updateSystemConfig()
             }

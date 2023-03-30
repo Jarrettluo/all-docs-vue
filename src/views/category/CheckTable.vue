@@ -159,11 +159,7 @@ export default {
                 return 'ALL';
             }
             return this.type;
-        },
-        // allSelected: function() {
-        //     console.log(this.$refs.selection)
-        //     return this.$refs.selection;
-        // }
+        }
     },
     methods: {
         show(index) {
@@ -205,7 +201,6 @@ export default {
                 "page": this.currentPage - 1,
                 "rows": this.pageSize,
             }
-            console.log(params)
             DocumentRequest.getDataWithCheck(params).then(res => {
                 this.loading = false
                 if (res.code === 200) {

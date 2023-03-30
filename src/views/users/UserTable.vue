@@ -2,7 +2,6 @@
     <div class="main" ref="tableRef">
         <Table width="100%" :height="height" border :columns="columns" :data="data">
             <template #name="{ row }">
-                <!--            <strong>{{ row.name }}</strong>-->
                 {{ row.username }}
             </template>
             <template #permissionEnum="{row, index}">
@@ -12,8 +11,8 @@
                 </Select>
             </template>
             <template #sex="{row, index}">
-                <p v-if="row.male==true">男</p>
-                <p v-else-if="row.male==false">女</p>
+                <p v-if="row.male===true">男</p>
+                <p v-else-if="row.male===false">女</p>
                 <p v-else>女</p>
             </template>
             <template #action="{ row, index }">
@@ -65,7 +64,7 @@
 <script>
 
 import UserRequest from '@/api/user'
-import {parseTime} from "@/utils/index"
+import {parseTime} from "@/utils"
 
 export default {
     name: "UserTable",
@@ -179,15 +178,14 @@ export default {
             this.remove_modal = true;
         },
         del() {
-            // this.data.splice(index, 1);
             let param = {
                 id: this.remove_item.id
             }
             UserRequest.deleteData(param).then(res => {
                 this.init();
                 this.remove_modal = false
-            }).catch(res => {
-                console.log(res)
+            }).catch(err => {
+                this.$Message.error("出错：" + err)
             })
         },
         async init() {
@@ -195,7 +193,7 @@ export default {
                 page: this.currentPage,
                 rows: this.pageSize
             }
-            UserRequest.getUserList(param).then(res => {
+            await UserRequest.getUserList(param).then(res => {
                 if (res.code === 200) {
                     let resData = res.data;
                     this.data = resData.result;
@@ -203,8 +201,8 @@ export default {
                     this.pageSize = resData.pageSize
                     this.totalItems = resData.total
                 }
-            }).catch(res => {
-                console.log(res)
+            }).catch(err => {
+                this.$Message.error("出错：" + err)
             })
         },
         pageChange(page) {

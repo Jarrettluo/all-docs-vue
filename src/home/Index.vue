@@ -1,6 +1,5 @@
 <template>
     <div class="homepage">
-
         <div class="top-group" style="text-align: center; ">
             <img :src="imgSrc" width="100%" height="100%" alt=""/>
             <SearchGroup></SearchGroup>
@@ -105,10 +104,10 @@ export default {
         this.init()
     },
     filters: {
-        userAvatar(param) {
+        userAvatar() {
             let value = localStorage.getItem("avatar")
             if (value === "" || value === 'null' || value === null || value === undefined) {
-                return require("@/assets/source/user_avater.png");;
+                return require("@/assets/source/user_avater.png");
             } else {
                 return BackendUrl() + "/files/image2/" + value;
             }
@@ -124,7 +123,7 @@ export default {
                     this.data = response.data;
                     this.changeToCurrentTag(this.data[0].name, this.data[0].tagId)
                 }
-            }).catch(err => {
+            }).catch(() => {
                 this.$Message.error("查询最近文档出错！")
             })
         },
@@ -167,7 +166,6 @@ export default {
 
 .homepage {
     width: 100%;
-    //height: 100vh;
     padding-bottom: 20px;
 
     .top-group {
@@ -182,7 +180,7 @@ export default {
             top: 20px;
             display: flex;
             justify-content: flex-start;
-            padding: 5px 5px 0px 5px;
+            padding: 5px 5px 0 5px;
 
             span {
                 height: 36px;
@@ -197,7 +195,6 @@ export default {
             .user-tag {
 
                 border-radius: 36px;
-                //background-color: #ffffff;
                 box-sizing: content-box;
 
                 img {

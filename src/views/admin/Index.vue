@@ -26,9 +26,6 @@ import MyFooter from "@/components/MyFooter";
 export default {
     name: "Index",
     components: {Nav, SideBar, MyFooter},
-    component(id) {
-        SideBar
-    }
 }
 </script>
 

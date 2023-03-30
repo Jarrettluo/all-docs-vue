@@ -43,7 +43,7 @@ export default {
                 {
                     title: '时间',
                     key: 'createDate',
-                    width: 200,
+                    width: 220,
                     render: (h, params) => {
                         let temp = ""
                         let time = params.row.createDate

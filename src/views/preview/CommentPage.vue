@@ -41,7 +41,7 @@
 
 <script>
 
-import {parseTime} from "@/utils/index"
+import {parseTime} from "@/utils"
 
 import CommentRequest from "@/api/comment"
 
@@ -75,7 +75,7 @@ export default {
             //计算相差秒数
             const leave3 = leave2 % (60 * 1000);      //计算分钟数后剩余的毫秒数
             const seconds = Math.round(leave3 / 1000);
-            // console.log(" 相差 "+dayDiff+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒")
+            //(" 相差 "+dayDiff+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒")
 
             if (dayDiff > 0) {
                 return dayDiff + '天前'
@@ -227,8 +227,6 @@ export default {
 
             .comment-item-time {
                 padding-top: 10px;
-                //line-height: 40px;
-                color: #a5a2a3;
                 font-size: 12px;
                 font-family: PingFangSC-Regular, PingFang SC, serif;
                 font-weight: 400;

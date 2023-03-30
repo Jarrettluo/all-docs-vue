@@ -75,7 +75,6 @@ export default {
             this.$emit("changeCate", param)
         },
         clickToSearch(searchValue) {
-            console.log(searchValue)
             this.$emit("changeKeyWord", searchValue)
         },
         getAllItems() {

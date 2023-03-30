@@ -80,7 +80,7 @@ export default {
                     this.userSearch = this.originUserSearch.slice(0, 10);
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.error("出错：" + err)
             })
         },
 

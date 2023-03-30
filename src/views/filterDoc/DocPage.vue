@@ -56,7 +56,6 @@ export default {
             }
             CategoryRequest.getDocList(param).then(res => {
                 if (res.code === 200) {
-                    console.log(res.data)
                     let result = res.data;
                     this.docList = result.data
                     this.pageNum = result.pageNum + 1;
@@ -64,7 +63,7 @@ export default {
                     this.pageSize = result.pageSize
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.error("出错：" + err)
             })
         },
         changeCate(cateId) {

@@ -55,7 +55,6 @@ export default {
     },
     methods: {
         handleChange(cateId) {
-            console.log(cateId)
             this.cateId = cateId
             this.$refs.docTable.getListData(cateId);
         },
@@ -73,16 +72,15 @@ export default {
             this.modal = false
         },
 
-        addRelate(cateId, docId) {
+        async addRelate(cateId, docId) {
             const params = {
                 "id": cateId,
                 "docId": docId,
                 "type": "TAG"
             }
-            CategoryRequest.postRelateData(params).then(
+            await CategoryRequest.postRelateData(params).then(
                 response => {
                     if (response.code === 200) {
-                        console.log(response.data)
                         this.handleChange(cateId)
                     } else {
                         this.$Message.info("错误：" + response.message)
@@ -97,8 +95,6 @@ export default {
          * @param docItem
          */
         removeDoc(docItem) {
-            console.log("=====")
-            console.log(docItem)
             if (docItem === null || docItem.id == null) {
                 return
             }

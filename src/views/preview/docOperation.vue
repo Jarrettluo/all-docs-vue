@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import CollectRequest from '@/api/collect'
 import { BackendUrl } from '@/api/request'
 
 export default {
@@ -53,30 +52,7 @@ export default {
             if (item.index === "3") {
                 window.open(BackendUrl() + "/files/view/" + this.docId, "_blank");
             } else if (item.index === "1" || item.index === "2") {
-
                 this.$emit("addLike", Number(item.index))
-
-                // if (!localStorage.getItem('token')) {
-                //     this.$Message.error('跳转到登录页面，请先登录！');
-                //     this.$router.push({
-                //         path: '/login',
-                //         query: {
-                //             userName: this.userName
-                //         }
-                //     })
-                // }
-                //
-                // let params = {
-                //     docId: this.docId
-                // }
-                // CollectRequest.postData(params).then(res => {
-                //     this.$Notice.info({
-                //         title: '通知信息',
-                //         desc: '收藏点赞成功！'
-                //     });
-                // }).catch(res => {
-                //     console.log(res)
-                // })
             }
         }
     }

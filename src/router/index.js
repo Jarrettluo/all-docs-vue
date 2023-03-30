@@ -5,7 +5,8 @@ import VueRouter from 'vue-router'
 const originalPush = VueRouter.prototype.push
 
 VueRouter.prototype.push = function push(location) {
-    return originalPush.call(this, location).catch(err => err)
+    return originalPush.call(this, location)
+        .catch(err => err)
 }
 
 Vue.use(VueRouter)
@@ -18,13 +19,6 @@ const routes = [
             return import("../home/Index")
         }
     },
-    // {
-    //     path: "/login",
-    //     name: "Login",
-    //     component: function () {
-    //         return import("../views/users/Login")
-    //     },
-    // },
     {
         path: "/",
         name: "login",
@@ -49,13 +43,6 @@ const routes = [
             },
         ]
     },
-    // {
-    //     path: "/registry",
-    //     name: "Registry",
-    //     component: function () {
-    //         return import("../views/users/Registry")
-    //     },
-    // },
     {
         path: "/searchResult",
         name: "searchResult",

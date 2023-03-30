@@ -112,10 +112,7 @@
 
 <script>
 import {BackendUrl} from '@/api/request'
-
 import DocRequest from '@/api/document'
-
-import axios from "axios";
 
 export default {
     name: "DocUpload",

@@ -124,7 +124,7 @@ export default {
                     localStorage.setItem("avatar", resData.avatar)
                 }
             }).catch(err => {
-                console.log(err)
+                this.$Message.error("出错：" + err)
             })
         },
         async updateUserInfo(){

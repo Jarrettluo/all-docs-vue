@@ -38,12 +38,6 @@ export default {
             }
         }
     },
-    // computed: {
-    //     initData: function () {
-    //         // 将对象本地化
-    //         return this.localCate = JSON.parse(JSON.stringify(this.category))
-    //     }
-    // }
     watch: { // 监听到数据然后赋值
         category: {
             // 监听数据发生变化的处理函数

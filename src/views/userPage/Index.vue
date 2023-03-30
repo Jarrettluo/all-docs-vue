@@ -19,7 +19,7 @@
 margin: auto;">
                                     <img :src="0 | userAvatar" alt="用户头像"/>
                                 </div>
-                                <div style="height: 22px; width: 100%; white-space: nowrap;color: #000;font-size: 16px; font-weight: 600px;
+                                <div style="height: 22px; width: 100%; white-space: nowrap;color: #000;font-size: 16px; font-weight: 600;
 line-height: 22px; margin-top: 18px;">
                                     <span>{{ username }}</span>
                                 </div>
@@ -139,7 +139,6 @@ export default {
     },
     methods: {
         selected(item) {
-            console.log(item)
             this.checkedNav = item
             this.$router.replace({name: item.route})
             this.isRouterAlive = false
