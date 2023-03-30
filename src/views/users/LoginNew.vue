@@ -4,7 +4,8 @@
             <Row style="height: 100%">
                 <Col span="12" class="left"></Col>
                 <Col span="12" class="right">
-                    <login-form></login-form>
+<!--                    <login-form></login-form>-->
+                    <router-view></router-view>
                 </Col>
             </Row>
         </div>
@@ -13,10 +14,12 @@
 
 <script>
 import LoginForm from './LoginForm'
+import RegistryForm from './RegistryForm'
 export default {
     name: "LoginNew.vue",
     components: {
-        LoginForm
+        LoginForm,
+        RegistryForm
     }
 }
 </script>

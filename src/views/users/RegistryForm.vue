@@ -1,14 +1,17 @@
 <template>
     <div class="login-form-container">
-        <p class="form-title"><span>欢迎回到 全文档</span></p>
-        <p class="form-subtitle"><span>好久不见，来继续文档畅游之旅吧</span></p>
+        <p class="form-title"><span>欢迎加入 全文档</span></p>
+        <p class="form-subtitle"><span>创建一个全新的账户，开启文档畅游之旅</span></p>
         <div style="margin-top: 40px;">
             <div class="search-input-top">
                 <input type="text" v-model="username" name="username" placeholder="用户名"></input>
             </div>
             <div class="search-input-top">
-                <input  type="password" v-model="pwd" name="password" placeholder="密码"
-                       @keyup.enter="login"></input>
+                <input type="password" v-model="password" name="password" placeholder="密码"></input>
+            </div>
+            <div class="search-input-top">
+                <input type="password" v-model="checkPassword" name="checkPassword" placeholder="确认密码"
+                       @keyup.enter="registry"></input>
             </div>
         </div>
         <div style="padding: 0px 0px 10px 0;margin-top: 40px;">
@@ -19,7 +22,7 @@
                 display: flex;
                 justify-content: center;
                 "
-                 @click="login"
+                 @click="registry"
                             >
                                 <div style="padding: 5px; line-height: 45px;">
                                     <img :src="buttonSrc" width="24px" height="28px"/>
@@ -28,62 +31,50 @@
                                     style="line-height: 45px; color: #000; font-size: 16px; font-weight: 600;"
 
                                 >
-                                                            点我确定登录</span>
+                                                            点我确定注册</span>
 
                             </div>
                         </div>
         <p>还没有账号，现在<span class="focus-word">
-            <router-link to="/registry">注册一个</router-link>
-        </span></p>
+            <router-link to="/login">就要登录</router-link>
+            </span></p>
     </div>
 </template>
 
 <script>
-
 import UserRequest from '@/api/user'
 
 export default {
-    name: "LoginForm.vue",
+    name: "RegistryForm.vue",
     data() {
         return {
             buttonSrc: require("@/assets/source/upload.png"),
             username: "",
-            pwd: "",
-            fromRouteName: ""
+            password: "",
+            checkPassword: "",
         }
     },
-    beforeRouteEnter(to, from, next) {
-        next(vm => {
-            vm.fromRouteName = from.name
-        })
-    },
     methods: {
-        async login() {
+        async registry() {
+            if( this.checkPassword !== this.password) {
+                this.$Message.error('两次密码不相同，请检查');
+                return;
+            }
             let params = {
                 "username": this.username,
-                "password": this.pwd
+                "password": this.checkPassword
             }
-            await UserRequest.postUserLogin(params).then(
+            await UserRequest.postData(params).then(
                 response => {
                     if (response.data == null) {
-                        this.$Message.error(response.message);
+                        this.$Message.error('注册失败，请重试！');
                     } else {
-                        localStorage.setItem("token", response.data.token)
-                        localStorage.setItem("id", response.data.userId)
-                        localStorage.setItem("username", response.data.username)
-                        localStorage.setItem("avatar", response.data.avatar)
-                        localStorage.setItem("type", response.data['type'] || '普通用户');
-                        console.log(this.fromRouteName)
-                        if (this.fromRouteName === "Registry") {
-                            this.$router.push({
-                                path: '/',
-                                query: {
-                                    userName: this.userName
-                                }
-                            })
-                        } else {
-                            this.$router.back()
-                        }
+                        this.$router.push({
+                            path:'/login',
+                            query:{
+                                userName: this.userName
+                            }
+                        })
                     }
                 }
             )

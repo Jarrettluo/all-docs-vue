@@ -18,27 +18,44 @@ const routes = [
             return import("../home/Index")
         }
     },
+    // {
+    //     path: "/login",
+    //     name: "Login",
+    //     component: function () {
+    //         return import("../views/users/Login")
+    //     },
+    // },
     {
-        path: "/login",
-        name: "Login",
-        component: function () {
-            return import("../views/users/Login")
-        },
-    },
-    {
-        path: "/login-new",
-        name: "LoginNew",
+        path: "/",
+        name: "login",
+        redirect: "/login",  //重定向到第一个子路由
         component: function () {
             return import("../views/users/LoginNew")
         },
+        children: [
+            {
+                path: "login",
+                name: "Login",
+                component: function () {
+                    return import("../views/users/LoginForm")
+                },
+            },
+            {
+                path: "registry",
+                name: "Registry",
+                component: function () {
+                    return import("../views/users/RegistryForm")
+                },
+            },
+        ]
     },
-    {
-        path: "/registry",
-        name: "Registry",
-        component: function () {
-            return import("../views/users/Registry")
-        },
-    },
+    // {
+    //     path: "/registry",
+    //     name: "Registry",
+    //     component: function () {
+    //         return import("../views/users/Registry")
+    //     },
+    // },
     {
         path: "/searchResult",
         name: "searchResult",
