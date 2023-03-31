@@ -40,7 +40,7 @@ export default {
                 {
                     title: '时间',
                     key: 'time',
-                    width: 200,
+                    width: 220,
                     fixed: 'left'
                 },
                 {

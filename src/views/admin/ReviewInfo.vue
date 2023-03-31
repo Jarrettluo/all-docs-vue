@@ -92,7 +92,7 @@ export default {
             height: 600,
             currentPage: 1,
             totalItems: 10,
-            pageSize: 10,
+            pageSize: 30,
         }
     },
     created() {

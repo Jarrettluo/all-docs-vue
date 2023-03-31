@@ -125,7 +125,11 @@ export default {
             uploadProcess: 0.00,
             count: [0, ],
             processFlag: false,
-            uploadParam: {}
+            uploadParam: {},
+            //TODO 分类列表；待开发
+            categoryOption: [],
+            // TODO 文档描述信息
+            value1: null
         }
 
     },
@@ -204,6 +208,9 @@ export default {
         handleClose2(event, name) {
             const index = this.count.indexOf(name);
             this.count.splice(index, 1);
+        },
+        switchCategory(){
+            this.$Message.info("待开发")
         }
     }
 }

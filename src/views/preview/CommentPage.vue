@@ -12,7 +12,8 @@
             <div class="comment-item" v-for="item in comments">
                 <div class="comment-item-logo">
                     {{ item.src }}
-                    <img v-if="!item.src" src="../../assets/source/user_avater.png" style="width: 48px;height: 48px;"
+                    <img v-if="!item.src" :src="item.userAvatarId | userAvatar" style="width: 48px;height: 48px;
+border-radius: 48px"
                          alt="">
                 </div>
                 <div class="comment-item-detail">
@@ -42,7 +43,7 @@
 <script>
 
 import {parseTime} from "@/utils"
-
+const {BackendUrl} = require("@/api/request");
 import CommentRequest from "@/api/comment"
 
 export default {
@@ -58,6 +59,7 @@ export default {
             pageSize: 6,
         }
     },
+
     filters: {
         transferTime(value) {
             const dateBegin = new Date(value);
@@ -97,8 +99,15 @@ export default {
             } else {
                 return value
             }
-
+        },
+        userAvatar(value) {
+            if (value === "" || value === 'null' || value === null || value === undefined) {
+                return require("@/assets/source/user_avater.png");
+            } else {
+                return BackendUrl() + "/files/image2/" + value;
+            }
         }
+
     },
     mounted() {
         this.init()

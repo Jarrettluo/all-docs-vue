@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <div class="main" ref="tableRef">
-            <Table ref="commentTable" width="100%" :height="height" border :columns="columns" :data="data">
+            <Table ref="commentTable" width="100%" :height="height" border :columns="columns" :data="tableData">
                 <template #action="{ row, index }">
                     <Button type="error" size="small" @click="remove(index)">删 除</Button>
                 </template>
@@ -82,6 +82,8 @@ export default {
             currentPage: 1,
             totalItems: 20,
             pageSize: 10,
+
+            tableData: []
         }
     },
     created() {
@@ -108,10 +110,10 @@ export default {
             }
             commentRequest.getAllComments(param).then(res => {
                 if (res.code === 200) {
-                    this.data = res.data.data
+                    this.tableData = res.data.data
                     this.totalItems = res.data.total
                 } else {
-                    this.data = []
+                    this.tableData = []
                     this.$Message.error(res.message)
                 }
             }).catch(err => {

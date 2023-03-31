@@ -101,7 +101,7 @@ export default {
                 {
                     title: '创建时间',
                     key: 'time',
-                    width: 200
+                    width: 220
                 },
                 {
                     title: '创建人',

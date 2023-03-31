@@ -1,11 +1,11 @@
 <template>
     <div style="margin: -20px 0;">
         <div style="line-height: 48px;">
-            <Space>
+            <div>
                 筛选:
                 <Input v-model="filterWord" prefix="ios-search" placeholder="输入关键字" style="width: auto;margin-right: 12px;"/>
                 <Button @click="search">搜索</Button>
-            </Space>
+            </div>
         </div>
         <div class="docTable">
             <div class="table-container">
