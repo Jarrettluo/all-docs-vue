@@ -14,14 +14,16 @@
         </div>
 
 
-        <div :style="{width:pdf_div_width,margin:'0 auto', height: '500'}">
-            <canvas v-for="page in pdf_pages" :id="'the_canvas'+page" :key="page"></canvas>
+        <div :style="{width:'100%',margin:'0 auto', height: '500'}" style="background-color: #757575">
+            <canvas v-for="page in pdf_pages" :id="'the_canvas'+page" :key="page" style="margin-bottom: 10px;
+             box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;"></canvas>
         </div>
     </div>
 </template>
 
 <script>
-import { BackendUrl } from '@/api/request'
+import {BackendUrl} from '@/api/request'
+
 let PDFJS = require('pdfjs-dist');
 PDFJS.GlobalWorkerOptions.workerSrc = require("pdfjs-dist/build/pdf.worker.entry.js");
 export default {
@@ -64,40 +66,32 @@ export default {
             this.pdf_scale = this.pdf_scale - 0.1
             this._loadFile(this.pdf_src)
         },
-        get_pdfurl() {  //获得pdf教案
+        get_pdfurl() {
+            //获得pdf教案
             this.loading = true
             let docId = this.docId
 
             //加载本地
-            //  this.pdf_src = 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
-            // this.pdf_src = 'http://81.69.247.172:8082/files/view/62cee7d6ff703f08647e0bbe'
-            // this.pdf_src = 'http://81.69.247.172:8082/files/view/62ba6d2c845f9a73b891bdc4'
-            // this.pdf_src = 'adminapi/blogs/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/4%E3%80%81%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%2814%E9%A2%98%29.pdf'
             this.pdf_src = BackendUrl() + '/files/view/' + docId
             this._loadFile(this.pdf_src)
-            return
-
-
-            //线上请求
-            //  this.$axios.get('')
-            //  .then((res)=>{
-            //  	this.pdf_src = res.url
-            //  	this._loadFile(this.pdf_src)
-            //  })
         },
-        _loadFile(url) {  //初始化pdf
+        _loadFile(url) {
+            //初始化pdf
             let loadingTask = PDFJS.getDocument(url)
             loadingTask.promise
                 .then((pdf) => {
                     this.pdfDoc = pdf
+                    // pdf的总页数ß
                     this.pdf_pages = this.pdfDoc.numPages
                     //debugger
                     this.$nextTick(() => {
                         this._renderPage(1)
                     })
+                    this.view_flag = false
                 })
         },
-        _renderPage(num) {  //渲染pdf页
+        _renderPage(num) {
+            //渲染pdf页
             const that = this
             this.pdfDoc.getPage(num)
                 .then((page) => {
@@ -110,15 +104,14 @@ export default {
                         ctx.oBackingStorePixelRatio ||
                         ctx.backingStorePixelRatio || 1
                     let ratio = dpr / bsr
+                    // 可通过Scale来调节初始的缩放比
                     let viewport = page.getViewport({scale: this.pdf_scale})
 
                     canvas.width = viewport.width * ratio
                     canvas.height = viewport.height * ratio
 
                     canvas.style.width = viewport.width + 'px'
-
                     that.pdf_div_width = viewport.width + 'px'
-
                     canvas.style.height = viewport.height + 'px'
 
                     ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
@@ -126,13 +119,12 @@ export default {
                         canvasContext: ctx,
                         viewport: viewport
                     }
-                    page.render(renderContext)
+                    page.render(renderContext).promise.then(() => {
+                    })
                     if (this.pdf_pages > num) {
                         this._renderPage(num + 1)
                     }
                 })
-
-            this.view_flag = false
         },
     }
 }
@@ -143,6 +135,10 @@ export default {
     width: 1200px;
     //height: 100%;
     height: 900px;
+
+    background-color: #757575;
+    padding-top: 20px;
+    margin-top: -10px;
 
     .pdf_down {
         position: fixed;

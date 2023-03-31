@@ -36,13 +36,15 @@
                            :previewId="previewId"
                 />
             </div>
-            <div class="doc-operation-body">
-                <doc-operation :likeStatus="likeStatus" :collectStatus="collectStatus"
-                               @addLike="addLike"
-                />
-            </div>
-            <div class="doc-comment">
-                <comment-page/>
+            <div class="my-container">
+                <div class="doc-operation-body">
+                    <doc-operation :likeStatus="likeStatus" :collectStatus="collectStatus"
+                                   @addLike="addLike"
+                    />
+                </div>
+                <div class="doc-comment">
+                    <comment-page/>
+                </div>
             </div>
 
         </div>
@@ -309,30 +311,46 @@ export default {
         box-shadow: 0px 0px 5px 0px rgba(64, 64, 64, 0.3000);
         border-radius: 8px;
         background-color: #fffeff;
+
+        overflow: auto;
+        overscroll-behavior: contain;
+        -ms-scroll-chaining: contain;
+
+        position: -webkit-sticky;
+        position: sticky;
+        top: 62px;
     }
 
-    .doc-operation-body {
-        height: 200px;
-        //line-height: 200px;
-        text-align: center;
-        box-shadow: 0px 0px 5px 0px rgba(64, 64, 64, 0.3000);
-        border-radius: 8px;
+    .my-container {
         background-color: #fffeff;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 62px;
+
+        .doc-operation-body {
+            height: 200px;
+            //line-height: 200px;
+            text-align: center;
+            box-shadow: 0px 0px 5px 0px rgba(64, 64, 64, 0.3000);
+            border-radius: 8px;
+            background-color: #fffeff;
+        }
+
+        .doc-comment {
+
+            margin: 20px 0;
+
+            background-color: #42b983;
+            min-height: 120px;
+
+            box-shadow: 0px 0px 5px 0px rgba(64, 64, 64, 0.3000);
+            border-radius: 8px;
+            background-color: #fffeff;
+
+            padding: 36px 40px;
+        }
     }
 
-    .doc-comment {
-
-        margin: 20px 0;
-
-        background-color: #42b983;
-        min-height: 120px;
-
-        box-shadow: 0px 0px 5px 0px rgba(64, 64, 64, 0.3000);
-        border-radius: 8px;
-        background-color: #fffeff;
-
-        padding: 36px 40px;
-    }
 }
 
 </style>
