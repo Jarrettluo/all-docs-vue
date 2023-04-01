@@ -172,7 +172,7 @@ export default {
                 entityId: this.docId
             }
             await DocRequest.getLikeInfo(param).then(res => {
-                if (res.code == 200) {
+                if (res.code === 200) {
                     let result = res.data;
                     this.collectCount = result.collectCount || 0;
                     this.likeCount = result.likeCount || 0;
@@ -306,7 +306,7 @@ export default {
     .doc-preview {
         margin: 20px 0;
         overflow-y: auto;
-        height: 100vh;
+        height: calc(100vh - 80px);
         padding: 10px 0;
         box-shadow: 0px 0px 5px 0px rgba(64, 64, 64, 0.3000);
         border-radius: 8px;

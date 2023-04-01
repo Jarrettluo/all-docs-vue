@@ -35,42 +35,27 @@ export default {
         let wordURL = BackendUrl() + '/files/view/' + docId
         axios({
             method: 'get',
-            responseType: 'blob', // 设置响应文件格式
+            responseType: 'blob',
+            // 设置响应文件格式
             data: {},
             url: wordURL,
         }).then(res => {
-            // that.result = res
-            // res.data.type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            // const blob = new Blob([res.data], { type: "application/msword" });
-
-            // let showFile = window.URL.createObjectURL(blob);
-            // window.open(showFile);   //查看功能需要浏览器打开
-
-            // console.log(res)
-            // let data = res.data
-            // // console.log(data)
-            // docx.renderAsync(blob,this.$refs.file) // 渲染到页面预览
+            // docx.renderAsync(blob,this.$refs.file)
+            // 渲染到页面预览
             docx.renderAsync(res.data, this.$refs.file)
             this.view_flag = false
-            // that.xxx()
         })
-
-        // this.$nextTick(() => {
-        //     console.log(result)
-        // })
     },
     methods: {
-        xxx() {
-            console.log(this.result)
-
-            // this.result.data.type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-
-        }
     }
 }
 </script>
 
 <style scoped>
+
+.home1 {
+    margin-top: -10px;
+}
 /* 旋转效果 */
 .demo-spin-icon-load{
     animation: ani-demo-spin 1s linear infinite;

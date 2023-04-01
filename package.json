@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@vue-office/docx": "^0.2.1",
-    "@vue-office/excel": "^0.2.1",
+    "@vue-office/excel": "^0.2.2",
     "@vue-office/pdf": "^0.2.1",
     "@vue/composition-api": "^1.7.1",
     "ali-oss": "^6.17.1",
