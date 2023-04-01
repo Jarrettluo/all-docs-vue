@@ -4,7 +4,7 @@
              @click="getDocView(top1.id)"
         >
             <div class="doc-thumb">
-                <DocThumb :flag="true" :title="top1.name" :docId="top1.id"></DocThumb>
+                <DocThumb :flag="true" :title="top1.name" :docId="top1.thumbId"></DocThumb>
                 <div class="top-1">
                     <span>Top 1</span>
                 </div>
