@@ -10,7 +10,7 @@
                     </a>
                     <template #list>
                         <DropdownMenu>
-                            <DropdownItem @click.native="$router.push('/admin/allDocuments')">系统管理</DropdownItem>
+                            <DropdownItem @click.native="gotoAdminPage">系统管理</DropdownItem>
                             <DropdownItem @click.native="$router.push('/userPage')">个人主页</DropdownItem>
                             <DropdownItem @click.native="logout()" divided>退出登录</DropdownItem>
                         </DropdownMenu>
@@ -157,6 +157,14 @@ export default {
             this.$router.push({
                 name: 'Login'
             })
+        },
+
+        gotoAdminPage() {
+            if (localStorage.getItem('type')==='ADMIN') {
+                this.$router.push('/admin/allDocuments')
+            } else {
+                this.$Message.warning("请使用管理员账号登录！")
+            }
         }
     }
 }
