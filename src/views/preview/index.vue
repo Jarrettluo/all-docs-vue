@@ -14,7 +14,8 @@
                         {{ title }}
                     </div>
                     <div class="doc-info-tag">
-                        <Tag :color="item.color" v-for="item in tags" :index="item.index">{{ item.name }}</Tag>
+                        <Tag :color="item.color" v-for="item in tags" :index="item.index"
+                        ><span @click="searchTag(item.name)">{{ item.name }}</span></Tag>
                     </div>
                     <div class="doc-info-detail">
                         <Icon type="md-person"/>
@@ -220,6 +221,16 @@ export default {
             }).catch(err => {
                 this.$Message.info("error")
             })
+        },
+        searchTag(value) {
+            if (value !== "") {
+                this.$router.push({
+                    path: '/searchResult',
+                    query: {
+                        keyWord: value
+                    }
+                })
+            }
         }
 
     }
@@ -289,6 +300,10 @@ export default {
                 display: flex;
                 align-items: flex-start;
                 padding-top: 8px;
+                
+                .ivu-tag:hover {
+                    cursor: pointer;
+                }
             }
 
             .doc-info-detail {

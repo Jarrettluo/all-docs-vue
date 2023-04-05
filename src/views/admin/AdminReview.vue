@@ -189,7 +189,7 @@ export default {
                     if (typeof docSize === "number" && docSize > 0) {
                         obj['size'] = fileTool.bytesToSize(docSize)
                     }
-                    obj['time'] = parseTime(new Date(), '{y}年{m}月{d}日 {h}:{i}:{s}');
+                    obj['time'] = parseTime(resultElement['uploadDate'], '{y}年{m}月{d}日 {h}:{i}:{s}');
 
                     let userName = resultElement['userName'] || "未知用户"
                     if (userName.length > 4) {

@@ -19,7 +19,7 @@
             label="点我立即注册"
             @click="registry"
         ></submit-button>
-        <p>还没有账号，现在<span class="focus-word">
+        <p>已经有账号，现在<span class="focus-word">
             <router-link to="/login">就要登录</router-link>
             </span></p>
     </div>

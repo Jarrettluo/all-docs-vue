@@ -107,7 +107,7 @@ export default {
     filters: {
         imgSrc(value) {
             if(value === "" || value === undefined || value == null) {
-                return BackendUrl() + "/files/image2/d2d9933cf295443990b2bed036a534ec";
+                return require('@/assets/source/doc.png');
             } else {
                 return BackendUrl() + "/files/image2/" + value;
             }
