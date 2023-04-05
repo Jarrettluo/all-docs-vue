@@ -6,7 +6,10 @@ import {
     CATE_ADD_URL,
     CATE_REMOVE_URL,
     CATE_UPDATE_URL,
-    QUERY_BY_CATE_URL
+    QUERY_BY_CATE_URL,
+
+    MY_COLLECT_URL,
+    MY_UPLOAD_URL,
 
 } from './url'
 
@@ -37,6 +40,14 @@ export default {
 
     getDocList: (params) => {
         return Get(QUERY_BY_CATE_URL, params);
+    },
+
+    getMyCollectList: (params) => {
+        return Get(MY_COLLECT_URL, params);
+    },
+
+    getMyUploadList: (params) => {
+        return Get(MY_UPLOAD_URL, params);
     },
 }
 

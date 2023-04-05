@@ -1,5 +1,5 @@
 <template>
-    <DocPage></DocPage>
+    <DocPage request-type="collect"></DocPage>
 </template>
 
 <script>

@@ -36,6 +36,7 @@ export default {
             keyword: ''
         }
     },
+    props: ["requestType"],
     components: {
         SearchGroup,
         TagFilter,
@@ -54,17 +55,44 @@ export default {
                 page: this.pageNum,
                 rows: this.pageSize
             }
-            CategoryRequest.getDocList(param).then(res => {
-                if (res.code === 200) {
-                    let result = res.data;
-                    this.docList = result.data
-                    this.pageNum = result.pageNum + 1;
-                    this.total = result.total;
-                    this.pageSize = result.pageSize
-                }
-            }).catch(err => {
-                this.$Message.error("出错：" + err)
-            })
+            if (this.requestType === 'collect') {
+                CategoryRequest.getMyCollectList(param).then(res => {
+                    if (res.code === 200) {
+                        let result = res.data;
+                        this.docList = result.data
+                        this.pageNum = result.pageNum + 1;
+                        this.total = result.total;
+                        this.pageSize = result.pageSize
+                    }
+                }).catch(err => {
+                    this.$Message.error("出错：" + err)
+                })
+            } else if (this.requestType === 'upload') {
+                CategoryRequest.getMyUploadList(param).then(res => {
+                    if (res.code === 200) {
+                        let result = res.data;
+                        this.docList = result.data
+                        this.pageNum = result.pageNum + 1;
+                        this.total = result.total;
+                        this.pageSize = result.pageSize
+                    }
+                }).catch(err => {
+                    this.$Message.error("出错：" + err)
+                })
+            } else {
+                CategoryRequest.getDocList(param).then(res => {
+                    if (res.code === 200) {
+                        let result = res.data;
+                        this.docList = result.data
+                        this.pageNum = result.pageNum + 1;
+                        this.total = result.total;
+                        this.pageSize = result.pageSize
+                    }
+                }).catch(err => {
+                    this.$Message.error("出错：" + err)
+                })
+            }
+
         },
         changeCate(cateId) {
             this.cateId = cateId

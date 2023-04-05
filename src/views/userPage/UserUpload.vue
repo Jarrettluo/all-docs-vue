@@ -1,5 +1,5 @@
 <template>
-    <doc-page></doc-page>
+    <doc-page request-type="upload"></doc-page>
 </template>
 
 <script>
