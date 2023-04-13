@@ -4,8 +4,17 @@
             <br>
             <Form :model="formTop" label-position="top">
                 <Form-item label="文档选择">
-                    <input type="file" onchange="selectFolder" webkitdirectory></input>
+                    <div class="fileUpload">
+                        <a href="javascript:;" class="file">选择文件夹
+                            <input type="file" name="" id="file2" onchange="selectFolder" webkitdirectory>
+                        </a>
+                    </div>
+                    <div class="file-container">
+                        这里是选中的文件夹名称！
+                    </div>
+<!--                    <input type="file" onchange="selectFolder" webkitdirectory></input>-->
                 </Form-item>
+
                 <Form-item label="文档分类">
                     <Select v-model="formTop.select" placeholder="请选择">
                         <Option value="beijing">北京市</Option>
@@ -67,6 +76,39 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.fileUpload {
+    width: 120px;
+    line-height: 32px;
+    background-color: #ffcc4f;
+    border-radius: 8px;
+    border: 1px #f5bb3a solid;
+    text-align: center;
+    color: #fffeff;
+    &:hover{
+        cursor: pointer;
+    }
+    a {
+        color: #fffeff;
+        width: 120px;
+    }
+    .file input {
+        //width: 120px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        opacity: 0;/*关键点*/
+        filter: alpha(opacity=0);/*兼容ie*/
+        font-size: 100px;/* 增大不同浏览器的可点击区域 */
+        cursor: pointer;
+    }
+}
 
+.file-container {
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    padding: 5px 10px 5px 0;
+    font-size: 10px;
+}
 </style>
