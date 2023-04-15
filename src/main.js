@@ -6,6 +6,13 @@ import iView from 'view-design'
 import "@/assets/font/font.css";
 import Api from './api/index';
 import '../theme/my-theme.less'
+import '../theme/bulma.min.css'
+
+import '../theme/tag-input.css'
+
+import VoerroTagsInput from '@voerro/vue-tagsinput';
+
+Vue.component('tags-input', VoerroTagsInput);
 
 Vue.use(VueRouter);
 Vue.use(iView);

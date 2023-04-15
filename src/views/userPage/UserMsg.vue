@@ -212,7 +212,7 @@ export default {
                     this.getPageData()
                 }
             }).catch(err => {
-                this.$Message.error("出错:" + err)
+                this.$Message.error("出错:" + (err || '请稍后重试'))
             })
         }
 

@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@voerro/vue-tagsinput": "^2.7.1",
     "@vue-office/docx": "^0.2.1",
     "@vue-office/excel": "^0.2.2",
     "@vue-office/pdf": "^0.2.1",

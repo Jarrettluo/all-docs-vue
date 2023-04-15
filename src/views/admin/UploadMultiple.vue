@@ -17,7 +17,16 @@
                     <Input v-model="formTop.input1"></Input>
                 </Form-item>
                 <Form-item label="标签选择">
-                    <Input v-model="formTop.input2"></Input>
+<!--                    <Input v-model="formTop.input2"></Input>-->
+                    <tags-input element-id="tags"
+                                v-model="selectedTags"
+                                :existing-tags="[
+                                    { key: 'web-development', value: 'Web Development' },
+                                    { key: 'php', value: 'PHP' },
+                                    { key: 'javascript', value: 'JavaScript' },
+                                ]"
+                                typeahead="true">
+                    </tags-input>
                 </Form-item>
                 <Form-item label="文档详情">
                     <Input v-model="formTop.input3" type="textarea" :rows="4"></Input>
@@ -38,7 +47,9 @@
 <script>
 
 import SubmitButton from '@/components/SubmitButton'
+import VoerroTagsInput from '@voerro/vue-tagsinput';
 
+// Vue.component('tags-input', VoerroTagsInput);
 
 export default {
     name: "UploadMultiple",
@@ -46,10 +57,14 @@ export default {
         return {
             formTop: {},
             buttonSrc: require("@/assets/source/upload.png"),
+            selectedTags:{},
+            switch1: true
         }
     },
     components: {
-        SubmitButton
+        SubmitButton,
+        'tags-input':VoerroTagsInput,
+
     }
 }
 </script>
