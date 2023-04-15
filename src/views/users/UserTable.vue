@@ -185,7 +185,7 @@ export default {
                 this.init();
                 this.remove_modal = false
             }).catch(err => {
-                this.$Message.error("出错：" + err)
+                this.$Message.error("出错：" + (err||'请稍后重试！'))
             })
         },
         async init() {
@@ -202,7 +202,7 @@ export default {
                     this.totalItems = resData.total
                 }
             }).catch(err => {
-                this.$Message.error("出错：" + err)
+                this.$Message.error("出错：" + (err || '请稍后重试'))
             })
         },
         pageChange(page) {

@@ -122,7 +122,7 @@ export default {
                     }
                 }
             }).catch(err => {
-                this.$Message.error("出错：" + err)
+                this.$Message.error("出错：" + (err || '请稍后重试'))
             })
         },
 
@@ -151,7 +151,7 @@ export default {
                     this.data = []
                 }
             }).catch(err => {
-                this.$Message.error("出错：" + err)
+                this.$Message.error("出错：" + (err || '请稍后重试'))
             })
         },
 
@@ -177,7 +177,7 @@ export default {
                     this.getAllReviews()
                 }
             }).catch(err => {
-                this.$Message.error("出错：" + err)
+                this.$Message.error("出错：" + (err || '请稍后重试'));
             })
 
         },

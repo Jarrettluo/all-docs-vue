@@ -207,7 +207,7 @@ export default {
                     await UserRequest.addUserAvatar(formData).then(res => {
                         this.$Message.success("上传头像成功");
                     }).catch(err => {
-                        this.$Message.error("出错：" + err)
+                        this.$Message.error("出错：" + (err || '请稍后重试'))
                     })
 
 

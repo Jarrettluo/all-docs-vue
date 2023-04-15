@@ -65,7 +65,7 @@ export default {
                         this.pageSize = result.pageSize
                     }
                 }).catch(err => {
-                    this.$Message.error("出错：" + err)
+                    this.$Message.error("出错：" + (err || '请稍后重试'))
                 })
             } else if (this.requestType === 'upload') {
                 CategoryRequest.getMyUploadList(param).then(res => {
@@ -77,7 +77,7 @@ export default {
                         this.pageSize = result.pageSize
                     }
                 }).catch(err => {
-                    this.$Message.error("出错：" + err)
+                    this.$Message.error("出错：" + (err || '请稍后重试'))
                 })
             } else {
                 CategoryRequest.getDocList(param).then(res => {
@@ -89,7 +89,7 @@ export default {
                         this.pageSize = result.pageSize
                     }
                 }).catch(err => {
-                    this.$Message.error("出错：" + err)
+                    this.$Message.error("出错：" + (err || '请稍后重试'))
                 })
             }
 
