@@ -25,6 +25,7 @@
                                     { key: 'php', value: 'PHP' },
                                     { key: 'javascript', value: 'JavaScript' },
                                 ]"
+                                placeholder="请选择标签"
                                 typeahead="true">
                     </tags-input>
                 </Form-item>
