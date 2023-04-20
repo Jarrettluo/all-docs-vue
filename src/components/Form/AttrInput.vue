@@ -2,10 +2,8 @@
     <div>
         <Form :model="formTop" label-position="top">
             <Form-item label="文档分类">
-                <Select v-model="formTop.select" placeholder="请选择">
-                    <Option value="beijing">北京市</Option>
-                    <Option value="shanghai">上海市</Option>
-                    <Option value="shenzhen">深圳市</Option>
+                <Select v-model="formTop.select" placeholder="请选择分类">
+                    <Option v-for="item in categoryOption" :value="item.id">{{ item.seeName }}</Option>
                 </Select>
             </Form-item>
             <Form-item label="标签选择">
@@ -17,14 +15,18 @@
                                     { key: 'javascript', value: 'JavaScript' },
                                 ]"
                             placeholder="请选择标签"
-                            typeahead="true">
+                            :limit="10"
+                            :typeahead="true"
+                            :typeahead-always-show="true"
+                            :typeahead-hide-discard="true"
+                >
                 </tags-input>
             </Form-item>
             <Form-item label="详情文本">
                 <Input v-model="formTop.input3" type="textarea" :rows="4"></Input>
             </Form-item>
         </Form>
-        异常跳过
+        异常跳过1
         <i-switch v-model="switch1" @on-change="change"></i-switch>
 
         <submit-button
@@ -32,6 +34,7 @@
             label="开始上传"
             @click="login"
         ></submit-button>
+        {{categoryOption}}
     </div>
 </template>
 
@@ -39,6 +42,8 @@
 
 import SubmitButton from '@/components/SubmitButton'
 import VoerroTagsInput from '@voerro/vue-tagsinput';
+import CategoryRequest from "@/api/category";
+// 参考文档 https://github.com/voerro/vue-tagsinput
 
 export default {
     name: "AttrInput",
@@ -46,11 +51,43 @@ export default {
         return {
             formTop: {},
             buttonSrc: require("@/assets/source/upload.png"),
+            selectedTags: [],
+            categoryType: "CATEGORY",
+            categoryOption: null
         }
     },
     components: {
         SubmitButton
     },
+    mounted() {
+        this.getAllItems()
+    },
+    methods: {
+        getAllItems() {
+            this.loading = true
+            const params = {
+                type: this.categoryType
+            };
+            CategoryRequest.getListData(params).then(response => {
+                this.loading = false;
+                if (response.code !== 200) {
+                    return;
+                }
+                this.listLoading = false
+                this.categoryOption = [{id: "ALL", name: "全部分类", seeName: '全部分类', createDate: '', updateDate: ''}]
+                if (response.data.length > 0) {
+                    response.data.forEach(item => {
+                        if (item.name.length > 8) {
+                            item['seeName'] = item.name.slice(0, 8) + "..."
+                        } else {
+                            item['seeName'] = item.name
+                        }
+                        this.categoryOption.push(item)
+                    })
+                }
+            })
+        },
+    }
 }
 </script>
 
