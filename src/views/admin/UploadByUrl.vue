@@ -7,11 +7,12 @@
                     <Input v-model="formItem.input" placeholder="请输入链接"></Input>
                 </Form-item>
             </Form>
-            <attr-input></attr-input>
+            <attr-input
+                @startUpload="startUpload"
+            ></attr-input>
 
         </Col>
         <Col span="12">
-
         </Col>
     </Row>
 
@@ -31,6 +32,14 @@ export default {
     components: {
         AttrInput
     },
+    methods: {
+        startUpload(value) {
+            this.$Message.info(value)
+        },
+        uploadFileByUrl() {
+            return;
+        }
+    }
 }
 </script>
 
