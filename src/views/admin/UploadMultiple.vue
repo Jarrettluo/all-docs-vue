@@ -12,34 +12,8 @@
                     <p>点击或将文件拖拽到这里上传</p>
                 </div>
             </Upload>
-            <Form :model="formTop" label-position="top">
-                <Form-item label="分类选择">
-                    <Input v-model="formTop.input1"></Input>
-                </Form-item>
-                <Form-item label="标签选择">
-<!--                    <Input v-model="formTop.input2"></Input>-->
-                    <tags-input element-id="tags"
-                                v-model="selectedTags"
-                                :existing-tags="[
-                                    { key: 'web-development', value: 'Web Development' },
-                                    { key: 'php', value: 'PHP' },
-                                    { key: 'javascript', value: 'JavaScript' },
-                                ]"
-                                placeholder="请选择标签"
-                                typeahead="true">
-                    </tags-input>
-                </Form-item>
-                <Form-item label="文档详情">
-                    <Input v-model="formTop.input3" type="textarea" :rows="4"></Input>
-                </Form-item>
-            </Form>
-            异常跳过
-            <i-switch v-model="switch1" @on-change="change"></i-switch>
-            <submit-button
-                :src="buttonSrc"
-                label="开始上传"
-                @click="login"
-            ></submit-button>
+            <attr-input></attr-input>
+
         </Col>
         <Col span="12"></Col>
     </Row>
@@ -47,11 +21,7 @@
 
 <script>
 
-import SubmitButton from '@/components/SubmitButton'
-import VoerroTagsInput from '@voerro/vue-tagsinput';
-
-// Vue.component('tags-input', VoerroTagsInput);
-
+import AttrInput from '@/components/Form/AttrInput'
 export default {
     name: "UploadMultiple",
     data() {
@@ -63,10 +33,8 @@ export default {
         }
     },
     components: {
-        SubmitButton,
-        'tags-input':VoerroTagsInput,
-
-    }
+        AttrInput
+    },
 }
 </script>
 

@@ -20,9 +20,13 @@
 }
 
 .tags-input-wrapper-default {
-    padding: .5em .25em;
+    /*padding: .5em .25em;*/
 
+    padding: 0 8px;
     background: #fff;
+
+    max-height: 120px;
+    overflow-y: auto;
 
     border: 1px solid transparent;
     border-radius: .25em;
@@ -30,8 +34,8 @@
 }
 
 .tags-input-wrapper-default.active {
-    border: 1px solid #8bbafe;
-    box-shadow: 0 0 0 0.2em rgba(13, 110, 253, 0.25);
+    /*border: 1px solid #8bbafe;*/
+    /*box-shadow: 0 0 0 0.2em rgba(13, 110, 253, 0.25);*/
     outline: 0 none;
 }
 
