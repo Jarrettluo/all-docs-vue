@@ -29,6 +29,7 @@
 <script>
 
 import AttrInput from '@/components/Form/AttrInput'
+import DocRequest from '@/api/document'
 
 export default {
     name: "UploadDirectory2",
@@ -45,7 +46,7 @@ export default {
         startUpload(value) {
             this.$Message.info(value)
         },
-        selectFolder(e) {
+        async selectFolder(e) {
             // 文件夹下所有文件
             var files = e.target.files;
 
@@ -70,19 +71,24 @@ export default {
             formData.append('uploadType', '备料单')
             formData.append('versions', 'v4.0')
 
-            //自定义的接口也可以用ajax或者自己封装的接口
-            request({
-                method: 'POST',
-                url: '/uploadFile',   //填写自己的接口
-                data: formData        //填写包装好的formData对象
-            }).then(res => {
-                if (res.data.code == 200) {
-                    this.$Message.success('上传成功');
+
+            await DocRequest.docUpload(formData, null).then(res => {
+                if (res.code === 200) {
+                    // this.uploadProcess = 1;
+                    this.$Message.success("成功！")
                 } else {
-                    this.$Message.error('上传失败');
+                    this.$Message.error("上传出错：" + res.message)
+                    // this.uploadProcess = 0.00
                 }
-                //清空fileList
-                this.fileList = []
+
+                setTimeout(() => {
+                    this.processFlag = false;
+                    this.filename = ''
+                }, 1000)
+            }).catch(err => {
+                this.$Message.error("上传出错！")
+                // this.processFlag = false
+                // this.uploadProcess = 0.0
             })
 
         }

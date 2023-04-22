@@ -2,7 +2,7 @@
     <div>
         <Form :model="formTop" label-position="top">
             <Form-item label="文档分类">
-                <Select v-model="formTop.select" placeholder="请选择分类">
+                <Select v-model="formTop.category" placeholder="请选择分类">
                     <Option v-for="item in categoryOption" :value="item.id">{{ item.seeName }}</Option>
                 </Select>
             </Form-item>
@@ -19,11 +19,11 @@
                 </tags-input>
             </Form-item>
             <Form-item label="详情文本">
-                <Input v-model="formTop.input3" type="textarea" :rows="4"></Input>
+                <Input v-model="formTop.description" type="textarea" :rows="4"></Input>
             </Form-item>
         </Form>
         异常跳过
-        <i-switch v-model="switch1" @on-change="change"></i-switch>
+        <i-switch v-model="skipError" @on-change="change"></i-switch>
 
         <submit-button
             :src="buttonSrc"
@@ -51,6 +51,7 @@ export default {
             categoryOption: null,
             tagType: "TAG",
             tagOption: [],
+            skipError: false,
         }
     },
     components: {
@@ -114,6 +115,20 @@ export default {
         },
         startUpload() {
             this.$emit("startUpload", {})
+        },
+        getSelectedTags() {
+            return this.selectedTags
+        },
+
+        getCategory() {
+            return this.formTop.category
+        },
+
+        getDesc() {
+            return this.description
+        },
+        getSkipError() {
+            return this.skipError
         }
     }
 }
