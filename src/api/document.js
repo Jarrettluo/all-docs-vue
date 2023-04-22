@@ -5,6 +5,9 @@ import {
     DOC_WITH_CHECK_URL,
 
     DOC_UPLOAD_URL,
+    DOC_UPLOAD_BATCH_URL,
+    DOC_UPLOAD_BY_URL_URL,
+
     DOC_VIEW_URL,
     DOC_TXT_URL,
     DOC_REBUILD_URL,
@@ -37,6 +40,14 @@ export default {
     // 必须登录以后进行上传
     docUpload: (param, config) => {
         return Post(DOC_UPLOAD_URL, param, config)
+    },
+
+    docUploadBatch: (param, config) => {
+        return Post(DOC_UPLOAD_BATCH_URL, param, config)
+    },
+
+    docUploadByUrl: (param, config) => {
+        return Post(DOC_UPLOAD_BY_URL_URL, param, config)
     },
 
     getView: (param) => {

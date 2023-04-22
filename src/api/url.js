@@ -18,6 +18,9 @@ const DOC_WITH_CHECK_URL = '/document/listWithCategory'; // 返回已经选中�
 const ABC = '/files/view/'
 
 const DOC_UPLOAD_URL = '/files/auth/upload'; // 上传文档
+const DOC_UPLOAD_BATCH_URL = '/files/auth/uploadBatch'; // 批量上传文档
+const DOC_UPLOAD_BY_URL_URL = '/files/auth/uploadByUrl'; // 根据url路径下载文件
+
 const DOC_VIEW_URL = '/files/view/'; // 预览文档
 const DOC_TXT_URL = '/files/text/'; // 下载文本文件
 const DOC_REBUILD_URL = '/files/rebuildIndex'; // 重建文档索引
@@ -90,6 +93,9 @@ module.exports = {
     DOC_WITH_CHECK_URL,
 
     DOC_UPLOAD_URL,
+    DOC_UPLOAD_BATCH_URL,
+    DOC_UPLOAD_BY_URL_URL,
+
     DOC_VIEW_URL,
     DOC_TXT_URL,
     DOC_REBUILD_URL,
