@@ -12,10 +12,10 @@
                     <div class="file-container">
                         这里是选中的文件夹名称！
                     </div>
-<!--                    <input type="file" onchange="selectFolder" webkitdirectory></input>-->
                 </Form-item>
             </Form>
             <attr-input
+                ref="paramForm"
                 @startUpload="startUpload"
             ></attr-input>
         </Col>
@@ -37,60 +37,37 @@ export default {
         return {
             formTop: {},
             buttonSrc: require("@/assets/source/upload.png"),
+            selectedFiles: []
         }
     },
     components: {
         AttrInput
     },
     methods: {
-        startUpload(value) {
-            this.$Message.info(value)
-        },
-        async selectFolder(e) {
+        selectFolder(e) {
             // 文件夹下所有文件
-            var files = e.target.files;
-
-            console.log(files)
-
-            // 文件夹名称
-            var relativePath = files[0].webkitRelativePath;
-
-
-            //判断是否有文件再上传
-            if (this.fileList.length === 0) {
-                return this.$Message.warning('请选取文件后再上传')
-            }
+            let files = e.target.files;
+        },
+        async startUpload(e) {
             // 下面的代码将创建一个空的FormData对象:
             const formData = new FormData()
-            // 你可以使用FormData.append来添加键/值对到表单里面；
-            this.fileList.forEach((file) => {
-                formData.append('file', file.raw)
-            })
+            formData.append("files", this.selectedFiles)
             // 添加自定义参数，不传可删除
-            formData.append('parentId', '49')
-            formData.append('uploadType', '备料单')
-            formData.append('versions', 'v4.0')
+            formData.append('category', this.$refs['paramForm'].getCategory())
+            formData.append('tags', this.$refs['paramForm'].getSelectedTags())
+            formData.append('skipError', this.$refs['paramForm'].getSkipError())
+            formData.append('description', this.$refs['paramForm'].getDesc())
 
-
-            await DocRequest.docUpload(formData, null).then(res => {
+            await DocRequest.docUploadBatch(formData, null).then(res => {
                 if (res.code === 200) {
-                    // this.uploadProcess = 1;
                     this.$Message.success("成功！")
                 } else {
                     this.$Message.error("上传出错：" + res.message)
-                    // this.uploadProcess = 0.00
                 }
-
-                setTimeout(() => {
-                    this.processFlag = false;
-                    this.filename = ''
-                }, 1000)
             }).catch(err => {
                 this.$Message.error("上传出错！")
-                // this.processFlag = false
-                // this.uploadProcess = 0.0
             })
-
+            this.selectedFiles = []
         }
     }
 
@@ -106,21 +83,24 @@ export default {
     border: 1px #f5bb3a solid;
     text-align: center;
     color: #fffeff;
-    &:hover{
+
+    &:hover {
         cursor: pointer;
     }
+
     a {
         color: #fffeff;
         width: 120px;
     }
+
     .file input {
         //width: 120px;
         position: absolute;
         right: 0;
         top: 0;
-        opacity: 0;/*关键点*/
-        filter: alpha(opacity=0);/*兼容ie*/
-        font-size: 100px;/* 增大不同浏览器的可点击区域 */
+        opacity: 0; /*关键点*/
+        filter: alpha(opacity=0); /*兼容ie*/
+        font-size: 100px; /* 增大不同浏览器的可点击区域 */
         cursor: pointer;
     }
 }

@@ -6,13 +6,17 @@
             <Upload
                 multiple
                 type="drag"
-                action="">
+                action=""
+                :auto-upload="false"
+                :before-upload="handleUpload"
+            >
                 <div style="padding: 20px 0">
                     <Icon type="ios-cloud-upload" size="52" style="color: #ffcc4f"></Icon>
                     <p>点击或将文件拖拽到这里上传</p>
                 </div>
             </Upload>
             <attr-input
+                ref="paramForm"
                 @startUpload="startUpload"
             ></attr-input>
 
@@ -40,60 +44,35 @@ export default {
         AttrInput
     },
     methods: {
-        startUpload(value) {
-            this.$Message.info(value)
+        handleUpload (file) {
+            this.fileList = file;
+            return false;
         },
         //上传服务器
-        async submitUpload() {
+        async startUpload() {
             //判断是否有文件再上传
             if (this.fileList.length === 0) {
                 return this.$Message.warning('请选取文件后再上传')
             }
             // 下面的代码将创建一个空的FormData对象:
             const formData = new FormData()
-            // // 你可以使用FormData.append来添加键/值对到表单里面；
-            // this.fileList.forEach((file) => {
-            //     formData.append('file', file.raw)
-            // })
+
             formData.append("files", this.fileList)
             // 添加自定义参数，不传可删除
-            formData.append('parentId', '49')
-            formData.append('uploadType', '备料单')
-            formData.append('versions', 'v4.0')
+            formData.append('category', this.$refs['paramForm'].getCategory())
+            formData.append('tags', this.$refs['paramForm'].getSelectedTags())
+            formData.append('skipError', this.$refs['paramForm'].getSkipError())
+            formData.append('description', this.$refs['paramForm'].getDesc())
 
-            await DocRequest.docUpload(formData, null).then(res => {
+            await DocRequest.docUploadBatch(formData, null).then(res => {
                 if (res.code === 200) {
-                    // this.uploadProcess = 1;
                     this.$Message.success("成功！")
                 } else {
                     this.$Message.error("上传出错：" + res.message)
-                    // this.uploadProcess = 0.00
                 }
-
-                setTimeout(() => {
-                    this.processFlag = false;
-                    this.filename = ''
-                }, 1000)
             }).catch(err => {
                 this.$Message.error("上传出错！")
-                // this.processFlag = false
-                // this.uploadProcess = 0.0
             })
-
-            // //自定义的接口也可以用ajax或者自己封装的接口
-            // request({
-            //     method: 'POST',
-            //     url: '/uploadFile',   //填写自己的接口
-            //     data: formData        //填写包装好的formData对象
-            // }).then(res => {
-            //     if (res.data.code == 200) {
-            //         this.$Message.success('上传成功');
-            //     } else {
-            //         this.$Message.error('上传失败');
-            //     }
-            //     //清空fileList
-            //     this.fileList = []
-            // })
         }
     }
 }

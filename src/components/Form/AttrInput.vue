@@ -117,11 +117,19 @@ export default {
             this.$emit("startUpload", {})
         },
         getSelectedTags() {
-            return this.selectedTags
+            let tagValueList = []
+            this.selectedTags.forEach(item => {
+                tagValueList.push(item.value)
+            })
+            return tagValueList
         },
 
         getCategory() {
-            return this.formTop.category
+            let cate = this.formTop.category
+            if (cate != null && cate !== '') {
+                return this.categoryOption[cate];
+            }
+            return null;
         },
 
         getDesc() {
