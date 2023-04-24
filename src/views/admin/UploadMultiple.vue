@@ -15,6 +15,13 @@
                     <p>点击或将文件拖拽到这里上传</p>
                 </div>
             </Upload>
+            <div>
+                <ul>
+                    {{sfjsjl}}
+                    {{fileList}}
+                    <li v-for="i in fileList">{{ i }}</li>
+                </ul>
+            </div>
             <attr-input
                 ref="paramForm"
                 @startUpload="startUpload"
@@ -37,7 +44,8 @@ export default {
             formTop: {},
             buttonSrc: require("@/assets/source/upload.png"),
             selectedTags: {},
-            switch1: true
+            switch1: true,
+            fileList: []
         }
     },
     components: {

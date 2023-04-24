@@ -5,8 +5,8 @@
             <Form :model="formTop" label-position="top">
                 <Form-item label="文档选择">
                     <div class="fileUpload">
-                        <a href="javascript:;" class="file">选择文件夹
-                            <input type="file" name="" id="file2" onchange="selectFolder" webkitdirectory>
+                        <a href="javascript:" class="file">选择文件夹
+                            <input type="file" name="" id="file2" @change="selectFolder($event)" multiple directory mozdirectory webkitdirectory>
                         </a>
                     </div>
                     <div class="file-container">
@@ -46,12 +46,18 @@ export default {
     methods: {
         selectFolder(e) {
             // 文件夹下所有文件
-            let files = e.target.files;
+            this.selectedFiles = e.target.files;
         },
-        async startUpload(e) {
+        async startUpload() {
+            if (this.selectedFiles == null || this.selectedFiles.length == 0) {
+                return;
+            }
             // 下面的代码将创建一个空的FormData对象:
             const formData = new FormData()
-            formData.append("files", this.selectedFiles)
+            for(let i = 0; i< this.selectedFiles.length; i ++) {
+                formData.append("files", this.selectedFiles[i])
+            }
+
             // 添加自定义参数，不传可删除
             formData.append('category', this.$refs['paramForm'].getCategory())
             formData.append('tags', this.$refs['paramForm'].getSelectedTags())
