@@ -4,14 +4,14 @@
             <TabPane label="单文件上传" name="name1" style="height: 100%; padding-top: 32px;">
                 <doc-upload style="margin: -40px -20px;"></doc-upload>
             </TabPane>
-            <TabPane label="多文件上传" name="name2" style="height: 100%; overflow-y: auto">
-                <upload-multiple></upload-multiple>
+            <TabPane label="多文件上传" name="name2" style="height: 100%;">
+                <upload-multiple style="height: calc(100vh - 200px); overflow-y: auto;"></upload-multiple>
             </TabPane>
             <TabPane label="文件夹上传" name="name3" style="height: 100%;">
-                <upload-directory></upload-directory>
+                <upload-directory style="height: calc(100vh - 200px); overflow-y: auto;"></upload-directory>
             </TabPane>
             <TabPane label="链接上传" name="name4" style="height: 100%;">
-                <upload-by-url></upload-by-url>
+                <upload-by-url style="height: calc(100vh - 200px); overflow-y: auto;"></upload-by-url>
             </TabPane>
         </Tabs>
     </div>
@@ -20,7 +20,7 @@
 <script>
 import DocUpload from "@/views/userPage/DocUpload"
 import UploadMultiple from "@/views/admin/UploadMultiple.vue"
-import UploadDirectory from "@/views/admin/UploadDirectory2"
+import UploadDirectory from "@/views/admin/UploadDirectory"
 import UploadByUrl from "@/views/admin/UploadByUrl"
 
 export default {

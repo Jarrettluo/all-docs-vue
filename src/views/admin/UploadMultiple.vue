@@ -4,6 +4,7 @@
             <!--            <Alert type="success" show-icon>成功提示文案</Alert>-->
             <br>
             <Upload
+                ref="upload"
                 multiple
                 type="drag"
                 action=""
@@ -15,13 +16,25 @@
                     <p>点击或将文件拖拽到这里上传</p>
                 </div>
             </Upload>
-            <div>
+            <div class="upload-swap" v-show="fileName.length > 0">
                 <ul>
-                    {{sfjsjl}}
-                    {{fileList}}
-                    <li v-for="i in fileList">{{ i }}</li>
+                    <li v-for="i in fileName">{{ i }}</li>
                 </ul>
             </div>
+
+            <div class="demo-upload-list" v-for="item in uploadList">
+                <template v-if="item.status === 'finished'">
+                    <img :src="item.url">
+                    <div class="demo-upload-list-cover">
+                        <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
+                        <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+                    </div>
+                </template>
+                <template v-else>
+                    <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
+                </template>
+            </div>
+
             <attr-input
                 ref="paramForm"
                 @startUpload="startUpload"
@@ -45,15 +58,23 @@ export default {
             buttonSrc: require("@/assets/source/upload.png"),
             selectedTags: {},
             switch1: true,
-            fileList: []
+            fileList: [],
+            fileName: [],
+            uploadList: []
         }
     },
     components: {
         AttrInput
     },
+    mounted () {
+        this.uploadList = this.$refs.upload.fileList;
+    },
     methods: {
-        handleUpload (file) {
+        handleUpload(file) {
             this.fileList = file;
+            if (this.fileName.indexOf(file.name) < 0) {
+                this.fileName.push(file.name)
+            }
             return false;
         },
         //上传服务器
@@ -81,7 +102,16 @@ export default {
             }).catch(err => {
                 this.$Message.error("上传出错！")
             })
-        }
+        },
+        handleView (name) {
+            this.imgName = name;
+            this.visible = true;
+        },
+        handleRemove (file) {
+            // 从 upload 实例删除数据
+            const fileList = this.$refs.upload.fileList;
+            this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
+        },
     }
 }
 </script>
@@ -93,5 +123,15 @@ export default {
     max-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.upload-swap {
+    background-color: #eeeeee;
+        text-decoration: none;
+        max-height: 120px;
+        overflow-y: auto;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 </style>

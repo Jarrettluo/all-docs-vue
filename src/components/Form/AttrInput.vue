@@ -114,6 +114,7 @@ export default {
             })
         },
         startUpload() {
+            console.log("+++++++")
             this.$emit("startUpload", {})
         },
         getSelectedTags() {

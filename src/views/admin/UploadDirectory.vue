@@ -1,81 +1,145 @@
 <template>
-    <!-- 上传  options 上传配置-->
-    <uploader :options="optionsUpLoader" class="uploader-example" ref="uploader" v-if="importResults || (disableIn!='4' && disableIn!='5' && disableIn!='1')" @file-success="onFileSuccess" @file-complete="fileComplete">
-        <uploader-unsupport></uploader-unsupport>
-        <uploader-drop>
-            <!--  显示文字  -->
-            <uploader-btn type="primary" :directory="true" >附件上传</uploader-btn>
-        </uploader-drop>
-    </uploader>
+    <Row>
+        <Col span="12">
+            <br>
+            <Form :model="formTop" label-position="top">
+                <Form-item label="文档选择">
+                    <div class="fileUpload">
+                        <a href="javascript:" class="file">选择文件夹
+                            <input type="file" name="" id="file2" @change="selectFolder($event)" multiple directory mozdirectory webkitdirectory>
+                        </a>
+                    </div>
+                    <div class="file-container">
+                    </div>
+                </Form-item>
+            </Form>
+            <div class="upload-swap" v-show="fileName.length > 0">
+                <ul>
+                    <li v-for="i in fileName">{{ i }}</li>
+                </ul>
+            </div>
+            <attr-input
+                ref="paramForm"
+                @startUpload="startUpload"
+            ></attr-input>
+        </Col>
+        <Col span="12">
+
+        </Col>
+    </Row>
+
 </template>
 
 <script>
+
+import AttrInput from '@/components/Form/AttrInput'
+import DocRequest from '@/api/document'
+
 export default {
     name: "UploadDirectory",
-    data:{
-        //上传配置
-        optionsUpLoader: {
-            target:'上传URL',
-            query: {
-                planId: '',
-                id:"",
-                fileType: '成果', // 合同,成果
-                status: '0',
-                xmmc:''
-            },
-            testChunks: false,
-            fileStatusText: {
-                success: '成功了',
-                error: '出错了',
-                uploading: '上传中',
-                paused: '暂停中',
-                waiting: '等待中'
-            },
-            chunkSize: 1024 * 1024 * 2, // 1MB
-            simultaneousUploads: 5, // 并发上传数
-            headers: {
-                'Authorization': 'Bearer ' + getToken()
-            }
-        },
+    data() {
+        return {
+            formTop: {},
+            buttonSrc: require("@/assets/source/upload.png"),
+            selectedFiles: [],
+            fileName: []
+        }
+    },
+    components: {
+        AttrInput
     },
     methods: {
-        //成功读取文件后触发
-        onFileSuccess(rootFile, file, response, chunk) {
-            console.log('onFileSuccess')
-            if (!this.loading) {
-                this.loading = this.$loading({
-                    lock: true,
-                    text: '上传中......',
-                    spinner: 'el-icon-loading',
-                    background: 'rgba(0, 0, 0, 0.7)'
-                })
+        selectFolder(e) {
+            // 文件夹下所有文件
+            this.selectedFiles = e.target.files;
+            console.log(e)
+            for(let i = 0; i< this.selectedFiles.length; i ++) {
+                let file = this.selectedFiles[i]
+                if (this.fileName.indexOf(file.name) < 0) {
+                    this.fileName.push(file.name)
+                }
             }
-        },
-        //上传文件夹
-        fileComplete() {
-            // console.log('fileComplete函数')
-            this.complete()
-        },
-        complete() {
-            var _this = this;
-            // console.log('complete函数')
-            request({
-                url: "查询上传成功url",
-                params: {
-                    planId: this.activeRow.planId,
-                    id: this.activeRow.id,
-                },
 
-            }).then(res => {
-                console.log(res, '上传文件夹接口返回')
-                this.loading.close()
-                this.$Message.success('文件上传成功')
-            })
         },
+        async startUpload() {
+            if (this.selectedFiles == null || this.selectedFiles.length == 0) {
+                return;
+            }
+            // 下面的代码将创建一个空的FormData对象:
+            const formData = new FormData()
+            for(let i = 0; i< this.selectedFiles.length; i ++) {
+                formData.append("files", this.selectedFiles[i])
+            }
+
+            // 添加自定义参数，不传可删除
+            formData.append('category', this.$refs['paramForm'].getCategory())
+            formData.append('tags', this.$refs['paramForm'].getSelectedTags())
+            formData.append('skipError', this.$refs['paramForm'].getSkipError())
+            formData.append('description', this.$refs['paramForm'].getDesc())
+
+            await DocRequest.docUploadBatch(formData, null).then(res => {
+                if (res.code === 200) {
+                    this.$Message.success("成功！")
+                } else {
+                    this.$Message.error("上传出错：" + res.message)
+                }
+            }).catch(err => {
+                this.$Message.error("上传出错！")
+            })
+            this.selectedFiles = []
+        }
     }
+
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.fileUpload {
+    width: 120px;
+    line-height: 32px;
+    background-color: #ffcc4f;
+    border-radius: 8px;
+    border: 1px #f5bb3a solid;
+    text-align: center;
+    color: #fffeff;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    a {
+        color: #fffeff;
+        width: 120px;
+    }
+
+    .file input {
+        //width: 120px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        opacity: 0; /*关键点*/
+        filter: alpha(opacity=0); /*兼容ie*/
+        font-size: 100px; /* 增大不同浏览器的可点击区域 */
+        cursor: pointer;
+    }
+}
+
+//.file-container {
+//    max-height: 200px;
+//    overflow-y: auto;
+//    width: 100%;
+//    padding: 5px 10px 5px 0;
+//    font-size: 10px;
+//}
+
+.upload-swap {
+    background-color: #eeeeee;
+    text-decoration: none;
+    max-height: 120px;
+    overflow-y: auto;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
 
 </style>
