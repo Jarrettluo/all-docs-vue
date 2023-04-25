@@ -7,7 +7,8 @@ import {
     USER_UPDATE_URL,
     USER_ADD_AVATAR_URL,
     USER_CHANGE_ROLE_URL,
-    BLOCK_USER_URL
+    BLOCK_USER_URL,
+    CHECK_USER_LOGIN_URL
 
 } from './url'
 
@@ -49,6 +50,10 @@ export default {
 
     blockUser: (params) => {
         return Get(BLOCK_USER_URL, params);
+    },
+
+    checkUserLogin: (params) => {
+        return Get(CHECK_USER_LOGIN_URL, params);
     },
 
 }

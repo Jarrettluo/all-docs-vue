@@ -71,7 +71,7 @@ export default {
     },
     methods: {
         handleUpload(file) {
-            this.fileList = file;
+            this.fileList.push(file);
             if (this.fileName.indexOf(file.name) < 0) {
                 this.fileName.push(file.name)
             }
@@ -86,16 +86,25 @@ export default {
             // 下面的代码将创建一个空的FormData对象:
             const formData = new FormData()
 
-            formData.append("files", this.fileList)
+            let tagList = []
+            let tags = this.$refs['paramForm'].getSelectedTags()
+            if (tags !== null && tags !== undefined) {
+                tagList = tags
+            }
+            let cate = this.$refs['paramForm'].getCategory() || null
+
+            for (let i = 0; i < this.fileList.length; i++) {
+                formData.append("files", this.fileList[i])
+            }
             // 添加自定义参数，不传可删除
-            formData.append('category', this.$refs['paramForm'].getCategory())
-            formData.append('tags', this.$refs['paramForm'].getSelectedTags())
-            formData.append('skipError', this.$refs['paramForm'].getSkipError())
-            formData.append('description', this.$refs['paramForm'].getDesc())
+            formData.append('category', cate)
+            formData.append('tags', tagList)
+            formData.append('skipError', this.$refs['paramForm'].getSkipError() || false)
+            formData.append('description', this.$refs['paramForm'].getDesc() || null)
 
             await DocRequest.docUploadBatch(formData, null).then(res => {
                 if (res.code === 200) {
-                    this.$Message.success("成功！")
+                    this.$Message.success("成功:" + res.data)
                 } else {
                     this.$Message.error("上传出错：" + res.message)
                 }

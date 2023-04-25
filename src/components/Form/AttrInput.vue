@@ -76,8 +76,8 @@ export default {
                 this.categoryOption = []
                 if (response.data.length > 0) {
                     response.data.forEach(item => {
-                        if (item.name.length > 8) {
-                            item['seeName'] = item.name.slice(0, 8) + "..."
+                        if (item.name.length > 64) {
+                            item['seeName'] = item.name.slice(0, 64) + "..."
                         } else {
                             item['seeName'] = item.name
                         }
@@ -103,6 +103,11 @@ export default {
                     response.data.forEach(item => {
                         let tag = {}
                         tag['key'] = item.id
+                        if (item.name.length > 64) {
+                            tag['name'] = item.name.slice(0, 64)
+                        } else {
+                            tag['name'] = item.name
+                        }
                         if (item.name.length > 8) {
                             tag['value'] = item.name.slice(0, 8) + "..."
                         } else {
@@ -114,21 +119,27 @@ export default {
             })
         },
         startUpload() {
-            console.log("+++++++")
             this.$emit("startUpload", {})
         },
         getSelectedTags() {
             let tagValueList = []
             this.selectedTags.forEach(item => {
-                tagValueList.push(item.value)
+                for (let e of this.tagOption) {
+                    if (item.key === e.key)
+                    tagValueList.push(item.name)
+                }
             })
             return tagValueList
         },
 
         getCategory() {
-            let cate = this.formTop.category
-            if (cate != null && cate !== '') {
-                return this.categoryOption[cate];
+            let cateId = this.formTop.category
+            if (cateId != null && cateId !== '') {
+                for (let item of this.categoryOption ) {
+                    if (item.id === cateId) {
+                        return item.seeName
+                    }
+                }
             }
             return null;
         },
