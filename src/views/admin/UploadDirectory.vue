@@ -52,7 +52,6 @@ export default {
         selectFolder(e) {
             // 文件夹下所有文件
             this.selectedFiles = e.target.files;
-            console.log(e)
             for(let i = 0; i< this.selectedFiles.length; i ++) {
                 let file = this.selectedFiles[i]
                 if (this.fileName.indexOf(file.name) < 0) {
@@ -72,14 +71,14 @@ export default {
             }
 
             // 添加自定义参数，不传可删除
-            formData.append('category', this.$refs['paramForm'].getCategory())
-            formData.append('tags', this.$refs['paramForm'].getSelectedTags())
-            formData.append('skipError', this.$refs['paramForm'].getSkipError())
-            formData.append('description', this.$refs['paramForm'].getDesc())
+            formData.append('category', this.$refs['paramForm'].getCategory() || "")
+            formData.append('tags', this.$refs['paramForm'].getSelectedTags() || [])
+            formData.append('skipError', this.$refs['paramForm'].getSkipError() || false)
+            formData.append('description', this.$refs['paramForm'].getDesc() || "")
 
             await DocRequest.docUploadBatch(formData, null).then(res => {
                 if (res.code === 200) {
-                    this.$Message.success("成功！")
+                    this.$Message.success("成功！" + res.data)
                 } else {
                     this.$Message.error("上传出错：" + res.message)
                 }
