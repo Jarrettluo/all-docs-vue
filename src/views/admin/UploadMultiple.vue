@@ -91,7 +91,7 @@ export default {
             if (tags !== null && tags !== undefined) {
                 tagList = tags
             }
-            let cate = this.$refs['paramForm'].getCategory() || null
+            let cate = this.$refs['paramForm'].getCategory() || ""
 
             for (let i = 0; i < this.fileList.length; i++) {
                 formData.append("files", this.fileList[i])
@@ -100,7 +100,7 @@ export default {
             formData.append('category', cate)
             formData.append('tags', tagList)
             formData.append('skipError', this.$refs['paramForm'].getSkipError() || false)
-            formData.append('description', this.$refs['paramForm'].getDesc() || null)
+            formData.append('description', this.$refs['paramForm'].getDesc() || "")
 
             await DocRequest.docUploadBatch(formData, null).then(res => {
                 if (res.code === 200) {
@@ -111,6 +111,7 @@ export default {
             }).catch(err => {
                 this.$Message.error("上传出错！")
             })
+            this.fileList = []
         },
         handleView (name) {
             this.imgName = name;

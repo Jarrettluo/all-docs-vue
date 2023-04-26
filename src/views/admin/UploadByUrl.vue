@@ -48,9 +48,9 @@ export default {
             let data = {
                 url: urlStr,
                 name: this.formItem.name,
-                category: this.$refs['paramForm'].getCategory(),
-                tags: this.$refs['paramForm'].getSelectedTags(),
-                description: this.$refs['paramForm'].getDesc()
+                category: this.$refs['paramForm'].getCategory() || "",
+                tags: this.$refs['paramForm'].getSelectedTags() || [],
+                description: this.$refs['paramForm'].getDesc() || ""
             }
             this.$Message.info(data)
             await DocRequest.docUploadByUrl(data, null).then(res => {
@@ -62,6 +62,7 @@ export default {
             }).catch(err => {
                 this.$Message.error("上传出错！")
             })
+            this.formItem.url = ""
         }
     }
 }

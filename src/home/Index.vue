@@ -3,7 +3,7 @@
         <div class="top-group" style="text-align: center; ">
             <img :src="imgSrc" width="100%" height="100%" alt=""/>
             <SearchGroup></SearchGroup>
-            <div class="user-zone" v-if="!ad">
+            <div class="user-zone" v-if="!ad && !tokenExpired">
                 <Dropdown>
                     <a class="user-tag" href="javascript:void(0)" style="text-align: center; width: 36px;" @mouseenter="checkLogin">
                         <img :src="0 | userAvatar" alt="">
@@ -92,7 +92,8 @@ export default {
             imgSrc: require("../assets/source/banner.png"),
             defaultAvatar: require("@/assets/source/user_avater.png"),
             data: {},
-            currentData: []
+            currentData: [],
+            tokenExpired: false,
         }
     },
     computed: {
@@ -176,11 +177,12 @@ export default {
                 if (res.code !== 200) {
                     this.$Message.error("token 已过期")
                     localStorage.clear();
-                    this.ad()
+                    this.tokenExpired = true
                 }
             }).catch(err => {
                 this.$Message.error("token 已过期")
                 localStorage.clear();
+                this.tokenExpired = true
             })
         }
     }
