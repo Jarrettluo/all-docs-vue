@@ -81,7 +81,15 @@ export default {
                 this.loading = false;
                 if (res.code === 200) {
                     this.totalItems = res.data.totalNum;
-                    this.data = res.data.documents;
+                    this.data = []
+                        let docs = res.data.documents;
+                    docs.forEach(
+                        item => {
+                            let title = item.title.replace(keyword, "<span class='em-title'>" + keyword + "</span>")
+                            item.title = title
+                            this.data.push(item)
+                        }
+                    )
                 } else {
                     this.data = []
                 }

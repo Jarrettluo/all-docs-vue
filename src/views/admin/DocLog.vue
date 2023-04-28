@@ -144,7 +144,7 @@ export default {
             }
             await docLogRequest.removeDocLog(param).then(res => {
                 if (res.code === 200) {
-                    this.$Message.success("清除成功！")
+                    this.$Message.success("清除成功！" + res.data)
                 } else {
                     this.$Message.error("操作失败!")
                 }

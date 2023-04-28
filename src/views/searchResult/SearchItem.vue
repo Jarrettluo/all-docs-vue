@@ -5,8 +5,7 @@
                 <img :src=" thumbId | imgSrc " alt="thumb" style="width: 36px;max-height: 48px;border: 1px solid #dcdee2; border-radius: 2px">
             </div>
             <div class="title-group">
-                <div class="doc-title-info" @click="getDocView()">
-                    {{ title }}
+                <div class="doc-title-info" @click="getDocView()" v-html="title">
                 </div>
                 <div class="description">
                     <div class="description-item">
@@ -111,12 +110,16 @@ export default {
             } else {
                 return BackendUrl() + "/files/image2/" + value;
             }
-        }
+        },
     }
 }
 </script>
 
 <style scoped>
+
+::v-deep .em-title {
+    color: #5c86aa;
+}
 .search-doc {
     padding: 12px 12px;
     border-bottom: 1px solid #e8eaec;
