@@ -38,6 +38,7 @@ const USER_ADD_AVATAR_URL = '/user/auth/uploadUserAvatar'; // 用户增加头像
 const USER_CHANGE_ROLE_URL = '/user/changeUserRole'; // 改变用户角色
 const BLOCK_USER_URL = '/user/blockUser'; // 屏蔽/解除屏蔽用户
 const CHECK_USER_LOGIN_URL = '/user/checkLoginState'; // 检查用户登录状态
+const RESET_USER_PWD_URL = '/user/auth/resetUserPwd'; // 管理员重置用户密码
 
 const COMMENT_ADD_URL = '/comment/auth/insert'; // 评论增加
 const COMMENT_LIST_URL = '/comment/list'; // 评论列表
@@ -114,6 +115,7 @@ module.exports = {
     USER_CHANGE_ROLE_URL,
     BLOCK_USER_URL,
     CHECK_USER_LOGIN_URL,
+    RESET_USER_PWD_URL,
 
     COMMENT_ADD_URL,
     COMMENT_LIST_URL,

@@ -8,7 +8,8 @@ import {
     USER_ADD_AVATAR_URL,
     USER_CHANGE_ROLE_URL,
     BLOCK_USER_URL,
-    CHECK_USER_LOGIN_URL
+    CHECK_USER_LOGIN_URL,
+    RESET_USER_PWD_URL
 
 } from './url'
 
@@ -56,5 +57,8 @@ export default {
         return Get(CHECK_USER_LOGIN_URL, params);
     },
 
+    resetUserPassword: (params) => {
+        return Post(RESET_USER_PWD_URL, params)
+    }
 }
 
