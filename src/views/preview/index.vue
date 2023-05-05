@@ -19,13 +19,16 @@
                     </div>
                     <div class="doc-info-detail">
                         <Icon type="md-person"/>
-                        {{ userName }}
+                        {{ userName }} |
                         <Icon type="md-time"/>
-                        {{ createTime }}
+                        {{ createTime }} |
                         <Icon type="md-thumbs-up"/>
-                        {{ likeCount }}
+                        {{ likeCount }} |
                         <Icon type="md-heart"/>
                         {{ collectCount }}
+                    </div>
+                    <div @click="preview">
+                        预览
                     </div>
 
                 </div>
@@ -231,6 +234,14 @@ export default {
                     }
                 })
             }
+        },
+        preview() {
+            this.$router.push({
+                path: '/newPreview',
+                query: {
+                    docId: this.docId
+                }
+            })
         }
 
     }
