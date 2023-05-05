@@ -13,6 +13,7 @@
             <attr-input
                 ref="paramForm"
                 @startUpload="startUpload"
+                :showSkipError="false"
             ></attr-input>
 
         </Col>
