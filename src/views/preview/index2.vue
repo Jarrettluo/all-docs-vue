@@ -1,22 +1,10 @@
 <template>
     <div class="home_wrap">
-        <div v-show="view_flag" style="padding: 400px; color: #ffcc4f;">
-            <div class="demo-spin-icon-load">
-                <Icon type="md-refresh" style="font-size: 48px;"/>
-            </div>
-            <div style='font-size:16px'>加载中...</div>
-        </div>
-
-
-        <div class="pdf_down">
-            <div class="pdf_set_left" @click="scaleD()">放大</div>
-            <div class="pdf_set_middle" @click="scaleX()">缩小</div>
-        </div>
-
-
-        <div :style="{width:'100%',margin:'0 auto', height: '500'}" style="background-color: #757575">
-            <canvas v-for="page in pdf_pages" :id="'the_canvas'+page" :key="page" style="margin-bottom: 10px;
-             box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;"></canvas>
+        <div style="height: calc(100% - 20px);position: relative">
+            <img :src=" thumbId | imgSrc " alt="thumb"
+                 style="max-width: 100%;height: calc(100%);border: 1px solid #dcdee2; border-radius: 2px"
+                 @mouseenter="enter" @mouseleave="leave"
+            >
         </div>
     </div>
 </template>
@@ -38,13 +26,29 @@ export default {
             view_flag: true,
 
             docId: this.$route.query.docId,
+            seen: false,
         }
     },
     mounted() {
-        this.get_pdfurl()
+        // this.get_pdfurl()
     },
-
+    props: ["thumbId"],
+    filters: {
+        imgSrc(value) {
+            if (value === "" || value == null) {
+                return require('@/assets/source/doc.png');
+            } else {
+                return BackendUrl() + "/files/image2/" + value;
+            }
+        }
+    },
     methods: {
+        enter() {
+            this.seen = true;
+        },
+        leave() {
+            this.seen = false;
+        },
         scaleD() {  //放大
             let max = 0
             if (window.screen.width > 1440) {
@@ -133,12 +137,10 @@ export default {
 .home_wrap {
     //width: 100%;
     width: 1200px;
-    //height: 100%;
-    height: 900px;
+    height: 100%;
 
     background-color: #757575;
     padding-top: 20px;
-    margin-top: -10px;
 
     .pdf_down {
         position: fixed;

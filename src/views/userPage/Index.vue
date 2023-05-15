@@ -57,7 +57,7 @@ justify-content: center;
                                 <ul>
                                     <li v-for="item in navData"
                                         @click="selected(item)"
-                                        :class="{activeNav: checkedNav.name == item.name}"
+                                        :class="{activeNav: item.route == $route.name}"
                                     >
                                         {{ item.name }}
                                     </li>
