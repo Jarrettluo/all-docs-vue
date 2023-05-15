@@ -23,6 +23,24 @@
                     <img :src="defaultAvatar" alt="">
                 </a>
             </div>
+            <div class="button-group" v-if="!ad && !tokenExpired">
+                <Row>
+                    <Col span="8" style="padding: 0 8px 0 0">
+                        <user-card title="我的收藏夹" subtitle="全是我辛苦收藏的宝贝" :src="img1" @click="toMyCollection"></user-card>
+                    </Col>
+                    <Col span="8" style="padding: 0 4px 0 4px">
+                        <user-card title="我上传的文档" subtitle="全都是精华全都是经典" :src="img2" @click="toMyUpload"></user-card>
+                    </Col>
+                    <Col span="8" style="padding: 0 0px 0 8px">
+                        <user-card title="点我上传文档" subtitle="使劲戳就对了" :src="img3" @click="toUploadPage"></user-card>
+                    </Col>
+                </Row>
+
+            </div>
+
+        </div>
+        <div style="height: 30px;width: 100%;" v-if="!ad && !tokenExpired">
+
         </div>
         <div class="bottom-group">
             <div class="left-panel">
@@ -74,6 +92,7 @@ import DocTag from '@/home/DocTag';
 import DocThumb from '@/home/DocThumb'
 import HotTrend from '@/home/HotTrend'
 import SearchGroup from '@/home/SearchGroup'
+import UserCard from '@/home/UserCard'
 
 const {BackendUrl} = require("@/api/request");
 import StatsRequest from "@/api/stats";
@@ -85,7 +104,8 @@ export default {
         HotTrend,
         DocTag,
         DocThumb,
-        SearchGroup
+        SearchGroup,
+        UserCard
     },
     data() {
         return {
@@ -94,6 +114,9 @@ export default {
             data: {},
             currentData: [],
             tokenExpired: false,
+            img1: require('@/assets/source/heart.png'),
+            img2: require('@/assets/source/folder.png'),
+            img3: require('@/assets/source/upload.png')
         }
     },
     computed: {
@@ -184,6 +207,15 @@ export default {
                 localStorage.clear();
                 this.tokenExpired = true
             })
+        },
+        toMyCollection() {
+            this.$router.push("/userPage/userCollection")
+        },
+        toMyUpload() {
+            this.$router.push("/userPage/userUpload")
+        },
+        toUploadPage() {
+            this.$router.push("/userPage/docUpload")
         }
     }
 }
@@ -237,6 +269,14 @@ export default {
                 background-color: rgba(#fff, 0.2);
                 border-radius: 8px;
             }
+        }
+
+        .button-group {
+            height: 120px;
+            position: absolute;
+            top: 225px;
+            width: 1200px;
+            left: calc(50% - 600px);
         }
     }
 

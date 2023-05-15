@@ -19,11 +19,11 @@
                     </div>
                     <div class="doc-info-detail">
                         <Icon type="md-person"/>
-                        {{ userName }}
+                        {{ userName }} |
                         <Icon type="md-time"/>
-                        {{ createTime }}
+                        {{ createTime }} |
                         <Icon type="md-thumbs-up"/>
-                        {{ likeCount }}
+                        {{ likeCount }} |
                         <Icon type="md-heart"/>
                         {{ collectCount }}
                     </div>
@@ -31,11 +31,14 @@
                 </div>
             </div>
             <div class="doc-preview">
-                <!--                <PdfView></PdfView>-->
                 <component :is="component"
                            v-if="component"
                            :previewId="previewId"
+                           :thumbId="thumbId"
                 />
+                <div class="preview-button" v-if="suffix=='pdf'">
+                    <Button type="primary" @click="preview">全屏预览</Button>
+                </div>
             </div>
             <div class="my-container">
                 <div class="doc-operation-body">
@@ -82,6 +85,8 @@ export default {
             likeStatus: 0,
             collectStatus: 0,
             previewId: null,
+
+            suffix: "",
         }
     },
     components: {
@@ -125,6 +130,7 @@ export default {
                     this.previewId = response.data.previewFileId
 
                     let suffix = title.split(".")[title.split('.').length - 1];
+                    this.suffix = suffix;
                     switch (suffix) {
                         case 'pdf':
                             this.component = () => import('@/views/preview/index2')
@@ -231,6 +237,24 @@ export default {
                     }
                 })
             }
+        },
+        preview() {
+            // this.$router.push({
+            //     path: '/newPreview',
+            //     query: {
+            //         docId: this.docId
+            //     }
+            // })
+
+            let text= this.$router.resolve({
+                path: '/newPreview',
+                query: {
+                docId: this.docId
+            }})
+
+            // 打开一个新的页面
+            window.open(text.href, '_blank');
+
         }
 
     }
@@ -322,7 +346,7 @@ export default {
         margin: 20px 0;
         overflow-y: auto;
         height: calc(100vh - 80px);
-        padding: 10px 0;
+        //padding: 10px 0;
         box-shadow: 0px 0px 5px 0px rgba(64, 64, 64, 0.3000);
         border-radius: 8px;
         background-color: #fffeff;
@@ -331,16 +355,23 @@ export default {
         overscroll-behavior: contain;
         -ms-scroll-chaining: contain;
 
-        position: -webkit-sticky;
-        position: sticky;
-        top: 62px;
+        position: relative;
+
+        .preview-button {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 60px;
+            background-color: rgba(255,255,255,0.5);
+            line-height: 60px;
+            text-align: right;
+            padding-right: 20px;
+        }
     }
 
     .my-container {
         background-color: #fffeff;
-        position: -webkit-sticky;
-        position: sticky;
-        top: 62px;
 
         .doc-operation-body {
             height: 200px;
@@ -354,8 +385,6 @@ export default {
         .doc-comment {
 
             margin: 20px 0;
-
-            background-color: #42b983;
             min-height: 120px;
 
             box-shadow: 0px 0px 5px 0px rgba(64, 64, 64, 0.3000);

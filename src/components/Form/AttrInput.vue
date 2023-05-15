@@ -22,8 +22,11 @@
                 <Input v-model="formTop.description" type="textarea" :rows="4"></Input>
             </Form-item>
         </Form>
-        异常跳过
-        <i-switch v-model="skipError" @on-change="change"></i-switch>
+        <div v-show="showSkipError">
+            异常跳过
+            <i-switch v-model="skipError" @on-change="change"></i-switch>
+        </div>
+
 
         <submit-button
             :src="buttonSrc"
@@ -53,6 +56,12 @@ export default {
             tagOption: [],
             skipError: false,
         }
+    },
+    props: {
+        showSkipError:{
+            type: Boolean,
+            default: true
+        },
     },
     components: {
         SubmitButton

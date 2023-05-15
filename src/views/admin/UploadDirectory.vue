@@ -18,6 +18,8 @@
                     <li v-for="i in fileName">{{ i }}</li>
                 </ul>
             </div>
+            <Progress v-if="showProgress" :percent="uploadProcess*100" hide-info></Progress>
+
             <attr-input
                 ref="paramForm"
                 @startUpload="startUpload"
@@ -42,7 +44,9 @@ export default {
             formTop: {},
             buttonSrc: require("@/assets/source/upload.png"),
             selectedFiles: [],
-            fileName: []
+            fileName: [],
+            showProgress: false,
+            uploadProcess: 0
         }
     },
     components: {
@@ -76,16 +80,32 @@ export default {
             formData.append('skipError', this.$refs['paramForm'].getSkipError() || false)
             formData.append('description', this.$refs['paramForm'].getDesc() || "")
 
-            await DocRequest.docUploadBatch(formData, null).then(res => {
+            const config = {
+                onUploadProgress: (progressEvent) => {
+                    // progressEvent.loaded:已上传文件大小
+                    // progressEvent.total:被上传文件的总大小
+                    this.uploadProcess = Number(
+                        ((progressEvent.loaded / progressEvent.total) * 0.99).toFixed(2)
+                    );
+                },
+            };
+            this.showProgress = true
+            await DocRequest.docUploadBatch(formData, config).then(res => {
                 if (res.code === 200) {
                     this.$Message.success("成功！" + res.data)
+                    this.uploadProcess = 1;
                 } else {
                     this.$Message.error("上传出错：" + res.message)
+                    this.uploadProcess = 0;
                 }
+                this.showProgress = false
             }).catch(err => {
                 this.$Message.error("上传出错！")
+                this.showProgress = false
+                this.uploadProcess = 0;
             })
             this.selectedFiles = []
+            this.fileName = []
         }
     }
 

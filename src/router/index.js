@@ -143,6 +143,13 @@ const routes = [
         }
     },
     {
+        path: "/newPreview",
+        name: "newPreview",
+        component: function () {
+            return import("../views/preview/PdfView")
+        }
+    },
+    {
         path: '/userPage',
         name: "userPage",
         redirect: "/userPage/msg",  //重定向到第一个子路由
@@ -192,8 +199,6 @@ const routes = [
                     return import("../views/userPage/DocUpload")
                 }
             },
-
-
         ]
     },
 ]
