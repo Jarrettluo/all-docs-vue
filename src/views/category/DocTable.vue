@@ -22,10 +22,13 @@
                     </Col>
                     <Col span="12" class="bottom-zone-right">
                         <Page
-                            :model-value="currentPage"
+                            :current.sync="currentPage"
                             :total="totalItems"
                             :page-size="pageSize"
+                            show-total
+                            show-sizer
                             @on-change="pageChange"
+                            @on-page-size-change="pageSizeChange"
                         />
                     </Col>
                 </Row>
@@ -163,6 +166,12 @@ const stateMap = {
     }
 }
 
+const routeMap = {
+    ALL: "/admin/allDocuments",
+    CATEGORY: "/admin/category",
+    TAG: "/admin/tags"
+}
+
 export default {
 
     data() {
@@ -264,9 +273,9 @@ export default {
                 }
             ],
             data: [],
-            currentPage: 1,
+            currentPage: this.$route.query.page || 1,
             totalItems: 100,
-            pageSize: 20,
+            pageSize: this.$route.query.size || 20,
             loading: true,
             modal1: false,
             modal_loading: false,
@@ -366,6 +375,13 @@ export default {
                 if (res.code === 200) {
                     this.data = res.data['documents'];
                     this.totalItems = res.data['totalNum'];
+                    this.$router.replace({
+                        path: routeMap[this.type] || "/",
+                        query: {
+                            page: this.currentPage,
+                            size: this.pageSize
+                        }
+                    })
                 } else {
                     this.data = []
                     // this.$Message.error('请稍后重试！');
@@ -381,6 +397,10 @@ export default {
         },
         pageChange(page) {
             this.currentPage = page
+            this.$emit("on-page-change", true)
+        },
+        pageSizeChange(size) {
+            this.pageSize = size
             this.$emit("on-page-change", true)
         },
         preview(value) {

@@ -33,10 +33,13 @@
                 </Col>
                 <Col span="12" class="bottom-zone-right">
                     <Page
-                        :model-value="currentPage"
+                        :current.sync="currentPage"
                         :total="totalItems"
                         :page-size="pageSize"
+                        show-total
+                        show-sizer
                         @on-change="pageChange"
+                        @on-page-size-change="pageSizeChange"
                     />
                 </Col>
             </Row>
@@ -134,9 +137,9 @@ export default {
                 }
             ],
             data: [],
-            currentPage: 1,
+            currentPage: this.$route.query.page || 1,
             totalItems: 5,
-            pageSize: 10,
+            pageSize: this.$route.query.size || 20,
 
             remove_modal: false,
             modal_loading: false,
@@ -200,6 +203,13 @@ export default {
                     this.currentPage = resData.pageNum
                     this.pageSize = resData.pageSize
                     this.totalItems = resData.total
+                    this.$router.replace({
+                        path: '/admin/users',
+                        query: {
+                            page: this.currentPage,
+                            size: this.pageSize
+                        }
+                    })
                 }
             }).catch(err => {
                 this.$Message.error("出错：" + (err || '请稍后重试'))
@@ -207,6 +217,10 @@ export default {
         },
         pageChange(page) {
             this.currentPage = page
+            this.init()
+        },
+        pageSizeChange(size) {
+            this.pageSize = size
             this.init()
         },
         removeBatch() {

@@ -13,10 +13,13 @@
                     </Col>
                     <Col span="12" class="bottom-zone-right">
                         <Page
-                            :model-value="currentPage"
+                            :current.sync="currentPage"
                             :total="totalItems"
                             :page-size="pageSize"
+                            show-total
+                            show-sizer
                             @on-change="pageChange"
+                            @on-page-size-change="pageSizeChange"
                         />
                     </Col>
                 </Row>
@@ -79,9 +82,9 @@ export default {
             ],
             height: 600,
 
-            currentPage: 1,
-            totalItems: 20,
-            pageSize: 10,
+            currentPage: this.$route.query.page || 1,
+            totalItems: 5,
+            pageSize: this.$route.query.size || 20,
 
             tableData: []
         }
@@ -112,6 +115,15 @@ export default {
                 if (res.code === 200) {
                     this.tableData = res.data.data
                     this.totalItems = res.data.total
+
+                    this.$router.replace({
+                        path: '/admin/commentManage',
+                        query: {
+                            page: this.currentPage,
+                            size: this.pageSize
+                        }
+                    })
+
                 } else {
                     this.tableData = []
                     this.$Message.error(res.message)
@@ -122,6 +134,11 @@ export default {
         },
         pageChange(page) {
             this.currentPage = page
+            this.getPageData()
+        },
+
+        pageSizeChange(size) {
+            this.pageSize = size
             this.getPageData()
         },
 
