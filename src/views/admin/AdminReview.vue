@@ -15,10 +15,13 @@
                 </Col>
                 <Col span="12" class="bottom-zone-right">
                     <Page
-                        :model-value="currentPage"
+                        :current.sync="currentPage"
                         :total="totalItems"
                         :page-size="pageSize"
                         @on-change="pageChange"
+                        show-total
+                        show-sizer
+                        @on-page-size-change="pageSizeChange"
                     />
                 </Col>
             </Row>
@@ -141,9 +144,9 @@ export default {
                 }
             ],
 
-            currentPage: 1,
-            totalItems: 10,
-            pageSize: 10,
+            currentPage: this.$route.query.page || 1,
+            totalItems: 5,
+            pageSize: this.$route.query.size || 20,
 
             model: null,
 
@@ -202,6 +205,15 @@ export default {
                     this.data.push(obj)
                     obj = {}
                 }
+
+                this.$router.replace({
+                    path: '/admin/docReview',
+                    query: {
+                        panel: "review",
+                        page: this.currentPage,
+                        size: this.pageSize
+                    }
+                })
 
             }).catch(err => {
                 this.$Message.error('操作失败！')
@@ -315,6 +327,10 @@ export default {
         },
         pageChange(page) {
             this.currentPage = page
+        },
+        pageSizeChange(size) {
+            this.pageSize = size
+            this.getDocData()
         },
 
         async approve(index) {

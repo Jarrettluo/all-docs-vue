@@ -1,13 +1,13 @@
 <template>
     <div class="content">
-        <Tabs value="name1" style="height: 100%;" @on-click="switchTab">
-            <TabPane label="待审核" name="name1" style="height: 100%;">
+        <Tabs :value="value" style="height: 100%;" @on-click="switchTab">
+            <TabPane label="待审核" name="review" style="height: 100%;">
                 <AdminReview ref="adminReview"></AdminReview>
             </TabPane>
-            <TabPane label="审核完成" name="name2s" >
+            <TabPane label="审核完成" name="info" >
                 <ReviewInfo ref='reviewInfo'></ReviewInfo>
             </TabPane>
-            <TabPane label="文档日志" name="name24">
+            <TabPane label="文档日志" name="log">
                 <DocLog ref='docLog'></DocLog>
             </TabPane>
         </Tabs>
@@ -20,24 +20,40 @@ import ReviewInfo from '@/views/admin/ReviewInfo'
 import DocLog from '@/views/admin/DocLog'
 export default {
     name: "DocReview",
+    data() {
+        return {
+            value: this.$route.query.panel || "review"
+        }
+    },
     components: {
         AdminReview,
         ReviewInfo,
         DocLog
     },
     mounted() {
-        this.$refs.adminReview.getDocData()
+        // this.$refs.adminReview.getDocData()
+        this.switchTab(this.value)
     },
     methods: {
         switchTab(name) {
+            // this.$router.push({
+            //     path: '/admin/docReview',
+            //     query: {
+            //         page: 1,
+            //         size: 30,
+            //         panel: name
+            //     }
+            // })
+            this.$refs.adminReview.currentPage = 1
+            this.$refs.adminReview.pageSize = 30
             switch (name){
-                case "name1":
+                case "review":
                     this.$refs.adminReview.getDocData()
                     break;
-                case "name2s":
+                case "info":
                     this.$refs.reviewInfo.getDocData();
                     break;
-                case "name24":
+                case "log":
                     this.$refs.docLog.getPageData()
                     break
             }

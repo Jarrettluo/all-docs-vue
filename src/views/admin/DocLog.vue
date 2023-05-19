@@ -16,6 +16,9 @@
                         :total="totalItems"
                         :page-size="pageSize"
                         @on-change="pageChange"
+                        show-total
+                        show-sizer
+                        @on-page-size-change="pageSizeChange"
                     />
                 </Col>
             </Row>
@@ -73,9 +76,9 @@ export default {
             },
 
             height: 600,
-            currentPage: 1,
-            totalItems: 10,
-            pageSize: 10,
+            currentPage: this.$route.query.page || 1,
+            totalItems: 5,
+            pageSize: this.$route.query.size || 20,
         }
     },
     created() {
@@ -112,6 +115,15 @@ export default {
                         this.data.push(obj)
                         obj = {}
                     }
+
+                    this.$router.replace({
+                        path: '/admin/docReview',
+                        query: {
+                            panel: "log",
+                            page: this.currentPage,
+                            size: this.pageSize
+                        }
+                    })
                 }
             }).catch(err => {
                 this.$Message.error("出错：" + (err || '请稍后重试'))
@@ -156,6 +168,10 @@ export default {
         pageChange(page) {
             this.currentPage = page
             this.getPageData()
+        },
+        pageSizeChange(size) {
+            this.pageSize = size
+            this.getDocData()
         },
     }
 }

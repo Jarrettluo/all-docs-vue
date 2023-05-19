@@ -21,10 +21,13 @@
                 </Col>
                 <Col span="12" class="bottom-zone-right">
                     <Page
-                        :model-value="currentPage"
+                        :current.sync="currentPage"
                         :total="totalItems"
                         :page-size="pageSize"
                         @on-change="pageChange"
+                        show-total
+                        show-sizer
+                        @on-page-size-change="pageSizeChange"
                     />
                 </Col>
             </Row>
@@ -90,9 +93,11 @@ export default {
             ],
             data: [],
             height: 600,
-            currentPage: 1,
-            totalItems: 10,
-            pageSize: 30,
+
+            currentPage: this.$route.query.page || 1,
+            totalItems: 5,
+            pageSize: this.$route.query.size || 20,
+
         }
     },
     created() {
@@ -129,6 +134,16 @@ export default {
                         obj = {}
                     }
                     this.totalItems = res.data.total
+
+                    this.$router.replace({
+                        path: '/admin/docReview',
+                        query: {
+                            panel: "info",
+                            page: this.currentPage,
+                            size: this.pageSize
+                        }
+                    })
+
                 }
             }).catch(() => {
                 this.$Message.warning("操作失败！")
@@ -178,6 +193,10 @@ export default {
         },
         pageChange(page) {
             this.currentPage = page
+            this.getDocData()
+        },
+        pageSizeChange(size) {
+            this.pageSize = size
             this.getDocData()
         },
     }
