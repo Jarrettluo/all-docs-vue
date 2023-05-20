@@ -16,10 +16,11 @@
                 <p v-else>女</p>
             </template>
             <template #action="{ row, index }">
-                <Button v-if="row['banning']" type="primary" size="small" style="margin-right: 5px"
+                <Button type="success" size="small" @click="detail(index)" :disabled="row.id === currentUserId">编辑</Button>
+                <Button v-if="row['banning']" type="primary" size="small" style="margin: 0 5px"
                         @click="blockUser(row.id)">取消屏蔽
                 </Button>
-                <Button v-else type="primary" size="small" style="margin-right: 5px" @click="blockUser(row.id)"
+                <Button v-else type="primary" size="small" style="margin: 0 5px" @click="blockUser(row.id)"
                         :disabled="row.id === currentUserId"
                 >屏蔽</Button>
                 <Button type="error" size="small" @click="remove(index)" :disabled="row.id === currentUserId">删除</Button>
@@ -131,7 +132,7 @@ export default {
                 {
                     title: '操作',
                     slot: 'action',
-                    width: 170,
+                    width: 220,
                     align: 'center',
                     fixed: "right",
                 }
@@ -260,6 +261,9 @@ export default {
             }).catch(err => {
                 this.$Message.error("操作失败！")
             })
+        },
+        detail(userId) {
+
         }
     }
 }
