@@ -24,6 +24,17 @@ top: 52px; left: 0;z-index: 999; width: 100%;">
             @on-current-change="handleCurrentChange"
             :loading="loading"
         >
+            <template slot-scope="{ row }" slot="name">
+                <div style="width: 100%; ">
+                    <div style="float: left; width: calc(100% - 60px)">
+                        <strong>{{ row.name }}</strong>
+                    </div>
+                    <div v-if="row.num !== null" style="width: 60px; float: right; text-align: right; line-height: 100%">
+                        <span>{{row.num}}</span>
+                    </div>
+                </div>
+
+            </template>
             <template #contextMenu>
                 <div class="ivu-dropdown-item" @click="handleContextMenuAdd">增加一条记录</div>
                 <div class="ivu-dropdown-item" @click="handleContextMenuEdit">重新编辑</div>
@@ -73,6 +84,7 @@ export default {
                 {
                     title: 'Name',
                     key: 'name',
+                    slot: 'name',
                     className: 'demo-table-info-cell-name'
                 }
             ],

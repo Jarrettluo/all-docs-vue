@@ -2,6 +2,10 @@
     <div class="content">
         <div class="main" ref="tableRef">
             <Table ref="commentTable" width="100%" :height="height" border :columns="columns" :data="tableData">
+                <template #docName="{ row }">
+                    <p class="doc-title" @click="preview(row.docId)">
+                        {{ row.docName }}</p>
+                </template>
                 <template #action="{ row, index }">
                     <Button type="error" size="small" @click="remove(index)">删 除</Button>
                 </template>
@@ -65,7 +69,7 @@ export default {
                 },
                 {
                     title: '文档名称',
-                    key: 'docName',
+                    slot: 'docName',
                     // width: 300
                 },
                 {
@@ -161,7 +165,14 @@ export default {
             let selection = this.$refs.commentTable.getSelection();
             this.$Message.error("暂未开发，请等待")
         },
-
+        preview(value) {
+            this.$router.push({
+                path: '/preview',
+                query: {
+                    docId: value
+                }
+            })
+        },
     }
 }
 
@@ -204,5 +215,14 @@ export default {
             }
         }
     }
+}
+
+.doc-title {
+    color: #8d7b25;
+}
+
+.doc-title:hover {
+    cursor: pointer;
+    font-weight: bold;
 }
 </style>
