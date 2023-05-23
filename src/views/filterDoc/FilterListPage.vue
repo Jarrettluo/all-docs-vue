@@ -1,6 +1,6 @@
 <template>
     <div class="doc-group">
-        <div class="doc-thumb-group">
+        <div class="doc-thumb-group" @scroll="handleScroll">
             <DocThumb class="doc-thumb"
                       v-for="item in data"
                       :flag="false"
@@ -8,6 +8,10 @@
                       :docId="item.thumbId"
                       @click.native="getDocView(item.id)"
             ></DocThumb>
+            <div style="height: 30px; width: 100%;
+             color: #AAAAAA; line-height: 30px;text-align: center" >
+                <span v-show="flag">  加载中... </span>
+            </div>
         </div>
         <div class="doc-group-page">
             <Page
@@ -24,6 +28,12 @@
 import DocThumb from '@/home/DocThumb'
 export default {
     name: "FilterListPage",
+    data() {
+        return {
+            pageNum: 1,
+            flag: false,
+        }
+    },
     components: {
         DocThumb
     },
@@ -44,7 +54,23 @@ export default {
                     docId: id
                 }
             })
-        }
+        },
+        handleScroll(event) {
+            this.flag = true
+            const listWrapper = event.target;
+            const scrollBottom = listWrapper.scrollHeight - listWrapper.scrollTop - listWrapper.clientHeight;
+            let down = true;
+            if (scrollBottom <= 0 && down) { // 当距离底部小于50像素时触发加载数据
+                this.pageNum += 1;
+                this.flag = false
+                down = false
+                // setTimeout(() => {
+                    // 调用加载新数据的方法
+                    this.$emit("on-page-change", this.pageNum);
+                // }, 500)
+
+            }
+        },
     }
 }
 </script>

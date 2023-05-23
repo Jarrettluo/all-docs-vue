@@ -6,7 +6,8 @@
             <Tabs value="name1">
                 <TabPane label="最近上传" name="name1">
                     <filter-list-page :data="docList" :total="total" :pageNum="pageNum"
-                                      :pageSize="pageSize" @on-page-change="changePage"></filter-list-page>
+                                      :pageSize="pageSize" @on-page-change="changePage"
+                    ></filter-list-page>
                 </TabPane>
                 <TabPane label="人气排名" name="name2" v-if="false">
                     <filter-list-page></filter-list-page>
@@ -28,7 +29,7 @@ export default {
     data() {
         return {
             docList: [],
-            total: 1,
+            total: 100,
             pageNum: 1,
             pageSize: 24,
             tagId: '',
@@ -48,6 +49,9 @@ export default {
     },
     methods: {
         async getRecentDocList() {
+            if (this.pageNum > this.total / this.pageSize) {
+                return;
+            }
             let param = {
                 cateId: this.cateId,
                 tagId: this.tagId,
@@ -83,7 +87,13 @@ export default {
                 CategoryRequest.getDocList(param).then(res => {
                     if (res.code === 200) {
                         let result = res.data;
-                        this.docList = result.data
+                        if (this.pageNum == 1) {
+                            this.docList = result.data
+                        } else {
+                            result.data.forEach(item => {
+                                this.docList.push(item)
+                            })
+                        }
                         this.pageNum = result.pageNum + 1;
                         this.total = result.total;
                         this.pageSize = result.pageSize
