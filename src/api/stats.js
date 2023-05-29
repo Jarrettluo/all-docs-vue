@@ -5,7 +5,8 @@ import {
     STATS_HOT_TREND,
     STATS_SEARCH_HISTORY,
     REMOVE_SEARCH_KEY,
-    STATS_RECENT_DOC
+    STATS_RECENT_DOC,
+    STATS_MONTH_URL
 } from './url'
 
 export default {
@@ -32,6 +33,10 @@ export default {
 
     getRecentDoc: (params) => {
         return Get(STATS_RECENT_DOC, params);
+    },
+
+    getMonthStat: (params) => {
+        return Get(STATS_MONTH_URL, params);
     },
 
 }
