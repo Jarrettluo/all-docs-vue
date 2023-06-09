@@ -146,7 +146,7 @@ const routes = [
         path: "/newPreview",
         name: "newPreview",
         component: function () {
-            return import("../views/preview/PdfView")
+            return import("../views/preview/PdfView1")
         }
     },
     {
