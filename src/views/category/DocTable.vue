@@ -11,7 +11,8 @@
                         {{ row.title }}</p>
                 </template>
                 <template #action="{ row, index }">
-                    <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
+                    <Button type="success" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
+                    <Button type="primary" size="small" style="margin-right: 5px" @click="edit_document(index)">编辑</Button>
                     <Button type="error" size="small" @click="remove(index)">删除</Button>
                 </template>
             </Table>
@@ -119,6 +120,14 @@
             </div>
         </Modal>
 
+        <Modal
+            v-model="edit_modal"
+            title="文档详情"
+            :loading="action_loading"
+            @on-ok="asyncUpdateInfo">
+            <doc-edit-modal ref="docEdit" :doc-info="doc_info"></doc-edit-modal>
+        </Modal>
+
         <Modal v-model="modal1" width="360">
             <template #header>
                 <p style="color:#f60;text-align:left">
@@ -142,6 +151,7 @@
 import DocumentRequest from "@/api/document"
 import {parseTime} from "@/utils"
 import fileTool from "@/utils/fileUtil"
+import DocEditModal from "@/views/category/DocEditModal";
 
 const stateMap = {
     WAITE: {
@@ -173,7 +183,7 @@ const routeMap = {
 }
 
 export default {
-
+    components: {DocEditModal},
     data() {
         return {
             columns: [
@@ -267,7 +277,7 @@ export default {
                 {
                     title: '操作',
                     slot: 'action',
-                    width: 150,
+                    width: 200,
                     align: 'center',
                     fixed: 'right',
                 }
@@ -286,6 +296,9 @@ export default {
 
             infoVisible: false,
             height: 600,
+
+            edit_modal: false,
+            doc_info: {fdf:"dslfj"}
         }
     },
     filters: {
@@ -455,6 +468,35 @@ export default {
 
         removeBatch() {
             this.$Message.error("功能正在开发中，请等待！")
+        },
+
+        edit_document(index) {
+            this.edit_modal = true;
+            this.$refs["docEdit"].getAllItems();
+            this.$refs["docEdit"].getTagOption();
+
+            let item = this.data[index];
+            let name_list = item.title.split('.');
+            if (name_list.length > 1) {
+                name_list.pop()
+            }
+            this.doc_info.name = name_list.join(".");
+            let tagList = item['tagVOList']
+
+            let tags = []
+            tagList.forEach(item => {
+                tags.push({
+                    name: item.id,
+                    value: item.name
+                })
+            })
+            this.doc_info["tags"] = tags;
+            this.doc_info["category"] = item['categoryVO']['id'];
+            this.doc_info["desc"] = item['description']
+        },
+
+        asyncUpdateInfo() {
+            this.$refs['docEdit'].updateDocInfo()
         }
     }
 }
