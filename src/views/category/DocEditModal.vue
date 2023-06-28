@@ -2,7 +2,8 @@
     <Form ref="formValidate" :model="docInfo" :rules="ruleValidate" :label-width="80">
         <Alert>文件格式不能被修改！</Alert>
         <Form-item label="文档标题" prop="name">
-            <Input v-model="docInfo.name" placeholder="文档标题"></Input>
+            <Input v-model="docInfo.name" type="textarea" :autosize="{minRows: 1,maxRows: 4}"
+                   placeholder="文档标题"></Input>
         </Form-item>
         <Form-item label="分类" prop="category">
             <Select v-model="docInfo.category" placeholder="请选择分类">
@@ -64,10 +65,6 @@ export default {
         }
     },
     props: ["docInfo"],
-    computed() {
-        this.getAllItems()
-        this.getTagOption()
-    },
     methods: {
         getAllItems() {
             this.loading = true

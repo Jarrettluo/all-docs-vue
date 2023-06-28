@@ -1,18 +1,21 @@
 <template>
     <div class="docTable">
         <div class="table-container" ref="docTable">
-            <Table border ref="selection" width="100%" :height="height" :columns="filterColumns||columns" :data="data" :loading="loading">
+            <Table border ref="selection" width="100%" :height="height" :columns="filterColumns||columns" :data="data"
+                   :loading="loading">
                 <template #name="{ row }">
                     <p class="doc-title" @click="preview(row.id)">
                         <Badge status="error" v-if="row['docState']==='FAIL'"/>
                         <Badge status="warning" v-else-if="row['docState']==='ON_PROCESS'"/>
-                        <Badge status="processing"  v-else-if="row['docState']==='WAITE'" />
-                        <Badge status="success"  v-else />
-                        {{ row.title }}</p>
+                        <Badge status="processing" v-else-if="row['docState']==='WAITE'"/>
+                        <Badge status="success" v-else/>
+                        {{ row.title }}
+                    </p>
                 </template>
                 <template #action="{ row, index }">
                     <Button type="success" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
-                    <Button type="primary" size="small" style="margin-right: 5px" @click="edit_document(index)">编辑</Button>
+                    <Button type="primary" size="small" style="margin-right: 5px" @click="edit_document(index)">编辑
+                    </Button>
                     <Button type="error" size="small" @click="remove(index)">删除</Button>
                 </template>
             </Table>
@@ -283,9 +286,9 @@ export default {
                 }
             ],
             data: [],
-            currentPage: this.$route.query.page || 1,
+            currentPage: parseInt(this.$route.query.page) || 1,
             totalItems: 100,
-            pageSize: this.$route.query.size || 20,
+            pageSize: parseInt(this.$route.query.size) || 20,
             loading: true,
             modal1: false,
             modal_loading: false,
@@ -298,7 +301,7 @@ export default {
             height: 600,
 
             edit_modal: false,
-            doc_info: {fdf:"dslfj"}
+            doc_info: {fdf: "dslfj"}
         }
     },
     filters: {
@@ -387,14 +390,14 @@ export default {
                 this.loading = false
                 if (res.code === 200) {
                     this.data = res.data['documents'];
-                    this.totalItems = res.data['totalNum'];
+                    this.totalItems = res.data['totalNum'] + 0;
                     this.$router.replace({
                         path: routeMap[this.type] || "/",
                         query: {
                             page: this.currentPage,
                             size: this.pageSize
                         }
-                    })
+                    }).catch(() => true)
                 } else {
                     this.data = []
                     // this.$Message.error('请稍后重试！');
@@ -409,7 +412,7 @@ export default {
             return this.$refs.selection.getSelection();
         },
         pageChange(page) {
-            this.currentPage = page
+            this.currentPage = parseInt(page)
             this.$emit("on-page-change", true)
         },
         pageSizeChange(size) {
@@ -422,7 +425,7 @@ export default {
                 query: {
                     docId: value
                 }
-            })
+            }).catch(() => true)
         },
         asyncOK() {
             setTimeout(() => {
@@ -491,7 +494,11 @@ export default {
                 })
             })
             this.doc_info["tags"] = tags;
-            this.doc_info["category"] = item['categoryVO']['id'];
+            if (item['categoryVO'] == null) {
+                this.doc_info["category"] = null
+            } else {
+                this.doc_info["category"] = item['categoryVO']['id']
+            }
             this.doc_info["desc"] = item['description']
         },
 
@@ -503,7 +510,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 
 
 .docTable {
