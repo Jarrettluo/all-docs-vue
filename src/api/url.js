@@ -13,6 +13,7 @@ const MY_UPLOAD_URL = '/category/auth/getMyUploaded'; // 查询我的上传
 const DOC_DETAIL_URL = '/document/detail'; // 文档详情
 const DOC_LIST_URL = '/document/list'; // 文档列表
 const DOC_REMOVE_URL = '/document/auth/remove'; // 文档删除
+const DOC_UPDATE_URL = '/document/auth/updateInfo'; // 管理员可修改文档基本信息
 const DOC_WITH_CHECK_URL = '/document/listWithCategory'; // 返回已经选中的信息
 
 const ABC = '/files/view/'
@@ -140,6 +141,7 @@ module.exports = {
     DOC_REVIEW_LOG_URL,
     DOC_REVIEW_MY_LOG_URL,
     DOC_REVIEW_REMOVE_URL,
+    DOC_UPDATE_URL,
     DOC_REVIEW_USER_READ_URL,
 
     DOC_LOG_LIST_URL,

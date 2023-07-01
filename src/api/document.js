@@ -2,6 +2,7 @@ import {
     DOC_DETAIL_URL,
     DOC_LIST_URL,
     DOC_REMOVE_URL,
+    DOC_UPDATE_URL,
     DOC_WITH_CHECK_URL,
 
     DOC_UPLOAD_URL,
@@ -31,6 +32,10 @@ export default {
 
     deleteData: (params) => {
         return Delete(DOC_REMOVE_URL, params);
+    },
+
+    updateData: (params) => {
+        return Put(DOC_UPDATE_URL_URL, params);
     },
 
     getDataWithCheck: (params) => {

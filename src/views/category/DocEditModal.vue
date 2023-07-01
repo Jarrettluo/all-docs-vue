@@ -32,6 +32,8 @@
 <script>
 import CategoryRequest from "@/api/category";
 
+import DocumentRequest from "@/api/document";
+
 export default {
     name: "DocEditModal",
     data() {
@@ -121,13 +123,13 @@ export default {
                 }
             })
         },
-        updateDocInfo() {
-            this.$Message.info(this.docInfo.name)
-        },
+        // updateDocInfo() {
+        //     this.$Message.info(this.docInfo.name)
+        // },
         getCategory() {
             let cateId = this.docInfo.category
             if (cateId != null && cateId !== '') {
-                for (let item of this.categoryOption ) {
+                for (let item of this.categoryOption) {
                     if (item.id === cateId) {
                         return item.seeName
                     }
@@ -144,6 +146,33 @@ export default {
                 }
             })
             return tagValueList
+        },
+
+        /**
+         * 对某篇文档进行修改操作
+         * @param docItem
+         */
+        updateDocInfo(docItem) {
+            let docId = this.docInfo.id;
+            let docName = this.docInfo.name;
+
+            if (docId == null || docName == null) {
+                this.$Message.warning("提交内容不正确，请修改！")
+                return;
+            }
+            let params = {
+                id: docId,
+                name: docName,
+                categoryId: this.docInfo.category,
+                tags: this.docInfo.tags,
+                desc: this.docInfo.desc,
+            }
+            DocumentRequest.updateData(params).then(response => {
+                // 更新后提示信息
+                if (response.code === 200) {
+                    this.$Message.success("修改成功")
+                }
+            })
         },
     }
 }
