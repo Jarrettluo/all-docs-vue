@@ -177,7 +177,10 @@ export default {
                 // 更新后提示信息
                 if (response.code === 200) {
                     this.$Message.success("修改成功")
+                } else {
+                    this.$Message.error("修改失败！")
                 }
+                this.$emit("saved", true)
             })
         },
     }

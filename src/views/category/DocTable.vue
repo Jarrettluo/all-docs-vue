@@ -128,7 +128,7 @@
             title="文档详情"
             :loading="action_loading"
             @on-ok="asyncUpdateInfo">
-            <doc-edit-modal ref="docEdit" :doc-info="doc_info"></doc-edit-modal>
+            <doc-edit-modal ref="docEdit" :doc-info="doc_info" @saved="saved"></doc-edit-modal>
         </Modal>
 
         <Modal v-model="modal1" width="360">
@@ -505,7 +505,9 @@ export default {
         },
 
         asyncUpdateInfo() {
-            this.$refs['docEdit'].updateDocInfo();
+            this.$refs['docEdit'].updateDocInfo()
+        },
+        saved() {
             this.getListData(this.cateId, this.filterWord)
         }
     }

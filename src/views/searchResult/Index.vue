@@ -1,12 +1,36 @@
 <template>
-    <div style="background-color: #fff">
-        <div class="nav">
-            <Nav></Nav>
-        </div>
-        <div class="doc-group" style="display: inline-block">
-            <div style="background-color: #fff">
-                <SearchInput ref="searchInput" @on-search="getListData"></SearchInput>
+    <div ref="searchResult" style=" width: 100%; background-color: #F7F7F7;">
+
+
+        <div class="top-group" style="text-align: center; ">
+            <img :src="imgSrc" width="100%" height="100%" alt=""/>
+            <SearchGroup ref="searchInput" @on-search="getListData"></SearchGroup>
+            <div class="user-zone" v-if="!ad && !tokenExpired">
+                <Dropdown>
+                    <a class="user-tag" href="javascript:void(0)" style="text-align: center; width: 36px;"
+                       @mouseenter="checkLogin">
+                        <img :src="0 | userAvatar" alt="">
+                    </a>
+                    <template #list>
+                        <DropdownMenu>
+                            <DropdownItem @click.native="gotoAdminPage">系统管理</DropdownItem>
+                            <DropdownItem @click.native="$router.push('/userPage')">个人主页</DropdownItem>
+                            <DropdownItem @click.native="logout()" divided>退出登录</DropdownItem>
+                        </DropdownMenu>
+                    </template>
+                </Dropdown>
             </div>
+            <div class="user-zone" v-else>
+                <a class="user-tag" href="javascript:void(0)" style="text-align: center; width: 36px;"
+                   @click="$router.push('/login')">
+                    <img :src="defaultAvatar" alt="">
+                </a>
+            </div>
+
+        </div>
+
+        <div class="doc-group" ref="docGroup" style="display: inline-block; background-color: #fff;">
+
             <SearchItem v-for="item in data.slice((currentPage-1)*pageSize, (currentPage)*pageSize)"
                         :id="item.id"
                         :thumbId="item.thumbId"
@@ -46,6 +70,12 @@ import DocumentRequest from "@/api/document"
 
 import SearchInput from "./SearchInput"
 
+import SearchGroup from '@/home/SearchGroup'
+import UserCard from '@/home/UserCard'
+
+
+const {BackendUrl} = require("@/api/request");
+
 export default {
     name: "Index.vue",
     data() {
@@ -55,10 +85,35 @@ export default {
             totalItems: 4,
             pageSize: 6,
             loading: true,
+
+            imgSrc: require("@/assets/source/banner.png"),
+            defaultAvatar: require("@/assets/source/user_avater.png"),
+            currentData: [],
+            tokenExpired: false,
+        }
+    },
+
+    computed: {
+        ad() {
+            let item = localStorage.getItem("token");
+            return (item === null || item === undefined || item === "");
+        }
+    },
+    filters: {
+        userAvatar() {
+            let value = localStorage.getItem("avatar")
+            if (value === "" || value === 'null' || value === null || value === undefined) {
+                return require("@/assets/source/user_avater.png");
+            } else {
+                return BackendUrl() + "/files/image2/" + value;
+            }
         }
     },
     components: {
-        Nav, Footer, DocItem, SearchItem, SearchInput
+        Nav, Footer, DocItem, SearchItem, SearchInput,
+
+        SearchGroup,
+        UserCard
     },
     mounted() {
         this.getListData()
@@ -82,7 +137,7 @@ export default {
                 if (res.code === 200) {
                     this.totalItems = res.data.totalNum;
                     this.data = []
-                        let docs = res.data.documents;
+                    let docs = res.data.documents;
                     docs.forEach(
                         item => {
                             let title = item.title.replace(keyword, "<span class='em-title'>" + keyword + "</span>")
@@ -97,6 +152,8 @@ export default {
                 if (this.data == null || this.data.length === 0) {
                     this.info(false)
                 }
+
+                this.$refs['searchResult'].style.height = '1060px'
             })
         },
         info(nodesc) {
@@ -107,12 +164,48 @@ export default {
         },
         pageChange(page) {
             this.currentPage = page
-        }
+        },
+
+        async checkLogin() {
+            let item = localStorage.getItem("token");
+            if (item == null || item === "") {
+                return;
+            }
+            await UserRequest.checkUserLogin().then(res => {
+                if (res.code !== 200) {
+                    this.$Message.error("token 已过期")
+                    localStorage.clear();
+                    this.tokenExpired = true
+                }
+            }).catch(err => {
+                this.$Message.error("token 已过期")
+                localStorage.clear();
+                this.tokenExpired = true
+            })
+        },
+
+        gotoAdminPage() {
+            if (localStorage.getItem('type')==='ADMIN') {
+                this.$router.push('/admin/allDocuments')
+            } else {
+                this.$Message.warning("请使用管理员账号登录！")
+            }
+        },
+
+        logout() {
+            localStorage.clear()
+            this.$router.push({
+                name: 'Login'
+            })
+        },
+
+
+
     }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .nav {
     background-color: #ffcc4f;
@@ -120,15 +213,77 @@ export default {
     height: 50px;
 }
 
+.top-group {
+    height: 340px;
+    width: 100%;
+    padding-bottom: 40px;
+    z-index: -1;
+
+    .user-zone {
+        position: absolute;
+        right: 40px;
+        top: 20px;
+        display: flex;
+        justify-content: flex-start;
+        padding: 5px 5px 0 5px;
+
+        span {
+            height: 36px;
+            line-height: 36px;
+            font-size: 14px;
+            font-family: PingFangSC-Regular, PingFang SC, serif;
+            font-weight: 400;
+            color: #000000;
+            padding-right: 10px;
+        }
+
+        .user-tag {
+
+            border-radius: 36px;
+            box-sizing: content-box;
+
+            img {
+                border-radius: 38px;
+                height: 36px;
+                width: 36px;
+                box-shadow: 0 0 4px #bbbbbb;
+            }
+
+        }
+
+        &
+        :hover {
+            cursor: pointer;
+            background-color: rgba(#fff, 0.2);
+            border-radius: 8px;
+        }
+
+    }
+
+    .button-group {
+        height: 120px;
+        position: absolute;
+        top: 225px;
+        width: 1200px;
+        left: calc(50% - 600px);
+    }
+
+}
+
 .doc-group {
     width: 1200px;
-    /*position: absolute;*/
+    position: absolute;
     margin: auto;
-    /*background-color: #dcdee2;*/
-    /*background-color: rgba(245, 245, 245, 100);*/
     color: rgba(16, 16, 16, 100);
     text-align: left;
-    /*padding-left: 12px;*/
+
+    min-height: 815px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px 0px rgba(64,64,64,0.3);
+    border-radius: 8px;
+    top: 209px;
+    left: calc(50% - 600px);
+    padding: 20px;
 }
 
 .page-container {

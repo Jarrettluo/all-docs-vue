@@ -1,7 +1,8 @@
 <template>
     <div class="search-group">
         <div class="search-zone">
-            <div class="logo">
+            <div class="logo" @click="$router.push('/')"
+                 style="cursor: pointer">
                 <img :src="logoSrc" width="100%" height="100%" alt=""/>
             </div>
             <div class="search-input">
@@ -91,12 +92,13 @@ export default {
         },
         clickToSearch(value) {
             if (value !== "") {
-                this.$router.push({
+                this.$router.replace({
                     path: '/searchResult',
                     query: {
                         keyWord: value
                     }
                 })
+                this.$emit("on-search", true)
             } else {
                 this.routeTo()
             }
@@ -244,7 +246,7 @@ export default {
 
             .user-search-result {
                 position: absolute;
-                background-color: rgba(255,255,255, 0.8);
+                background-color: rgba(246,246,246, 0.8);
                 width: 440px;
                 border-radius: 12px;
                 left: 120px;

@@ -286,6 +286,7 @@ export default {
         height: 619px;
         box-shadow: 0 0 5px 0 rgba(64, 64, 64, 0.3);
         border-radius: 8px;
+        background-color: #fff;
 
         .left-panel {
             height: 100%;
