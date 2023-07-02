@@ -301,7 +301,7 @@ export default {
             height: 600,
 
             edit_modal: false,
-            doc_info: {fdf: "dslfj"}
+            doc_info: {}
         }
     },
     filters: {
@@ -500,6 +500,7 @@ export default {
                 this.doc_info["category"] = item['categoryVO']['id']
             }
             this.doc_info["desc"] = item['description']
+            this.doc_info["id"] = item['id']
         },
 
         asyncUpdateInfo() {

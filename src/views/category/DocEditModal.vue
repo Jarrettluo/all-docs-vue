@@ -160,13 +160,19 @@ export default {
                 this.$Message.warning("提交内容不正确，请修改！")
                 return;
             }
+
+            let allTags = []
+            this.docInfo.tags.forEach(item => {
+                allTags.push(item['value'])
+            })
             let params = {
                 id: docId,
                 name: docName,
                 categoryId: this.docInfo.category,
-                tags: this.docInfo.tags,
+                tags: allTags,
                 desc: this.docInfo.desc,
             }
+
             DocumentRequest.updateData(params).then(response => {
                 // 更新后提示信息
                 if (response.code === 200) {

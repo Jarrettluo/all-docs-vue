@@ -18,7 +18,7 @@ import {
 
 } from './url'
 
-import {Get, Post, Delete, Download} from "@/api/request";
+import {Get, Post, Put, Delete, Download} from "@/api/request";
 
 export default {
 
@@ -35,7 +35,7 @@ export default {
     },
 
     updateData: (params) => {
-        return Put(DOC_UPDATE_URL_URL, params);
+        return Put(DOC_UPDATE_URL, params);
     },
 
     getDataWithCheck: (params) => {
