@@ -473,6 +473,7 @@ export default {
             this.$Message.error("功能正在开发中，请等待！")
         },
 
+        // 管理员点击按钮后生效
         edit_document(index) {
             this.edit_modal = true;
             this.$refs["docEdit"].getAllItems();
@@ -504,7 +505,8 @@ export default {
         },
 
         asyncUpdateInfo() {
-            this.$refs['docEdit'].updateDocInfo()
+            this.$refs['docEdit'].updateDocInfo();
+            this.getListData(this.cateId, this.filterWord)
         }
     }
 }
