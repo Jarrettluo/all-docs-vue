@@ -43,7 +43,8 @@ const RESET_USER_PWD_URL = '/user/auth/resetUserPwd'; // 管理员重置用户�
 
 const COMMENT_ADD_URL = '/comment/auth/insert'; // 评论增加
 const COMMENT_LIST_URL = '/comment/list'; // 评论列表
-const COMMENT_REMOVE_URL = '/comment/auth/remove'; // 评论删除
+const COMMENT_REMOVE_URL = '/comment/auth/remove'; // 用户自行评论删除
+const COMMENT_REMOVE_BATCH_URL = '/comment/auth/removeBatch'; // 管理员批量删除评论
 const COMMENT_UPDATE_URL = '/comment/auth/update'; // 评论更新
 const COMMENT_USER_URL = '/comment/auth/myComments'; // 用户主页查询评论列表
 const COMMENT_ALL_URL = '/comment/auth/allComments'; // 管理员查询评论列表
@@ -122,6 +123,7 @@ module.exports = {
     COMMENT_ADD_URL,
     COMMENT_LIST_URL,
     COMMENT_REMOVE_URL,
+    COMMENT_REMOVE_BATCH_URL,
     COMMENT_UPDATE_URL,
     COMMENT_USER_URL,
     COMMENT_ALL_URL,

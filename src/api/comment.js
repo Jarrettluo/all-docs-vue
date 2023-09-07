@@ -2,6 +2,7 @@ import {
     COMMENT_ADD_URL,
     COMMENT_LIST_URL,
     COMMENT_REMOVE_URL,
+    COMMENT_REMOVE_BATCH_URL,
     COMMENT_UPDATE_URL,
     COMMENT_USER_URL,
     COMMENT_ALL_URL
@@ -21,6 +22,10 @@ export default {
 
     deleteData: (params) => {
         return Delete(COMMENT_REMOVE_URL, params);
+    },
+
+    deleteDataBatch: (params) => {
+        return Delete(COMMENT_REMOVE_BATCH_URL, params);
     },
 
     getMyComments: (params) => {

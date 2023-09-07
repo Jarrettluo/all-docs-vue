@@ -7,7 +7,7 @@
                         {{ row.docName }}</p>
                 </template>
                 <template #action="{ row, index }">
-                    <Button type="error" size="small" @click="remove(index)">删 除</Button>
+                    <Button type="error" size="small" @click="remove(row)">删 除</Button>
                 </template>
             </Table>
             <div class="bottom-zone">
@@ -145,15 +145,15 @@ export default {
             this.pageSize = size
             this.getPageData()
         },
-
-        async remove(index) {
-            let item = this.data[index]
+        // 管理员删除一条评论
+        async remove(row) {
             let param = {
-                ids: item.id
+                ids: [row.id]
             }
-            commentRequest.deleteData(param).then(res => {
+            await commentRequest.deleteDataBatch(param).then(res => {
                 if (res.code === 200) {
                     this.getPageData()
+                    this.$Message.success("删除成功")
                 } else {
                     this.$Message.error(res.message)
                 }
@@ -161,9 +161,24 @@ export default {
                 this.$Message.error(err)
             })
         },
-        removeBatch() {
+        // 管理员删除一批评论
+        async removeBatch() {
             let selection = this.$refs.commentTable.getSelection();
-            this.$Message.error("暂未开发，请等待")
+            let array = []
+            selection.forEach((element) => array.push(element.id));
+            let param = {
+                ids: array
+            }
+            await commentRequest.deleteDataBatch(param).then(res => {
+                if (res.code === 200) {
+                    this.getPageData()
+                    this.$Message.success("删除成功")
+                } else {
+                    this.$Message.error(res.message)
+                }
+            }).catch(err => {
+                this.$Message.error(err)
+            })
         },
         preview(value) {
             this.$router.push({
