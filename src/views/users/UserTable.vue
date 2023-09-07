@@ -13,7 +13,7 @@
             <template #sex="{row, index}">
                 <p v-if="row.male===true">男</p>
                 <p v-else-if="row.male===false">女</p>
-                <p v-else>女</p>
+                <p v-else>未知</p>
             </template>
             <template #action="{ row, index }">
                 <Button type="success" size="small" @click="detail(index)" :disabled="row.id === currentUserId">编辑</Button>
@@ -111,6 +111,28 @@ export default {
                     minWidth: 230,
                     key: 'mail',
                     resizable: true,
+                },
+                {
+                    title: '上次登录',
+                    width: 220,
+                    key: 'lastLogin',
+                    align: 'center',
+                    resizable: true,
+                    render: (h, params) => {
+                        let temp = ""
+                        let time = params.row.lastLogin
+                        if (time != null) {
+                            temp = parseTime(new Date(time), '{y}年{m}月{d}日 {h}:{i}:{s}');
+                        } else {
+                            let time = params.row.createDate
+                            if (time != null) {
+                                temp = parseTime(new Date(time), '{y}年{m}月{d}日 {h}:{i}:{s}');
+                            }
+                        }
+                        return h('div', [
+                            h('span', temp)
+                        ]);
+                    }
                 },
                 {
                     title: '创建时间',

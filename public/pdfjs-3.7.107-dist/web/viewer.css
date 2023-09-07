@@ -1174,6 +1174,8 @@
   --secondaryToolbarButton-spreadOdd-icon: url(images/secondaryToolbarButton-spreadOdd.svg);
   --secondaryToolbarButton-spreadEven-icon: url(images/secondaryToolbarButton-spreadEven.svg);
   --secondaryToolbarButton-documentProperties-icon: url(images/secondaryToolbarButton-documentProperties.svg);
+
+  --toolbarButton-home-icon: url(images/home.svg);
 }
 
 [dir="rtl"]:root {
@@ -2058,6 +2060,11 @@ a:is(.toolbarButton, .secondaryToolbarButton)[href="#"] {
 #viewFind::before {
   -webkit-mask-image: var(--toolbarButton-search-icon);
           mask-image: var(--toolbarButton-search-icon);
+}
+
+#homeButton::before {
+  -webkit-mask-image: var(--toolbarButton-home-icon);
+  mask-image: var(--toolbarButton-home-icon);
 }
 
 .pdfSidebarNotification::after {

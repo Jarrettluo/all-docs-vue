@@ -48,7 +48,8 @@
             <FormItem label="生日">
                 <Row>
                     <Col span="11">
-                        <DatePicker type="date" :placeholder="placeholder" v-model="userForm.birthtime"></DatePicker>
+                        <DatePicker type="date" :placeholder="placeholder" v-model="userForm.birthtime">
+                        </DatePicker>
                     </Col>
                 </Row>
             </FormItem>
@@ -118,6 +119,9 @@ export default {
                     this.userForm['gender'] = resData.male ? 'male' : 'female';
                     this.userForm['phoneNum'] = resData.phone
                     this.userForm['userComment'] = resData.description
+                    if (resData.birthtime != null) {
+                        this.userForm['birthtime'] = new Date(resData.birthtime);
+                    }
                     if (resData.avatar !== '' && resData.avatar !== null && resData.avatar !== 'null') {
                         this.userSrc = BackendUrl() + "/files/image2/" + resData.avatar
                     }
@@ -138,7 +142,8 @@ export default {
                 phone: this.userForm.phoneNum,
                 mail: this.userForm.mail,
                 male: this.userForm.gender === 'male',
-                description: this.userForm.userComment
+                description: this.userForm.userComment,
+                birthtime: this.userForm.birthtime
             }
             UserRequest.updateUser(params).then(res => {
                 this.$Message.success("修改成功！")

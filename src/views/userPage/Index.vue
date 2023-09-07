@@ -59,7 +59,12 @@ justify-content: center;
                                         @click="selected(item)"
                                         :class="{activeNav: item.route == $route.name}"
                                     >
-                                        {{ item.name }}
+                                        <Badge dot v-if="item.badge">
+                                            {{ item.name }}
+                                        </Badge>
+                                        <span v-else>
+                                            {{ item.name }}
+                                        </span>
                                     </li>
                                 </ul>
                             </div>
@@ -93,19 +98,23 @@ export default {
             navData: [
                 {
                     name: '消息列表',
-                    route: 'msg'
+                    route: 'msg',
+                    badge: true
                 },
                 {
                     name: '我的收藏夹',
-                    route: 'userCollection'
+                    route: 'userCollection',
+                    badge: false
                 },
                 {
                     name: '我上传的文档',
-                    route: 'userUpload'
+                    route: 'userUpload',
+                    badge: false
                 },
                 {
                     name: '个人设置',
-                    route: 'userInfo'
+                    route: 'userInfo',
+                    badge: false
                 }
             ],
             checkedNav: {

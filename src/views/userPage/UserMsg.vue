@@ -7,7 +7,17 @@
                 <div class="page-panel">
                     <div class="info-group">
                         <div class="info-item" v-for="item in infoList" @click="userRead(item)">
-                            <div class="info-title">
+
+                            <div class="info-title" v-if="!item.readState">
+                                <Badge dot>
+                                    <span class="tile-span">{{ item.title }}</span>
+                                    <span class="ok-span">  管理员审核</span>
+                                    <span class="ok-span" v-if="item.checkState">通过</span>
+                                    <span class="no-span" v-else>不通过，原因 {{ item.errorMsg }}</span>
+                                </Badge>
+                            </div>
+
+                            <div class="info-title" v-else>
                                 <span class="tile-span">{{ item.title }}</span>
                                 <span class="ok-span">  管理员审核</span>
                                 <span class="ok-span" v-if="item.checkState">通过</span>
@@ -64,7 +74,7 @@
                             :total="commentTotalItems"
                             :page-size="commentPageSize"
                             @on-change="commentPageChange"
-                            />
+                        />
                     </div>
                 </div>
             </TabPane>
@@ -166,7 +176,7 @@ export default {
         },
 
         async userRead(item) {
-            if(item.readState === true) {
+            if (item.readState === true) {
                 return;
             }
             let param = {
@@ -183,7 +193,7 @@ export default {
         },
 
         switchTab(name) {
-            switch (name){
+            switch (name) {
                 case "name1":
                     this.getAllReviews()
                     break;
@@ -194,8 +204,8 @@ export default {
         },
         documentPreview(item) {
             this.$router.push({
-                path:'/preview',
-                query:{
+                path: '/preview',
+                query: {
                     docId: item.docId
                 }
             })
@@ -207,7 +217,7 @@ export default {
                 userId: item.userId
             }
             commentRequest.deleteData(param).then(res => {
-                if (res.code === 200){
+                if (res.code === 200) {
                     let data = res.data
                     this.getPageData()
                 }
