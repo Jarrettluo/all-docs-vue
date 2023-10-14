@@ -4,7 +4,7 @@
             <TabPane label="文档动态" name="name1">
                 <!--                <filter-list-page></filter-list-page>-->
 
-                <div class="page-panel">
+                <div class="page-panel container" @scroll="handleScroll">
                     <div class="info-group">
                         <div class="info-item" v-for="item in infoList" @click="userRead(item)">
 
@@ -29,14 +29,7 @@
                             <div class="info-mask" v-if="item.readState">
                             </div>
                         </div>
-                    </div>
-                    <div class="page-bottom">
-                        <Page
-                            :model-value="currentPage"
-                            :total="totalItems"
-                            :page-size="pageSize"
-                            @on-change="pageChange"
-                        />
+                        <div v-if="isLoading" class="loading-indicator">Loading...</div>
                     </div>
                 </div>
 
@@ -95,11 +88,15 @@ export default {
             comments: [],
             currentPage: 1,
             totalItems: 10,
-            pageSize: 20,
+            pageSize: 60,
 
             commentCurrentPage: 1,
             commentTotalItems: 10,
             commentPageSize: 20,
+
+            isLoading: false,
+            prevScrollTop:0, //用于跟踪前一个滚动位置
+            loadedPages: []
         }
     },
     mounted() {
@@ -109,16 +106,20 @@ export default {
     methods: {
         // 获取用户的全部评审状态
         async getAllReviews() {
+            if (this.isLoading || this.infoList.length === this.totalItems || this.loadedPages.includes(this.currentPage)) {
+                return;
+            }
             let param = {
                 page: this.currentPage,
                 rows: this.pageSize
             }
-            docReviewRequest.getMyReviewLog(param).then(res => {
+            this.isLoading = true
+            this.loadedPages.push(this.currentPage)
+            await docReviewRequest.getMyReviewLog(param).then(res => {
                 if (res.code === 200) {
                     let result = res.data.data
                     this.totalItems = res.data.total
 
-                    this.infoList = []
                     let tempObj = {}
                     for (let resultKey of result) {
                         tempObj['id'] = resultKey['id']
@@ -130,10 +131,14 @@ export default {
                         this.infoList.push(tempObj)
                         tempObj = {}
                     }
+                    this.currentPage ++
                 }
             }).catch(err => {
                 this.$Message.error("出错：" + (err || '请稍后重试'))
-            })
+            }).finally(
+                this.isLoading = false
+            )
+
         },
 
         async getPageData() {
@@ -224,7 +229,20 @@ export default {
             }).catch(err => {
                 this.$Message.error("出错:" + (err || '请稍后重试'))
             })
-        }
+        },
+
+        handleScroll(event) {
+            const container = event.target;
+            const currentScrollTop = container.scrollTop;
+            if (
+                currentScrollTop > this.prevScrollTop && // 检查滚动方向是向下
+                container.scrollHeight - container.scrollTop <= container.clientHeight + 10 &&
+                !this.isLoading
+            ) {
+                this.getAllReviews();
+                this.prevScrollTop = currentScrollTop; // 更新前一个滚动位置
+            }
+        },
 
     }
 }
@@ -252,12 +270,13 @@ export default {
 
 .page-panel {
     width: 100%;
-    height: 810px;
+    height: 800px;
     position: relative;
+    overflow: auto; /* 让内容溢出时显示滚动条 */
 
     .info-group {
         width: 100%;
-        height: calc(100% - 60px);
+        //height: calc(100% - 60px);
 
         position: relative;
         overflow-y: auto;
@@ -321,6 +340,10 @@ export default {
 
         }
 
+        .loading-indicator {
+            text-align: center;
+            padding: 10px;
+        }
     }
 
     .page-bottom {
