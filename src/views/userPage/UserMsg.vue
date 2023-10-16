@@ -37,7 +37,7 @@
             <TabPane label="评论信息" name="name2">
                 <!--                <filter-list-page></filter-list-page>-->
 
-                <div class="page-panel">
+                <div class="page-panel" @scroll="handleCommentScroll">
                     <div class="info-group">
                         <div class="" style="width: 100%; padding: 15px; text-align: left;
                         border-bottom: 1px solid #f1f2f3;" v-for="item in comments">
@@ -60,14 +60,7 @@
                                 <Icon type="md-trash" style="cursor: pointer" @click="removeDocument(item)"/>
                             </div>
                         </div>
-                    </div>
-                    <div class="page-bottom">
-                        <Page
-                            :model-value="commentCurrentPage"
-                            :total="commentTotalItems"
-                            :page-size="commentPageSize"
-                            @on-change="commentPageChange"
-                        />
+                        <div v-if="isLoading" class="loading-indicator">Loading...</div>
                     </div>
                 </div>
             </TabPane>
@@ -96,7 +89,10 @@ export default {
 
             isLoading: false,
             prevScrollTop:0, //用于跟踪前一个滚动位置
-            loadedPages: []
+            loadedPages: [],
+
+            prevScrollTop2: 0, // 用于跟踪前一个滚动位置
+            loadedPages2: [],
         }
     },
     mounted() {
@@ -142,16 +138,20 @@ export default {
         },
 
         async getPageData() {
+
+            if (this.isLoading || this.comments.length === this.commentTotalItems
+                || this.loadedPages2.includes(this.commentCurrentPage)) {
+                return;
+            }
             let param = {
                 page: this.commentCurrentPage,
                 rows: this.commentPageSize
             }
+            this.isLoading = true
+            this.loadedPages2.push(this.commentCurrentPage)
             commentRequest.getMyComments(param).then(res => {
                 if (res.code === 200) {
                     let result = res.data.data
-
-                    this.comments = []
-
                     for (let resultElement of result) {
                         let tempObj = resultElement
                         tempObj['createTime'] = parseTime(new Date(resultElement['createDate']), '{y}年{m}月{d}日');
@@ -159,15 +159,20 @@ export default {
                     }
                     this.totalItems = res.data.total
 
-                    this.commentCurrentPage = res.data.pageNum;
                     this.commentPageSize = res.data.pageSize;
                     this.commentTotalItems = res.data.total;
+
+                    this.commentCurrentPage ++
+
+
                 } else {
                     this.data = []
                 }
             }).catch(err => {
                 this.$Message.error("出错：" + (err || '请稍后重试'))
-            })
+            }).finally(
+                this.isLoading = false
+            )
         },
 
         pageChange(page) {
@@ -243,6 +248,22 @@ export default {
                 this.prevScrollTop = currentScrollTop; // 更新前一个滚动位置
             }
         },
+
+        handleCommentScroll(event) {
+
+            const container = event.target;
+            const currentScrollTop = container.scrollTop;
+
+            if (
+                currentScrollTop > this.prevScrollTop2 && // 检查滚动方向是向下
+                container.scrollHeight - container.scrollTop <= container.clientHeight + 10 &&
+                !this.isLoading
+            ) {
+                this.getPageData();
+                this.prevScrollTop2 = currentScrollTop; // 更新前一个滚动位置
+            }
+
+        }
 
     }
 }
