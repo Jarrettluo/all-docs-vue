@@ -209,16 +209,15 @@ const router = new VueRouter({
 
 
 
-// // 设置路由导航卫士,通过判断是否存在token,对网页访问权限进行设置
-// router.beforeEach((to, from, next) => {
-//     // to表示将要访问的地址
-//     // from表示从哪个路径跳转而来
-//     // next是放行函数  next()放行    next('/path')强制跳转
-//     if (to.path === '/login') return next()
-//     if (to.path.)
-//     const tokenStr = localStorage.getItem('token')
-//     if (!tokenStr) return next('/login')
-//     next()
-// })
+// 设置路由导航卫士,通过判断是否存在token,对网页访问权限进行设置
+router.beforeEach((to, from, next) => {
+    // to表示将要访问的地址
+    // from表示从哪个路径跳转而来
+    // next是放行函数  next()放行    next('/path')强制跳转
+    if (to.path === '/login') return next()
+    const tokenStr = localStorage.getItem('token')
+    if (!tokenStr) return next('/login')
+    next()
+})
 
 export default router

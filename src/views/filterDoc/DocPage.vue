@@ -34,7 +34,8 @@ export default {
             pageSize: 24,
             tagId: '',
             cateId: '',
-            keyword: ''
+            keyword: '',
+            spinShow: true
         }
     },
     props: ["requestType"],
@@ -68,6 +69,7 @@ export default {
                         this.total = result.total;
                         this.pageSize = result.pageSize
                     }
+                    this.spinShow = false
                 }).catch(err => {
                     this.$Message.error("出错：" + (err || '请稍后重试'))
                 })
@@ -80,6 +82,7 @@ export default {
                         this.total = result.total;
                         this.pageSize = result.pageSize
                     }
+                    this.spinShow = false
                 }).catch(err => {
                     this.$Message.error("出错：" + (err || '请稍后重试'))
                 })
@@ -98,6 +101,7 @@ export default {
                         this.total = result.total;
                         this.pageSize = result.pageSize
                     }
+                    this.spinShow = false
                 }).catch(err => {
                     this.$Message.error("出错：" + (err || '请稍后重试'))
                 })

@@ -13,14 +13,14 @@
                 <span v-show="flag">  加载中... </span>
             </div>
         </div>
-        <div class="doc-group-page">
-            <Page
-                :page-size="pageSize"
-                :current="pageNum"
-                :total="total"
-                @on-change="pageChange"
-            />
-        </div>
+<!--        <div class="doc-group-page">-->
+<!--            <Page-->
+<!--                :page-size="pageSize"-->
+<!--                :current="pageNum"-->
+<!--                :total="total"-->
+<!--                @on-change="pageChange"-->
+<!--            />-->
+<!--        </div>-->
     </div>
 </template>
 
