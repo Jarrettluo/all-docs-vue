@@ -17,6 +17,13 @@ Vue.component('tags-input', VoerroTagsInput);
 Vue.use(VueRouter);
 Vue.use(iView);
 
+import jm from 'vue-jsmind'
+
+Vue.use(jm)
+if (window.jsMind) {
+    Vue.prototype.jsMind = window.jsMind
+}
+
 Vue.prototype.$axios = Api;
 
 new Vue({

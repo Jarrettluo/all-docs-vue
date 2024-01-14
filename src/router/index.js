@@ -214,7 +214,7 @@ router.beforeEach((to, from, next) => {
     // to表示将要访问的地址
     // from表示从哪个路径跳转而来
     // next是放行函数  next()放行    next('/path')强制跳转
-    if (to.path === '/login') return next()
+    if (to.path === '/login' || to.path === "/registry") return next()
     const tokenStr = localStorage.getItem('token')
     if (!tokenStr) return next('/login')
     next()
