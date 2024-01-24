@@ -99,6 +99,15 @@
 </template>
 
 <script>
+import jm from 'vue-jsmind'
+
+import 'jsmind/style/jsmind.css'
+import jsMind from 'jsmind/js/jsmind.js'
+window.jsMind = jsMind
+
+require('jsmind/js/jsmind.draggable.js')
+require('jsmind/js/jsmind.screenshot.js')
+
 export default {
     data () {
         return {
@@ -352,7 +361,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .header{
     height: 60px;
     background-color: #eee;
