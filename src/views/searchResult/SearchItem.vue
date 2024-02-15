@@ -2,7 +2,7 @@
     <div class="search-doc">
         <div class="doc-title-group">
             <div class="doc-pic" style="text-align: center;">
-                <img :src=" thumbId | imgSrc " alt="thumb" style="width: 36px;max-height: 48px;border: 1px solid #dcdee2; border-radius: 2px">
+                <img :src=" thumbId | imgSrc " alt="thumb">
             </div>
             <div class="title-group">
                 <div class="doc-title-info" @click="getDocView()" v-html="title">
@@ -30,19 +30,19 @@
                     {{collectNum}}
                 </li>
                 <li>
-                    <i class="ivu-icon ivu-icon-ios-thumbs-up-outline"></i>889
+                    <i class="ivu-icon ivu-icon-ios-thumbs-up-outline"></i>
+                    889
                 </li>
                 <li>
                     <i class="ivu-icon ivu-icon-ios-chatbubbles-outline"></i>
                     {{commentNum}}
                 </li>
             </ul>
-<!--        </div>-->
     </div>
 </template>
 
 <script>
-import {parseTime} from "@/utils/index"
+import {parseTime} from "@/utils"
 import { BackendUrl } from '@/api/request'
 
 export default {
@@ -56,7 +56,7 @@ export default {
         thumbId: { type: String, requires: true },
         title: { type: String, requires: true },
         description: { type: String, requires: true },
-        time: { type: String, requires: true, default: "232"},
+        time: { type: Number, requires: true, default: 1704422520232},
         userName: { type: String, requires: true, default: 'admin'},
         category: { type: Object, requires: false,default: ''},
         tags: { type: Array, requires: false, default: []},
@@ -92,6 +92,10 @@ export default {
             }
         },
         timeIn: function() {
+            if (this.time instanceof Number) {
+                // 如果是数字，则转换成字符串
+                this.time = this.time.toString()
+            }
             return parseTime(new Date(this.time), '{y}年{m}月{d}日 {h}:{i}:{s}');
         },
         getDocView() {
@@ -115,7 +119,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 ::v-deep .em-title {
     color: #5c86aa;
@@ -145,6 +149,12 @@ export default {
     float: left;
     line-height: 48px;
     margin: auto;
+    img {
+        width: 36px;
+        max-height: 48px;
+        border: 1px solid #dcdee2;
+        border-radius: 2px
+    }
 }
 .title-group {
     height: 48px;

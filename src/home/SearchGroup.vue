@@ -281,7 +281,7 @@ export default {
                         top: 0px;
                         line-height: 28px;
                         font-size: 12px;
-                        color: blue;
+                        color: #0067eb;
                         padding: 0px 8px;
                     }
                 }
