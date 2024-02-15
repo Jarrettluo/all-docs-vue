@@ -32,6 +32,9 @@ export default {
         return {
             pageNum: 1,
             flag: false,
+
+            isLoading: false,
+            prevScrollTop2: 0, // 用于跟踪前一个滚动位置
         }
     },
     components: {
@@ -57,18 +60,17 @@ export default {
         },
         handleScroll(event) {
             this.flag = true
-            const listWrapper = event.target;
-            const scrollBottom = listWrapper.scrollHeight - listWrapper.scrollTop - listWrapper.clientHeight;
-            let down = true;
-            if (scrollBottom <= 0 && down) { // 当距离底部小于50像素时触发加载数据
-                this.pageNum += 1;
-                this.flag = false
-                down = false
-                // setTimeout(() => {
-                    // 调用加载新数据的方法
-                    this.$emit("on-page-change", this.pageNum);
-                // }, 500)
+            const container = event.target;
+            const currentScrollTop = container.scrollTop;
 
+            if (
+                currentScrollTop > this.prevScrollTop2 && // 检查滚动方向是向下
+                container.scrollHeight - container.scrollTop <= container.clientHeight + 10 &&
+                !this.isLoading
+            ) {
+                this.flag = false
+                this.$emit("on-page-change", this.pageNum);
+                this.prevScrollTop2 = currentScrollTop; // 更新前一个滚动位置
             }
         },
     }

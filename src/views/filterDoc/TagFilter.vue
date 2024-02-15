@@ -52,7 +52,7 @@ export default {
                     return;
                 }
                 this.listLoading = false
-                this.tagNames = [{id: "ALL", name: "全部分类", createDate: '', updateDate: ''}]
+                this.tagNames = [{id: "ALL", name: "不限", createDate: '', updateDate: ''}]
                 if (response.data.length > 0) {
                     response.data.forEach(item => {
                         if (item.name.length > 8) {
@@ -99,6 +99,7 @@ export default {
         .tag-item {
             padding-right: 20px;
             cursor: pointer;
+            font-size: 14px;
 
             &:hover {
                 color: #F2A500;

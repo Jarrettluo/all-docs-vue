@@ -21,7 +21,7 @@ margin: auto;">
                                 </div>
                                 <div style="height: 22px; width: 100%; white-space: nowrap;color: #000;font-size: 16px; font-weight: 600;
 line-height: 22px; margin-top: 18px;">
-                                    <span>{{ username }}</span>
+                                    <span>{{ username | userNameTooLong }}</span>
                                 </div>
                                 <div
                                     style="line-height: 22px; color: #aaa; font-size: 12px; font-weight: 400; line-height: 22px;">
@@ -150,6 +150,12 @@ export default {
                 return "管理员"
             }
             return "普通用户"
+        },
+        userNameTooLong(name) {
+            if (name.length > 16) {
+                return name.slice(0, 8) + "..." + name.slice(-8)
+            }
+            return name;
         }
     },
     methods: {

@@ -7,7 +7,15 @@
                 <TabPane label="最近上传" name="name1">
                     <filter-list-page :data="docList" :total="total" :pageNum="pageNum"
                                       :pageSize="pageSize" @on-page-change="changePage"
+                                      :key="key"
+                                      v-show="!spinShow"
                     ></filter-list-page>
+                    <div v-show="spinShow" style="background: none; height:800px;">
+                        <Spin fix>
+                            <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
+                            <div>Loading</div>
+                        </Spin>
+                    </div>
                 </TabPane>
                 <TabPane label="人气排名" name="name2" v-if="false">
                     <filter-list-page></filter-list-page>
@@ -31,11 +39,14 @@ export default {
             docList: [],
             total: 100,
             pageNum: 1,
-            pageSize: 24,
+            pageSize: 60,
             tagId: '',
             cateId: '',
             keyword: '',
-            spinShow: true
+            spinShow: true,
+
+            loadedPages: [], // 已经查询过的页数存放地址
+            key: new Date()
         }
     },
     props: ["requestType"],
@@ -53,6 +64,9 @@ export default {
             if (this.pageNum > this.total / this.pageSize) {
                 return;
             }
+            if (this.loadedPages.includes(this.pageNum)) {
+                return;
+            }
             let param = {
                 cateId: this.cateId,
                 tagId: this.tagId,
@@ -60,14 +74,18 @@ export default {
                 page: this.pageNum,
                 rows: this.pageSize
             }
+            this.loadedPages.push(this.pageNum)
             if (this.requestType === 'collect') {
                 CategoryRequest.getMyCollectList(param).then(res => {
                     if (res.code === 200) {
                         let result = res.data;
-                        this.docList = result.data
+                        result.data.forEach(item => {
+                            this.docList.push(item)
+                        })
                         this.pageNum = result.pageNum + 1;
                         this.total = result.total;
-                        this.pageSize = result.pageSize
+                        this.pageSize = result.pageSize;
+                        this.pageNum ++;
                     }
                     this.spinShow = false
                 }).catch(err => {
@@ -77,8 +95,11 @@ export default {
                 CategoryRequest.getMyUploadList(param).then(res => {
                     if (res.code === 200) {
                         let result = res.data;
-                        this.docList = result.data
+                        result.data.forEach(item => {
+                            this.docList.push(item)
+                        })
                         this.pageNum = result.pageNum + 1;
+                        this.pageNum ++;
                         this.total = result.total;
                         this.pageSize = result.pageSize
                     }
@@ -90,14 +111,11 @@ export default {
                 CategoryRequest.getDocList(param).then(res => {
                     if (res.code === 200) {
                         let result = res.data;
-                        if (this.pageNum == 1) {
-                            this.docList = result.data
-                        } else {
-                            result.data.forEach(item => {
-                                this.docList.push(item)
-                            })
-                        }
+                        result.data.forEach(item => {
+                            this.docList.push(item)
+                        })
                         this.pageNum = result.pageNum + 1;
+                        this.pageNum ++;
                         this.total = result.total;
                         this.pageSize = result.pageSize
                     }
@@ -109,14 +127,38 @@ export default {
 
         },
         changeCate(cateId) {
+            this.spinShow = true;
+            this.pageNum = 1;
+            this.docList = [];
+            this.loadedPages = [];
+            this.total = 100;
+            this.pageSize = 60;
+            this.key = new Date();
+
             this.cateId = cateId
             this.getRecentDocList()
         },
         changeKeyWord(keyword) {
+            this.spinShow = true;
+            this.pageNum = 1;
+            this.docList = [];
+            this.loadedPages = [];
+            this.total = 100;
+            this.pageSize = 60;
+            this.key = new Date();
+
             this.keyword = keyword
             this.getRecentDocList()
         },
         changeTag(tagId) {
+            this.spinShow = true;
+            this.pageNum = 1;
+            this.docList = [];
+            this.loadedPages = [];
+            this.total = 100;
+            this.pageSize = 60;
+            this.key = new Date();
+
             this.tagId = tagId
             this.getRecentDocList()
         },
@@ -143,6 +185,24 @@ export default {
         }
     }
 
+}
+
+.demo-spin-col .circular {
+    width:25px;
+    height:25px;
+}
+.demo-spin-icon-load{
+    animation: ani-demo-spin 1s linear infinite;
+}
+@keyframes ani-demo-spin {
+    from { transform: rotate(0deg);}
+    50%  { transform: rotate(180deg);}
+    to   { transform: rotate(360deg);}
+}
+.demo-spin-col{
+    height: 100px;
+    position: relative;
+    border: 1px solid #eee;
 }
 
 </style>

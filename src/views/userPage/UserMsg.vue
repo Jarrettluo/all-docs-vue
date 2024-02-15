@@ -158,7 +158,6 @@ export default {
                         this.comments.push(tempObj)
                     }
                     this.totalItems = res.data.total
-
                     this.commentPageSize = res.data.pageSize;
                     this.commentTotalItems = res.data.total;
 
