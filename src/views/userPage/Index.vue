@@ -25,7 +25,7 @@ line-height: 22px; margin-top: 18px;">
                                 </div>
                                 <div
                                     style="line-height: 22px; color: #aaa; font-size: 12px; font-weight: 400; line-height: 22px;">
-                                    <span>{{ type }}</span>
+                                    <span>{{ type | userType }}</span>
                                 </div>
                                 <div style="padding: 30px 0px;">
                                     <div class="upload-button" style="width: 180px; height: 45px; border: 2px solid #000;
@@ -144,6 +144,12 @@ export default {
             } else {
                 return BackendUrl() + "/files/image2/" + value;
             }
+        },
+        userType(type) {
+            if (type === "ADMIN") {
+                return "管理员"
+            }
+            return "普通用户"
         }
     },
     methods: {
