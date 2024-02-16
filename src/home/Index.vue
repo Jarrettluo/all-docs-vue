@@ -12,8 +12,8 @@
                     <template #list>
                         <DropdownMenu>
                             <DropdownItem><span style="color: #8d7b25;">{{ username | userNameTooLong }}</span></DropdownItem>
-                            <DropdownItem @click.native="gotoAdminPage" divided>系统管理</DropdownItem>
-                            <DropdownItem @click.native="$router.push('/userPage')">个人主页</DropdownItem>
+                            <DropdownItem @click.native="$router.push('/userPage/userInfo')" divided>个人主页</DropdownItem>
+                            <DropdownItem @click.native="gotoAdminPage" v-show="type === 'ADMIN'">系统管理</DropdownItem>
                             <DropdownItem @click.native="logout()" divided>退出登录</DropdownItem>
                         </DropdownMenu>
                     </template>

@@ -42,10 +42,8 @@ justify-content: center;
                                         </div>
                                         <span
                                             style="line-height: 45px; color: #000; font-size: 16px; font-weight: 600;"
-
                                         >
                                             点我上传文档</span>
-
                                     </div>
                                 </div>
                             </div>
