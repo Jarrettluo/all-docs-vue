@@ -11,8 +11,8 @@
                     'padding':'10px'}">
                         <div style="width: 240px;height: 900px;
                         background-color: #FFFFFF;
-                        box-shadow: 0px 0px 5px 0px rgba(64,64,64,0.3);border-radius: 8px;
-                        padding: 60px 30px 0px 30px;
+                        box-shadow: 0 0 5px 0 rgba(64,64,64,0.3);border-radius: 8px;
+                        padding: 60px 30px 0 30px;
                         ">
                             <div style="width: 100%; height: 35%; text-align: center">
                                 <div class="user-avatar" style=" border-radius: 120px; width: 120px; height: 120px;
@@ -24,13 +24,13 @@ line-height: 22px; margin-top: 18px;">
                                     <span>{{ username | userNameTooLong }}</span>
                                 </div>
                                 <div
-                                    style="line-height: 22px; color: #aaa; font-size: 12px; font-weight: 400; line-height: 22px;">
+                                    style="line-height: 22px; color: #aaa; font-size: 12px; font-weight: 400;">
                                     <span>{{ type | userType }}</span>
                                 </div>
-                                <div style="padding: 30px 0px;">
+                                <div style="padding: 30px 0;">
                                     <div class="upload-button" style="width: 180px; height: 45px; border: 2px solid #000;
                                     background: #FFF7D6;
-box-shadow: 0px 0px 10px 0px rgba(129,100,0,0.3);
+box-shadow: 0 0 10px 0 rgba(129,100,0,0.3);
 border-radius: 8px;
 display: flex;
 justify-content: center;
@@ -38,7 +38,7 @@ justify-content: center;
                                          @click="selected(uploadRoute)"
                                     >
                                         <div style="padding: 5px; line-height: 45px;">
-                                            <img :src="buttonSrc" width="24px" height="28px"/>
+                                            <img :src="buttonSrc" width="24px" height="28px" alt="button"/>
                                         </div>
                                         <span
                                             style="line-height: 45px; color: #000; font-size: 16px; font-weight: 600;"
@@ -55,8 +55,9 @@ justify-content: center;
                                 <ul>
                                     <li v-for="item in navData"
                                         @click="selected(item)"
-                                        :class="{activeNav: item.route == $route.name}"
+                                        :class="{activeNav: item.route === $route.name}"
                                     >
+                                        <!-- 用户的站内信是否有未读消息暂时未开发  -->
                                         <Badge dot v-if="item.badge">
                                             {{ item.name }}
                                         </Badge>
@@ -72,7 +73,7 @@ justify-content: center;
                         <div style="width: 100%;
                          height: 900px; background-color: #FFFFFF;
                          z-index: 2;
-                         box-shadow: 0px 0px 5px 0px rgba(64,64,64,0.3);border-radius: 8px; overflow-y: hidden">
+                         box-shadow: 0 0 5px 0 rgba(64,64,64,0.3);border-radius: 8px; overflow-y: hidden">
                             <router-view v-if="isRouterAlive"></router-view>
                         </div>
                     </Content>
@@ -97,7 +98,7 @@ export default {
                 {
                     name: '消息列表',
                     route: 'msg',
-                    badge: true
+                    badge: false
                 },
                 {
                     name: '我的收藏夹',

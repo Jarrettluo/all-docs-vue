@@ -193,7 +193,13 @@ export default {
             }
             docReviewRequest.updateDocReviewUserRead(param).then(res => {
                 if (res.code === 200) {
-                    this.getAllReviews()
+                    // 这里更新修改的那条记录
+                    this.infoList.find(ele => {
+                        if (ele.id === item.id) {
+                            ele.readState = true;
+                            return ele
+                        }
+                    })
                 }
             }).catch(err => {
                 this.$Message.error("出错：" + (err || '请稍后重试'));
