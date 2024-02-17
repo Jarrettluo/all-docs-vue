@@ -53,7 +53,7 @@
 
 > 管理员账号：admin123 管理员密码： admin123
 
-### 开源地址
+### 开源地址 
 
 前端项目
 <a href="https://github.com/Jarrettluo/all-docs-vue">
@@ -72,14 +72,11 @@ https://github.com/Jarrettluo/all-docs
 前端技术：`Vue` + `axios` + `iView` + `...`
 
 - pdf 预览方案: `pdfjs-dist`
-
 - docx预览方案（对doc支持非常差）：`docx-preview`
-
 - ppt预览方案（后端生成pdf后预览）：`pdfjs-dist`
-
 - excel预览方案：`vue-office/excel`
 
-## 快速体验
+## 快速体验 🌞
 > 在ubuntu 18.04 环境下测试通过
 ```shell
 # 克隆项目
@@ -137,7 +134,7 @@ $ npm -v
 6.14.12
 ```
 
-### 项目部署
+### 项目部署 🌴
 
 - [全文档在Windows环境下部署](https://github.com/Jarrettluo/document-sharing-site/blob/main/deploy/depoly_win_zh.md)
 - [全文档在Linux环境下部署--待补充](https://github.com/Jarrettluo/document-sharing-site/blob/main/deploy/deploy_linux_zh.md)
@@ -176,13 +173,13 @@ $ npm -v
 
 欢迎加入微信交流群，一起玩😄，如果微信群二维码失效，可以加我微信拉你进群。
 
-<img src="https://github.com/Jarrettluo/all-docs-vue/blob/main/images/WechatIMG349.jpg" alt="imGroup" width="200">
+<img src="https://github.com/Jarrettluo/all-docs-vue/blob/master/images/WechatIMG349.jpg" alt="imGroup" width="200">
 
 > 如果有二次开发或者私有部署需求，请联系我
 
 (添加微信请备注"全文档")
 
-<img src="https://github.com/Jarrettluo/all-docs-vue/blob/main/images/WechatIMG350.jpg" alt="imGroup" width="200">
+<img src="https://github.com/Jarrettluo/all-docs-vue/blob/master/images/WechatIMG350.jpg" alt="imGroup" width="200">
 
 
 Jarrett Luo - luojiarui2@163.com
@@ -196,7 +193,7 @@ Jarrett Luo - luojiarui2@163.com
 
 如果您觉得项目带给您一些启发或者帮助，欢迎大赏支持！
 
-<img src="https://github.com/Jarrettluo/all-docs-vue/blob/main/images/WechatIMG351.jpg" alt="imGroup" width="200">
+<img src="https://github.com/Jarrettluo/all-docs-vue/blob/master/images/WechatIMG351.jpg" alt="imGroup" width="200">
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
