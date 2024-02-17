@@ -36,7 +36,7 @@ export default {
     color: rgba(16, 16, 16, 100);
     font-size: 14px;
     text-align: center;
-    font-family: Roboto;
+    font-family: Roboto,sans-serif;
     border: 1px solid rgba(244, 219, 101, 100);
 
 }

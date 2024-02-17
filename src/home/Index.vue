@@ -4,14 +4,16 @@
             <img :src="imgSrc" width="100%" height="100%" alt=""/>
             <SearchGroup></SearchGroup>
             <div class="user-zone" v-if="!ad && !tokenExpired">
+                <span>{{ type | userType }}</span>
                 <Dropdown>
                     <a class="user-tag" href="javascript:void(0)" style="text-align: center; width: 36px;" @mouseenter="checkLogin">
                         <img :src="0 | userAvatar" alt="">
                     </a>
                     <template #list>
                         <DropdownMenu>
-                            <DropdownItem @click.native="gotoAdminPage">系统管理</DropdownItem>
-                            <DropdownItem @click.native="$router.push('/userPage')">个人主页</DropdownItem>
+                            <DropdownItem><span style="color: #8d7b25;">{{ username | userNameTooLong }}</span></DropdownItem>
+                            <DropdownItem @click.native="$router.push('/userPage/userInfo')" divided>个人主页</DropdownItem>
+                            <DropdownItem @click.native="gotoAdminPage" v-show="type === 'ADMIN'">系统管理</DropdownItem>
                             <DropdownItem @click.native="logout()" divided>退出登录</DropdownItem>
                         </DropdownMenu>
                     </template>
@@ -116,7 +118,10 @@ export default {
             tokenExpired: false,
             img1: require('@/assets/source/heart.png'),
             img2: require('@/assets/source/folder.png'),
-            img3: require('@/assets/source/upload.png')
+            img3: require('@/assets/source/upload.png'),
+
+            username: localStorage.getItem('username'),
+            type: localStorage.getItem("type")
         }
     },
     computed: {
@@ -136,6 +141,18 @@ export default {
             } else {
                 return BackendUrl() + "/files/image2/" + value;
             }
+        },
+        userType(type) {
+            if (type === "ADMIN") {
+                return "管理员"
+            }
+            return ""
+        },
+        userNameTooLong(name) {
+            if (name.length > 10) {
+                return name.slice(0, 4) + "..." + name.slice(-4)
+            }
+            return name;
         }
     },
     methods: {
@@ -240,6 +257,7 @@ export default {
             display: flex;
             justify-content: flex-start;
             padding: 5px 5px 0 5px;
+            color: #2c3e50;
 
             span {
                 height: 36px;
@@ -247,7 +265,6 @@ export default {
                 font-size: 14px;
                 font-family: PingFangSC-Regular, PingFang SC, serif;
                 font-weight: 400;
-                color: #000000;
                 padding-right: 10px;
             }
 

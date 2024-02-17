@@ -68,6 +68,7 @@
             </div>
             <div style="position: absolute; top: 0px; right: 0;">
                 <AvatarUploader
+                    :img_url="userSrc"
                     @avatarUrl="getAvatarUrl"
                     @deleteAvatar="deleteAvatar"
                 ></AvatarUploader>

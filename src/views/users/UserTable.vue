@@ -285,7 +285,8 @@ export default {
             })
         },
         detail(userId) {
-
+            // TODO 暂时未开发
+            this.$Message.error("功能暂时未开发，请等待！");
         }
     }
 }

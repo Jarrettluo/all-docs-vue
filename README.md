@@ -51,38 +51,104 @@
 
 <p>体验地址：<a href="http://81.69.247.172/#/">http://81.69.247.172/#/</a></p>
 
+> 管理员账号：admin123 管理员密码： admin123
+
 ### 开源地址
 
 前端项目
-<a href="https://github.com/Jarrettluo/all-documents-vue.git">
-https://github.com/Jarrettluo/all-documents-vue.git
+<a href="https://github.com/Jarrettluo/all-docs-vue">
+https://github.com/Jarrettluo/all-docs-vue.git
 </a>
 
-
 后端项目
-<a href="https://github.com/Jarrettluo/document-sharing-site.git">
-https://github.com/Jarrettluo/document-sharing-site.git
+<a href="https://github.com/Jarrettluo/all-docs">
+https://github.com/Jarrettluo/all-docs
 </a>
 
 选择mongoDB作为主要的数据库，存储文档和文件。
 
-后端技术：SpringBoot + MongoDB + ES
+后端技术：`SpringBoot` + `MongoDB` + `ES` + `Redis`
 
-前端技术：Vue + axios
+前端技术：`Vue` + `axios` + `iView` + `...`
 
-- docx预览方案：docx
+- pdf 预览方案: `pdfjs-dist`
 
-- ppt预览方案：暂无
+- docx预览方案（对doc支持非常差）：`docx-preview`
 
-- excel预览方案：xx
+- ppt预览方案（后端生成pdf后预览）：`pdfjs-dist`
+
+- excel预览方案：`vue-office/excel`
+
+## 快速体验
+> 在ubuntu 18.04 环境下测试通过
+```shell
+# 克隆项目
+git clone https://github.com/Jarrettluo/all-docs.git
+
+# 切换为管理员
+su root
+
+# 切换到工作目录
+cd all-docs && cd docker
+
+# 修改文件权限
+chmod +x auto.sh
+
+# 启动脚本
+sudo ./auto.sh
+```
+注意：因为快速体验是采用默认参数进行安装，使用的版本也可能比较旧，因此建议不要在生产环境中使用。
+
+## 开发者浏览
+all-docs项目是一个前后端分离项目。
+如果只是想启动前端项目可以采用如下步骤：
+```shell
+# 拉取项目
+git clone https://github.com/Jarrettluo/all-docs-vue
+
+# 切换分支(如果有必要的话，默认是master分支）
+git checkout develop
+
+# 找到 路径为：./src/api/request.js 并 修改request.js 
+# 其中baseURL就是默认的用户地址
+baseURL: 'http://81.69.247.172:8082/api/v1.0',
+
+# 安装依赖
+npm install 
+
+# 其中服务
+npm serve
+```
+
+成功以后控制台可以看到如下内容：
+```shell
+  App running at:
+  - Local:   http://localhost:8080 
+  - Network: http://ip:8080
+```
+
+
+作者开发环境如下，供参考：
+```shell
+$ node -v
+v14.16.1
+
+$ npm -v
+6.14.12
+```
+
+### 项目部署
+
+- [全文档在Windows环境下部署](https://github.com/Jarrettluo/document-sharing-site/blob/main/deploy/depoly_win_zh.md)
+- [全文档在Linux环境下部署--待补充](https://github.com/Jarrettluo/document-sharing-site/blob/main/deploy/deploy_linux_zh.md)
+- [全文档使用Docker部署--待补充](https://github.com/Jarrettluo/document-sharing-site/blob/main/deploy/deploy_docker_zh.md)
+- [全文档使用Docker-Compose部署](https://github.com/Jarrettluo/document-sharing-site/blob/main/deploy/deploy_docker_compose_zh.md)
+
 
 <!-- ROADMAP -->
 
 ## 路线图
-
-查看 [open issues](https://github.com/othneildrew/Best-README-Template/issues) 。
-
-
+暂无
 
 <!-- CONTRIBUTING -->
 
@@ -108,16 +174,15 @@ https://github.com/Jarrettluo/document-sharing-site.git
 
 ## 联系我
 
-欢迎加入微信交流群，一起玩😄
+欢迎加入微信交流群，一起玩😄，如果微信群二维码失效，可以加我微信拉你进群。
 
-<img src="https://github.com/Jarrettluo/document-sharing-site/blob/main/images/WechatIMG112.jpeg" alt="imGroup" width="200">
+<img src="https://github.com/Jarrettluo/all-docs-vue/blob/main/images/WechatIMG349.jpg" alt="imGroup" width="200">
 
 > 如果有二次开发或者私有部署需求，请联系我
 
 (添加微信请备注"全文档")
 
-
-<img src="https://github.com/Jarrettluo/document-sharing-site/blob/main/images/Wechat.jpeg" alt="imGroup" width="200">
+<img src="https://github.com/Jarrettluo/all-docs-vue/blob/main/images/WechatIMG350.jpg" alt="imGroup" width="200">
 
 
 Jarrett Luo - luojiarui2@163.com
@@ -127,7 +192,12 @@ Jarrett Luo - luojiarui2@163.com
 
 ## 致谢
 
-- 暂无
+感谢天南地北的朋友支持，让项目不断维护更新！
+
+如果您觉得项目带给您一些启发或者帮助，欢迎大赏支持！
+
+<img src="https://github.com/Jarrettluo/all-docs-vue/blob/main/images/WechatIMG351.jpg" alt="imGroup" width="200">
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
