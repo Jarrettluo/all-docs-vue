@@ -20,12 +20,14 @@
     "mammoth": "^1.4.21",
     "marked": "^4.2.12",
     "pdfjs-dist": "^2.3.200",
+    "video.js": "^8.10.0",
     "view-design": "^4.7.0",
     "vue": "^2.6.11",
     "vue-cropper": "^0.5.8",
     "vue-demi": "^0.13.11",
     "vue-jsmind": "^1.5.0",
     "vue-router": "^3.2.0",
+    "vue-video-player": "^5.0.1",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
