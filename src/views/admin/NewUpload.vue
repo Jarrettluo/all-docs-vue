@@ -37,6 +37,10 @@ export default {
             switch1: false
         }
     },
+    methods: {
+        switchTab() {
+        }
+    }
 }
 </script>
 
