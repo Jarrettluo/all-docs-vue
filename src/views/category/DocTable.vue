@@ -21,10 +21,10 @@
             </Table>
             <div class="bottom-zone">
                 <Row>
-                    <Col span="12" class="bottom-zone-left">
+                    <Col span="4" class="bottom-zone-left">
                         <Button type="primary" ghost @click="removeBatch">全部删除</Button>
                     </Col>
-                    <Col span="12" class="bottom-zone-right">
+                    <Col span="20" class="bottom-zone-right">
                         <Page
                             :current.sync="currentPage"
                             :total="totalItems"
@@ -288,7 +288,7 @@ export default {
             data: [],
             currentPage: parseInt(this.$route.query.page) || 1,
             totalItems: 100,
-            pageSize: parseInt(this.$route.query.size) || 20,
+            pageSize: parseInt(this.$route.query.size) || 40,
             loading: true,
             modal1: false,
             modal_loading: false,
