@@ -31,6 +31,7 @@ const COLLECT_REMOVE_URL = '/collect/auth/remove'; // 收藏减少
 
 const USER_ADD_URL = '/user/insert'; // 用户增加
 const USER_REMOVE_URL = '/user/auth/deleteByID'; // 用户删除
+const USER_REMOVE_BATCH_URL = '/user/auth/deleteByIDBatch'; // 批量用户删除
 const USER_LOGIN_URL = '/user/login'; // 用户登录
 const ALL_USER_URL = '/user/allUsers'; // 全部用户信息
 const USER_INFO_URL = '/user/getById'; // 根据用户id进行查询
@@ -110,6 +111,7 @@ module.exports = {
 
     USER_ADD_URL,
     USER_REMOVE_URL,
+    USER_REMOVE_BATCH_URL,
     USER_LOGIN_URL,
     ALL_USER_URL,
     USER_INFO_URL,

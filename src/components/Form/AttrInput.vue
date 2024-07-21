@@ -2,7 +2,7 @@
     <div>
         <Form :model="formTop" label-position="top">
             <Form-item label="文档分类">
-                <Select v-model="formTop.category" placeholder="请选择分类">
+                <Select v-model="formTop.category" :placeholder="formPlaceholder.category">
                     <Option v-for="item in categoryOption" :value="item.id">{{ item.seeName }}</Option>
                 </Select>
             </Form-item>
@@ -10,7 +10,7 @@
                 <tags-input element-id="tags"
                             v-model="selectedTags"
                             :existing-tags="tagOption"
-                            placeholder="请选择标签"
+                            :placeholder="formPlaceholder.tag"
                             :limit="10"
                             :typeahead="true"
                             :typeahead-always-show="true"
@@ -19,11 +19,11 @@
                 </tags-input>
             </Form-item>
             <Form-item label="详情文本">
-                <Input v-model="formTop.description" type="textarea" :rows="4"></Input>
+                <Input v-model="formTop.description" type="textarea" :rows="4" :placeholder="formPlaceholder.desc"></Input>
             </Form-item>
         </Form>
         <div v-show="showSkipError">
-            异常跳过
+            跳过异常文档
             <i-switch v-model="skipError" @on-change="change"></i-switch>
         </div>
 
@@ -39,7 +39,6 @@
 <script>
 
 import SubmitButton from '@/components/SubmitButton'
-import VoerroTagsInput from '@voerro/vue-tagsinput';
 import CategoryRequest from "@/api/category";
 // 参考文档 https://github.com/voerro/vue-tagsinput
 
@@ -54,7 +53,12 @@ export default {
             categoryOption: null,
             tagType: "TAG",
             tagOption: [],
-            skipError: false,
+            skipError: true,
+            formPlaceholder: {
+                category: "请选择分类，只能选择一个分类信息。",
+                tag: "请选择标签，支持搜索及点选，最多可选择10个标签。",
+                desc: "文档的简略描述信息，最多支持64个字符。"
+            }
         }
     },
     props: {
@@ -158,6 +162,14 @@ export default {
         },
         getSkipError() {
             return this.skipError
+        },
+        change(){
+            if (!this.skipError) {
+                this.$Notice.warning({
+                    title: "关闭跳过异常文档",
+                    desc: '出现异常文档将导致上传失败。'
+                });
+            }
         }
     }
 }

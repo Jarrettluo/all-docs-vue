@@ -11,8 +11,9 @@
 </template>
 
 <script>
-import { BackendUrl } from '@/api/request'
 import {marked} from 'marked';
+import StatisticSourceUrl from "@/api/staticSourceUrl"
+
 export default {
     name: 'mdView',
     data(){
@@ -26,7 +27,7 @@ export default {
     computed: {
         markdownToHtml(){
             this.loading = true
-            this.pdf_src = BackendUrl() + '/files/view/' + this.docId
+            this.pdf_src = StatisticSourceUrl.docPreviewUrl(this.docId);
             this.view_flag = false
             this.markdown = this.readTestFile(this.pdf_src)
             let html = marked(this.markdown);

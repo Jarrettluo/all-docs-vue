@@ -148,7 +148,9 @@ export default {
             client_alioss: {},
         };
     },
-
+    props: {
+        img_url: {type: String, requires: true}
+    },
     created() {
     },
     mounted() {
@@ -158,10 +160,9 @@ export default {
         //打开编辑头像窗口
         openEditAvatarDialog() {
             this.isVisible_editAvatarDialog = true;
-            if (this.previews.url) {
-                this.previews.url = "";
-                this.options.img = "";
-            }
+            this.urlToBase64(this.img_url).then(res => {
+                this.options.img = res;
+            })
         },
         // 实时预览函数
         realTime(data) {
@@ -232,6 +233,33 @@ export default {
             }
             return new File([u8arr], filename, {type: mime});
         },
+
+        /**
+         * url转base64
+         * @param {String} url - url地址
+         */
+        urlToBase64(url) {
+            return new Promise ((resolve,reject) => {
+                let image = new Image();
+                image.onload = function() {
+                    let canvas = document.createElement('canvas');
+                    canvas.width = this.naturalWidth;
+                    canvas.height = this.naturalHeight;
+                    // 将图片插入画布并开始绘制
+                    canvas.getContext('2d').drawImage(image, 0, 0);
+                    // result
+                    let result = canvas.toDataURL('image/png')
+                    resolve(result);
+                };
+                // CORS 策略，会存在跨域问题https://stackoverflow.com/questions/20424279/canvas-todataurl-securityerror
+                image.setAttribute("crossOrigin",'Anonymous');
+                image.src = url;
+                // 图片加载失败的错误处理
+                image.onerror = () => {
+                    reject(new Error('转换失败'));
+                };
+            });
+        }
     },
     watch: {},
 };

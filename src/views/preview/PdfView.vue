@@ -11,14 +11,15 @@
 
 <script>
 
-import {BackendUrl} from '@/api/request'
+import StatisticSourceUrl from "@/api/staticSourceUrl"
+
 
 export default {
     name: "PdfView",
     data() {
         return {
             docId: this.$route.query.docId,
-            pdf_src: "http://81.69.247.172:8082/api/v1.0/files/view/6454aa3f247c561c41488f82",
+            pdf_src: "",
         }
     },
     mounted() {
@@ -31,7 +32,7 @@ export default {
             let docId = this.docId
 
             //加载本地
-            this.pdf_src = BackendUrl() + '/files/view/' + docId
+            this.pdf_src = StatisticSourceUrl.docPreviewUrl(docId)
 
             console.log(this.pdf_src)
         },

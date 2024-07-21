@@ -87,8 +87,8 @@ export default {
             height: 600,
 
             currentPage: this.$route.query.page || 1,
-            totalItems: 5,
-            pageSize: this.$route.query.size || 20,
+            totalItems: 20,
+            pageSize: this.$route.query.size || 40,
 
             tableData: []
         }
@@ -166,6 +166,10 @@ export default {
             let selection = this.$refs.commentTable.getSelection();
             let array = []
             selection.forEach((element) => array.push(element.id));
+            if (array.length < 1) {
+                this.$Message.warning("请勾选！")
+                return;
+            }
             let param = {
                 ids: array
             }

@@ -4,10 +4,10 @@
             <br>
             <Form :model="formItem" label-position="top">
                 <Form-item label="文档链接">
-                    <Input v-model="formItem.url" placeholder="请输入链接"></Input>
+                    <Input v-model="formItem.url" :placeholder="formPlaceholder.url"></Input>
                 </Form-item>
                 <Form-item label="文档文件名">
-                    <Input v-model="formItem.name" placeholder="请输入"></Input>
+                    <Input v-model="formItem.name" :placeholder="formPlaceholder.name"></Input>
                 </Form-item>
             </Form>
             <attr-input
@@ -29,11 +29,15 @@ import AttrInput from '@/components/Form/AttrInput'
 import DocRequest from '@/api/document'
 
 export default {
-    name: "UploadDirectory2",
+    name: "UploadByUrl",
     data() {
         return {
             formItem: {},
             buttonSrc: require("@/assets/source/upload.png"),
+            formPlaceholder: {
+                url: "请输入链接，例如：http://xxx.com/abc.pdf。不超过512个字符。",
+                name: "请输入文档对应的文档名称，例如：文档名.pdf。非必填，不超过64字符。"
+            }
         }
     },
     components: {
@@ -53,7 +57,6 @@ export default {
                 tags: this.$refs['paramForm'].getSelectedTags() || [],
                 description: this.$refs['paramForm'].getDesc() || ""
             }
-            this.$Message.info(data)
             await DocRequest.docUploadByUrl(data, null).then(res => {
                 if (res.code === 200) {
                     this.$Message.success("成功！")
@@ -61,7 +64,7 @@ export default {
                     this.$Message.error("上传出错：" + res.message)
                 }
             }).catch(err => {
-                this.$Message.error("上传出错！")
+                this.$Message.error("上传出错:" + err)
             })
             this.formItem.url = ""
         }

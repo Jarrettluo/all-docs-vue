@@ -16,7 +16,7 @@
 
 <script>
 import DocTag from "@/home/DocTag";
-import { BackendUrl } from '@/api/request'
+import StaticSource from "@/api/staticSourceUrl"
 
 export default {
     name: "DocThumb",
@@ -69,7 +69,7 @@ export default {
             if (value === "" || value == null) {
                 return require('@/assets/source/doc.png')
             } else {
-                return BackendUrl() + "/files/image2/" + value;
+                return StaticSource.imageUrl(value);
             }
         }
     },

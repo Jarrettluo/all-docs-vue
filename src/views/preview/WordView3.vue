@@ -20,7 +20,7 @@ const docx = require('docx-preview');
 
 window.JSZip = require('jszip')
 
-import { BackendUrl } from '@/api/request'
+import StatisticSourceUrl from '@/api/staticSourceUrl'
 
 export default {
     name: "WordView3.vue",
@@ -32,7 +32,7 @@ export default {
     },
     mounted(){
         let docId = this.$route.query.docId;
-        let wordURL = BackendUrl() + '/files/view/' + docId
+        let wordURL = StatisticSourceUrl.docPreviewUrl(docId)
         axios({
             method: 'get',
             responseType: 'blob',

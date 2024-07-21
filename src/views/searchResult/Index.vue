@@ -1,8 +1,6 @@
 <template>
-    <div ref="searchResult" style=" width: 100%; background-color: #F7F7F7;">
-
-
-        <div class="top-group" style="text-align: center; ">
+    <div class="search-result" ref="searchResult">
+        <div class="top-group">
             <img :src="imgSrc" width="100%" height="100%" alt=""/>
             <SearchGroup ref="searchInput" @on-search="getListData"></SearchGroup>
             <div class="user-zone" v-if="!ad && !tokenExpired">
@@ -26,11 +24,8 @@
                     <img :src="defaultAvatar" alt="">
                 </a>
             </div>
-
         </div>
-
-        <div class="doc-group" ref="docGroup" style="display: inline-block; background-color: #fff;">
-
+        <div class="doc-group" ref="docGroup" style="">
             <SearchItem v-for="item in data.slice((currentPage-1)*pageSize, (currentPage)*pageSize)"
                         :id="item.id"
                         :thumbId="item.thumbId"
@@ -67,14 +62,10 @@ import DocItem from "@/views/searchResult/DocItem";
 import Footer from "@/components/MyFooter";
 
 import DocumentRequest from "@/api/document"
-
 import SearchInput from "./SearchInput"
-
 import SearchGroup from '@/home/SearchGroup'
 import UserCard from '@/home/UserCard'
-
-
-const {BackendUrl} = require("@/api/request");
+import StaticSourceUrl from "@/api/staticSourceUrl"
 
 export default {
     name: "Index.vue",
@@ -105,7 +96,7 @@ export default {
             if (value === "" || value === 'null' || value === null || value === undefined) {
                 return require("@/assets/source/user_avater.png");
             } else {
-                return BackendUrl() + "/files/image2/" + value;
+                return StaticSourceUrl.imageUrl(value);
             }
         }
     },
@@ -140,8 +131,7 @@ export default {
                     let docs = res.data.documents;
                     docs.forEach(
                         item => {
-                            let title = item.title.replace(keyword, "<span class='em-title'>" + keyword + "</span>")
-                            item.title = title
+                            item.title = item.title.replace(keyword, "<span class='em-title'>" + keyword + "</span>")
                             this.data.push(item)
                         }
                     )
@@ -152,14 +142,19 @@ export default {
                 if (this.data == null || this.data.length === 0) {
                     this.info(false)
                 }
-
                 this.$refs['searchResult'].style.height = '1060px'
+                if (this.totalItems > 1) {
+                    this.$nextTick(item => {
+                        this.$refs['searchResult'].style.height = (300+ this.$refs.docGroup.clientHeight) + "px"
+                        }
+                    )
+                }
             })
         },
-        info(nodesc) {
+        info(info) {
             this.$Notice.info({
                 title: '通知信息',
-                desc: nodesc ? '' : '没有找到相关文档，试一试其他关键字'
+                desc: info ? '' : '没有找到相关文档，试一试其他关键字'
             });
         },
         pageChange(page) {
@@ -213,77 +208,86 @@ export default {
     height: 50px;
 }
 
-.top-group {
-    height: 340px;
+.search-result {
     width: 100%;
-    padding-bottom: 40px;
-    z-index: -1;
+    background-color: #F7F7F7;
+    height: 100%;
 
-    .user-zone {
-        position: absolute;
-        right: 40px;
-        top: 20px;
-        display: flex;
-        justify-content: flex-start;
-        padding: 5px 5px 0 5px;
+    .top-group {
+        height: 340px;
+        width: 100%;
+        padding-bottom: 40px;
+        z-index: -1;
+        text-align: center;
+        .user-zone {
+            position: absolute;
+            right: 40px;
+            top: 20px;
+            display: flex;
+            justify-content: flex-start;
+            padding: 5px 5px 0 5px;
 
-        span {
-            height: 36px;
-            line-height: 36px;
-            font-size: 14px;
-            font-family: PingFangSC-Regular, PingFang SC, serif;
-            font-weight: 400;
-            color: #000000;
-            padding-right: 10px;
-        }
-
-        .user-tag {
-
-            border-radius: 36px;
-            box-sizing: content-box;
-
-            img {
-                border-radius: 38px;
+            span {
                 height: 36px;
-                width: 36px;
-                box-shadow: 0 0 4px #bbbbbb;
+                line-height: 36px;
+                font-size: 14px;
+                font-family: PingFangSC-Regular, PingFang SC, serif;
+                font-weight: 400;
+                color: #000000;
+                padding-right: 10px;
+            }
+
+            .user-tag {
+
+                border-radius: 60px;
+                box-sizing: content-box;
+                img {
+                    border-radius: 38px;
+                    height: 36px;
+                    width: 36px;
+                    box-shadow: 0 0 4px #bbbbbb;
+                }
+
+            }
+
+            &
+            :hover {
+                cursor: pointer;
+                background-color: rgba(#fff, 0.2);
+                border-radius: 40px;
             }
 
         }
 
-        &
-        :hover {
-            cursor: pointer;
-            background-color: rgba(#fff, 0.2);
-            border-radius: 8px;
+        .button-group {
+            height: 120px;
+            position: absolute;
+            top: 225px;
+            width: 1200px;
+            left: calc(50% - 600px);
         }
 
     }
 
-    .button-group {
-        height: 120px;
-        position: absolute;
-        top: 225px;
+    .doc-group {
         width: 1200px;
+        position: absolute;
+        margin: auto;
+        color: rgba(16, 16, 16, 100);
+        text-align: left;
+
+        min-height: 815px;
+        background: #FFFFFF;
+        box-shadow: 0 0 5px 0 rgba(64,64,64,0.3);
+        border-radius: 8px;
+        top: 209px;
         left: calc(50% - 600px);
+        padding: 20px;
+
+        display: inline-block;
+
     }
 
-}
-
-.doc-group {
-    width: 1200px;
-    position: absolute;
-    margin: auto;
-    color: rgba(16, 16, 16, 100);
-    text-align: left;
-
-    min-height: 815px;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 5px 0px rgba(64,64,64,0.3);
-    border-radius: 8px;
-    top: 209px;
-    left: calc(50% - 600px);
-    padding: 20px;
 }
 
 .page-container {
