@@ -6,7 +6,7 @@
 //     // If absolute URL from the remote server is provided, configure the CORS
 //     // header on that server.
 //     //
-//     const url = 'http://81.69.247.172:8082/files/view/62cee7d6ff703f08647e0bbe';
+//     const url = './files/view/62cee7d6ff703f08647e0bbe';
 //
 //     //
 //     // The workerSrc property shall be specified.

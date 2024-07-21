@@ -11,7 +11,7 @@
 // import { VueVideoPlayer } from 'vue-video-player';
 import 'video.js/dist/video-js.css'
 import { videoPlayer } from 'vue-video-player'
-import { BackendUrl } from '@/api/request'
+import StatisticSource from '@/api/staticSourceUrl'
 
 export default {
     name: "VideoView",
@@ -26,7 +26,7 @@ export default {
                 height: 616,
                 sources: [
                     {
-                        src: 'http://81.69.247.172:8082/api/v1.0/files/view/65d9aa50e5186924ac5bfaac', // 视频文件的 URL
+                        src: '', // 视频文件的 URL
                         type: 'video/mp4',
                     },
                 ],
@@ -40,7 +40,7 @@ export default {
     methods: {
         init() {
             let docId = this.$route.query.docId;
-            let wordURL = BackendUrl() + '/files/view/' + docId;
+            let wordURL = StatisticSource.docPreviewUrl(docId);
             this.src = wordURL
             this.videoOptions.sources[0].src = wordURL
         },

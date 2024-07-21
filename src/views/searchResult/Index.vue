@@ -65,7 +65,7 @@ import DocumentRequest from "@/api/document"
 import SearchInput from "./SearchInput"
 import SearchGroup from '@/home/SearchGroup'
 import UserCard from '@/home/UserCard'
-const {BackendUrl} = require("@/api/request");
+import StaticSourceUrl from "@/api/staticSourceUrl"
 
 export default {
     name: "Index.vue",
@@ -96,7 +96,7 @@ export default {
             if (value === "" || value === 'null' || value === null || value === undefined) {
                 return require("@/assets/source/user_avater.png");
             } else {
-                return BackendUrl() + "/files/image2/" + value;
+                return StaticSourceUrl.imageUrl(value);
             }
         }
     },

@@ -74,7 +74,7 @@
 
 import UserRequest from '@/api/user'
 import {parseTime} from "@/utils"
-const {BackendUrl} = require("@/api/request");
+import StaticSourceUrl from "@/api/staticSourceUrl"
 
 export default {
     name: "UserTable",
@@ -205,7 +205,7 @@ export default {
             if (avatar === null || avatar === '') {
                 return;
             }
-            return BackendUrl() + "/files/image2/" + avatar
+            return StaticSourceUrl.imageUrl(avatar);
         }
     },
     methods: {
@@ -335,11 +335,10 @@ export default {
             if (row.avatar === null || row.avatar === '') {
                 return;
             }
-            let userSrc = BackendUrl() + "/files/image2/" + row.avatar
+            let userSrc = StaticSourceUrl.imageUrl(row.avatar)
             this.$ImagePreview.show({
                 previewList: [userSrc]
             });
-
         }
     }
 }

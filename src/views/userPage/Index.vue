@@ -87,8 +87,7 @@ justify-content: center;
 
 import Nav from "@/components/Nav";
 import DocPage from "@/views/filterDoc/DocPage"
-
-const {BackendUrl} = require("@/api/request");
+import StaticSourceUrl from "@/api/staticSourceUrl"
 
 export default {
     name: "Index.vue",
@@ -141,7 +140,7 @@ export default {
             if (value === "" || value === 'null' || value === null || value === undefined) {
                 return require("@/assets/source/user_avater.png");
             } else {
-                return BackendUrl() + "/files/image2/" + value;
+                return StaticSourceUrl.imageUrl(value);
             }
         },
         userType(type) {

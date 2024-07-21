@@ -58,18 +58,14 @@
 </template>
 
 <script>
-// import PdfView from "./PngView"
-import {BackendUrl} from '@/api/request'
-
 import Nav from "@/components/Nav"
 import DocRequest from "@/api/document"
 import {parseTime} from "@/utils/index"
 
 import DocOperation from "./docOperation"
-
 import CommentPage from "./CommentPage"
-// import VideoView from "./VideoView"
 import VideoView from "@/views/preview/VideoView";
+import StaticSourceUrl from "@/api/staticSourceUrl"
 
 export default {
     data() {
@@ -104,7 +100,7 @@ export default {
             if (value === "" || value == null) {
                 return require('@/assets/source/doc.png');
             } else {
-                return BackendUrl() + "/files/image2/" + value;
+                return StaticSourceUrl.imageUrl(value);
             }
         }
     },

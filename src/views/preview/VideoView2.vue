@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { BackendUrl } from '@/api/request'
+import StatisticSourceUrl from '@/api/staticSourceUrl'
 
 export default {
     name: "VideoView2",
@@ -50,7 +50,7 @@ export default {
              // const assetURL = 'frag_bunny.mp4';
              // const assetURL = '/Users/molly/WebstormProjects/github/netfix/demo/frag_bunny.mp4';
              let docId = this.$route.query.docId;
-             let assetURL = BackendUrl() + '/files/view/' + docId;
+             let assetURL = StatisticSourceUrl.docPreviewUrl(docId);
              //console.log(this.readyState); // open
              const sourceBuffer = this.mediaSource.addSourceBuffer(this.mimeCodec);
              this.fetchAB(assetURL, function (buf) {
