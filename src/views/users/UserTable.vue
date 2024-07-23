@@ -61,6 +61,7 @@
                 <Button type="error" size="large" long :loading="modal_loading" @click="del">删除</Button>
             </template>
         </Modal>
+        <edit-user-info :modal="editModal"></edit-user-info>
     </div>
 
 </template>
@@ -69,9 +70,11 @@
 
 import UserRequest from '@/api/user'
 import {parseTime} from "@/utils"
+import EditUserInfo from "@/views/users/EditUserInfo";
 
 export default {
     name: "UserTable",
+    components: {EditUserInfo},
     data() {
         return {
             columns: [
@@ -178,7 +181,8 @@ export default {
                 label: '普通用户'
             },],
 
-            currentUserId: localStorage.getItem("id")
+            currentUserId: localStorage.getItem("id"),
+            editModal: false
         }
     },
     created() {
@@ -285,6 +289,7 @@ export default {
             })
         },
         detail(userId) {
+            this.editModal = true;
             // TODO 暂时未开发
             this.$Message.error("功能暂时未开发，请等待！");
         }
