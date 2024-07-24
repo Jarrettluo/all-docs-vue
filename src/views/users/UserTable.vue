@@ -1,6 +1,6 @@
 <template>
     <div class="main" ref="tableRef">
-        <Table width="100%" :height="height" border :columns="columns" :data="data">
+        <Table width="100%" :height="height" border :columns="columns" :data="data" ref="userTable">
             <template #name="{ row }">
                 {{ row.username }}
             </template>
@@ -14,6 +14,11 @@
                 <p v-if="row.male===true">男</p>
                 <p v-else-if="row.male===false">女</p>
                 <p v-else>未知</p>
+            </template>
+            <template #avatar="{row, index}">
+                <p v-if="row.avatar === null"></p>
+                <img v-else :src="row.avatar | transAvatarUrl" fit="fill" height="42px" alt="fit"
+                style="vertical-align:middle;"/>
             </template>
             <template #action="{ row, index }">
                 <Button type="success" size="small" @click="detail(index)" :disabled="row.id === currentUserId">编辑</Button>
@@ -71,6 +76,7 @@
 import UserRequest from '@/api/user'
 import {parseTime} from "@/utils"
 import EditUserInfo from "@/views/users/EditUserInfo";
+import StaticSourceUrl from "@/api/staticSourceUrl"
 
 export default {
     name: "UserTable",
@@ -114,6 +120,13 @@ export default {
                     minWidth: 230,
                     key: 'mail',
                     resizable: true,
+                },
+                {
+                    title: '头像',
+                    minWidth: 120,
+                    slot: "avatar",
+                    align: 'center',
+                    resizable: false,
                 },
                 {
                     title: '上次登录',
@@ -164,8 +177,8 @@ export default {
             ],
             data: [],
             currentPage: this.$route.query.page || 1,
-            totalItems: 5,
-            pageSize: this.$route.query.size || 20,
+            totalItems: 20,
+            pageSize: this.$route.query.size || 40,
 
             remove_modal: false,
             modal_loading: false,
@@ -190,6 +203,14 @@ export default {
     },
     mounted() {
         this.init();
+    },
+    filters: {
+        transAvatarUrl(avatar) {
+            if (avatar === null || avatar === '') {
+                return;
+            }
+            return StaticSourceUrl.imageUrl(avatar);
+        }
     },
     methods: {
         initHeight() {
@@ -250,8 +271,28 @@ export default {
             this.pageSize = size
             this.init()
         },
-        removeBatch() {
-            this.$Message.error("功能尚未开发，请等待！")
+        async removeBatch() {
+            let selection = this.$refs.userTable.getSelection();
+            let array = []
+            selection.forEach((element) => array.push(element.id));
+            if (array.length < 1) {
+                this.$Message.warning("请勾选！")
+                return;
+            }
+            let param = {
+                ids: array
+            }
+            await UserRequest.deleteDataBatch(param).then(res => {
+                if (res.code === 200) {
+                    this.init()
+                    this.$Message.success("删除成功")
+                } else {
+                    this.$Message.error(res.message)
+                }
+            }).catch(err => {
+                this.$Message.error(err)
+            })
+
         },
 
         async changeRole(event, row) {
@@ -281,6 +322,7 @@ export default {
             await UserRequest.blockUser(param).then(res => {
                 if (res.code === 200) {
                     this.init();
+                    this.$Message.success("操作成功！")
                 } else {
                     this.$Message.error("操作失败！")
                 }
@@ -292,6 +334,16 @@ export default {
             this.editModal = true;
             // TODO 暂时未开发
             this.$Message.error("功能暂时未开发，请等待！");
+        },
+
+        handleShowPreview(row, _) {
+            if (row.avatar === null || row.avatar === '') {
+                return;
+            }
+            let userSrc = StaticSourceUrl.imageUrl(row.avatar)
+            this.$ImagePreview.show({
+                previewList: [userSrc]
+            });
         }
     }
 }

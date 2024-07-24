@@ -23,6 +23,7 @@
 // docx文档预览(只能转换.docx文档，转换过程中复杂样式被忽，居中、首行缩进等)
 import mammoth from "mammoth";
 import axios from 'axios'
+import StatisticSourceUrl from "@/api/staticSourceUrl"
 
 export default {
     name: "ExcelView",
@@ -46,10 +47,8 @@ export default {
     },
     methods: {
         init() {
-
             let docId = this.$route.query.docId;
-
-            let wordURL = 'http://81.69.247.172:8082/files/view/' + docId
+            let wordURL = StatisticSourceUrl.docPreviewUrl(docId);
 
             axios({
                 method: 'get',
@@ -135,7 +134,7 @@ export default {
             const xhr = new XMLHttpRequest();
             let docId = this.$route.query.docId;
 
-            this.wordURL = 'http://81.69.247.172:8082/files/view/' + docId
+            this.wordURL = StatisticSourceUrl.docPreviewUrl(docId)
 
             xhr.open("get", this.wordURL, true);
 

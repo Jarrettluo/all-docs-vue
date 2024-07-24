@@ -60,7 +60,7 @@ instance.interceptors.response.use(response => {
                 router.push({
                     name: 'Login'
                 }).then(r => console.log(r));
-            }, 3000)
+            }, 2000)
             break;
         case 403:
             vm.$Notice.error({
@@ -69,7 +69,7 @@ instance.interceptors.response.use(response => {
             });
             setTimeout(() => {
                 router.back();
-            }, 3000)
+            }, 2000)
             break;
         case 404:
             vm.$Message.error('网络请求不存在');
@@ -179,4 +179,10 @@ export function Delete(url, params) {
 
 export function BackendUrl() {
     return instance.defaults.baseURL;
+}
+
+// 添加token信息，访问后端提供的静态资源
+export function GetStaticSource(url, param) {
+    const token = localStorage.getItem("token")
+    return instance.defaults.baseURL + url + param + "?token=" + token;
 }

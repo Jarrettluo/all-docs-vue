@@ -9,7 +9,8 @@ import {
     USER_CHANGE_ROLE_URL,
     BLOCK_USER_URL,
     CHECK_USER_LOGIN_URL,
-    RESET_USER_PWD_URL
+    RESET_USER_PWD_URL,
+    USER_REMOVE_BATCH_URL
 
 } from './url'
 
@@ -23,6 +24,10 @@ export default {
 
     deleteData: (params) => {
         return Delete(USER_REMOVE_URL, params);
+    },
+
+    deleteDataBatch: (params) => {
+        return Delete(USER_REMOVE_BATCH_URL, params);
     },
 
     postUserLogin: (data) => {

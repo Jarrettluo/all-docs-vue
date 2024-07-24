@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {BackendUrl} from '@/api/request'
+import StaticSourceUrl from '@/api/staticSourceUrl'
 
 let PDFJS = require('pdfjs-dist');
 PDFJS.GlobalWorkerOptions.workerSrc = require("pdfjs-dist/build/pdf.worker.entry.js");
@@ -38,7 +38,7 @@ export default {
             if (value === "" || value == null) {
                 return require('@/assets/source/doc.png');
             } else {
-                return BackendUrl() + "/files/image2/" + value;
+                return StaticSourceUrl.imageUrl(value);
             }
         }
     },
@@ -76,7 +76,7 @@ export default {
             let docId = this.docId
 
             //加载本地
-            this.pdf_src = BackendUrl() + '/files/view/' + docId
+            this.pdf_src = StaticSourceUrl.docPreviewUrl(); // BackendUrl() + '/files/view/' + docId
             this._loadFile(this.pdf_src)
         },
         _loadFile(url) {

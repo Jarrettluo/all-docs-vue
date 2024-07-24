@@ -80,6 +80,7 @@
 <script>
 import UserRequest from '@/api/user'
 const {BackendUrl} = require("@/api/request");
+import StaticSource from "@/api/staticSourceUrl"
 import AvatarUploader from "@/components/AvatarUploader/Index.vue";
 
 export default {
@@ -124,7 +125,7 @@ export default {
                         this.userForm['birthtime'] = new Date(resData.birthtime);
                     }
                     if (resData.avatar !== '' && resData.avatar !== null && resData.avatar !== 'null') {
-                        this.userSrc = BackendUrl() + "/files/image2/" + resData.avatar
+                        this.userSrc = StaticSource.imageUrl(resData.avatar);
                     }
                     localStorage.setItem("avatar", resData.avatar)
                 }

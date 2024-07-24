@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import { BackendUrl } from '@/api/request'
 //引入VueOfficeExcel组件
 import VueOfficeExcel from '@vue-office/excel'
 //引入相关样式
 import '@vue-office/excel/lib/index.css'
+import StatisticSource from "@/api/staticSourceUrl"
 
 export default {
     name: "ExcelView",
@@ -38,8 +38,7 @@ export default {
     methods: {
         before() {
             let docId = this.$route.query.docId;
-            this.excel =  BackendUrl() + '/files/view/' + docId;
-
+            this.excel =  StatisticSource.docPreviewUrl(docId);
         },
         rendered(){
             this.view_flag = false

@@ -43,7 +43,7 @@
 
 <script>
 import {parseTime} from "@/utils"
-import { BackendUrl } from '@/api/request'
+import StaticSourceUrl from "@/api/staticSourceUrl"
 
 export default {
     name: "SearchItem",
@@ -112,7 +112,7 @@ export default {
             if(value === "" || value === undefined || value == null) {
                 return require('@/assets/source/doc.png');
             } else {
-                return BackendUrl() + "/files/image2/" + value;
+                return StaticSourceUrl.imageUrl(value);
             }
         },
     }

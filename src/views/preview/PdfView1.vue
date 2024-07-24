@@ -10,15 +10,14 @@
 </template>
 
 <script>
-
-import {BackendUrl} from '@/api/request'
+import StatisticSource from "@/api/staticSourceUrl"
 
 export default {
     name: "PdfView",
     data() {
         return {
             docId: this.$route.query.docId,
-            pdf_src: "http://81.69.247.172:8082/api/v1.0/files/view/6454aa3f247c561c41488f82",
+            pdf_src: "",
         }
     },
     mounted() {
@@ -31,8 +30,7 @@ export default {
             let docId = this.docId
 
             let pdfJs = "./pdfjs-3.7.107-dist/web/viewer.html?"
-
-            let url = encodeURIComponent(BackendUrl() + '/files/view/' + docId)
+            let url = encodeURIComponent(StatisticSource.docPreviewUrl(docId))
 
             //加载本地
             this.pdf_src = pdfJs + "file=" + url // pdfJs + "file=" +

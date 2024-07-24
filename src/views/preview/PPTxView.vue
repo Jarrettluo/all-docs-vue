@@ -13,17 +13,16 @@
 // docx文档预览(只能转换.docx文档，转换过程中复杂样式被忽，居中、首行缩进等)
 import mammoth from "mammoth";
 
-import { BackendUrl } from '@/api/request'
+import StaticSource from "@/api/staticSourceUrl"
 
 
 import axios from 'axios'
 
 export default {
-
     name: "WordView",
     data() {
         return {
-            wordURL: BackendUrl() + '/files/view/' + this.$route.query.docId
+            wordURL: StaticSource.docPreviewUrl(this.$route.query.docId)
         };
     },
     created() {
@@ -34,7 +33,7 @@ export default {
             const xhr = new XMLHttpRequest();
             let docId = this.$route.query.docId;
 
-            let wordURL = BackendUrl() + '/files/view/' + docId
+            let wordURL = StaticSource.docPreviewUrl(docId)
 
             axios({
                 method: 'get',

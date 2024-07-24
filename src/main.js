@@ -6,7 +6,8 @@ import iView from 'view-design'
 import "@/assets/font/font.css";
 import Api from './api/index';
 import '../theme/my-theme.less'
-// import '../theme/bulma.min.css'
+
+import i18n from './langurage/index.js'
 
 import '../theme/tag-input.css'
 
@@ -29,5 +30,6 @@ Vue.prototype.$axios = Api;
 new Vue({
     el: '#app',
     router,
+    i18n,
     render: h => h(App)
 });

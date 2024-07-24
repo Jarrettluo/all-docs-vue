@@ -14,11 +14,13 @@
 import mammoth from "mammoth";
 import { BackendUrl } from '@/api/request'
 
+import StatisticSource from "@/api/staticSourceUrl"
+
 export default {
     name: "WordView",
     data() {
         return {
-            wordURL: BackendUrl() + '/files/view/' + this.$route.query.docId
+            wordURL: StatisticSource.docPreviewUrl(this.$route.query.docId)
         };
     },
     created() {
@@ -29,7 +31,7 @@ export default {
             const xhr = new XMLHttpRequest();
             let docId = this.$route.query.docId;
 
-            this.wordURL = BackendUrl() + '/files/view/' + docId
+            this.wordURL = StatisticSource.docPreviewUrl(docId)
 
         }
     }

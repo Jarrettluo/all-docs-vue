@@ -27,7 +27,8 @@ top: 52px; left: 0;z-index: 999; width: 100%;">
             <template slot-scope="{ row }" slot="name">
                 <div style="width: 100%; ">
                     <div style="float: left; width: calc(100% - 60px)">
-                        <strong>{{ row.name }}</strong>
+                        <strong v-if="categoryType==='CATEGORY'">{{ row.name }}</strong>
+                        <Tag v-else type="border" color="green"><strong>{{ row.name }}</strong></Tag>
                     </div>
                     <div v-if="row.num !== null" style="width: 60px; float: right; text-align: right; line-height: 100%">
                         <span>{{row.num}}</span>
