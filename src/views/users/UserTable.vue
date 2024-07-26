@@ -21,7 +21,7 @@
                 style="vertical-align:middle;"/>
             </template>
             <template #action="{ row, index }">
-                <Button type="success" size="small" @click="detail(index)" :disabled="row.id === currentUserId">编辑</Button>
+                <Button type="success" size="small" @click="detail(row.id)">编辑</Button>
                 <Button v-if="row['banning']" type="primary" size="small" style="margin: 0 5px"
                         @click="blockUser(row.id)">取消屏蔽
                 </Button>
@@ -66,7 +66,13 @@
                 <Button type="error" size="large" long :loading="modal_loading" @click="del">删除</Button>
             </template>
         </Modal>
-        <edit-user-info :modal="editModal"></edit-user-info>
+        <Modal
+            v-model="editModal"
+            title="编辑用户信息"
+            :loading="loading"
+            @on-ok="asyncOK">
+            <edit-user-info ref="userInfoEdit"></edit-user-info>
+        </Modal>
     </div>
 
 </template>
@@ -332,8 +338,11 @@ export default {
         },
         detail(userId) {
             this.editModal = true;
-            // TODO 暂时未开发
-            this.$Message.error("功能暂时未开发，请等待！");
+            this.$refs.userInfoEdit.getUserInfo(userId)
+        },
+
+        asyncOK () {
+            this.$refs.userInfoEdit.updateUserInfo()
         },
 
         handleShowPreview(row, _) {
