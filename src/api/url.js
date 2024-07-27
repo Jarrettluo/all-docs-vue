@@ -36,6 +36,7 @@ const USER_LOGIN_URL = '/user/login'; // 用户登录
 const ALL_USER_URL = '/user/allUsers'; // 全部用户信息
 const USER_INFO_URL = '/user/getById'; // 根据用户id进行查询
 const USER_UPDATE_URL = '/user/updateUser'; // 根据用户id进行更新
+const ADMIN_UPDATE_USER_URL = '/auth/updateUserInfo'; // 管理员对用户进行更新，支持对权限进行更新
 const USER_ADD_AVATAR_URL = '/user/auth/uploadUserAvatar'; // 用户增加头像
 const USER_CHANGE_ROLE_URL = '/user/changeUserRole'; // 改变用户角色
 const BLOCK_USER_URL = '/user/blockUser'; // 屏蔽/解除屏蔽用户
@@ -116,6 +117,7 @@ module.exports = {
     ALL_USER_URL,
     USER_INFO_URL,
     USER_UPDATE_URL,
+    ADMIN_UPDATE_USER_URL,
     USER_ADD_AVATAR_URL,
     USER_CHANGE_ROLE_URL,
     BLOCK_USER_URL,

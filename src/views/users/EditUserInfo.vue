@@ -126,9 +126,10 @@ export default {
                 mail: this.userInfo.mail,
                 male: this.userInfo.gender === 'male',
                 description: this.userInfo.desc,
-                birthtime: this.userInfo.date
+                birthtime: this.userInfo.date,
+                role: this.userInfo.permissionEnum
             }
-            await UserRequest.updateUser(param).then(res => {
+            await UserRequest.updateUserByAdmin(param).then(res => {
                 if (res.code === 200) {
                     this.$Message.success("更新成功")
                 } else {

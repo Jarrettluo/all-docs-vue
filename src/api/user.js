@@ -5,6 +5,7 @@ import {
     ALL_USER_URL,
     USER_INFO_URL,
     USER_UPDATE_URL,
+    ADMIN_UPDATE_USER_URL,
     USER_ADD_AVATAR_URL,
     USER_CHANGE_ROLE_URL,
     BLOCK_USER_URL,
@@ -44,6 +45,10 @@ export default {
 
     updateUser: (params) => {
         return Put(USER_UPDATE_URL, params);
+    },
+
+    updateUserByAdmin: (params) => {
+        return Put(ADMIN_UPDATE_USER_URL, params);
     },
 
     addUserAvatar: (params) => {
