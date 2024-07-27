@@ -34,9 +34,6 @@ export default {
 
             //加载本地
             this.pdf_src = pdfJs + "file=" + url // pdfJs + "file=" +
-
-
-
             console.log(this.pdf_src)
         },
     }

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { BackendUrl } from '@/api/request'
+import StaticSource from "@/api/staticSourceUrl"
 
 export default {
     name: "docOperation",
@@ -50,7 +50,7 @@ export default {
     methods: {
         operate(item) {
             if (item.index === "3") {
-                window.open(BackendUrl() + "/files/view/" + this.docId, "_blank");
+                window.open(StaticSource.docPreviewUrl(this.docId), "_blank");
             } else if (item.index === "1" || item.index === "2") {
                 this.$emit("addLike", Number(item.index))
             }
