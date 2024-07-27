@@ -343,6 +343,7 @@ export default {
 
         asyncOK () {
             this.$refs.userInfoEdit.updateUserInfo()
+            this.init();
         },
 
         handleShowPreview(row, _) {
