@@ -1,7 +1,7 @@
 <template>
     <div class="docTable">
         <div class="table-container" ref="docTable">
-            <Table border ref="selection" width="100%" :height="height" :columns="filterColumns||columns" :data="data"
+            <Table size="small" ref="selection" width="100%" :height="height" :columns="filterColumns||columns" :data="data"
                    :loading="loading">
                 <template #name="{ row }">
                     <p class="doc-title" @click="preview(row.id)">
@@ -13,6 +13,7 @@
                     </p>
                 </template>
                 <template #action="{ row, index }">
+                    <Button type="info" size="small" style="margin-right: 5px" @click="download(index)">下载</Button>
                     <Button type="success" size="small" style="margin-right: 5px" @click="show(index)">详情</Button>
                     <Button type="primary" size="small" style="margin-right: 5px" @click="edit_document(index)">编辑
                     </Button>
@@ -155,6 +156,7 @@ import DocumentRequest from "@/api/document"
 import {parseTime} from "@/utils"
 import fileTool from "@/utils/fileUtil"
 import DocEditModal from "@/views/category/DocEditModal";
+import StaticSource from "@/api/staticSourceUrl"
 
 const stateMap = {
     WAITE: {
@@ -280,7 +282,7 @@ export default {
                 {
                     title: '操作',
                     slot: 'action',
-                    width: 200,
+                    width: 260,
                     align: 'center',
                     fixed: 'right',
                 }
@@ -509,6 +511,10 @@ export default {
         },
         saved() {
             this.getListData(this.cateId, this.filterWord)
+        },
+        download(index) {
+            let checked_doc = Object.create(this.data[index])
+            window.open(StaticSource.docPreviewUrl(checked_doc.id), "_blank");
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="main" ref="tableRef">
-        <Table ref="logTable" width="100%" :height="height" border :columns="columns" :data="data">
+        <Table ref="logTable" width="100%" :height="height" size="small" :columns="columns" :data="data">
             <template #action="{ row, index }">
                 <Button type="error" size="small" @click="remove(index)">删 除</Button>
             </template>

@@ -1,6 +1,6 @@
 <template>
     <div class="main" ref="tableRef">
-        <Table ref="reviewInfoTable" width="100%" :height="height" border :columns="columns" :data="data">
+        <Table ref="reviewInfoTable" width="100%" :height="height" size="small" :columns="columns" :data="data">
             <template #checkSate="{row ,index}">
                 <Tag v-if="row.checkState === true" color="success">通过</Tag>
                 <Tag v-else-if="row.checkState === false" color="error">拒绝</Tag>

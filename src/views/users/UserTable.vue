@@ -1,6 +1,6 @@
 <template>
     <div class="main" ref="tableRef">
-        <Table width="100%" :height="height" border :columns="columns" :data="data" ref="userTable">
+        <Table width="100%" :height="height" size="small" :columns="columns" :data="data" ref="userTable">
             <template #name="{ row }">
                 {{ row.username }}
             </template>
