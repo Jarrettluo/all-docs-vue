@@ -330,7 +330,7 @@ export default {
     }
 
     .description-area {
-        /deep/ .ivu-input {
+        ::v-deep  .ivu-input {
             border: 1px solid #000000;
         }
     }
@@ -342,7 +342,7 @@ export default {
     }
 }
 
-/deep/ .ivu-upload-drag {
+::v-deep  .ivu-upload-drag {
     border: none;
 }
 

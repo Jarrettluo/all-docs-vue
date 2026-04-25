@@ -16,18 +16,11 @@ const DOC_REMOVE_URL = '/document/auth/remove'; // 文档删除
 const DOC_UPDATE_URL = '/document/auth/updateInfo'; // 管理员可修改文档基本信息
 const DOC_WITH_CHECK_URL = '/document/listWithCategory'; // 返回已经选中的信息
 
-const ABC = '/files/view/'
-
 const DOC_UPLOAD_URL = '/files/auth/upload'; // 上传文档
 const DOC_UPLOAD_BATCH_URL = '/files/auth/uploadBatch'; // 批量上传文档
 const DOC_UPLOAD_BY_URL_URL = '/files/auth/uploadByUrl'; // 根据url路径下载文件
 
 const DOC_VIEW_URL = '/files/view/'; // 预览文档
-const DOC_TXT_URL = '/files/text/'; // 下载文本文件
-const DOC_REBUILD_URL = '/files/rebuildIndex'; // 重建文档索引
-
-const DOC_GENERATE_DOWNLOAD_KEY = "files/generateDownloadLink"; // 产生下载的key
-const DOC_DOWNLOAD = "/files/downloadFile"; // 文件下载链接
 
 const COLLECT_ADD_URL = '/collect/auth/insert'; // 收藏增加
 const COLLECT_REMOVE_URL = '/collect/auth/remove'; // 收藏减少
@@ -107,11 +100,6 @@ module.exports = {
     DOC_UPLOAD_BY_URL_URL,
 
     DOC_VIEW_URL,
-    DOC_TXT_URL,
-    DOC_REBUILD_URL,
-
-    DOC_GENERATE_DOWNLOAD_KEY,
-    DOC_DOWNLOAD,
 
     COLLECT_ADD_URL,
     COLLECT_REMOVE_URL,
@@ -165,7 +153,5 @@ module.exports = {
     UP_PROHIBITED_WORD_URL,
 
     ADD_LIKE_URL,
-    GET_LIKE_URL,
-
-    ABC
+    GET_LIKE_URL
 }

@@ -175,7 +175,7 @@ export default {
     padding: 30px;
 
     .tab {
-        /deep/ .ivu-tabs-nav {
+        ::v-deep .ivu-tabs-nav {
             //width: 64px;
             //height: 22px;
             font-size: 16px;

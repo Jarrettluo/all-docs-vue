@@ -45,6 +45,11 @@ module.exports = {
                 lessOptions: {
                     javascriptEnabled: true
                 }
+            },
+            sass: {
+                sassOptions: {
+                    silenceDeprecations: ['legacy-js-api']
+                }
             }
         },
 

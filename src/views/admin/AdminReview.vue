@@ -366,7 +366,7 @@ export default {
     height: 100%;
     position: relative;
 
-    /deep/ .ivu-table-body {
+    ::v-deep  .ivu-table-body {
         height: 600px;
     }
 
