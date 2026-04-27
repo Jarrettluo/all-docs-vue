@@ -31,7 +31,7 @@
                 </li>
                 <li>
                     <i class="ivu-icon ivu-icon-ios-thumbs-up-outline"></i>
-                    889
+                    {{likeNum}}
                 </li>
                 <li>
                     <i class="ivu-icon ivu-icon-ios-chatbubbles-outline"></i>
@@ -61,7 +61,8 @@ export default {
         category: { type: Object, requires: false,default: ''},
         tags: { type: Array, requires: false, default: []},
         collectNum: { type: Number, requires: false, default: 0},
-        commentNum: { type: Number, requires: false, default: 0}
+        commentNum: { type: Number, requires: false, default: 0},
+        likeNum: { type: Number, requires: false, default: 0}
     },
     // 将 prop 数据转换为本地数据
     computed: {

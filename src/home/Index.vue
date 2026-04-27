@@ -28,10 +28,10 @@
             <div class="button-group" v-if="!ad && !tokenExpired">
                 <Row>
                     <Col span="8" style="padding: 0 8px 0 0">
-                        <user-card title="我的收藏夹" subtitle="全是我辛苦收藏的宝贝" :src="img1" @click="toMyCollection"></user-card>
+                        <user-card title="全部的文档" subtitle="查看所有文档资料" :src="img2" @click="toAllDocs"></user-card>
                     </Col>
                     <Col span="8" style="padding: 0 4px 0 4px">
-                        <user-card title="我上传的文档" subtitle="全都是精华全都是经典" :src="img2" @click="toMyUpload"></user-card>
+                        <user-card title="我的收藏夹" subtitle="全是我辛苦收藏的宝贝" :src="img1" @click="toMyCollection"></user-card>
                     </Col>
                     <Col span="8" style="padding: 0 0px 0 8px">
                         <user-card title="点我上传文档" subtitle="使劲戳就对了" :src="img3" @click="toUploadPage"></user-card>
@@ -228,8 +228,8 @@ export default {
         toMyCollection() {
             this.$router.push("/userPage/userCollection")
         },
-        toMyUpload() {
-            this.$router.push("/userPage/userUpload")
+        toAllDocs() {
+            this.$router.push("/doc")
         },
         toUploadPage() {
             this.$router.push("/userPage/docUpload")

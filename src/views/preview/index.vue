@@ -223,7 +223,7 @@ export default {
                 entityType: entityType,
                 entityId: this.docId
             }
-            await DocRequest.addLike({params}).then(res => {
+            await DocRequest.addLike(params).then(res => {
                 if (res.code == 200) {
                     let result = res.data;
                     if (entityType === 1) {

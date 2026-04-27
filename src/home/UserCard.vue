@@ -41,6 +41,7 @@ export default {
     border: 2px solid #000000;
     padding-left: 30px;
     font-family: PingFangSC-Semibold, PingFang SC, serif;
+    transition: all 0.3s ease;
 
     .left-zone {
         width: 248px;
@@ -73,6 +74,9 @@ export default {
     &:hover {
         cursor: pointer;
         background-color: #FFF7D6;
+        border-color: #f4d057;
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px 0 rgba(129, 100, 0, 0.3);
     }
 }
 </style>

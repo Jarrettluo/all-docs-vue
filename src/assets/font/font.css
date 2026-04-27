@@ -7,14 +7,14 @@
 
 @font-face {
     font-family: "PingFangSC-Regular";
-    src: url('./PingFang-SC-Medium.otf');
+    src: url('./PingFangSC-Regular.otf');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: "PingFangSC-Semibold";
-    src: url('./PingFang-SC-Medium.otf');
+    src: url('./PingFangSC-Semibold.otf');
     font-weight: normal;
     font-style: normal;
 }

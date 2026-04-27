@@ -71,7 +71,7 @@ export default {
     },
 
     addLike: (param) => {
-        return Post(ADD_LIKE_URL, null, param)
+        return Post(ADD_LIKE_URL, param)
     },
 
     getLikeInfo: (param) => {

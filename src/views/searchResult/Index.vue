@@ -37,6 +37,7 @@
                         :tags="item.tagVOList"
                         :collect-num="item.collectNum"
                         :comment-num="item.commentNum"
+                        :like-num="item.likeNum"
             ></SearchItem>
             <div class="page-container" v-show="data.length > 0 ">
                 <Page
