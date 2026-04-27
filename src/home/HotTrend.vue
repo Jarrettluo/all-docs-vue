@@ -91,7 +91,7 @@ export default {
             StatsRequest.getHotTrend().then(response => {
                 if (response.code === 200) {
                     data = response.data;
-                    let topValue = data.top1 | null;
+                    let topValue = data.top1 || null;
                     if (topValue != null) {
                         this.top1 = data.top1
                     }

@@ -119,7 +119,7 @@ export default {
                     this.title = response.data.title;
                     this.userName = response.data.userName;
                     this.thumbId = response.data.thumbId;
-                    var docTime = response.data.createTime;
+                    let docTime = response.data.createTime;
                     this.createTime = parseTime(new Date(docTime), '{y}年{m}月{d}日 {h}:{i}:{s}');
 
                     let tagList = response.data['tagVOList'];
@@ -179,11 +179,16 @@ export default {
                             this.component = () => import('@/views/preview/ErrorView')
                             break
                     }
+                } else {
+                  console.log("-------------")
                 }
             })
         },
 
         renderTags(tags) {
+          if (tags == null) {
+            return []
+          }
             tags.forEach((item, index) => {
                 item['index'] = index;
                 item['color'] = this.tagColor[parseInt(Math.random() * this.tagColor.length)];

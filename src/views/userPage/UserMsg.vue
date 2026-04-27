@@ -113,7 +113,7 @@ export default {
             this.loadedPages.push(this.currentPage)
             await docReviewRequest.getMyReviewLog(param).then(res => {
                 if (res.code === 200) {
-                    let result = res.data.data
+                    let result = res.data.list
                     this.totalItems = res.data.total
 
                     let tempObj = {}
@@ -151,7 +151,7 @@ export default {
             this.loadedPages2.push(this.commentCurrentPage)
             commentRequest.getMyComments(param).then(res => {
                 if (res.code === 200) {
-                    let result = res.data.data
+                    let result = res.data.list
                     for (let resultElement of result) {
                         let tempObj = resultElement
                         tempObj['createTime'] = parseTime(new Date(resultElement['createDate']), '{y}年{m}月{d}日');

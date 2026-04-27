@@ -118,7 +118,7 @@ export default {
             }
             reviewRequest.getReviewLog(param).then(res => {
                 if (res.code === 200) {
-                    let result = res.data.data;
+                    let result = res.data.list;
                     this.data = []
                     let obj = {}
                     for (let resultElement of result) {

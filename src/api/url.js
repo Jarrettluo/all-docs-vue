@@ -16,11 +16,10 @@ const DOC_REMOVE_URL = '/document/auth/remove'; // 文档删除
 const DOC_UPDATE_URL = '/document/auth/updateInfo'; // 管理员可修改文档基本信息
 const DOC_WITH_CHECK_URL = '/document/listWithCategory'; // 返回已经选中的信息
 
-const DOC_UPLOAD_URL = '/files/auth/upload'; // 上传文档
-const DOC_UPLOAD_BATCH_URL = '/files/auth/uploadBatch'; // 批量上传文档
-const DOC_UPLOAD_BY_URL_URL = '/files/auth/uploadByUrl'; // 根据url路径下载文件
-
-const DOC_VIEW_URL = '/files/view/'; // 预览文档
+const DOC_UPLOAD_URL = '/file/auth/upload'; // 上传文档
+const DOC_UPLOAD_BATCH_URL = '/file/auth/uploadBatch'; // 批量上传文档
+const DOC_UPLOAD_BY_URL_URL = '/file/auth/uploadByUrl'; // 根据url路径下载文件
+const DOC_VIEW_URL = '/file/view/'; // 预览文档
 
 const COLLECT_ADD_URL = '/collect/auth/insert'; // 收藏增加
 const COLLECT_REMOVE_URL = '/collect/auth/remove'; // 收藏减少

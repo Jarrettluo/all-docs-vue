@@ -117,7 +117,7 @@ export default {
             }
             commentRequest.getAllComments(param).then(res => {
                 if (res.code === 200) {
-                    this.tableData = res.data.data
+                    this.tableData = res.data.list
                     this.totalItems = res.data.total
 
                     this.$router.replace({

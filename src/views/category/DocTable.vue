@@ -391,8 +391,8 @@ export default {
             DocumentRequest.getListData(params).then(res => {
                 this.loading = false
                 if (res.code === 200) {
-                    this.data = res.data['documents'];
-                    this.totalItems = res.data['totalNum'] + 0;
+                    this.data = res.data['list'];
+                    this.totalItems = res.data['total'] + 0;
                     this.$router.replace({
                         path: routeMap[this.type] || "/",
                         query: {

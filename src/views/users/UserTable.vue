@@ -253,7 +253,7 @@ export default {
             await UserRequest.getUserList(param).then(res => {
                 if (res.code === 200) {
                     let resData = res.data;
-                    this.data = resData.result;
+                    this.data = resData.list;
                     this.currentPage = resData.pageNum
                     this.pageSize = resData.pageSize
                     this.totalItems = resData.total

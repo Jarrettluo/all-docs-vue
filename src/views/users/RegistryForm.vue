@@ -54,13 +54,14 @@ export default {
             }
             await UserRequest.postData(params).then(
                 response => {
-                    if (response.data == null) {
-                        this.$Message.error('注册失败，请重试！');
+                    if (response.code !== 200) {
+                        this.$Message.error(response.message || '注册失败，请重试！');
                     } else {
+                        this.$Message.success('注册成功，即将跳转登录页面');
                         this.$router.push({
                             path:'/login',
                             query:{
-                                userName: this.userName
+                                userName: this.username
                             }
                         })
                     }

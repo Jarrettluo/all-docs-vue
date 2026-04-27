@@ -79,13 +79,12 @@ export default {
                 CategoryRequest.getMyCollectList(param).then(res => {
                     if (res.code === 200) {
                         let result = res.data;
-                        result.data.forEach(item => {
+                        result.list.forEach(item => {
                             this.docList.push(item)
                         })
                         this.pageNum = result.pageNum + 1;
                         this.total = result.total;
                         this.pageSize = result.pageSize;
-                        this.pageNum ++;
                     }
                     this.spinShow = false
                 }).catch(err => {
@@ -95,11 +94,10 @@ export default {
                 CategoryRequest.getMyUploadList(param).then(res => {
                     if (res.code === 200) {
                         let result = res.data;
-                        result.data.forEach(item => {
+                        result.list.forEach(item => {
                             this.docList.push(item)
                         })
                         this.pageNum = result.pageNum + 1;
-                        this.pageNum ++;
                         this.total = result.total;
                         this.pageSize = result.pageSize
                     }
@@ -111,7 +109,7 @@ export default {
                 CategoryRequest.getDocList(param).then(res => {
                     if (res.code === 200) {
                         let result = res.data;
-                        result.data.forEach(item => {
+                        result.list.forEach(item => {
                             this.docList.push(item)
                         })
                         this.pageNum = result.pageNum + 1;

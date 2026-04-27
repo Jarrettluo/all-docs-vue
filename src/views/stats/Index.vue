@@ -59,13 +59,12 @@ export default {
             await StatsRequest.getMonthStat().then(response => {
                 if (response.code === 200 ) {
                     let result = response.data
-                    for(let key in result) {
-                        let item = {
-                            type: key,
-                            count: result[key]
-                        }
-                        data.push(item)
-                    }
+                    result.forEach(item => {
+                        data.push({
+                            type: item.date,
+                            count: item.count
+                        })
+                    })
                     this.plot(data)
                 }
             })
