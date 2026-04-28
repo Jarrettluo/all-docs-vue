@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(timeout 180 npm run serve)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(grep -o 'body,html{[^}]*}' C:/Project/vue/all-docs-vue/theme/bulma.min.css)",
+      "Bash(curl -L -o PingFangSC-Regular.otf \"https://github.com/ACT-02/PingFang-for-Windows/raw/main/PingFangSC-Regular.otf\")",
+      "Bash(npm run:*)",
+      "Bash(kill %1)",
+      "Bash(wait)",
+      "Bash(curl -s \"http://localhost:8082/api/v1/like/\" -X POST -H \"Content-Type: application/json\" -d '{\"entityType\":1,\"entityId\":\"test\"}' -w \"\\\\nHTTP_CODE: %{http_code}\")",
+      "Bash(curl:*)"
+    ]
+  }
+}
