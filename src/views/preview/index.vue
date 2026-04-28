@@ -235,8 +235,8 @@ export default {
                             this.$Message.success("点赞成功！")
                         }
                     } else {
-                        this.collectCount = result.likeCount || 0;
-                        this.collectStatus = result.likeStatus || 0;
+                        this.collectCount = result.collectCount || 0;
+                        this.collectStatus = result.collectStatus || 0;
                         if (this.collectStatus === 0) {
                             this.$Message.info("取消收藏！")
                         } else {

@@ -74,7 +74,7 @@ const DOWN_PROHIBITED_WORD_URL = '/system/getProhibitedWord'; // 下载敏感词
 const UP_PROHIBITED_WORD_URL = '/system/updateProhibitedWord'; // 更新敏感词文件
 
 const ADD_LIKE_URL = '/like/';
-const GET_LIKE_URL = '/queryLikeInfo/';
+const GET_LIKE_URL = '/like/info';
 
 
 module.exports = {

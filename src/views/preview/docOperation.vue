@@ -3,13 +3,15 @@
         <div class="item"
              :class="{
             'disabled': isDisabled,
-            'pushed': (item.index === '1' && likeStatus === 1) || (item.index === '2' && collectStatus === 1)}"
+            'pushed': (item.index === '1' && likeStatus === 1) || (item.index === '2' && collectStatus === 1),
+            'animating': animatingItem === item.index
+            }"
              v-for="item in data" @click="operate(item)">
             <div class="item-logo">
                 <img :src="item.src" :alt="item.src">
             </div>
             <div class="operation-title">
-                {{ item.name }}
+                {{ itemName(item) }}
             </div>
         </div>
     </div>
@@ -32,11 +34,13 @@ export default {
             data: [
                 {
                     name: "竖个大拇指",
+                    nameLiked: "已点赞",
                     src: require("@/assets/source/like.png"),
                     index: "1"
                 },
                 {
                     name: "马上收藏",
+                    nameCollected: "已收藏",
                     src: require("@/assets/source/heart.png"),
                     index: "2"
                 },
@@ -48,12 +52,26 @@ export default {
             ],
             docId: this.$route.query.docId,
 
-            isDisabled: false
+            isDisabled: false,
+            animatingItem: null
         }
     },
     props: {
         likeStatus: Number,
         collectStatus: Number
+    },
+    computed: {
+        itemName() {
+            return (item) => {
+                if (item.index === "1") {
+                    return this.likeStatus === 1 ? item.nameLiked : item.name;
+                }
+                if (item.index === "2") {
+                    return this.collectStatus === 1 ? item.nameCollected : item.name;
+                }
+                return item.name;
+            }
+        }
     },
     mounted() {
 
@@ -64,8 +82,15 @@ export default {
                 // window.open(StaticSource.docPreviewUrl(this.docId), "_blank");
                 this.generateDownLoadLink(this.docId)
             } else if (item.index === "1" || item.index === "2") {
+                this.triggerAnim(item)
                 this.$emit("addLike", Number(item.index))
             }
+        },
+        triggerAnim(item) {
+            this.animatingItem = item.index
+            setTimeout(() => {
+                this.animatingItem = null
+            }, 300)
         },
         /*
         * 防止下载链接泄漏，必须经过后台下载核验
@@ -323,5 +348,15 @@ img {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none; /* Prevents click events */
+}
+
+.animating {
+    animation: clickAnim 0.3s ease-out;
+}
+
+@keyframes clickAnim {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
 }
 </style>

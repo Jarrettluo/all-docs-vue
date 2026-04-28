@@ -70,8 +70,12 @@ export default {
         return Get(DOC_REBUILD_URL, param);
     },
 
-    addLike: (param) => {
-        return Post(ADD_LIKE_URL, param)
+    addLike: (params) => {
+        return Post(ADD_LIKE_URL, params)
+    },
+
+    removeLike: (docId) => {
+        return Delete(ADD_LIKE_URL, { entityType: 1, entityId: docId })
     },
 
     getLikeInfo: (param) => {
