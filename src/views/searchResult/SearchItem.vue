@@ -197,7 +197,7 @@ li {
     padding: 0 20px;
 }
 
-.doc-abstract >>> em {
+.doc-abstract :deep(em) {
     background-color: yellow;
 }
 

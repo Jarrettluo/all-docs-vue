@@ -14,7 +14,7 @@
                         {{ title }}
                     </div>
                     <div class="doc-info-tag">
-                        <Tag :color="item.color" v-for="item in tags" :index="item.index"
+                        <Tag v-for="item in tags" :key="item.index" :color="item.color" :index="item.index">
                         ><span @click="searchTag(item.name)">{{ item.name }}</span></Tag>
                     </div>
                     <div class="doc-info-detail">

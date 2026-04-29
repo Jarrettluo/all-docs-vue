@@ -55,6 +55,13 @@ const REMOVE_SEARCH_KEY = '/statistics/removeKey'; // 用户清除掉搜索历�
 const STATS_RECENT_DOC = '/statistics/recentDocs';
 const STATS_MONTH_URL = '/statistics/monthStat'; // 月度统计
 
+// 新增统计接口
+const STATS_DOC_TYPE_DIST = '/statistics/docTypeDist';
+const STATS_CATEGORY_DIST = '/statistics/categoryDist';
+const STATS_HOT_DOCS = '/statistics/hotDocs';
+const STATS_SEARCH_HOT_WORDS = '/statistics/searchHotWords';
+const STATS_USER_ACTIVITY = '/statistics/userActivity';
+
 
 const ADMIN_DOC_REVIEW_URL = '/docReview/queryDocForReview';
 const DOC_REVIEW_REFUSE_URL = '/docReview/refuse';
@@ -134,6 +141,11 @@ module.exports = {
     REMOVE_SEARCH_KEY,
     STATS_RECENT_DOC,
     STATS_MONTH_URL,
+    STATS_DOC_TYPE_DIST,
+    STATS_CATEGORY_DIST,
+    STATS_HOT_DOCS,
+    STATS_SEARCH_HOT_WORDS,
+    STATS_USER_ACTIVITY,
 
     ADMIN_DOC_REVIEW_URL,
     DOC_REVIEW_REFUSE_URL,
