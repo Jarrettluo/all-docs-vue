@@ -97,7 +97,7 @@ export default {
             editValue: "",
             tableHeight: 260,
 
-            currentCatId: this.$route.query.cateId,
+            currentCatId: this.$route.query.cateId && this.$route.query.cateId !== 'undefined' ? this.$route.query.cateId : null,
             currentCatIndex: 0,
 
             remove_modal: false,
@@ -253,14 +253,25 @@ export default {
         },
         // 设置高亮
         setCurrentItem() {
+            if (!this.listData || this.listData.length === 0) {
+                return;
+            }
+            let found = false;
             for (let i = 0; i < this.listData.length; i++) {
                 if (this.listData[i].id === this.currentCatId) {
                     this.currentCatIndex = i;
+                    found = true;
+                    break;
                 }
+            }
+            if (!found) {
+                this.currentCatIndex = 0;
             }
             let index = this.currentCatIndex | 0
             this.$nextTick(() => {
-                this.$refs.currentRowTable.highlightCurrentRow(index)
+                if (this.$refs.currentRowTable && index >= 0) {
+                    this.$refs.currentRowTable.highlightCurrentRow(index)
+                }
             })
         }
 

@@ -11,7 +11,15 @@
       "Bash(kill %1)",
       "Bash(wait)",
       "Bash(curl -s \"http://localhost:8082/api/v1/like/\" -X POST -H \"Content-Type: application/json\" -d '{\"entityType\":1,\"entityId\":\"test\"}' -w \"\\\\nHTTP_CODE: %{http_code}\")",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(pkill -f \"vue-cli-service\")",
+      "Bash(netstat -ano)",
+      "Bash(tasklist)",
+      "Bash(wmic process:*)",
+      "Bash(taskkill //PID 45440 //F)",
+      "Bash(taskkill:*)",
+      "Bash(cmd.exe:*)",
+      "Bash(powershell:*)"
     ]
   }
 }

@@ -17,7 +17,7 @@
 
       <!-- 类型列 -->
       <template #type="{ row }">
-        <Tag :color="getTypeColor(row.type)" size="small">{{ getTypeName(row.type) }}</Tag>
+        <Tag :color="getTypeColor(row.type)">{{ getTypeName(row.type) }}</Tag>
       </template>
 
       <!-- 大小列 -->
@@ -41,7 +41,6 @@
           v-for="(tag, index) in row.tags"
           :key="index"
           :color="tag.color"
-          size="small"
           style="margin-right: 4px;"
         >
           {{ tag.name }}
@@ -106,20 +105,20 @@ export default {
         {
           title: '类型',
           slot: 'type',
-          width: 160,
+          width: 100,
           align: 'center'
         },
         {
           title: '大小',
           slot: 'size',
-          width: 140,
+          width: 100,
           align: 'center',
           sortable: true
         },
         {
           title: '描述',
           slot: 'description',
-          minWidth: 150,
+          minWidth: 200,
           ellipsis: true
         },
         {
