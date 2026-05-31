@@ -50,7 +50,7 @@ export default {
     return {
       logoSrc: require('@/assets/svg/newLogo.svg'),
       searchKeyword: '',
-      fullTextEnabled: false,
+      fullTextEnabled: true,
       segmentEnabled: false,
       searchType: 'all',
       showDropdown: false,

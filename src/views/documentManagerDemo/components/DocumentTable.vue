@@ -4,10 +4,10 @@
       :columns="columns"
       :data="tableData"
       :loading="loading"
-      stripe
       border
       highlight-row
       size="small"
+      resizable
       @on-sort-change="handleSortChange"
     >
       <!-- 名称列 -->
