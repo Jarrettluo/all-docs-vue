@@ -1,12 +1,10 @@
 <template>
-    <Card style="width:320px; margin-left: 5px; cursor: pointer;">
-        <div style="text-align:center">
-            <div class="number">
-                <h1>{{ number }}</h1>
-            </div>
-            <h3>{{ title }}</h3>
+    <div class="stats-card">
+        <div class="number" :style="{ color: color }">
+            <h1>{{ number }}</h1>
         </div>
-    </Card>
+        <h3>{{ title }}</h3>
+    </div>
 </template>
 <script>
 
@@ -25,17 +23,42 @@ export default {
             type: String,
             require: true,
             default: "--"
+        },
+        color: {
+            type: String,
+            default: "#f4d057"
         }
     }
 }
 </script>
 
 <style scoped>
+.stats-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s;
+    min-width: 140px;
+    text-align: center;
+}
+
+.stats-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
 .number {
-    height: 120px;
-    line-height: 120px;
-    font-size: 36px;
-    font-weight: 100;
-    color: #f4d057;
+    height: 60px;
+    line-height: 60px;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+h3 {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #606266;
+    font-weight: 500;
 }
 </style>

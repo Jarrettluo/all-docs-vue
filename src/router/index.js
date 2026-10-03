@@ -139,7 +139,7 @@ const routes = [
         path: '/doc',
         name: "UserDoc",
         component: function () {
-            return import('../views/filterDoc/Index.vue')
+            return import('../views/documentManagerDemo/Index.vue')
         }
     },
     {

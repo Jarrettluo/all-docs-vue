@@ -12,19 +12,19 @@ const MY_UPLOAD_URL = '/category/auth/getMyUploaded'; // 查询我的上传
 
 const DOC_DETAIL_URL = '/document/detail'; // 文档详情
 const DOC_LIST_URL = '/document/list'; // 文档列表
+const DOC_SEARCH_LIST_URL = '/document/searchList'; // 文档搜索列表（新增）
 const DOC_REMOVE_URL = '/document/auth/remove'; // 文档删除
 const DOC_UPDATE_URL = '/document/auth/updateInfo'; // 管理员可修改文档基本信息
 const DOC_WITH_CHECK_URL = '/document/listWithCategory'; // 返回已经选中的信息
 
-const ABC = '/files/view/'
-
-const DOC_UPLOAD_URL = '/files/auth/upload'; // 上传文档
-const DOC_UPLOAD_BATCH_URL = '/files/auth/uploadBatch'; // 批量上传文档
-const DOC_UPLOAD_BY_URL_URL = '/files/auth/uploadByUrl'; // 根据url路径下载文件
-
-const DOC_VIEW_URL = '/files/view/'; // 预览文档
-const DOC_TXT_URL = '/files/text/'; // 下载文本文件
-const DOC_REBUILD_URL = '/files/rebuildIndex'; // 重建文档索引
+const DOC_UPLOAD_URL = '/file/auth/upload'; // 上传文档
+const DOC_UPLOAD_BATCH_URL = '/file/auth/uploadBatch'; // 批量上传文档
+const DOC_UPLOAD_BY_URL_URL = '/file/auth/uploadByUrl'; // 根据url路径下载文件
+const DOC_VIEW_URL = '/file/view/'; // 预览文档
+const DOC_TXT_URL = '/file/text/'; // 下载文本文件
+const DOC_REBUILD_URL = '/file/rebuildIndex'; // 重建文档索引
+const DOC_GENERATE_DOWNLOAD_KEY = '/file/generateDownloadLink'; // 产生下载的key
+const DOC_DOWNLOAD = '/file/downloadFile'; // 文件下载链接
 
 const COLLECT_ADD_URL = '/collect/auth/insert'; // 收藏增加
 const COLLECT_REMOVE_URL = '/collect/auth/remove'; // 收藏减少
@@ -59,6 +59,13 @@ const REMOVE_SEARCH_KEY = '/statistics/removeKey'; // 用户清除掉搜索历�
 const STATS_RECENT_DOC = '/statistics/recentDocs';
 const STATS_MONTH_URL = '/statistics/monthStat'; // 月度统计
 
+// 新增统计接口
+const STATS_DOC_TYPE_DIST = '/statistics/docTypeDist';
+const STATS_CATEGORY_DIST = '/statistics/categoryDist';
+const STATS_HOT_DOCS = '/statistics/hotDocs';
+const STATS_SEARCH_HOT_WORDS = '/statistics/searchHotWords';
+const STATS_USER_ACTIVITY = '/statistics/userActivity';
+
 
 const ADMIN_DOC_REVIEW_URL = '/docReview/queryDocForReview';
 const DOC_REVIEW_REFUSE_URL = '/docReview/refuse';
@@ -78,7 +85,7 @@ const DOWN_PROHIBITED_WORD_URL = '/system/getProhibitedWord'; // 下载敏感词
 const UP_PROHIBITED_WORD_URL = '/system/updateProhibitedWord'; // 更新敏感词文件
 
 const ADD_LIKE_URL = '/like/';
-const GET_LIKE_URL = '/queryLikeInfo/';
+const GET_LIKE_URL = '/like/info';
 
 
 module.exports = {
@@ -96,6 +103,7 @@ module.exports = {
 
     DOC_DETAIL_URL,
     DOC_LIST_URL,
+    DOC_SEARCH_LIST_URL,
     DOC_REMOVE_URL,
     DOC_WITH_CHECK_URL,
 
@@ -106,6 +114,8 @@ module.exports = {
     DOC_VIEW_URL,
     DOC_TXT_URL,
     DOC_REBUILD_URL,
+    DOC_GENERATE_DOWNLOAD_KEY,
+    DOC_DOWNLOAD,
 
     COLLECT_ADD_URL,
     COLLECT_REMOVE_URL,
@@ -139,6 +149,11 @@ module.exports = {
     REMOVE_SEARCH_KEY,
     STATS_RECENT_DOC,
     STATS_MONTH_URL,
+    STATS_DOC_TYPE_DIST,
+    STATS_CATEGORY_DIST,
+    STATS_HOT_DOCS,
+    STATS_SEARCH_HOT_WORDS,
+    STATS_USER_ACTIVITY,
 
     ADMIN_DOC_REVIEW_URL,
     DOC_REVIEW_REFUSE_URL,
@@ -159,7 +174,5 @@ module.exports = {
     UP_PROHIBITED_WORD_URL,
 
     ADD_LIKE_URL,
-    GET_LIKE_URL,
-
-    ABC
+    GET_LIKE_URL
 }

@@ -37,6 +37,7 @@
                         :tags="item.tagVOList"
                         :collect-num="item.collectNum"
                         :comment-num="item.commentNum"
+                        :like-num="item.likeNum"
             ></SearchItem>
             <div class="page-container" v-show="data.length > 0 ">
                 <Page
@@ -126,9 +127,9 @@ export default {
             DocumentRequest.getListData(params).then(res => {
                 this.loading = false;
                 if (res.code === 200) {
-                    this.totalItems = res.data.totalNum;
+                    this.totalItems = res.data.total;
                     this.data = []
-                    let docs = res.data.documents;
+                    let docs = res.data.list;
                     docs.forEach(
                         item => {
                             item.title = item.title.replace(keyword, "<span class='em-title'>" + keyword + "</span>")

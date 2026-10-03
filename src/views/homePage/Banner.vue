@@ -48,25 +48,25 @@ export default {
     padding-top: 100px;
 }
 
-/deep/ .ivu-input {
+::v-deep  .ivu-input {
     border-top-left-radius: 60px;
     border-bottom-left-radius: 60px;
     border: none;
     /*outline：none;*/
 }
 
-/deep/ .ivu-input:focus {
+::v-deep  .ivu-input:focus {
     border: none;
     outline: none;
 }
 
-/deep/ .ivu-input-group-append {
+::v-deep  .ivu-input-group-append {
     border-top-right-radius: 60px;
     border-bottom-right-radius: 60px;
     border: none !important;
 }
 
-/deep/ .ivu-input-group-append::before {
+::v-deep  .ivu-input-group-append::before {
     display: block;
     width: 1px;
     position: absolute;
@@ -77,7 +77,7 @@ export default {
     background-color: #f1db77;
 }
 
-/deep/ .ivu-input-search {
+::v-deep  .ivu-input-search {
     background-color: #ffffff !important;
     color: #f1db77 !important;
 }

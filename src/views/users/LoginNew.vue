@@ -8,6 +8,9 @@
                     <router-view></router-view>
                 </Col>
             </Row>
+            <center style="padding: 0;margin: 40px;list-style: none">
+                <br><a href="https://beian.miit.gov.cn/">蜀ICP备2021021531号-2</a>
+            </center>
         </div>
     </div>
 </template>

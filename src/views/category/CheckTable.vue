@@ -204,7 +204,7 @@ export default {
             DocumentRequest.getDataWithCheck(params).then(res => {
                 this.loading = false
                 if (res.code === 200) {
-                    let documents = res.data['documents'];
+                    let documents = res.data['list'];
                     documents.forEach( item => {
                         if(item.checked === true) {
                             item['_checked'] = true
@@ -212,7 +212,7 @@ export default {
                         }
                     })
                     this.data = documents;
-                    this.totalItems = res.data['totalNum'];
+                    this.totalItems = res.data['total'];
                 } else {
                     this.data = []
                     this.$Message.error('请稍后重试！');

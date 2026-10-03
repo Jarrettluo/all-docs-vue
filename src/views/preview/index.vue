@@ -14,7 +14,7 @@
                         {{ title }}
                     </div>
                     <div class="doc-info-tag">
-                        <Tag :color="item.color" v-for="item in tags" :index="item.index"
+                        <Tag v-for="item in tags" :key="item.index" :color="item.color" :index="item.index">
                         ><span @click="searchTag(item.name)">{{ item.name }}</span></Tag>
                     </div>
                     <div class="doc-info-detail">
@@ -119,7 +119,7 @@ export default {
                     this.title = response.data.title;
                     this.userName = response.data.userName;
                     this.thumbId = response.data.thumbId;
-                    var docTime = response.data.createTime;
+                    let docTime = response.data.createTime;
                     this.createTime = parseTime(new Date(docTime), '{y}年{m}月{d}日 {h}:{i}:{s}');
 
                     let tagList = response.data['tagVOList'];
@@ -148,6 +148,7 @@ export default {
                         case 'doc':
                             this.component = () => import('@/views/preview/WordView3')
                             break
+                        case 'ppt':
                         case 'pptx':
                             // this.component = () => import('@/views/preview/PPTxView')
                             this.component = () => import('@/views/preview/PptxView2')
@@ -178,11 +179,16 @@ export default {
                             this.component = () => import('@/views/preview/ErrorView')
                             break
                     }
+                } else {
+                  console.log("-------------")
                 }
             })
         },
 
         renderTags(tags) {
+          if (tags == null) {
+            return []
+          }
             tags.forEach((item, index) => {
                 item['index'] = index;
                 item['color'] = this.tagColor[parseInt(Math.random() * this.tagColor.length)];
@@ -217,7 +223,7 @@ export default {
                 entityType: entityType,
                 entityId: this.docId
             }
-            await DocRequest.addLike({params}).then(res => {
+            await DocRequest.addLike(params).then(res => {
                 if (res.code == 200) {
                     let result = res.data;
                     if (entityType === 1) {
@@ -229,8 +235,8 @@ export default {
                             this.$Message.success("点赞成功！")
                         }
                     } else {
-                        this.collectCount = result.likeCount || 0;
-                        this.collectStatus = result.likeStatus || 0;
+                        this.collectCount = result.collectCount || 0;
+                        this.collectStatus = result.collectStatus || 0;
                         if (this.collectStatus === 0) {
                             this.$Message.info("取消收藏！")
                         } else {

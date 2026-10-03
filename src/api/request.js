@@ -8,8 +8,8 @@ let vm = new Vue();
 const instance = axios.create({
     // baseURL: 'http://81.69.247.172:8082',
     // baseURL: 'http://81.69.247.172:8082/api/v1.0',
-    // baseURL: 'http://localhost:8082/api/v1.0',
-    baseURL: '/api/v1.0',
+    baseURL: 'http://localhost:8082/api/v1',
+    // baseURL: '/api/v1.0',
     timeout: 100000,
     headers: {
         post: {
@@ -89,16 +89,18 @@ instance.interceptors.response.use(response => {
  *@param{String} url [请求地址]
  *@param{Object} params 请求参数
  */
-export function Get(url, params) {
+export function Get(url, params = {}, responseType = 'json') {
     return new Promise((resolve, reject) => {
         instance.get(url, {
-            params: params
+            params: params,
+            responseType: responseType
         }).then((res) => {
-            resolve(res.data);
+            // 如果是 blob 类型，直接返回响应，而不是 res.data
+            resolve(responseType === 'blob' ? res : res.data);
         }).catch((error) => {
-            reject(error.data);
-        })
-    })
+            reject(error);
+        });
+    });
 }
 
 /*
@@ -185,4 +187,8 @@ export function BackendUrl() {
 export function GetStaticSource(url, param) {
     const token = localStorage.getItem("token")
     return instance.defaults.baseURL + url + param + "?token=" + token;
+}
+
+export function GetStaticSourceWithoutToken(url, param) {
+    return instance.defaults.baseURL + url + param;
 }

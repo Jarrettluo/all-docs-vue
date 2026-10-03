@@ -1,6 +1,6 @@
 <template>
     <div class="main" ref="tableRef">
-        <Table ref="logTable" width="100%" :height="height" border :columns="columns" :data="data">
+        <Table ref="logTable" width="100%" :height="height" size="small" :columns="columns" :data="data">
             <template #action="{ row, index }">
                 <Button type="error" size="small" @click="remove(index)">删 除</Button>
             </template>
@@ -49,12 +49,12 @@ export default {
                 {
                     title: '用户',
                     key: 'user',
-                    width: 200
+                    width: 120
                 },
                 {
                     title: '动作',
                     key: 'action',
-                    width: 180
+                    width: 120
                 },
                 {
                     title: '文档名称',
@@ -69,12 +69,6 @@ export default {
                 }
             ],
             data: [],
-
-            actionMap: {
-                DELETE: '删除',
-                GET: '查询'
-            },
-
             height: 600,
             currentPage: this.$route.query.page || 1,
             totalItems: 5,
@@ -110,7 +104,7 @@ export default {
                         obj['id'] = resultElement['id']
                         obj['time'] = parseTime(new Date(resultElement['createDate']), '{y}年{m}月{d}日 {h}:{i}:{s}');// resultElement['createTime']
                         obj['user'] = resultElement['userName']
-                        obj['action'] = this.actionMap[resultElement['action']] || "未知动作"
+                        obj['action'] = resultElement['action'] || "未知动作"
                         obj['name'] = resultElement['docName']
                         this.data.push(obj)
                         obj = {}
@@ -135,8 +129,6 @@ export default {
         },
 
         removeBatch() {
-
-            this.$Message.info('receive cancel');
             let currentSelection = this.$refs.logTable.getSelection();
             if (currentSelection.length < 1) {
                 this.$Message.warning("请勾选！")

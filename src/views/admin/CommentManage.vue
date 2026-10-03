@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <div class="main" ref="tableRef">
-            <Table ref="commentTable" width="100%" :height="height" border :columns="columns" :data="tableData">
+            <Table ref="commentTable" width="100%" :height="height" size="small" :columns="columns" :data="tableData">
                 <template #docName="{ row }">
                     <p class="doc-title" @click="preview(row.docId)">
                         {{ row.docName }}</p>
@@ -117,7 +117,7 @@ export default {
             }
             commentRequest.getAllComments(param).then(res => {
                 if (res.code === 200) {
-                    this.tableData = res.data.data
+                    this.tableData = res.data.list
                     this.totalItems = res.data.total
 
                     this.$router.replace({

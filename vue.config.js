@@ -45,11 +45,17 @@ module.exports = {
                 lessOptions: {
                     javascriptEnabled: true
                 }
+            },
+            sass: {
+                sassOptions: {
+                    silenceDeprecations: ['legacy-js-api']
+                }
             }
         },
 
         // 为所有的 CSS 及其预处理文件开启 CSS Modules。
         // 这个选项不会影响 `*.vue` 文件。
+        // requireModuleExtension: false
         modules: false
     },
 

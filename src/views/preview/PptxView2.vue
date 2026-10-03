@@ -70,8 +70,8 @@ export default {
             this.loading = true
             let docId = this.previewId
 
-            //加载本地
-            this.pdf_src = BackendUrl() + '/files/view2/' + docId
+            //加载本地（预览文件接口 /file/view2/{previewId}）
+            this.pdf_src = BackendUrl() + '/file/view2/' + docId
             this._loadFile(this.pdf_src)
             return
 

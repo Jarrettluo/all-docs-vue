@@ -1,6 +1,6 @@
 <template>
     <div class="main" ref="tableRef">
-        <Table ref="reviewDocTable" width="100%" :height="height" class="table-zone" border :columns="columns"
+        <Table ref="reviewDocTable" width="100%" :height="height" class="table-zone" size="small" :columns="columns"
                :data="data">
             <template #action="{ row, index }">
                 <Button type="primary" size="small" style="margin-right: 5px" @click="approve(index)">通过</Button>
@@ -366,7 +366,7 @@ export default {
     height: 100%;
     position: relative;
 
-    /deep/ .ivu-table-body {
+    ::v-deep  .ivu-table-body {
         height: 600px;
     }
 

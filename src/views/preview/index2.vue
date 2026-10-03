@@ -76,7 +76,7 @@ export default {
             let docId = this.docId
 
             //加载本地
-            this.pdf_src = StaticSourceUrl.docPreviewUrl(); // BackendUrl() + '/files/view/' + docId
+            this.pdf_src = StaticSourceUrl.docPreviewUrl(docId); // BackendUrl() + '/files/view/' + docId
             this._loadFile(this.pdf_src)
         },
         _loadFile(url) {

@@ -13,6 +13,9 @@ import {
     DOC_TXT_URL,
     DOC_REBUILD_URL,
 
+    DOC_GENERATE_DOWNLOAD_KEY,
+    DOC_DOWNLOAD,
+
     ADD_LIKE_URL,
     GET_LIKE_URL
 
@@ -67,13 +70,28 @@ export default {
         return Get(DOC_REBUILD_URL, param);
     },
 
-    addLike: (param) => {
-        return Post(ADD_LIKE_URL, null, param)
+    addLike: (params) => {
+        return Post(ADD_LIKE_URL, params)
+    },
+
+    removeLike: (docId) => {
+        return Delete(ADD_LIKE_URL, { entityType: 1, entityId: docId })
     },
 
     getLikeInfo: (param) => {
         return Get(GET_LIKE_URL, param)
     },
+
+    generateDownloadKey: (param) => {
+        return Get(DOC_GENERATE_DOWNLOAD_KEY, param)
+    },
+
+    downloadFile: (param) => {
+        console.log(param)
+        console.log("--------")
+        // 这里要求返回的内容是二进制的blob
+        return Get(DOC_DOWNLOAD, param, "blob")
+    }
 
 }
 

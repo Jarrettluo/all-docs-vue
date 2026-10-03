@@ -102,7 +102,7 @@ export default {
     methods: {
         // 获取用户的全部评审状态
         async getAllReviews() {
-            if (this.isLoading || this.infoList.length === this.totalItems || this.loadedPages.includes(this.currentPage)) {
+            if (this.isLoading || this.infoList.length >= this.totalItems || this.loadedPages.includes(this.currentPage)) {
                 return;
             }
             let param = {
@@ -113,7 +113,7 @@ export default {
             this.loadedPages.push(this.currentPage)
             await docReviewRequest.getMyReviewLog(param).then(res => {
                 if (res.code === 200) {
-                    let result = res.data.data
+                    let result = res.data.list
                     this.totalItems = res.data.total
 
                     let tempObj = {}
@@ -127,19 +127,19 @@ export default {
                         this.infoList.push(tempObj)
                         tempObj = {}
                     }
-                    this.currentPage ++
+                    this.currentPage++
                 }
             }).catch(err => {
                 this.$Message.error("出错：" + (err || '请稍后重试'))
-            }).finally(
+            }).finally(() => {
                 this.isLoading = false
-            )
+            })
 
         },
 
         async getPageData() {
 
-            if (this.isLoading || this.comments.length === this.commentTotalItems
+            if (this.isLoading || this.comments.length >= this.commentTotalItems
                 || this.loadedPages2.includes(this.commentCurrentPage)) {
                 return;
             }
@@ -151,7 +151,7 @@ export default {
             this.loadedPages2.push(this.commentCurrentPage)
             commentRequest.getMyComments(param).then(res => {
                 if (res.code === 200) {
-                    let result = res.data.data
+                    let result = res.data.list
                     for (let resultElement of result) {
                         let tempObj = resultElement
                         tempObj['createTime'] = parseTime(new Date(resultElement['createDate']), '{y}年{m}月{d}日');
@@ -161,7 +161,7 @@ export default {
                     this.commentPageSize = res.data.pageSize;
                     this.commentTotalItems = res.data.total;
 
-                    this.commentCurrentPage ++
+                    this.commentCurrentPage++
 
 
                 } else {
@@ -169,9 +169,9 @@ export default {
                 }
             }).catch(err => {
                 this.$Message.error("出错：" + (err || '请稍后重试'))
-            }).finally(
+            }).finally(() => {
                 this.isLoading = false
-            )
+            })
         },
 
         pageChange(page) {
@@ -280,7 +280,7 @@ export default {
     padding: 30px;
 
     .tab {
-        /deep/ .ivu-tabs-nav {
+        ::v-deep  .ivu-tabs-nav {
             //width: 64px;
             //height: 22px;
             font-size: 16px;

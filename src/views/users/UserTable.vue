@@ -1,6 +1,6 @@
 <template>
     <div class="main" ref="tableRef">
-        <Table width="100%" :height="height" border :columns="columns" :data="data" ref="userTable">
+        <Table width="100%" :height="height" size="small" :columns="columns" :data="data" ref="userTable">
             <template #name="{ row }">
                 {{ row.username }}
             </template>
@@ -253,7 +253,7 @@ export default {
             await UserRequest.getUserList(param).then(res => {
                 if (res.code === 200) {
                     let resData = res.data;
-                    this.data = resData.result;
+                    this.data = resData.list;
                     this.currentPage = resData.pageNum
                     this.pageSize = resData.pageSize
                     this.totalItems = resData.total
