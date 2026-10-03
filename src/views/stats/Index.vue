@@ -311,7 +311,7 @@ export default {
                 angleField: 'count',
                 colorField: 'type',
                 radius: 0.8,
-                label: { type: 'spider', content: '{name}\n{count}' },
+                label: { type: 'spider', content: '{name}\n{value}' },
                 legend: { position: 'right' },
                 color: ['#1890ff', '#52c41a', '#faad14', '#f5222d', '#722ed1', '#13c2c2'],
             });
