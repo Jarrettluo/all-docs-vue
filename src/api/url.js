@@ -21,6 +21,10 @@ const DOC_UPLOAD_URL = '/file/auth/upload'; // 上传文档
 const DOC_UPLOAD_BATCH_URL = '/file/auth/uploadBatch'; // 批量上传文档
 const DOC_UPLOAD_BY_URL_URL = '/file/auth/uploadByUrl'; // 根据url路径下载文件
 const DOC_VIEW_URL = '/file/view/'; // 预览文档
+const DOC_TXT_URL = '/file/text/'; // 下载文本文件
+const DOC_REBUILD_URL = '/file/rebuildIndex'; // 重建文档索引
+const DOC_GENERATE_DOWNLOAD_KEY = '/file/generateDownloadLink'; // 产生下载的key
+const DOC_DOWNLOAD = '/file/downloadFile'; // 文件下载链接
 
 const COLLECT_ADD_URL = '/collect/auth/insert'; // 收藏增加
 const COLLECT_REMOVE_URL = '/collect/auth/remove'; // 收藏减少
@@ -108,6 +112,10 @@ module.exports = {
     DOC_UPLOAD_BY_URL_URL,
 
     DOC_VIEW_URL,
+    DOC_TXT_URL,
+    DOC_REBUILD_URL,
+    DOC_GENERATE_DOWNLOAD_KEY,
+    DOC_DOWNLOAD,
 
     COLLECT_ADD_URL,
     COLLECT_REMOVE_URL,

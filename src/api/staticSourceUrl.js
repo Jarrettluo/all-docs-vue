@@ -1,4 +1,5 @@
 import {GetStaticSource, GetStaticSourceWithoutToken} from "@/api/request";
+import {DOC_DOWNLOAD} from "@/api/url";
 
 const DOC_PREVIEW_URL = '/file/view/';
 
@@ -16,6 +17,6 @@ export default {
     },
 
     downloadFileUrl: (param) => {
-        return GetStaticSourceWithoutToken("/api/v1/file/", param)
+        return GetStaticSourceWithoutToken(DOC_DOWNLOAD, param)
     }
 }
